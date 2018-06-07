@@ -1,0 +1,984 @@
+2018-06-06 18:44:19.661 GMT+08:00 Wed |    Debug | T0000009568 | ..\src\udx_manager.cpp:UdxManager::init:00278 | [manager] init begin
+2018-06-06 18:44:19.662 GMT+08:00 Wed |    Debug | T0000009568 | ..\src\udx_manager.cpp:UdxManager::init:00339 | [manager] remote is transmit server, set transmit server: [42.123.110.47:8885]
+2018-06-06 18:44:19.701 GMT+08:00 Wed |    Debug | T0000009568 | ..\src\udx_manager.cpp:UdxManager::init:00375 | [manager] max uploader count: 2, max downloader count: 2
+2018-06-06 18:44:19.701 GMT+08:00 Wed |    Debug | T0000006256 | ..\src\udx_manager.cpp:download_thread_run:00212 | download thread - 0 run begin
+2018-06-06 18:44:19.701 GMT+08:00 Wed |    Debug | T0000006256 | ..\src\udx_manager.cpp:UdxManager::do_download:01660 | [manager] do download thread - 0 begin
+2018-06-06 18:44:19.701 GMT+08:00 Wed |    Debug | T0000011336 | ..\src\udx_manager.cpp:upload_thread_run:00198 | upload thread - 0 run begin
+2018-06-06 18:44:19.701 GMT+08:00 Wed |    Debug | T0000008780 | ..\src\udx_manager.cpp:upload_thread_run:00198 | upload thread - 1 run begin
+2018-06-06 18:44:19.701 GMT+08:00 Wed |    Debug | T0000011336 | ..\src\udx_manager.cpp:UdxManager::do_upload:01280 | [manager] do upload thread - 0 begin
+2018-06-06 18:44:19.701 GMT+08:00 Wed |    Debug | T0000008780 | ..\src\udx_manager.cpp:UdxManager::do_upload:01280 | [manager] do upload thread - 1 begin
+2018-06-06 18:44:19.701 GMT+08:00 Wed |    Debug | T0000012916 | ..\src\udx_manager.cpp:download_thread_run:00212 | download thread - 1 run begin
+2018-06-06 18:44:19.701 GMT+08:00 Wed |    Debug | T0000009568 | ..\src\udx_manager.cpp:UdxManager::init:00471 | [manager] init success
+2018-06-06 18:44:19.701 GMT+08:00 Wed |    Debug | T0000012208 | ..\src\udx_manager.cpp:check_thread_run:00184 | check thread - 0 run begin
+2018-06-06 18:44:19.701 GMT+08:00 Wed |    Debug | T0000012208 | ..\src\udx_manager.cpp:UdxManager::do_check:01126 | [manager] do check thread - 0 begin
+2018-06-06 18:44:19.701 GMT+08:00 Wed |    Debug | T0000012916 | ..\src\udx_manager.cpp:UdxManager::do_download:01660 | [manager] do download thread - 1 begin
+2018-06-06 18:44:19.701 GMT+08:00 Wed |    Debug | T0000010364 | ..\src\udx_manager.cpp:resolve_thread_run:00170 | resolve thread - 0 run begin
+2018-06-06 18:44:19.701 GMT+08:00 Wed |    Debug | T0000010364 | ..\src\udx_manager.cpp:UdxManager::do_resolve:01067 | [manager] do resolve thread - 0 begin
+2018-06-06 18:44:19.701 GMT+08:00 Wed |    Debug | T0000009568 | ..\src\udx_manager.cpp:UdxManager::push_upload_task:00791 | push upload [task:0, job:1] success
+2018-06-06 18:44:19.701 GMT+08:00 Wed |    Debug | T0000008780 | ..\src\udx_manager.cpp:UdxManager::do_upload:01306 | [upload | thread - 1 | uploader - 10672544] task info: [project:3441, user:1852991] (E:/Workspaces/3dmax/2014/test.txt) -> (/1852500/1852991//E/Workspaces/3dmax/2014/test.txt/E/Workspaces/3dmax/2014/test.txt)
+2018-06-06 18:44:19.701 GMT+08:00 Wed |    Debug | T0000008780 | ..\src\udx_manager.cpp:UdxManager::do_upload:01322 | [upload | thread - 1 | uploader - 10672544] upload begin: [task:0, job:1] (E:/Workspaces/3dmax/2014/test.txt)
+2018-06-06 18:44:19.702 GMT+08:00 Wed |    Debug | T0000008780 | ..\src\udx_session.cpp:IUdxSession::send_connect_request:00248 | [uploader - 10672544] acquire udx tcp success
+2018-06-06 18:44:19.702 GMT+08:00 Wed |    Debug | T0000008780 | ..\src\udx_session.cpp:IUdxSession::send_connect_request:00265 | [uploader - 10672544] send connect request, with server: [42.123.110.47:8885]
+2018-06-06 18:44:19.859 GMT+08:00 Wed |    Debug | T0000002284 | ..\src\udx_session.cpp:IUdxSession::recv_connect_response:00336 | [uploader - 10672544] recv connect response
+2018-06-06 18:44:19.938 GMT+08:00 Wed |    Debug | T0000002284 | ..\src\udx_conveyer.cpp:IUdxConveyer::on_recv_set_user_information_response:01006 | [uploader - 10672544] parse set user information response success
+2018-06-06 18:44:19.939 GMT+08:00 Wed |    Debug | T0000008780 | ..\src\udx_session.cpp:IUdxSession::set_max_send_speed:00153 | [uploader - 10672544] set max upload speed: 1048576KB/S
+2018-06-06 18:44:20.117 GMT+08:00 Wed |    Debug | T0000002284 | ..\src\udx_uploader.cpp:UdxUploader::on_recv_set_remote_directory_response:00215 | [uploader - 10672544] parse set remote directory response success
+2018-06-06 18:44:20.156 GMT+08:00 Wed |    Debug | T0000002284 | ..\src\udx_conveyer.cpp:IUdxConveyer::on_transmit_begin:00694 | [uploader - 10672544] file transmit begin notify: notify file name (E:/Workspaces/3dmax/2014/test.txt)
+2018-06-06 18:44:20.188 GMT+08:00 Wed |    Debug | T0000002284 | ..\src\udx_conveyer.cpp:IUdxConveyer::on_transmit_done:00719 | [uploader - 10672544] file transmit done notify: notify file name (E:/Workspaces/3dmax/2014/test.txt)
+2018-06-06 18:44:20.188 GMT+08:00 Wed |    Debug | T0000008780 | ..\src\udx_manager.cpp:UdxManager::do_upload:01488 | [upload | thread - 1 | uploader - 10672544] upload success: [task:0, job:1] (E:/Workspaces/3dmax/2014/test.txt), directory count (0), file count (1)
+2018-06-06 18:44:20.188 GMT+08:00 Wed |    Debug | T0000008780 | ..\src\udx_manager.cpp:UdxManager::do_upload:01498 | [upload | thread - 1 | uploader - 10672544] upload end: [task:0, job:1] (E:/Workspaces/3dmax/2014/test.txt)
+2018-06-06 18:44:20.701 GMT+08:00 Wed |    Debug | T0000009568 | ..\src\udx_manager.cpp:UdxManager::exit:00485 | [manager] exit begin
+2018-06-06 18:44:20.701 GMT+08:00 Wed |    Debug | T0000009568 | ..\src\udx_manager.cpp:UdxManager::clear:00493 | [manager] clear begin
+2018-06-06 18:44:20.701 GMT+08:00 Wed |    Debug | T0000006256 | ..\src\udx_manager.cpp:UdxManager::do_download:01861 | [manager] do download thread - 0 end
+2018-06-06 18:44:20.701 GMT+08:00 Wed |    Debug | T0000011336 | ..\src\udx_manager.cpp:UdxManager::do_upload:01506 | [manager] do upload thread - 0 end
+2018-06-06 18:44:20.701 GMT+08:00 Wed |    Debug | T0000011336 | ..\src\udx_manager.cpp:upload_thread_run:00201 | upload thread - 0 run end
+2018-06-06 18:44:20.701 GMT+08:00 Wed |    Debug | T0000012916 | ..\src\udx_manager.cpp:UdxManager::do_download:01861 | [manager] do download thread - 1 end
+2018-06-06 18:44:20.701 GMT+08:00 Wed |    Debug | T0000012916 | ..\src\udx_manager.cpp:download_thread_run:00215 | download thread - 1 run end
+2018-06-06 18:44:20.701 GMT+08:00 Wed |    Debug | T0000006256 | ..\src\udx_manager.cpp:download_thread_run:00215 | download thread - 0 run end
+2018-06-06 18:44:20.701 GMT+08:00 Wed |    Debug | T0000008780 | ..\src\udx_manager.cpp:UdxManager::do_upload:01506 | [manager] do upload thread - 1 end
+2018-06-06 18:44:20.701 GMT+08:00 Wed |    Debug | T0000009568 | ..\src\udx_session.cpp:IUdxSession::send_disconnect_request:00293 | [uploader - 10672544] send disconnect request
+2018-06-06 18:44:20.701 GMT+08:00 Wed |    Debug | T0000008780 | ..\src\udx_manager.cpp:upload_thread_run:00201 | upload thread - 1 run end
+2018-06-06 18:44:20.734 GMT+08:00 Wed |    Debug | T0000010364 | ..\src\udx_manager.cpp:UdxManager::do_resolve:01115 | [manager] do resolve thread - 0 end
+2018-06-06 18:44:20.734 GMT+08:00 Wed |    Debug | T0000010364 | ..\src\udx_manager.cpp:resolve_thread_run:00173 | resolve thread - 0 run end
+2018-06-06 18:44:20.734 GMT+08:00 Wed |    Debug | T0000012208 | ..\src\udx_manager.cpp:UdxManager::do_check:01165 | [manager] do check thread - 0 end
+2018-06-06 18:44:20.734 GMT+08:00 Wed |    Debug | T0000012208 | ..\src\udx_manager.cpp:check_thread_run:00187 | check thread - 0 run end
+2018-06-06 18:44:20.751 GMT+08:00 Wed |    Debug | T0000009568 | ..\src\udx_manager.cpp:UdxManager::clear:00518 | [manager] wait fast udx destroy begin
+2018-06-06 18:44:20.814 GMT+08:00 Wed |    Debug | T0000009568 | ..\src\udx_manager.cpp:UdxManager::clear:00520 | [manager] wait fast udx destroy end
+2018-06-06 18:44:20.814 GMT+08:00 Wed |    Debug | T0000009568 | ..\src\udx_manager.cpp:UdxManager::clear:00551 | [manager] wait threads exit begin
+2018-06-06 18:44:20.814 GMT+08:00 Wed |    Debug | T0000009568 | ..\src\udx_manager.cpp:UdxManager::clear:00553 | [manager] wait threads exit end
+2018-06-06 18:44:20.814 GMT+08:00 Wed |    Debug | T0000009568 | ..\src\udx_manager.cpp:UdxManager::clear:00555 | [manager] clear end
+2018-06-06 18:44:20.814 GMT+08:00 Wed |    Debug | T0000009568 | ..\src\udx_manager.cpp:UdxManager::exit:00487 | [manager] exit end
+2018-06-06 18:44:22.036 GMT+08:00 Wed |    Debug | T0000012832 | ..\src\udx_manager.cpp:UdxManager::init:00278 | [manager] init begin
+2018-06-06 18:44:22.036 GMT+08:00 Wed |    Debug | T0000012832 | ..\src\udx_manager.cpp:UdxManager::init:00339 | [manager] remote is transmit server, set transmit server: [42.123.110.47:8885]
+2018-06-06 18:44:22.056 GMT+08:00 Wed |    Debug | T0000012832 | ..\src\udx_manager.cpp:UdxManager::init:00375 | [manager] max uploader count: 2, max downloader count: 2
+2018-06-06 18:44:22.056 GMT+08:00 Wed |    Debug | T0000001684 | ..\src\udx_manager.cpp:download_thread_run:00212 | download thread - 0 run begin
+2018-06-06 18:44:22.056 GMT+08:00 Wed |    Debug | T0000001684 | ..\src\udx_manager.cpp:UdxManager::do_download:01660 | [manager] do download thread - 0 begin
+2018-06-06 18:44:22.056 GMT+08:00 Wed |    Debug | T0000011736 | ..\src\udx_manager.cpp:download_thread_run:00212 | download thread - 1 run begin
+2018-06-06 18:44:22.056 GMT+08:00 Wed |    Debug | T0000008592 | ..\src\udx_manager.cpp:upload_thread_run:00198 | upload thread - 0 run begin
+2018-06-06 18:44:22.056 GMT+08:00 Wed |    Debug | T0000011736 | ..\src\udx_manager.cpp:UdxManager::do_download:01660 | [manager] do download thread - 1 begin
+2018-06-06 18:44:22.056 GMT+08:00 Wed |    Debug | T0000008592 | ..\src\udx_manager.cpp:UdxManager::do_upload:01280 | [manager] do upload thread - 0 begin
+2018-06-06 18:44:22.056 GMT+08:00 Wed |    Debug | T0000009680 | ..\src\udx_manager.cpp:upload_thread_run:00198 | upload thread - 1 run begin
+2018-06-06 18:44:22.056 GMT+08:00 Wed |    Debug | T0000012832 | ..\src\udx_manager.cpp:UdxManager::init:00471 | [manager] init success
+2018-06-06 18:44:22.056 GMT+08:00 Wed |    Debug | T0000012836 | ..\src\udx_manager.cpp:check_thread_run:00184 | check thread - 0 run begin
+2018-06-06 18:44:22.056 GMT+08:00 Wed |    Debug | T0000010624 | ..\src\udx_manager.cpp:resolve_thread_run:00170 | resolve thread - 0 run begin
+2018-06-06 18:44:22.056 GMT+08:00 Wed |    Debug | T0000009680 | ..\src\udx_manager.cpp:UdxManager::do_upload:01280 | [manager] do upload thread - 1 begin
+2018-06-06 18:44:22.056 GMT+08:00 Wed |    Debug | T0000012836 | ..\src\udx_manager.cpp:UdxManager::do_check:01126 | [manager] do check thread - 0 begin
+2018-06-06 18:44:22.056 GMT+08:00 Wed |    Debug | T0000010624 | ..\src\udx_manager.cpp:UdxManager::do_resolve:01067 | [manager] do resolve thread - 0 begin
+2018-06-06 18:44:22.056 GMT+08:00 Wed |    Debug | T0000012832 | ..\src\udx_manager.cpp:UdxManager::push_upload_task:00791 | push upload [task:0, job:1] success
+2018-06-06 18:44:22.056 GMT+08:00 Wed |    Debug | T0000009680 | ..\src\udx_manager.cpp:UdxManager::do_upload:01306 | [upload | thread - 1 | uploader - 10869152] task info: [project:3441, user:1852991] (E:/Workspaces/3dmax/2014/OGLdpf.log) -> (/1852500/1852991//E/Workspaces/3dmax/2014/OGLdpf.log/E/Workspaces/3dmax/2014/OGLdpf.log)
+2018-06-06 18:44:22.056 GMT+08:00 Wed |    Debug | T0000009680 | ..\src\udx_manager.cpp:UdxManager::do_upload:01322 | [upload | thread - 1 | uploader - 10869152] upload begin: [task:0, job:1] (E:/Workspaces/3dmax/2014/OGLdpf.log)
+2018-06-06 18:44:22.057 GMT+08:00 Wed |    Debug | T0000009680 | ..\src\udx_session.cpp:IUdxSession::send_connect_request:00248 | [uploader - 10869152] acquire udx tcp success
+2018-06-06 18:44:22.057 GMT+08:00 Wed |    Debug | T0000009680 | ..\src\udx_session.cpp:IUdxSession::send_connect_request:00265 | [uploader - 10869152] send connect request, with server: [42.123.110.47:8885]
+2018-06-06 18:44:22.113 GMT+08:00 Wed |    Debug | T0000001124 | ..\src\udx_session.cpp:IUdxSession::recv_connect_response:00336 | [uploader - 10869152] recv connect response
+2018-06-06 18:44:22.185 GMT+08:00 Wed |    Debug | T0000001124 | ..\src\udx_conveyer.cpp:IUdxConveyer::on_recv_set_user_information_response:01006 | [uploader - 10869152] parse set user information response success
+2018-06-06 18:44:22.185 GMT+08:00 Wed |    Debug | T0000009680 | ..\src\udx_session.cpp:IUdxSession::set_max_send_speed:00153 | [uploader - 10869152] set max upload speed: 1048576KB/S
+2018-06-06 18:44:22.424 GMT+08:00 Wed |    Debug | T0000001124 | ..\src\udx_uploader.cpp:UdxUploader::on_recv_set_remote_directory_response:00215 | [uploader - 10869152] parse set remote directory response success
+2018-06-06 18:44:22.515 GMT+08:00 Wed |    Debug | T0000001124 | ..\src\udx_conveyer.cpp:IUdxConveyer::on_transmit_begin:00694 | [uploader - 10869152] file transmit begin notify: notify file name (E:/Workspaces/3dmax/2014/OGLdpf.log)
+2018-06-06 18:44:22.515 GMT+08:00 Wed |    Debug | T0000001124 | ..\src\udx_conveyer.cpp:IUdxConveyer::on_transmit_done:00719 | [uploader - 10869152] file transmit done notify: notify file name (E:/Workspaces/3dmax/2014/OGLdpf.log)
+2018-06-06 18:44:22.515 GMT+08:00 Wed |    Debug | T0000009680 | ..\src\udx_manager.cpp:UdxManager::do_upload:01488 | [upload | thread - 1 | uploader - 10869152] upload success: [task:0, job:1] (E:/Workspaces/3dmax/2014/OGLdpf.log), directory count (0), file count (1)
+2018-06-06 18:44:22.515 GMT+08:00 Wed |    Debug | T0000009680 | ..\src\udx_manager.cpp:UdxManager::do_upload:01498 | [upload | thread - 1 | uploader - 10869152] upload end: [task:0, job:1] (E:/Workspaces/3dmax/2014/OGLdpf.log)
+2018-06-06 18:44:23.056 GMT+08:00 Wed |    Debug | T0000012832 | ..\src\udx_manager.cpp:UdxManager::exit:00485 | [manager] exit begin
+2018-06-06 18:44:23.056 GMT+08:00 Wed |    Debug | T0000012832 | ..\src\udx_manager.cpp:UdxManager::clear:00493 | [manager] clear begin
+2018-06-06 18:44:23.056 GMT+08:00 Wed |    Debug | T0000001684 | ..\src\udx_manager.cpp:UdxManager::do_download:01861 | [manager] do download thread - 0 end
+2018-06-06 18:44:23.056 GMT+08:00 Wed |    Debug | T0000001684 | ..\src\udx_manager.cpp:download_thread_run:00215 | download thread - 0 run end
+2018-06-06 18:44:23.056 GMT+08:00 Wed |    Debug | T0000009680 | ..\src\udx_manager.cpp:UdxManager::do_upload:01506 | [manager] do upload thread - 1 end
+2018-06-06 18:44:23.056 GMT+08:00 Wed |    Debug | T0000011736 | ..\src\udx_manager.cpp:UdxManager::do_download:01861 | [manager] do download thread - 1 end
+2018-06-06 18:44:23.056 GMT+08:00 Wed |    Debug | T0000009680 | ..\src\udx_manager.cpp:upload_thread_run:00201 | upload thread - 1 run end
+2018-06-06 18:44:23.056 GMT+08:00 Wed |    Debug | T0000011736 | ..\src\udx_manager.cpp:download_thread_run:00215 | download thread - 1 run end
+2018-06-06 18:44:23.056 GMT+08:00 Wed |    Debug | T0000008592 | ..\src\udx_manager.cpp:UdxManager::do_upload:01506 | [manager] do upload thread - 0 end
+2018-06-06 18:44:23.056 GMT+08:00 Wed |    Debug | T0000008592 | ..\src\udx_manager.cpp:upload_thread_run:00201 | upload thread - 0 run end
+2018-06-06 18:44:23.056 GMT+08:00 Wed |    Debug | T0000012832 | ..\src\udx_session.cpp:IUdxSession::send_disconnect_request:00293 | [uploader - 10869152] send disconnect request
+2018-06-06 18:44:23.084 GMT+08:00 Wed |    Debug | T0000010624 | ..\src\udx_manager.cpp:UdxManager::do_resolve:01115 | [manager] do resolve thread - 0 end
+2018-06-06 18:44:23.084 GMT+08:00 Wed |    Debug | T0000010624 | ..\src\udx_manager.cpp:resolve_thread_run:00173 | resolve thread - 0 run end
+2018-06-06 18:44:23.084 GMT+08:00 Wed |    Debug | T0000012836 | ..\src\udx_manager.cpp:UdxManager::do_check:01165 | [manager] do check thread - 0 end
+2018-06-06 18:44:23.084 GMT+08:00 Wed |    Debug | T0000012836 | ..\src\udx_manager.cpp:check_thread_run:00187 | check thread - 0 run end
+2018-06-06 18:44:23.134 GMT+08:00 Wed |    Debug | T0000012832 | ..\src\udx_manager.cpp:UdxManager::clear:00518 | [manager] wait fast udx destroy begin
+2018-06-06 18:44:23.162 GMT+08:00 Wed |    Debug | T0000012832 | ..\src\udx_manager.cpp:UdxManager::clear:00520 | [manager] wait fast udx destroy end
+2018-06-06 18:44:23.162 GMT+08:00 Wed |    Debug | T0000012832 | ..\src\udx_manager.cpp:UdxManager::clear:00551 | [manager] wait threads exit begin
+2018-06-06 18:44:23.162 GMT+08:00 Wed |    Debug | T0000012832 | ..\src\udx_manager.cpp:UdxManager::clear:00553 | [manager] wait threads exit end
+2018-06-06 18:44:23.162 GMT+08:00 Wed |    Debug | T0000012832 | ..\src\udx_manager.cpp:UdxManager::clear:00555 | [manager] clear end
+2018-06-06 18:44:23.162 GMT+08:00 Wed |    Debug | T0000012832 | ..\src\udx_manager.cpp:UdxManager::exit:00487 | [manager] exit end
+2018-06-06 18:47:45.476 GMT+08:00 Wed |    Debug | T0000011836 | ..\src\udx_manager.cpp:UdxManager::init:00278 | [manager] init begin
+2018-06-06 18:47:45.476 GMT+08:00 Wed |    Debug | T0000011836 | ..\src\udx_manager.cpp:UdxManager::init:00339 | [manager] remote is transmit server, set transmit server: [42.123.110.47:8885]
+2018-06-06 18:47:45.496 GMT+08:00 Wed |    Debug | T0000011836 | ..\src\udx_manager.cpp:UdxManager::init:00375 | [manager] max uploader count: 2, max downloader count: 2
+2018-06-06 18:47:45.496 GMT+08:00 Wed |    Debug | T0000013104 | ..\src\udx_manager.cpp:download_thread_run:00212 | download thread - 0 run begin
+2018-06-06 18:47:45.496 GMT+08:00 Wed |    Debug | T0000013104 | ..\src\udx_manager.cpp:UdxManager::do_download:01660 | [manager] do download thread - 0 begin
+2018-06-06 18:47:45.496 GMT+08:00 Wed |    Debug | T0000009260 | ..\src\udx_manager.cpp:download_thread_run:00212 | download thread - 1 run begin
+2018-06-06 18:47:45.496 GMT+08:00 Wed |    Debug | T0000009260 | ..\src\udx_manager.cpp:UdxManager::do_download:01660 | [manager] do download thread - 1 begin
+2018-06-06 18:47:45.496 GMT+08:00 Wed |    Debug | T0000010708 | ..\src\udx_manager.cpp:upload_thread_run:00198 | upload thread - 0 run begin
+2018-06-06 18:47:45.496 GMT+08:00 Wed |    Debug | T0000010708 | ..\src\udx_manager.cpp:UdxManager::do_upload:01280 | [manager] do upload thread - 0 begin
+2018-06-06 18:47:45.496 GMT+08:00 Wed |    Debug | T0000012844 | ..\src\udx_manager.cpp:upload_thread_run:00198 | upload thread - 1 run begin
+2018-06-06 18:47:45.496 GMT+08:00 Wed |    Debug | T0000012792 | ..\src\udx_manager.cpp:check_thread_run:00184 | check thread - 0 run begin
+2018-06-06 18:47:45.496 GMT+08:00 Wed |    Debug | T0000012844 | ..\src\udx_manager.cpp:UdxManager::do_upload:01280 | [manager] do upload thread - 1 begin
+2018-06-06 18:47:45.496 GMT+08:00 Wed |    Debug | T0000012792 | ..\src\udx_manager.cpp:UdxManager::do_check:01126 | [manager] do check thread - 0 begin
+2018-06-06 18:47:45.496 GMT+08:00 Wed |    Debug | T0000011836 | ..\src\udx_manager.cpp:UdxManager::init:00471 | [manager] init success
+2018-06-06 18:47:45.496 GMT+08:00 Wed |    Debug | T0000013068 | ..\src\udx_manager.cpp:resolve_thread_run:00170 | resolve thread - 0 run begin
+2018-06-06 18:47:45.496 GMT+08:00 Wed |    Debug | T0000013068 | ..\src\udx_manager.cpp:UdxManager::do_resolve:01067 | [manager] do resolve thread - 0 begin
+2018-06-06 18:47:45.497 GMT+08:00 Wed |    Debug | T0000011836 | ..\src\udx_manager.cpp:UdxManager::push_upload_task:00791 | push upload [task:0, job:1] success
+2018-06-06 18:47:45.497 GMT+08:00 Wed |    Debug | T0000012844 | ..\src\udx_manager.cpp:UdxManager::do_upload:01306 | [upload | thread - 1 | uploader - 10148256] task info: [project:3441, user:1852991] (E:/Workspaces/3dmax/2014/test.txt) -> (/1852500/1852991///E/Workspaces/3dmax/2014/test.txt)
+2018-06-06 18:47:45.497 GMT+08:00 Wed |    Debug | T0000012844 | ..\src\udx_manager.cpp:UdxManager::do_upload:01322 | [upload | thread - 1 | uploader - 10148256] upload begin: [task:0, job:1] (E:/Workspaces/3dmax/2014/test.txt)
+2018-06-06 18:47:45.497 GMT+08:00 Wed |    Debug | T0000012844 | ..\src\udx_session.cpp:IUdxSession::send_connect_request:00248 | [uploader - 10148256] acquire udx tcp success
+2018-06-06 18:47:45.497 GMT+08:00 Wed |    Debug | T0000012844 | ..\src\udx_session.cpp:IUdxSession::send_connect_request:00265 | [uploader - 10148256] send connect request, with server: [42.123.110.47:8885]
+2018-06-06 18:47:45.554 GMT+08:00 Wed |    Debug | T0000002472 | ..\src\udx_session.cpp:IUdxSession::recv_connect_response:00336 | [uploader - 10148256] recv connect response
+2018-06-06 18:47:45.629 GMT+08:00 Wed |    Debug | T0000002472 | ..\src\udx_conveyer.cpp:IUdxConveyer::on_recv_set_user_information_response:01006 | [uploader - 10148256] parse set user information response success
+2018-06-06 18:47:45.629 GMT+08:00 Wed |    Debug | T0000012844 | ..\src\udx_session.cpp:IUdxSession::set_max_send_speed:00153 | [uploader - 10148256] set max upload speed: 1048576KB/S
+2018-06-06 18:47:45.868 GMT+08:00 Wed |    Debug | T0000002472 | ..\src\udx_uploader.cpp:UdxUploader::on_recv_set_remote_directory_response:00215 | [uploader - 10148256] parse set remote directory response success
+2018-06-06 18:47:46.003 GMT+08:00 Wed |    Debug | T0000002472 | ..\src\udx_conveyer.cpp:IUdxConveyer::on_transmit_begin:00694 | [uploader - 10148256] file transmit begin notify: notify file name (E:/Workspaces/3dmax/2014/test.txt)
+2018-06-06 18:47:46.599 GMT+08:00 Wed |    Error | T0000002472 | ..\src\udx_conveyer.cpp:IUdxConveyer::on_transmit_error:00752 | [uploader - 10148256] transmit file error notify: transmit file name (E:/Workspaces/3dmax/2014/test.txt), error (20)
+2018-06-06 18:47:46.599 GMT+08:00 Wed |    Error | T0000012844 | ..\src\udx_manager.cpp:UdxManager::do_upload:01477 | [upload | thread - 1 | uploader - 10148256] upload been stopped: [task:0, job:1] (E:/Workspaces/3dmax/2014/test.txt), failure count (1)
+2018-06-06 18:47:46.599 GMT+08:00 Wed |    Debug | T0000012844 | ..\src\udx_manager.cpp:UdxManager::do_upload:01498 | [upload | thread - 1 | uploader - 10148256] upload end: [task:0, job:1] (E:/Workspaces/3dmax/2014/test.txt)
+2018-06-06 18:47:47.498 GMT+08:00 Wed |    Debug | T0000011836 | ..\src\udx_manager.cpp:UdxManager::exit:00485 | [manager] exit begin
+2018-06-06 18:47:47.498 GMT+08:00 Wed |    Debug | T0000011836 | ..\src\udx_manager.cpp:UdxManager::clear:00493 | [manager] clear begin
+2018-06-06 18:47:47.498 GMT+08:00 Wed |    Debug | T0000010708 | ..\src\udx_manager.cpp:UdxManager::do_upload:01506 | [manager] do upload thread - 0 end
+2018-06-06 18:47:47.498 GMT+08:00 Wed |    Debug | T0000009260 | ..\src\udx_manager.cpp:UdxManager::do_download:01861 | [manager] do download thread - 1 end
+2018-06-06 18:47:47.498 GMT+08:00 Wed |    Debug | T0000012844 | ..\src\udx_manager.cpp:UdxManager::do_upload:01506 | [manager] do upload thread - 1 end
+2018-06-06 18:47:47.498 GMT+08:00 Wed |    Debug | T0000010708 | ..\src\udx_manager.cpp:upload_thread_run:00201 | upload thread - 0 run end
+2018-06-06 18:47:47.498 GMT+08:00 Wed |    Debug | T0000009260 | ..\src\udx_manager.cpp:download_thread_run:00215 | download thread - 1 run end
+2018-06-06 18:47:47.498 GMT+08:00 Wed |    Debug | T0000013104 | ..\src\udx_manager.cpp:UdxManager::do_download:01861 | [manager] do download thread - 0 end
+2018-06-06 18:47:47.498 GMT+08:00 Wed |    Debug | T0000012844 | ..\src\udx_manager.cpp:upload_thread_run:00201 | upload thread - 1 run end
+2018-06-06 18:47:47.498 GMT+08:00 Wed |    Debug | T0000013104 | ..\src\udx_manager.cpp:download_thread_run:00215 | download thread - 0 run end
+2018-06-06 18:47:47.498 GMT+08:00 Wed |    Debug | T0000011836 | ..\src\udx_session.cpp:IUdxSession::send_disconnect_request:00293 | [uploader - 10148256] send disconnect request
+2018-06-06 18:47:47.585 GMT+08:00 Wed |    Debug | T0000013068 | ..\src\udx_manager.cpp:UdxManager::do_resolve:01115 | [manager] do resolve thread - 0 end
+2018-06-06 18:47:47.585 GMT+08:00 Wed |    Debug | T0000012792 | ..\src\udx_manager.cpp:UdxManager::do_check:01165 | [manager] do check thread - 0 end
+2018-06-06 18:47:47.585 GMT+08:00 Wed |    Debug | T0000012792 | ..\src\udx_manager.cpp:check_thread_run:00187 | check thread - 0 run end
+2018-06-06 18:47:47.585 GMT+08:00 Wed |    Debug | T0000013068 | ..\src\udx_manager.cpp:resolve_thread_run:00173 | resolve thread - 0 run end
+2018-06-06 18:47:47.598 GMT+08:00 Wed |    Debug | T0000011836 | ..\src\udx_manager.cpp:UdxManager::clear:00518 | [manager] wait fast udx destroy begin
+2018-06-06 18:47:47.702 GMT+08:00 Wed |    Debug | T0000011836 | ..\src\udx_manager.cpp:UdxManager::clear:00520 | [manager] wait fast udx destroy end
+2018-06-06 18:47:47.702 GMT+08:00 Wed |    Debug | T0000011836 | ..\src\udx_manager.cpp:UdxManager::clear:00551 | [manager] wait threads exit begin
+2018-06-06 18:47:47.702 GMT+08:00 Wed |    Debug | T0000011836 | ..\src\udx_manager.cpp:UdxManager::clear:00553 | [manager] wait threads exit end
+2018-06-06 18:47:47.702 GMT+08:00 Wed |    Debug | T0000011836 | ..\src\udx_manager.cpp:UdxManager::clear:00555 | [manager] clear end
+2018-06-06 18:47:47.702 GMT+08:00 Wed |    Debug | T0000011836 | ..\src\udx_manager.cpp:UdxManager::exit:00487 | [manager] exit end
+2018-06-06 18:47:48.833 GMT+08:00 Wed |    Debug | T0000011336 | ..\src\udx_manager.cpp:UdxManager::init:00278 | [manager] init begin
+2018-06-06 18:47:48.833 GMT+08:00 Wed |    Debug | T0000011336 | ..\src\udx_manager.cpp:UdxManager::init:00339 | [manager] remote is transmit server, set transmit server: [42.123.110.47:8885]
+2018-06-06 18:47:48.855 GMT+08:00 Wed |    Debug | T0000011336 | ..\src\udx_manager.cpp:UdxManager::init:00375 | [manager] max uploader count: 2, max downloader count: 2
+2018-06-06 18:47:48.856 GMT+08:00 Wed |    Debug | T0000009220 | ..\src\udx_manager.cpp:download_thread_run:00212 | download thread - 0 run begin
+2018-06-06 18:47:48.856 GMT+08:00 Wed |    Debug | T0000009220 | ..\src\udx_manager.cpp:UdxManager::do_download:01660 | [manager] do download thread - 0 begin
+2018-06-06 18:47:48.856 GMT+08:00 Wed |    Debug | T0000008848 | ..\src\udx_manager.cpp:download_thread_run:00212 | download thread - 1 run begin
+2018-06-06 18:47:48.856 GMT+08:00 Wed |    Debug | T0000008848 | ..\src\udx_manager.cpp:UdxManager::do_download:01660 | [manager] do download thread - 1 begin
+2018-06-06 18:47:48.856 GMT+08:00 Wed |    Debug | T0000007812 | ..\src\udx_manager.cpp:upload_thread_run:00198 | upload thread - 0 run begin
+2018-06-06 18:47:48.856 GMT+08:00 Wed |    Debug | T0000007812 | ..\src\udx_manager.cpp:UdxManager::do_upload:01280 | [manager] do upload thread - 0 begin
+2018-06-06 18:47:48.856 GMT+08:00 Wed |    Debug | T0000009568 | ..\src\udx_manager.cpp:upload_thread_run:00198 | upload thread - 1 run begin
+2018-06-06 18:47:48.856 GMT+08:00 Wed |    Debug | T0000011336 | ..\src\udx_manager.cpp:UdxManager::init:00471 | [manager] init success
+2018-06-06 18:47:48.856 GMT+08:00 Wed |    Debug | T0000002156 | ..\src\udx_manager.cpp:check_thread_run:00184 | check thread - 0 run begin
+2018-06-06 18:47:48.856 GMT+08:00 Wed |    Debug | T0000002156 | ..\src\udx_manager.cpp:UdxManager::do_check:01126 | [manager] do check thread - 0 begin
+2018-06-06 18:47:48.856 GMT+08:00 Wed |    Debug | T0000009568 | ..\src\udx_manager.cpp:UdxManager::do_upload:01280 | [manager] do upload thread - 1 begin
+2018-06-06 18:47:48.856 GMT+08:00 Wed |    Debug | T0000007344 | ..\src\udx_manager.cpp:resolve_thread_run:00170 | resolve thread - 0 run begin
+2018-06-06 18:47:48.856 GMT+08:00 Wed |    Debug | T0000009568 | ..\src\udx_manager.cpp:UdxManager::do_upload:01306 | [upload | thread - 1 | uploader - 5363760] task info: [project:3441, user:1852991] (E:/Workspaces/3dmax/2014/OGLdpf.log) -> (/1852500/1852991///E/Workspaces/3dmax/2014/OGLdpf.log)
+2018-06-06 18:47:48.856 GMT+08:00 Wed |    Debug | T0000011336 | ..\src\udx_manager.cpp:UdxManager::push_upload_task:00791 | push upload [task:0, job:1] success
+2018-06-06 18:47:48.856 GMT+08:00 Wed |    Debug | T0000007344 | ..\src\udx_manager.cpp:UdxManager::do_resolve:01067 | [manager] do resolve thread - 0 begin
+2018-06-06 18:47:48.856 GMT+08:00 Wed |    Debug | T0000009568 | ..\src\udx_manager.cpp:UdxManager::do_upload:01322 | [upload | thread - 1 | uploader - 5363760] upload begin: [task:0, job:1] (E:/Workspaces/3dmax/2014/OGLdpf.log)
+2018-06-06 18:47:48.856 GMT+08:00 Wed |    Debug | T0000009568 | ..\src\udx_session.cpp:IUdxSession::send_connect_request:00248 | [uploader - 5363760] acquire udx tcp success
+2018-06-06 18:47:48.857 GMT+08:00 Wed |    Debug | T0000009568 | ..\src\udx_session.cpp:IUdxSession::send_connect_request:00265 | [uploader - 5363760] send connect request, with server: [42.123.110.47:8885]
+2018-06-06 18:47:48.912 GMT+08:00 Wed |    Debug | T0000013276 | ..\src\udx_session.cpp:IUdxSession::recv_connect_response:00336 | [uploader - 5363760] recv connect response
+2018-06-06 18:47:48.983 GMT+08:00 Wed |    Debug | T0000013276 | ..\src\udx_conveyer.cpp:IUdxConveyer::on_recv_set_user_information_response:01006 | [uploader - 5363760] parse set user information response success
+2018-06-06 18:47:48.983 GMT+08:00 Wed |    Debug | T0000009568 | ..\src\udx_session.cpp:IUdxSession::set_max_send_speed:00153 | [uploader - 5363760] set max upload speed: 1048576KB/S
+2018-06-06 18:47:49.152 GMT+08:00 Wed |    Debug | T0000013276 | ..\src\udx_uploader.cpp:UdxUploader::on_recv_set_remote_directory_response:00215 | [uploader - 5363760] parse set remote directory response success
+2018-06-06 18:47:49.694 GMT+08:00 Wed |    Debug | T0000013276 | ..\src\udx_conveyer.cpp:IUdxConveyer::on_transmit_begin:00694 | [uploader - 5363760] file transmit begin notify: notify file name (E:/Workspaces/3dmax/2014/OGLdpf.log)
+2018-06-06 18:47:49.694 GMT+08:00 Wed |    Error | T0000013276 | ..\src\udx_conveyer.cpp:IUdxConveyer::on_transmit_error:00752 | [uploader - 5363760] transmit file error notify: transmit file name (E:/Workspaces/3dmax/2014/OGLdpf.log), error (20)
+2018-06-06 18:47:49.694 GMT+08:00 Wed |    Error | T0000009568 | ..\src\udx_manager.cpp:UdxManager::do_upload:01477 | [upload | thread - 1 | uploader - 5363760] upload been stopped: [task:0, job:1] (E:/Workspaces/3dmax/2014/OGLdpf.log), failure count (1)
+2018-06-06 18:47:49.694 GMT+08:00 Wed |    Debug | T0000009568 | ..\src\udx_manager.cpp:UdxManager::do_upload:01498 | [upload | thread - 1 | uploader - 5363760] upload end: [task:0, job:1] (E:/Workspaces/3dmax/2014/OGLdpf.log)
+2018-06-06 18:47:49.856 GMT+08:00 Wed |    Debug | T0000011336 | ..\src\udx_manager.cpp:UdxManager::exit:00485 | [manager] exit begin
+2018-06-06 18:47:49.856 GMT+08:00 Wed |    Debug | T0000011336 | ..\src\udx_manager.cpp:UdxManager::clear:00493 | [manager] clear begin
+2018-06-06 18:47:49.856 GMT+08:00 Wed |    Debug | T0000009220 | ..\src\udx_manager.cpp:UdxManager::do_download:01861 | [manager] do download thread - 0 end
+2018-06-06 18:47:49.856 GMT+08:00 Wed |    Debug | T0000009568 | ..\src\udx_manager.cpp:UdxManager::do_upload:01506 | [manager] do upload thread - 1 end
+2018-06-06 18:47:49.856 GMT+08:00 Wed |    Debug | T0000009220 | ..\src\udx_manager.cpp:download_thread_run:00215 | download thread - 0 run end
+2018-06-06 18:47:49.856 GMT+08:00 Wed |    Debug | T0000009568 | ..\src\udx_manager.cpp:upload_thread_run:00201 | upload thread - 1 run end
+2018-06-06 18:47:49.856 GMT+08:00 Wed |    Debug | T0000008848 | ..\src\udx_manager.cpp:UdxManager::do_download:01861 | [manager] do download thread - 1 end
+2018-06-06 18:47:49.856 GMT+08:00 Wed |    Debug | T0000007812 | ..\src\udx_manager.cpp:UdxManager::do_upload:01506 | [manager] do upload thread - 0 end
+2018-06-06 18:47:49.856 GMT+08:00 Wed |    Debug | T0000007812 | ..\src\udx_manager.cpp:upload_thread_run:00201 | upload thread - 0 run end
+2018-06-06 18:47:49.856 GMT+08:00 Wed |    Debug | T0000008848 | ..\src\udx_manager.cpp:download_thread_run:00215 | download thread - 1 run end
+2018-06-06 18:47:49.856 GMT+08:00 Wed |    Debug | T0000011336 | ..\src\udx_session.cpp:IUdxSession::send_disconnect_request:00293 | [uploader - 5363760] send disconnect request
+2018-06-06 18:47:49.884 GMT+08:00 Wed |    Debug | T0000007344 | ..\src\udx_manager.cpp:UdxManager::do_resolve:01115 | [manager] do resolve thread - 0 end
+2018-06-06 18:47:49.884 GMT+08:00 Wed |    Debug | T0000007344 | ..\src\udx_manager.cpp:resolve_thread_run:00173 | resolve thread - 0 run end
+2018-06-06 18:47:49.884 GMT+08:00 Wed |    Debug | T0000002156 | ..\src\udx_manager.cpp:UdxManager::do_check:01165 | [manager] do check thread - 0 end
+2018-06-06 18:47:49.884 GMT+08:00 Wed |    Debug | T0000002156 | ..\src\udx_manager.cpp:check_thread_run:00187 | check thread - 0 run end
+2018-06-06 18:47:49.934 GMT+08:00 Wed |    Debug | T0000011336 | ..\src\udx_manager.cpp:UdxManager::clear:00518 | [manager] wait fast udx destroy begin
+2018-06-06 18:47:49.959 GMT+08:00 Wed |    Debug | T0000011336 | ..\src\udx_manager.cpp:UdxManager::clear:00520 | [manager] wait fast udx destroy end
+2018-06-06 18:47:49.959 GMT+08:00 Wed |    Debug | T0000011336 | ..\src\udx_manager.cpp:UdxManager::clear:00551 | [manager] wait threads exit begin
+2018-06-06 18:47:49.959 GMT+08:00 Wed |    Debug | T0000011336 | ..\src\udx_manager.cpp:UdxManager::clear:00553 | [manager] wait threads exit end
+2018-06-06 18:47:49.959 GMT+08:00 Wed |    Debug | T0000011336 | ..\src\udx_manager.cpp:UdxManager::clear:00555 | [manager] clear end
+2018-06-06 18:47:49.959 GMT+08:00 Wed |    Debug | T0000011336 | ..\src\udx_manager.cpp:UdxManager::exit:00487 | [manager] exit end
+2018-06-06 18:48:49.624 GMT+08:00 Wed |    Debug | T0000011048 | ..\src\udx_manager.cpp:UdxManager::init:00278 | [manager] init begin
+2018-06-06 18:48:49.624 GMT+08:00 Wed |    Debug | T0000011048 | ..\src\udx_manager.cpp:UdxManager::init:00339 | [manager] remote is transmit server, set transmit server: [42.123.110.47:8885]
+2018-06-06 18:48:49.644 GMT+08:00 Wed |    Debug | T0000011048 | ..\src\udx_manager.cpp:UdxManager::init:00375 | [manager] max uploader count: 2, max downloader count: 2
+2018-06-06 18:48:49.644 GMT+08:00 Wed |    Debug | T0000013300 | ..\src\udx_manager.cpp:download_thread_run:00212 | download thread - 0 run begin
+2018-06-06 18:48:49.644 GMT+08:00 Wed |    Debug | T0000013300 | ..\src\udx_manager.cpp:UdxManager::do_download:01660 | [manager] do download thread - 0 begin
+2018-06-06 18:48:49.644 GMT+08:00 Wed |    Debug | T0000003224 | ..\src\udx_manager.cpp:download_thread_run:00212 | download thread - 1 run begin
+2018-06-06 18:48:49.644 GMT+08:00 Wed |    Debug | T0000003224 | ..\src\udx_manager.cpp:UdxManager::do_download:01660 | [manager] do download thread - 1 begin
+2018-06-06 18:48:49.645 GMT+08:00 Wed |    Debug | T0000012732 | ..\src\udx_manager.cpp:upload_thread_run:00198 | upload thread - 0 run begin
+2018-06-06 18:48:49.645 GMT+08:00 Wed |    Debug | T0000012732 | ..\src\udx_manager.cpp:UdxManager::do_upload:01280 | [manager] do upload thread - 0 begin
+2018-06-06 18:48:49.645 GMT+08:00 Wed |    Debug | T0000002916 | ..\src\udx_manager.cpp:upload_thread_run:00198 | upload thread - 1 run begin
+2018-06-06 18:48:49.645 GMT+08:00 Wed |    Debug | T0000011592 | ..\src\udx_manager.cpp:check_thread_run:00184 | check thread - 0 run begin
+2018-06-06 18:48:49.645 GMT+08:00 Wed |    Debug | T0000002916 | ..\src\udx_manager.cpp:UdxManager::do_upload:01280 | [manager] do upload thread - 1 begin
+2018-06-06 18:48:49.645 GMT+08:00 Wed |    Debug | T0000011048 | ..\src\udx_manager.cpp:UdxManager::init:00471 | [manager] init success
+2018-06-06 18:48:49.645 GMT+08:00 Wed |    Debug | T0000011592 | ..\src\udx_manager.cpp:UdxManager::do_check:01126 | [manager] do check thread - 0 begin
+2018-06-06 18:48:49.645 GMT+08:00 Wed |    Debug | T0000009052 | ..\src\udx_manager.cpp:resolve_thread_run:00170 | resolve thread - 0 run begin
+2018-06-06 18:48:49.645 GMT+08:00 Wed |    Debug | T0000009052 | ..\src\udx_manager.cpp:UdxManager::do_resolve:01067 | [manager] do resolve thread - 0 begin
+2018-06-06 18:48:49.645 GMT+08:00 Wed |    Debug | T0000002916 | ..\src\udx_manager.cpp:UdxManager::do_upload:01306 | [upload | thread - 1 | uploader - 9427360] task info: [project:3441, user:1852991] (E:/Workspaces/3dmax/2014/test.txt) -> (/1852500/1852991///E/Workspaces/3dmax/2014/test.txt)
+2018-06-06 18:48:49.645 GMT+08:00 Wed |    Debug | T0000011048 | ..\src\udx_manager.cpp:UdxManager::push_upload_task:00791 | push upload [task:0, job:1] success
+2018-06-06 18:48:49.645 GMT+08:00 Wed |    Debug | T0000002916 | ..\src\udx_manager.cpp:UdxManager::do_upload:01322 | [upload | thread - 1 | uploader - 9427360] upload begin: [task:0, job:1] (E:/Workspaces/3dmax/2014/test.txt)
+2018-06-06 18:48:49.645 GMT+08:00 Wed |    Debug | T0000002916 | ..\src\udx_session.cpp:IUdxSession::send_connect_request:00248 | [uploader - 9427360] acquire udx tcp success
+2018-06-06 18:48:49.645 GMT+08:00 Wed |    Debug | T0000002916 | ..\src\udx_session.cpp:IUdxSession::send_connect_request:00265 | [uploader - 9427360] send connect request, with server: [42.123.110.47:8885]
+2018-06-06 18:48:49.701 GMT+08:00 Wed |    Debug | T0000010524 | ..\src\udx_session.cpp:IUdxSession::recv_connect_response:00336 | [uploader - 9427360] recv connect response
+2018-06-06 18:48:49.774 GMT+08:00 Wed |    Debug | T0000010524 | ..\src\udx_conveyer.cpp:IUdxConveyer::on_recv_set_user_information_response:01006 | [uploader - 9427360] parse set user information response success
+2018-06-06 18:48:49.774 GMT+08:00 Wed |    Debug | T0000002916 | ..\src\udx_session.cpp:IUdxSession::set_max_send_speed:00153 | [uploader - 9427360] set max upload speed: 1048576KB/S
+2018-06-06 18:48:50.021 GMT+08:00 Wed |    Debug | T0000010524 | ..\src\udx_uploader.cpp:UdxUploader::on_recv_set_remote_directory_response:00215 | [uploader - 9427360] parse set remote directory response success
+2018-06-06 18:48:50.132 GMT+08:00 Wed |    Debug | T0000010524 | ..\src\udx_conveyer.cpp:IUdxConveyer::on_transmit_begin:00694 | [uploader - 9427360] file transmit begin notify: notify file name (E:/Workspaces/3dmax/2014/test.txt)
+2018-06-06 18:48:50.169 GMT+08:00 Wed |    Debug | T0000010524 | ..\src\udx_conveyer.cpp:IUdxConveyer::on_transmit_done:00719 | [uploader - 9427360] file transmit done notify: notify file name (E:/Workspaces/3dmax/2014/test.txt)
+2018-06-06 18:48:50.170 GMT+08:00 Wed |    Debug | T0000002916 | ..\src\udx_manager.cpp:UdxManager::do_upload:01488 | [upload | thread - 1 | uploader - 9427360] upload success: [task:0, job:1] (E:/Workspaces/3dmax/2014/test.txt), directory count (0), file count (1)
+2018-06-06 18:48:50.170 GMT+08:00 Wed |    Debug | T0000002916 | ..\src\udx_manager.cpp:UdxManager::do_upload:01498 | [upload | thread - 1 | uploader - 9427360] upload end: [task:0, job:1] (E:/Workspaces/3dmax/2014/test.txt)
+2018-06-06 18:48:50.645 GMT+08:00 Wed |    Debug | T0000011048 | ..\src\udx_manager.cpp:UdxManager::exit:00485 | [manager] exit begin
+2018-06-06 18:48:50.645 GMT+08:00 Wed |    Debug | T0000011048 | ..\src\udx_manager.cpp:UdxManager::clear:00493 | [manager] clear begin
+2018-06-06 18:48:50.645 GMT+08:00 Wed |    Debug | T0000003224 | ..\src\udx_manager.cpp:UdxManager::do_download:01861 | [manager] do download thread - 1 end
+2018-06-06 18:48:50.645 GMT+08:00 Wed |    Debug | T0000012732 | ..\src\udx_manager.cpp:UdxManager::do_upload:01506 | [manager] do upload thread - 0 end
+2018-06-06 18:48:50.645 GMT+08:00 Wed |    Debug | T0000002916 | ..\src\udx_manager.cpp:UdxManager::do_upload:01506 | [manager] do upload thread - 1 end
+2018-06-06 18:48:50.645 GMT+08:00 Wed |    Debug | T0000003224 | ..\src\udx_manager.cpp:download_thread_run:00215 | download thread - 1 run end
+2018-06-06 18:48:50.645 GMT+08:00 Wed |    Debug | T0000002916 | ..\src\udx_manager.cpp:upload_thread_run:00201 | upload thread - 1 run end
+2018-06-06 18:48:50.645 GMT+08:00 Wed |    Debug | T0000013300 | ..\src\udx_manager.cpp:UdxManager::do_download:01861 | [manager] do download thread - 0 end
+2018-06-06 18:48:50.645 GMT+08:00 Wed |    Debug | T0000011048 | ..\src\udx_session.cpp:IUdxSession::send_disconnect_request:00293 | [uploader - 9427360] send disconnect request
+2018-06-06 18:48:50.645 GMT+08:00 Wed |    Debug | T0000013300 | ..\src\udx_manager.cpp:download_thread_run:00215 | download thread - 0 run end
+2018-06-06 18:48:50.645 GMT+08:00 Wed |    Debug | T0000012732 | ..\src\udx_manager.cpp:upload_thread_run:00201 | upload thread - 0 run end
+2018-06-06 18:48:50.684 GMT+08:00 Wed |    Debug | T0000011592 | ..\src\udx_manager.cpp:UdxManager::do_check:01165 | [manager] do check thread - 0 end
+2018-06-06 18:48:50.684 GMT+08:00 Wed |    Debug | T0000011592 | ..\src\udx_manager.cpp:check_thread_run:00187 | check thread - 0 run end
+2018-06-06 18:48:50.684 GMT+08:00 Wed |    Debug | T0000009052 | ..\src\udx_manager.cpp:UdxManager::do_resolve:01115 | [manager] do resolve thread - 0 end
+2018-06-06 18:48:50.684 GMT+08:00 Wed |    Debug | T0000009052 | ..\src\udx_manager.cpp:resolve_thread_run:00173 | resolve thread - 0 run end
+2018-06-06 18:48:50.695 GMT+08:00 Wed |    Debug | T0000011048 | ..\src\udx_manager.cpp:UdxManager::clear:00518 | [manager] wait fast udx destroy begin
+2018-06-06 18:48:50.754 GMT+08:00 Wed |    Debug | T0000011048 | ..\src\udx_manager.cpp:UdxManager::clear:00520 | [manager] wait fast udx destroy end
+2018-06-06 18:48:50.754 GMT+08:00 Wed |    Debug | T0000011048 | ..\src\udx_manager.cpp:UdxManager::clear:00551 | [manager] wait threads exit begin
+2018-06-06 18:48:50.754 GMT+08:00 Wed |    Debug | T0000011048 | ..\src\udx_manager.cpp:UdxManager::clear:00553 | [manager] wait threads exit end
+2018-06-06 18:48:50.754 GMT+08:00 Wed |    Debug | T0000011048 | ..\src\udx_manager.cpp:UdxManager::clear:00555 | [manager] clear end
+2018-06-06 18:48:50.754 GMT+08:00 Wed |    Debug | T0000011048 | ..\src\udx_manager.cpp:UdxManager::exit:00487 | [manager] exit end
+2018-06-06 18:48:51.981 GMT+08:00 Wed |    Debug | T0000013132 | ..\src\udx_manager.cpp:UdxManager::init:00278 | [manager] init begin
+2018-06-06 18:48:51.982 GMT+08:00 Wed |    Debug | T0000013132 | ..\src\udx_manager.cpp:UdxManager::init:00339 | [manager] remote is transmit server, set transmit server: [42.123.110.47:8885]
+2018-06-06 18:48:52.001 GMT+08:00 Wed |    Debug | T0000013132 | ..\src\udx_manager.cpp:UdxManager::init:00375 | [manager] max uploader count: 2, max downloader count: 2
+2018-06-06 18:48:52.001 GMT+08:00 Wed |    Debug | T0000007256 | ..\src\udx_manager.cpp:download_thread_run:00212 | download thread - 0 run begin
+2018-06-06 18:48:52.002 GMT+08:00 Wed |    Debug | T0000007256 | ..\src\udx_manager.cpp:UdxManager::do_download:01660 | [manager] do download thread - 0 begin
+2018-06-06 18:48:52.002 GMT+08:00 Wed |    Debug | T0000011324 | ..\src\udx_manager.cpp:download_thread_run:00212 | download thread - 1 run begin
+2018-06-06 18:48:52.002 GMT+08:00 Wed |    Debug | T0000013124 | ..\src\udx_manager.cpp:upload_thread_run:00198 | upload thread - 0 run begin
+2018-06-06 18:48:52.002 GMT+08:00 Wed |    Debug | T0000011324 | ..\src\udx_manager.cpp:UdxManager::do_download:01660 | [manager] do download thread - 1 begin
+2018-06-06 18:48:52.002 GMT+08:00 Wed |    Debug | T0000013124 | ..\src\udx_manager.cpp:UdxManager::do_upload:01280 | [manager] do upload thread - 0 begin
+2018-06-06 18:48:52.002 GMT+08:00 Wed |    Debug | T0000002236 | ..\src\udx_manager.cpp:upload_thread_run:00198 | upload thread - 1 run begin
+2018-06-06 18:48:52.002 GMT+08:00 Wed |    Debug | T0000013132 | ..\src\udx_manager.cpp:UdxManager::init:00471 | [manager] init success
+2018-06-06 18:48:52.002 GMT+08:00 Wed |    Debug | T0000002236 | ..\src\udx_manager.cpp:UdxManager::do_upload:01280 | [manager] do upload thread - 1 begin
+2018-06-06 18:48:52.002 GMT+08:00 Wed |    Debug | T0000010768 | ..\src\udx_manager.cpp:check_thread_run:00184 | check thread - 0 run begin
+2018-06-06 18:48:52.002 GMT+08:00 Wed |    Debug | T0000010768 | ..\src\udx_manager.cpp:UdxManager::do_check:01126 | [manager] do check thread - 0 begin
+2018-06-06 18:48:52.002 GMT+08:00 Wed |    Debug | T0000013224 | ..\src\udx_manager.cpp:resolve_thread_run:00170 | resolve thread - 0 run begin
+2018-06-06 18:48:52.002 GMT+08:00 Wed |    Debug | T0000013132 | ..\src\udx_manager.cpp:UdxManager::push_upload_task:00791 | push upload [task:0, job:1] success
+2018-06-06 18:48:52.002 GMT+08:00 Wed |    Debug | T0000013224 | ..\src\udx_manager.cpp:UdxManager::do_resolve:01067 | [manager] do resolve thread - 0 begin
+2018-06-06 18:48:52.002 GMT+08:00 Wed |    Debug | T0000002236 | ..\src\udx_manager.cpp:UdxManager::do_upload:01306 | [upload | thread - 1 | uploader - 31381920] task info: [project:3441, user:1852991] (E:/Workspaces/3dmax/2014/OGLdpf.log) -> (/1852500/1852991///E/Workspaces/3dmax/2014/OGLdpf.log)
+2018-06-06 18:48:52.002 GMT+08:00 Wed |    Debug | T0000002236 | ..\src\udx_manager.cpp:UdxManager::do_upload:01322 | [upload | thread - 1 | uploader - 31381920] upload begin: [task:0, job:1] (E:/Workspaces/3dmax/2014/OGLdpf.log)
+2018-06-06 18:48:52.002 GMT+08:00 Wed |    Debug | T0000002236 | ..\src\udx_session.cpp:IUdxSession::send_connect_request:00248 | [uploader - 31381920] acquire udx tcp success
+2018-06-06 18:48:52.002 GMT+08:00 Wed |    Debug | T0000002236 | ..\src\udx_session.cpp:IUdxSession::send_connect_request:00265 | [uploader - 31381920] send connect request, with server: [42.123.110.47:8885]
+2018-06-06 18:48:52.059 GMT+08:00 Wed |    Debug | T0000003716 | ..\src\udx_session.cpp:IUdxSession::recv_connect_response:00336 | [uploader - 31381920] recv connect response
+2018-06-06 18:48:52.130 GMT+08:00 Wed |    Debug | T0000003716 | ..\src\udx_conveyer.cpp:IUdxConveyer::on_recv_set_user_information_response:01006 | [uploader - 31381920] parse set user information response success
+2018-06-06 18:48:52.131 GMT+08:00 Wed |    Debug | T0000002236 | ..\src\udx_session.cpp:IUdxSession::set_max_send_speed:00153 | [uploader - 31381920] set max upload speed: 1048576KB/S
+2018-06-06 18:48:52.300 GMT+08:00 Wed |    Debug | T0000003716 | ..\src\udx_uploader.cpp:UdxUploader::on_recv_set_remote_directory_response:00215 | [uploader - 31381920] parse set remote directory response success
+2018-06-06 18:48:52.337 GMT+08:00 Wed |    Debug | T0000003716 | ..\src\udx_conveyer.cpp:IUdxConveyer::on_transmit_begin:00694 | [uploader - 31381920] file transmit begin notify: notify file name (E:/Workspaces/3dmax/2014/OGLdpf.log)
+2018-06-06 18:48:52.337 GMT+08:00 Wed |    Debug | T0000003716 | ..\src\udx_conveyer.cpp:IUdxConveyer::on_transmit_done:00719 | [uploader - 31381920] file transmit done notify: notify file name (E:/Workspaces/3dmax/2014/OGLdpf.log)
+2018-06-06 18:48:52.337 GMT+08:00 Wed |    Debug | T0000002236 | ..\src\udx_manager.cpp:UdxManager::do_upload:01488 | [upload | thread - 1 | uploader - 31381920] upload success: [task:0, job:1] (E:/Workspaces/3dmax/2014/OGLdpf.log), directory count (0), file count (1)
+2018-06-06 18:48:52.337 GMT+08:00 Wed |    Debug | T0000002236 | ..\src\udx_manager.cpp:UdxManager::do_upload:01498 | [upload | thread - 1 | uploader - 31381920] upload end: [task:0, job:1] (E:/Workspaces/3dmax/2014/OGLdpf.log)
+2018-06-06 18:48:53.002 GMT+08:00 Wed |    Debug | T0000013132 | ..\src\udx_manager.cpp:UdxManager::exit:00485 | [manager] exit begin
+2018-06-06 18:48:53.002 GMT+08:00 Wed |    Debug | T0000013132 | ..\src\udx_manager.cpp:UdxManager::clear:00493 | [manager] clear begin
+2018-06-06 18:48:53.002 GMT+08:00 Wed |    Debug | T0000011324 | ..\src\udx_manager.cpp:UdxManager::do_download:01861 | [manager] do download thread - 1 end
+2018-06-06 18:48:53.002 GMT+08:00 Wed |    Debug | T0000002236 | ..\src\udx_manager.cpp:UdxManager::do_upload:01506 | [manager] do upload thread - 1 end
+2018-06-06 18:48:53.002 GMT+08:00 Wed |    Debug | T0000002236 | ..\src\udx_manager.cpp:upload_thread_run:00201 | upload thread - 1 run end
+2018-06-06 18:48:53.002 GMT+08:00 Wed |    Debug | T0000013132 | ..\src\udx_session.cpp:IUdxSession::send_disconnect_request:00293 | [uploader - 31381920] send disconnect request
+2018-06-06 18:48:53.002 GMT+08:00 Wed |    Debug | T0000011324 | ..\src\udx_manager.cpp:download_thread_run:00215 | download thread - 1 run end
+2018-06-06 18:48:53.002 GMT+08:00 Wed |    Debug | T0000013124 | ..\src\udx_manager.cpp:UdxManager::do_upload:01506 | [manager] do upload thread - 0 end
+2018-06-06 18:48:53.002 GMT+08:00 Wed |    Debug | T0000007256 | ..\src\udx_manager.cpp:UdxManager::do_download:01861 | [manager] do download thread - 0 end
+2018-06-06 18:48:53.002 GMT+08:00 Wed |    Debug | T0000013124 | ..\src\udx_manager.cpp:upload_thread_run:00201 | upload thread - 0 run end
+2018-06-06 18:48:53.002 GMT+08:00 Wed |    Debug | T0000007256 | ..\src\udx_manager.cpp:download_thread_run:00215 | download thread - 0 run end
+2018-06-06 18:48:53.034 GMT+08:00 Wed |    Debug | T0000010768 | ..\src\udx_manager.cpp:UdxManager::do_check:01165 | [manager] do check thread - 0 end
+2018-06-06 18:48:53.034 GMT+08:00 Wed |    Debug | T0000010768 | ..\src\udx_manager.cpp:check_thread_run:00187 | check thread - 0 run end
+2018-06-06 18:48:53.034 GMT+08:00 Wed |    Debug | T0000013224 | ..\src\udx_manager.cpp:UdxManager::do_resolve:01115 | [manager] do resolve thread - 0 end
+2018-06-06 18:48:53.034 GMT+08:00 Wed |    Debug | T0000013224 | ..\src\udx_manager.cpp:resolve_thread_run:00173 | resolve thread - 0 run end
+2018-06-06 18:48:53.084 GMT+08:00 Wed |    Debug | T0000013132 | ..\src\udx_manager.cpp:UdxManager::clear:00518 | [manager] wait fast udx destroy begin
+2018-06-06 18:48:53.107 GMT+08:00 Wed |    Debug | T0000013132 | ..\src\udx_manager.cpp:UdxManager::clear:00520 | [manager] wait fast udx destroy end
+2018-06-06 18:48:53.107 GMT+08:00 Wed |    Debug | T0000013132 | ..\src\udx_manager.cpp:UdxManager::clear:00551 | [manager] wait threads exit begin
+2018-06-06 18:48:53.107 GMT+08:00 Wed |    Debug | T0000013132 | ..\src\udx_manager.cpp:UdxManager::clear:00553 | [manager] wait threads exit end
+2018-06-06 18:48:53.107 GMT+08:00 Wed |    Debug | T0000013132 | ..\src\udx_manager.cpp:UdxManager::clear:00555 | [manager] clear end
+2018-06-06 18:48:53.107 GMT+08:00 Wed |    Debug | T0000013132 | ..\src\udx_manager.cpp:UdxManager::exit:00487 | [manager] exit end
+2018-06-06 18:49:00.322 GMT+08:00 Wed |    Debug | T0000011132 | ..\src\udx_manager.cpp:UdxManager::init:00278 | [manager] init begin
+2018-06-06 18:49:00.322 GMT+08:00 Wed |    Debug | T0000011132 | ..\src\udx_manager.cpp:UdxManager::init:00339 | [manager] remote is transmit server, set transmit server: [42.123.110.47:8885]
+2018-06-06 18:49:00.343 GMT+08:00 Wed |    Debug | T0000011132 | ..\src\udx_manager.cpp:UdxManager::init:00375 | [manager] max uploader count: 2, max downloader count: 2
+2018-06-06 18:49:00.343 GMT+08:00 Wed |    Debug | T0000011336 | ..\src\udx_manager.cpp:download_thread_run:00212 | download thread - 0 run begin
+2018-06-06 18:49:00.343 GMT+08:00 Wed |    Debug | T0000011336 | ..\src\udx_manager.cpp:UdxManager::do_download:01660 | [manager] do download thread - 0 begin
+2018-06-06 18:49:00.344 GMT+08:00 Wed |    Debug | T0000012508 | ..\src\udx_manager.cpp:download_thread_run:00212 | download thread - 1 run begin
+2018-06-06 18:49:00.344 GMT+08:00 Wed |    Debug | T0000012508 | ..\src\udx_manager.cpp:UdxManager::do_download:01660 | [manager] do download thread - 1 begin
+2018-06-06 18:49:00.344 GMT+08:00 Wed |    Debug | T0000011132 | ..\src\udx_manager.cpp:UdxManager::init:00471 | [manager] init success
+2018-06-06 18:49:00.344 GMT+08:00 Wed |    Debug | T0000011724 | ..\src\udx_manager.cpp:upload_thread_run:00198 | upload thread - 0 run begin
+2018-06-06 18:49:00.344 GMT+08:00 Wed |    Debug | T0000011724 | ..\src\udx_manager.cpp:UdxManager::do_upload:01280 | [manager] do upload thread - 0 begin
+2018-06-06 18:49:00.344 GMT+08:00 Wed |    Debug | T0000005972 | ..\src\udx_manager.cpp:upload_thread_run:00198 | upload thread - 1 run begin
+2018-06-06 18:49:00.344 GMT+08:00 Wed |    Debug | T0000005972 | ..\src\udx_manager.cpp:UdxManager::do_upload:01280 | [manager] do upload thread - 1 begin
+2018-06-06 18:49:00.344 GMT+08:00 Wed |    Debug | T0000011132 | ..\src\udx_manager.cpp:UdxManager::push_upload_task:00791 | push upload [task:0, job:1] success
+2018-06-06 18:49:00.344 GMT+08:00 Wed |    Debug | T0000005972 | ..\src\udx_manager.cpp:UdxManager::do_upload:01306 | [upload | thread - 1 | uploader - 8509856] task info: [project:3441, user:1852991] (E:/Workspaces/3dmax/2014/test.txt) -> (/1852500/1852991///E/Workspaces/3dmax/2014/test.txt)
+2018-06-06 18:49:00.344 GMT+08:00 Wed |    Debug | T0000007556 | ..\src\udx_manager.cpp:check_thread_run:00184 | check thread - 0 run begin
+2018-06-06 18:49:00.344 GMT+08:00 Wed |    Debug | T0000005972 | ..\src\udx_manager.cpp:UdxManager::do_upload:01322 | [upload | thread - 1 | uploader - 8509856] upload begin: [task:0, job:1] (E:/Workspaces/3dmax/2014/test.txt)
+2018-06-06 18:49:00.344 GMT+08:00 Wed |    Debug | T0000007556 | ..\src\udx_manager.cpp:UdxManager::do_check:01126 | [manager] do check thread - 0 begin
+2018-06-06 18:49:00.344 GMT+08:00 Wed |    Debug | T0000010468 | ..\src\udx_manager.cpp:resolve_thread_run:00170 | resolve thread - 0 run begin
+2018-06-06 18:49:00.344 GMT+08:00 Wed |    Debug | T0000010468 | ..\src\udx_manager.cpp:UdxManager::do_resolve:01067 | [manager] do resolve thread - 0 begin
+2018-06-06 18:49:00.344 GMT+08:00 Wed |    Debug | T0000005972 | ..\src\udx_session.cpp:IUdxSession::send_connect_request:00248 | [uploader - 8509856] acquire udx tcp success
+2018-06-06 18:49:00.344 GMT+08:00 Wed |    Debug | T0000005972 | ..\src\udx_session.cpp:IUdxSession::send_connect_request:00265 | [uploader - 8509856] send connect request, with server: [42.123.110.47:8885]
+2018-06-06 18:49:00.404 GMT+08:00 Wed |    Debug | T0000006964 | ..\src\udx_session.cpp:IUdxSession::recv_connect_response:00336 | [uploader - 8509856] recv connect response
+2018-06-06 18:49:00.473 GMT+08:00 Wed |    Debug | T0000006964 | ..\src\udx_conveyer.cpp:IUdxConveyer::on_recv_set_user_information_response:01006 | [uploader - 8509856] parse set user information response success
+2018-06-06 18:49:00.473 GMT+08:00 Wed |    Debug | T0000005972 | ..\src\udx_session.cpp:IUdxSession::set_max_send_speed:00153 | [uploader - 8509856] set max upload speed: 1048576KB/S
+2018-06-06 18:49:00.705 GMT+08:00 Wed |    Debug | T0000006964 | ..\src\udx_uploader.cpp:UdxUploader::on_recv_set_remote_directory_response:00215 | [uploader - 8509856] parse set remote directory response success
+2018-06-06 18:49:00.807 GMT+08:00 Wed |    Debug | T0000006964 | ..\src\udx_conveyer.cpp:IUdxConveyer::on_transmit_begin:00694 | [uploader - 8509856] file transmit begin notify: notify file name (E:/Workspaces/3dmax/2014/test.txt)
+2018-06-06 18:49:00.946 GMT+08:00 Wed |    Debug | T0000006964 | ..\src\udx_conveyer.cpp:IUdxConveyer::on_transmit_done:00719 | [uploader - 8509856] file transmit done notify: notify file name (E:/Workspaces/3dmax/2014/test.txt)
+2018-06-06 18:49:00.947 GMT+08:00 Wed |    Debug | T0000005972 | ..\src\udx_manager.cpp:UdxManager::do_upload:01488 | [upload | thread - 1 | uploader - 8509856] upload success: [task:0, job:1] (E:/Workspaces/3dmax/2014/test.txt), directory count (0), file count (1)
+2018-06-06 18:49:00.947 GMT+08:00 Wed |    Debug | T0000005972 | ..\src\udx_manager.cpp:UdxManager::do_upload:01498 | [upload | thread - 1 | uploader - 8509856] upload end: [task:0, job:1] (E:/Workspaces/3dmax/2014/test.txt)
+2018-06-06 18:49:01.344 GMT+08:00 Wed |    Debug | T0000011132 | ..\src\udx_manager.cpp:UdxManager::exit:00485 | [manager] exit begin
+2018-06-06 18:49:01.344 GMT+08:00 Wed |    Debug | T0000011132 | ..\src\udx_manager.cpp:UdxManager::clear:00493 | [manager] clear begin
+2018-06-06 18:49:01.344 GMT+08:00 Wed |    Debug | T0000011336 | ..\src\udx_manager.cpp:UdxManager::do_download:01861 | [manager] do download thread - 0 end
+2018-06-06 18:49:01.344 GMT+08:00 Wed |    Debug | T0000012508 | ..\src\udx_manager.cpp:UdxManager::do_download:01861 | [manager] do download thread - 1 end
+2018-06-06 18:49:01.344 GMT+08:00 Wed |    Debug | T0000011336 | ..\src\udx_manager.cpp:download_thread_run:00215 | download thread - 0 run end
+2018-06-06 18:49:01.344 GMT+08:00 Wed |    Debug | T0000012508 | ..\src\udx_manager.cpp:download_thread_run:00215 | download thread - 1 run end
+2018-06-06 18:49:01.344 GMT+08:00 Wed |    Debug | T0000011132 | ..\src\udx_session.cpp:IUdxSession::send_disconnect_request:00293 | [uploader - 8509856] send disconnect request
+2018-06-06 18:49:01.344 GMT+08:00 Wed |    Debug | T0000011724 | ..\src\udx_manager.cpp:UdxManager::do_upload:01506 | [manager] do upload thread - 0 end
+2018-06-06 18:49:01.344 GMT+08:00 Wed |    Debug | T0000005972 | ..\src\udx_manager.cpp:UdxManager::do_upload:01506 | [manager] do upload thread - 1 end
+2018-06-06 18:49:01.344 GMT+08:00 Wed |    Debug | T0000011724 | ..\src\udx_manager.cpp:upload_thread_run:00201 | upload thread - 0 run end
+2018-06-06 18:49:01.344 GMT+08:00 Wed |    Debug | T0000005972 | ..\src\udx_manager.cpp:upload_thread_run:00201 | upload thread - 1 run end
+2018-06-06 18:49:01.384 GMT+08:00 Wed |    Debug | T0000007556 | ..\src\udx_manager.cpp:UdxManager::do_check:01165 | [manager] do check thread - 0 end
+2018-06-06 18:49:01.384 GMT+08:00 Wed |    Debug | T0000007556 | ..\src\udx_manager.cpp:check_thread_run:00187 | check thread - 0 run end
+2018-06-06 18:49:01.384 GMT+08:00 Wed |    Debug | T0000010468 | ..\src\udx_manager.cpp:UdxManager::do_resolve:01115 | [manager] do resolve thread - 0 end
+2018-06-06 18:49:01.384 GMT+08:00 Wed |    Debug | T0000010468 | ..\src\udx_manager.cpp:resolve_thread_run:00173 | resolve thread - 0 run end
+2018-06-06 18:49:01.394 GMT+08:00 Wed |    Debug | T0000011132 | ..\src\udx_manager.cpp:UdxManager::clear:00518 | [manager] wait fast udx destroy begin
+2018-06-06 18:49:01.447 GMT+08:00 Wed |    Debug | T0000011132 | ..\src\udx_manager.cpp:UdxManager::clear:00520 | [manager] wait fast udx destroy end
+2018-06-06 18:49:01.447 GMT+08:00 Wed |    Debug | T0000011132 | ..\src\udx_manager.cpp:UdxManager::clear:00551 | [manager] wait threads exit begin
+2018-06-06 18:49:01.447 GMT+08:00 Wed |    Debug | T0000011132 | ..\src\udx_manager.cpp:UdxManager::clear:00553 | [manager] wait threads exit end
+2018-06-06 18:49:01.447 GMT+08:00 Wed |    Debug | T0000011132 | ..\src\udx_manager.cpp:UdxManager::clear:00555 | [manager] clear end
+2018-06-06 18:49:01.447 GMT+08:00 Wed |    Debug | T0000011132 | ..\src\udx_manager.cpp:UdxManager::exit:00487 | [manager] exit end
+2018-06-06 18:49:02.662 GMT+08:00 Wed |    Debug | T0000007380 | ..\src\udx_manager.cpp:UdxManager::init:00278 | [manager] init begin
+2018-06-06 18:49:02.662 GMT+08:00 Wed |    Debug | T0000007380 | ..\src\udx_manager.cpp:UdxManager::init:00339 | [manager] remote is transmit server, set transmit server: [42.123.110.47:8885]
+2018-06-06 18:49:02.681 GMT+08:00 Wed |    Debug | T0000007380 | ..\src\udx_manager.cpp:UdxManager::init:00375 | [manager] max uploader count: 2, max downloader count: 2
+2018-06-06 18:49:02.681 GMT+08:00 Wed |    Debug | T0000010164 | ..\src\udx_manager.cpp:download_thread_run:00212 | download thread - 0 run begin
+2018-06-06 18:49:02.681 GMT+08:00 Wed |    Debug | T0000010164 | ..\src\udx_manager.cpp:UdxManager::do_download:01660 | [manager] do download thread - 0 begin
+2018-06-06 18:49:02.681 GMT+08:00 Wed |    Debug | T0000005540 | ..\src\udx_manager.cpp:download_thread_run:00212 | download thread - 1 run begin
+2018-06-06 18:49:02.681 GMT+08:00 Wed |    Debug | T0000013176 | ..\src\udx_manager.cpp:upload_thread_run:00198 | upload thread - 0 run begin
+2018-06-06 18:49:02.681 GMT+08:00 Wed |    Debug | T0000005540 | ..\src\udx_manager.cpp:UdxManager::do_download:01660 | [manager] do download thread - 1 begin
+2018-06-06 18:49:02.681 GMT+08:00 Wed |    Debug | T0000013176 | ..\src\udx_manager.cpp:UdxManager::do_upload:01280 | [manager] do upload thread - 0 begin
+2018-06-06 18:49:02.681 GMT+08:00 Wed |    Debug | T0000012528 | ..\src\udx_manager.cpp:upload_thread_run:00198 | upload thread - 1 run begin
+2018-06-06 18:49:02.681 GMT+08:00 Wed |    Debug | T0000012528 | ..\src\udx_manager.cpp:UdxManager::do_upload:01280 | [manager] do upload thread - 1 begin
+2018-06-06 18:49:02.681 GMT+08:00 Wed |    Debug | T0000007380 | ..\src\udx_manager.cpp:UdxManager::init:00471 | [manager] init success
+2018-06-06 18:49:02.681 GMT+08:00 Wed |    Debug | T0000002436 | ..\src\udx_manager.cpp:check_thread_run:00184 | check thread - 0 run begin
+2018-06-06 18:49:02.681 GMT+08:00 Wed |    Debug | T0000010624 | ..\src\udx_manager.cpp:resolve_thread_run:00170 | resolve thread - 0 run begin
+2018-06-06 18:49:02.681 GMT+08:00 Wed |    Debug | T0000002436 | ..\src\udx_manager.cpp:UdxManager::do_check:01126 | [manager] do check thread - 0 begin
+2018-06-06 18:49:02.681 GMT+08:00 Wed |    Debug | T0000010624 | ..\src\udx_manager.cpp:UdxManager::do_resolve:01067 | [manager] do resolve thread - 0 begin
+2018-06-06 18:49:02.682 GMT+08:00 Wed |    Debug | T0000007380 | ..\src\udx_manager.cpp:UdxManager::push_upload_task:00791 | push upload [task:0, job:1] success
+2018-06-06 18:49:02.682 GMT+08:00 Wed |    Debug | T0000012528 | ..\src\udx_manager.cpp:UdxManager::do_upload:01306 | [upload | thread - 1 | uploader - 5167520] task info: [project:3441, user:1852991] (E:/Workspaces/3dmax/2014/OGLdpf.log) -> (/1852500/1852991///E/Workspaces/3dmax/2014/OGLdpf.log)
+2018-06-06 18:49:02.682 GMT+08:00 Wed |    Debug | T0000012528 | ..\src\udx_manager.cpp:UdxManager::do_upload:01322 | [upload | thread - 1 | uploader - 5167520] upload begin: [task:0, job:1] (E:/Workspaces/3dmax/2014/OGLdpf.log)
+2018-06-06 18:49:02.682 GMT+08:00 Wed |    Debug | T0000012528 | ..\src\udx_session.cpp:IUdxSession::send_connect_request:00248 | [uploader - 5167520] acquire udx tcp success
+2018-06-06 18:49:02.682 GMT+08:00 Wed |    Debug | T0000012528 | ..\src\udx_session.cpp:IUdxSession::send_connect_request:00265 | [uploader - 5167520] send connect request, with server: [42.123.110.47:8885]
+2018-06-06 18:49:02.738 GMT+08:00 Wed |    Debug | T0000007264 | ..\src\udx_session.cpp:IUdxSession::recv_connect_response:00336 | [uploader - 5167520] recv connect response
+2018-06-06 18:49:02.811 GMT+08:00 Wed |    Debug | T0000007264 | ..\src\udx_conveyer.cpp:IUdxConveyer::on_recv_set_user_information_response:01006 | [uploader - 5167520] parse set user information response success
+2018-06-06 18:49:02.811 GMT+08:00 Wed |    Debug | T0000012528 | ..\src\udx_session.cpp:IUdxSession::set_max_send_speed:00153 | [uploader - 5167520] set max upload speed: 1048576KB/S
+2018-06-06 18:49:02.979 GMT+08:00 Wed |    Debug | T0000007264 | ..\src\udx_uploader.cpp:UdxUploader::on_recv_set_remote_directory_response:00215 | [uploader - 5167520] parse set remote directory response success
+2018-06-06 18:49:03.073 GMT+08:00 Wed |    Debug | T0000007264 | ..\src\udx_conveyer.cpp:IUdxConveyer::on_transmit_begin:00694 | [uploader - 5167520] file transmit begin notify: notify file name (E:/Workspaces/3dmax/2014/OGLdpf.log)
+2018-06-06 18:49:03.073 GMT+08:00 Wed |    Debug | T0000007264 | ..\src\udx_conveyer.cpp:IUdxConveyer::on_transmit_done:00719 | [uploader - 5167520] file transmit done notify: notify file name (E:/Workspaces/3dmax/2014/OGLdpf.log)
+2018-06-06 18:49:03.073 GMT+08:00 Wed |    Debug | T0000012528 | ..\src\udx_manager.cpp:UdxManager::do_upload:01488 | [upload | thread - 1 | uploader - 5167520] upload success: [task:0, job:1] (E:/Workspaces/3dmax/2014/OGLdpf.log), directory count (0), file count (1)
+2018-06-06 18:49:03.073 GMT+08:00 Wed |    Debug | T0000012528 | ..\src\udx_manager.cpp:UdxManager::do_upload:01498 | [upload | thread - 1 | uploader - 5167520] upload end: [task:0, job:1] (E:/Workspaces/3dmax/2014/OGLdpf.log)
+2018-06-06 18:49:03.682 GMT+08:00 Wed |    Debug | T0000007380 | ..\src\udx_manager.cpp:UdxManager::exit:00485 | [manager] exit begin
+2018-06-06 18:49:03.682 GMT+08:00 Wed |    Debug | T0000007380 | ..\src\udx_manager.cpp:UdxManager::clear:00493 | [manager] clear begin
+2018-06-06 18:49:03.682 GMT+08:00 Wed |    Debug | T0000007380 | ..\src\udx_session.cpp:IUdxSession::send_disconnect_request:00293 | [uploader - 5167520] send disconnect request
+2018-06-06 18:49:03.682 GMT+08:00 Wed |    Debug | T0000010164 | ..\src\udx_manager.cpp:UdxManager::do_download:01861 | [manager] do download thread - 0 end
+2018-06-06 18:49:03.682 GMT+08:00 Wed |    Debug | T0000010164 | ..\src\udx_manager.cpp:download_thread_run:00215 | download thread - 0 run end
+2018-06-06 18:49:03.682 GMT+08:00 Wed |    Debug | T0000005540 | ..\src\udx_manager.cpp:UdxManager::do_download:01861 | [manager] do download thread - 1 end
+2018-06-06 18:49:03.682 GMT+08:00 Wed |    Debug | T0000012528 | ..\src\udx_manager.cpp:UdxManager::do_upload:01506 | [manager] do upload thread - 1 end
+2018-06-06 18:49:03.682 GMT+08:00 Wed |    Debug | T0000012528 | ..\src\udx_manager.cpp:upload_thread_run:00201 | upload thread - 1 run end
+2018-06-06 18:49:03.682 GMT+08:00 Wed |    Debug | T0000013176 | ..\src\udx_manager.cpp:UdxManager::do_upload:01506 | [manager] do upload thread - 0 end
+2018-06-06 18:49:03.682 GMT+08:00 Wed |    Debug | T0000013176 | ..\src\udx_manager.cpp:upload_thread_run:00201 | upload thread - 0 run end
+2018-06-06 18:49:03.682 GMT+08:00 Wed |    Debug | T0000005540 | ..\src\udx_manager.cpp:download_thread_run:00215 | download thread - 1 run end
+2018-06-06 18:49:03.684 GMT+08:00 Wed |    Debug | T0000010624 | ..\src\udx_manager.cpp:UdxManager::do_resolve:01115 | [manager] do resolve thread - 0 end
+2018-06-06 18:49:03.684 GMT+08:00 Wed |    Debug | T0000010624 | ..\src\udx_manager.cpp:resolve_thread_run:00173 | resolve thread - 0 run end
+2018-06-06 18:49:03.684 GMT+08:00 Wed |    Debug | T0000002436 | ..\src\udx_manager.cpp:UdxManager::do_check:01165 | [manager] do check thread - 0 end
+2018-06-06 18:49:03.684 GMT+08:00 Wed |    Debug | T0000002436 | ..\src\udx_manager.cpp:check_thread_run:00187 | check thread - 0 run end
+2018-06-06 18:49:03.734 GMT+08:00 Wed |    Debug | T0000007380 | ..\src\udx_manager.cpp:UdxManager::clear:00518 | [manager] wait fast udx destroy begin
+2018-06-06 18:49:03.787 GMT+08:00 Wed |    Debug | T0000007380 | ..\src\udx_manager.cpp:UdxManager::clear:00520 | [manager] wait fast udx destroy end
+2018-06-06 18:49:03.787 GMT+08:00 Wed |    Debug | T0000007380 | ..\src\udx_manager.cpp:UdxManager::clear:00551 | [manager] wait threads exit begin
+2018-06-06 18:49:03.787 GMT+08:00 Wed |    Debug | T0000007380 | ..\src\udx_manager.cpp:UdxManager::clear:00553 | [manager] wait threads exit end
+2018-06-06 18:49:03.787 GMT+08:00 Wed |    Debug | T0000007380 | ..\src\udx_manager.cpp:UdxManager::clear:00555 | [manager] clear end
+2018-06-06 18:49:03.787 GMT+08:00 Wed |    Debug | T0000007380 | ..\src\udx_manager.cpp:UdxManager::exit:00487 | [manager] exit end
+2018-06-06 18:52:39.590 GMT+08:00 Wed |    Debug | T0000001644 | ..\src\udx_manager.cpp:UdxManager::init:00278 | [manager] init begin
+2018-06-06 18:52:39.590 GMT+08:00 Wed |    Debug | T0000001644 | ..\src\udx_manager.cpp:UdxManager::init:00339 | [manager] remote is transmit server, set transmit server: [42.123.110.47:8885]
+2018-06-06 18:52:39.611 GMT+08:00 Wed |    Debug | T0000001644 | ..\src\udx_manager.cpp:UdxManager::init:00375 | [manager] max uploader count: 2, max downloader count: 2
+2018-06-06 18:52:39.611 GMT+08:00 Wed |    Debug | T0000009948 | ..\src\udx_manager.cpp:download_thread_run:00212 | download thread - 0 run begin
+2018-06-06 18:52:39.611 GMT+08:00 Wed |    Debug | T0000009948 | ..\src\udx_manager.cpp:UdxManager::do_download:01660 | [manager] do download thread - 0 begin
+2018-06-06 18:52:39.611 GMT+08:00 Wed |    Debug | T0000010580 | ..\src\udx_manager.cpp:download_thread_run:00212 | download thread - 1 run begin
+2018-06-06 18:52:39.611 GMT+08:00 Wed |    Debug | T0000010580 | ..\src\udx_manager.cpp:UdxManager::do_download:01660 | [manager] do download thread - 1 begin
+2018-06-06 18:52:39.611 GMT+08:00 Wed |    Debug | T0000008348 | ..\src\udx_manager.cpp:upload_thread_run:00198 | upload thread - 0 run begin
+2018-06-06 18:52:39.611 GMT+08:00 Wed |    Debug | T0000008348 | ..\src\udx_manager.cpp:UdxManager::do_upload:01280 | [manager] do upload thread - 0 begin
+2018-06-06 18:52:39.611 GMT+08:00 Wed |    Debug | T0000013028 | ..\src\udx_manager.cpp:upload_thread_run:00198 | upload thread - 1 run begin
+2018-06-06 18:52:39.611 GMT+08:00 Wed |    Debug | T0000013256 | ..\src\udx_manager.cpp:check_thread_run:00184 | check thread - 0 run begin
+2018-06-06 18:52:39.611 GMT+08:00 Wed |    Debug | T0000013028 | ..\src\udx_manager.cpp:UdxManager::do_upload:01280 | [manager] do upload thread - 1 begin
+2018-06-06 18:52:39.611 GMT+08:00 Wed |    Debug | T0000013256 | ..\src\udx_manager.cpp:UdxManager::do_check:01126 | [manager] do check thread - 0 begin
+2018-06-06 18:52:39.611 GMT+08:00 Wed |    Debug | T0000001644 | ..\src\udx_manager.cpp:UdxManager::init:00471 | [manager] init success
+2018-06-06 18:52:39.611 GMT+08:00 Wed |    Debug | T0000012732 | ..\src\udx_manager.cpp:resolve_thread_run:00170 | resolve thread - 0 run begin
+2018-06-06 18:52:39.612 GMT+08:00 Wed |    Debug | T0000012732 | ..\src\udx_manager.cpp:UdxManager::do_resolve:01067 | [manager] do resolve thread - 0 begin
+2018-06-06 18:52:39.612 GMT+08:00 Wed |    Debug | T0000013028 | ..\src\udx_manager.cpp:UdxManager::do_upload:01306 | [upload | thread - 1 | uploader - 32561568] task info: [project:3441, user:1852991] (E:/Workspaces/3dmax/2014/test.txt) -> (/1852500/1852991//E/Workspaces/3dmax/2014/test.txt/E/Workspaces/3dmax/2014/test.txt)
+2018-06-06 18:52:39.612 GMT+08:00 Wed |    Debug | T0000001644 | ..\src\udx_manager.cpp:UdxManager::push_upload_task:00791 | push upload [task:0, job:1] success
+2018-06-06 18:52:39.612 GMT+08:00 Wed |    Debug | T0000013028 | ..\src\udx_manager.cpp:UdxManager::do_upload:01322 | [upload | thread - 1 | uploader - 32561568] upload begin: [task:0, job:1] (E:/Workspaces/3dmax/2014/test.txt)
+2018-06-06 18:52:39.612 GMT+08:00 Wed |    Debug | T0000013028 | ..\src\udx_session.cpp:IUdxSession::send_connect_request:00248 | [uploader - 32561568] acquire udx tcp success
+2018-06-06 18:52:39.612 GMT+08:00 Wed |    Debug | T0000013028 | ..\src\udx_session.cpp:IUdxSession::send_connect_request:00265 | [uploader - 32561568] send connect request, with server: [42.123.110.47:8885]
+2018-06-06 18:52:39.671 GMT+08:00 Wed |    Debug | T0000009012 | ..\src\udx_session.cpp:IUdxSession::recv_connect_response:00336 | [uploader - 32561568] recv connect response
+2018-06-06 18:52:39.742 GMT+08:00 Wed |    Debug | T0000009012 | ..\src\udx_conveyer.cpp:IUdxConveyer::on_recv_set_user_information_response:01006 | [uploader - 32561568] parse set user information response success
+2018-06-06 18:52:39.743 GMT+08:00 Wed |    Debug | T0000013028 | ..\src\udx_session.cpp:IUdxSession::set_max_send_speed:00153 | [uploader - 32561568] set max upload speed: 1048576KB/S
+2018-06-06 18:52:39.982 GMT+08:00 Wed |    Error | T0000009012 | ..\src\udx_uploader.cpp:UdxUploader::on_recv_set_remote_directory_response:00209 | [uploader - 32561568] parse set remote directory response failure, response_code: 2
+2018-06-06 18:52:39.982 GMT+08:00 Wed |    Error | T0000009012 | ..\src\udx_conveyer.cpp:IUdxConveyer::set_message_response_exception_mark:00482 | [uploader - 32561568] transmit file error notify: transmit file name (E:/Workspaces/3dmax/2014/test.txt)
+2018-06-06 18:52:39.982 GMT+08:00 Wed |    Error | T0000013028 | ..\src\udx_manager.cpp:UdxManager::do_upload:01477 | [upload | thread - 1 | uploader - 32561568] upload been stopped: [task:0, job:1] (E:/Workspaces/3dmax/2014/test.txt), failure count (1)
+2018-06-06 18:52:39.982 GMT+08:00 Wed |    Debug | T0000013028 | ..\src\udx_manager.cpp:UdxManager::do_upload:01498 | [upload | thread - 1 | uploader - 32561568] upload end: [task:0, job:1] (E:/Workspaces/3dmax/2014/test.txt)
+2018-06-06 18:52:40.612 GMT+08:00 Wed |    Debug | T0000001644 | ..\src\udx_manager.cpp:UdxManager::exit:00485 | [manager] exit begin
+2018-06-06 18:52:40.612 GMT+08:00 Wed |    Debug | T0000001644 | ..\src\udx_manager.cpp:UdxManager::clear:00493 | [manager] clear begin
+2018-06-06 18:52:40.612 GMT+08:00 Wed |    Debug | T0000013028 | ..\src\udx_manager.cpp:UdxManager::do_upload:01506 | [manager] do upload thread - 1 end
+2018-06-06 18:52:40.612 GMT+08:00 Wed |    Debug | T0000010580 | ..\src\udx_manager.cpp:UdxManager::do_download:01861 | [manager] do download thread - 1 end
+2018-06-06 18:52:40.612 GMT+08:00 Wed |    Debug | T0000010580 | ..\src\udx_manager.cpp:download_thread_run:00215 | download thread - 1 run end
+2018-06-06 18:52:40.612 GMT+08:00 Wed |    Debug | T0000001644 | ..\src\udx_session.cpp:IUdxSession::send_disconnect_request:00293 | [uploader - 32561568] send disconnect request
+2018-06-06 18:52:40.612 GMT+08:00 Wed |    Debug | T0000013028 | ..\src\udx_manager.cpp:upload_thread_run:00201 | upload thread - 1 run end
+2018-06-06 18:52:40.612 GMT+08:00 Wed |    Debug | T0000009948 | ..\src\udx_manager.cpp:UdxManager::do_download:01861 | [manager] do download thread - 0 end
+2018-06-06 18:52:40.612 GMT+08:00 Wed |    Debug | T0000008348 | ..\src\udx_manager.cpp:UdxManager::do_upload:01506 | [manager] do upload thread - 0 end
+2018-06-06 18:52:40.612 GMT+08:00 Wed |    Debug | T0000009948 | ..\src\udx_manager.cpp:download_thread_run:00215 | download thread - 0 run end
+2018-06-06 18:52:40.612 GMT+08:00 Wed |    Debug | T0000008348 | ..\src\udx_manager.cpp:upload_thread_run:00201 | upload thread - 0 run end
+2018-06-06 18:52:40.634 GMT+08:00 Wed |    Debug | T0000013256 | ..\src\udx_manager.cpp:UdxManager::do_check:01165 | [manager] do check thread - 0 end
+2018-06-06 18:52:40.634 GMT+08:00 Wed |    Debug | T0000013256 | ..\src\udx_manager.cpp:check_thread_run:00187 | check thread - 0 run end
+2018-06-06 18:52:40.634 GMT+08:00 Wed |    Debug | T0000012732 | ..\src\udx_manager.cpp:UdxManager::do_resolve:01115 | [manager] do resolve thread - 0 end
+2018-06-06 18:52:40.634 GMT+08:00 Wed |    Debug | T0000012732 | ..\src\udx_manager.cpp:resolve_thread_run:00173 | resolve thread - 0 run end
+2018-06-06 18:52:40.684 GMT+08:00 Wed |    Debug | T0000001644 | ..\src\udx_manager.cpp:UdxManager::clear:00518 | [manager] wait fast udx destroy begin
+2018-06-06 18:52:40.716 GMT+08:00 Wed |    Debug | T0000001644 | ..\src\udx_manager.cpp:UdxManager::clear:00520 | [manager] wait fast udx destroy end
+2018-06-06 18:52:40.716 GMT+08:00 Wed |    Debug | T0000001644 | ..\src\udx_manager.cpp:UdxManager::clear:00551 | [manager] wait threads exit begin
+2018-06-06 18:52:40.716 GMT+08:00 Wed |    Debug | T0000001644 | ..\src\udx_manager.cpp:UdxManager::clear:00553 | [manager] wait threads exit end
+2018-06-06 18:52:40.716 GMT+08:00 Wed |    Debug | T0000001644 | ..\src\udx_manager.cpp:UdxManager::clear:00555 | [manager] clear end
+2018-06-06 18:52:40.716 GMT+08:00 Wed |    Debug | T0000001644 | ..\src\udx_manager.cpp:UdxManager::exit:00487 | [manager] exit end
+2018-06-06 18:52:41.940 GMT+08:00 Wed |    Debug | T0000012880 | ..\src\udx_manager.cpp:UdxManager::init:00278 | [manager] init begin
+2018-06-06 18:52:41.940 GMT+08:00 Wed |    Debug | T0000012880 | ..\src\udx_manager.cpp:UdxManager::init:00339 | [manager] remote is transmit server, set transmit server: [42.123.110.47:8885]
+2018-06-06 18:52:41.961 GMT+08:00 Wed |    Debug | T0000012880 | ..\src\udx_manager.cpp:UdxManager::init:00375 | [manager] max uploader count: 2, max downloader count: 2
+2018-06-06 18:52:41.961 GMT+08:00 Wed |    Debug | T0000002284 | ..\src\udx_manager.cpp:download_thread_run:00212 | download thread - 0 run begin
+2018-06-06 18:52:41.961 GMT+08:00 Wed |    Debug | T0000007560 | ..\src\udx_manager.cpp:download_thread_run:00212 | download thread - 1 run begin
+2018-06-06 18:52:41.961 GMT+08:00 Wed |    Debug | T0000002284 | ..\src\udx_manager.cpp:UdxManager::do_download:01660 | [manager] do download thread - 0 begin
+2018-06-06 18:52:41.961 GMT+08:00 Wed |    Debug | T0000007560 | ..\src\udx_manager.cpp:UdxManager::do_download:01660 | [manager] do download thread - 1 begin
+2018-06-06 18:52:41.961 GMT+08:00 Wed |    Debug | T0000012932 | ..\src\udx_manager.cpp:upload_thread_run:00198 | upload thread - 0 run begin
+2018-06-06 18:52:41.961 GMT+08:00 Wed |    Debug | T0000008496 | ..\src\udx_manager.cpp:upload_thread_run:00198 | upload thread - 1 run begin
+2018-06-06 18:52:41.961 GMT+08:00 Wed |    Debug | T0000012932 | ..\src\udx_manager.cpp:UdxManager::do_upload:01280 | [manager] do upload thread - 0 begin
+2018-06-06 18:52:41.961 GMT+08:00 Wed |    Debug | T0000008496 | ..\src\udx_manager.cpp:UdxManager::do_upload:01280 | [manager] do upload thread - 1 begin
+2018-06-06 18:52:41.961 GMT+08:00 Wed |    Debug | T0000012880 | ..\src\udx_manager.cpp:UdxManager::init:00471 | [manager] init success
+2018-06-06 18:52:41.961 GMT+08:00 Wed |    Debug | T0000012928 | ..\src\udx_manager.cpp:check_thread_run:00184 | check thread - 0 run begin
+2018-06-06 18:52:41.961 GMT+08:00 Wed |    Debug | T0000010124 | ..\src\udx_manager.cpp:resolve_thread_run:00170 | resolve thread - 0 run begin
+2018-06-06 18:52:41.961 GMT+08:00 Wed |    Debug | T0000012928 | ..\src\udx_manager.cpp:UdxManager::do_check:01126 | [manager] do check thread - 0 begin
+2018-06-06 18:52:41.961 GMT+08:00 Wed |    Debug | T0000010124 | ..\src\udx_manager.cpp:UdxManager::do_resolve:01067 | [manager] do resolve thread - 0 begin
+2018-06-06 18:52:41.961 GMT+08:00 Wed |    Debug | T0000012880 | ..\src\udx_manager.cpp:UdxManager::push_upload_task:00791 | push upload [task:0, job:1] success
+2018-06-06 18:52:41.961 GMT+08:00 Wed |    Debug | T0000008496 | ..\src\udx_manager.cpp:UdxManager::do_upload:01306 | [upload | thread - 1 | uploader - 9689504] task info: [project:3441, user:1852991] (E:/Workspaces/3dmax/2014/OGLdpf.log) -> (/1852500/1852991//E/Workspaces/3dmax/2014/OGLdpf.log/E/Workspaces/3dmax/2014/OGLdpf.log)
+2018-06-06 18:52:41.961 GMT+08:00 Wed |    Debug | T0000008496 | ..\src\udx_manager.cpp:UdxManager::do_upload:01322 | [upload | thread - 1 | uploader - 9689504] upload begin: [task:0, job:1] (E:/Workspaces/3dmax/2014/OGLdpf.log)
+2018-06-06 18:52:41.962 GMT+08:00 Wed |    Debug | T0000008496 | ..\src\udx_session.cpp:IUdxSession::send_connect_request:00248 | [uploader - 9689504] acquire udx tcp success
+2018-06-06 18:52:41.962 GMT+08:00 Wed |    Debug | T0000008496 | ..\src\udx_session.cpp:IUdxSession::send_connect_request:00265 | [uploader - 9689504] send connect request, with server: [42.123.110.47:8885]
+2018-06-06 18:52:42.022 GMT+08:00 Wed |    Debug | T0000008888 | ..\src\udx_session.cpp:IUdxSession::recv_connect_response:00336 | [uploader - 9689504] recv connect response
+2018-06-06 18:52:42.091 GMT+08:00 Wed |    Debug | T0000008888 | ..\src\udx_conveyer.cpp:IUdxConveyer::on_recv_set_user_information_response:01006 | [uploader - 9689504] parse set user information response success
+2018-06-06 18:52:42.091 GMT+08:00 Wed |    Debug | T0000008496 | ..\src\udx_session.cpp:IUdxSession::set_max_send_speed:00153 | [uploader - 9689504] set max upload speed: 1048576KB/S
+2018-06-06 18:52:42.327 GMT+08:00 Wed |    Error | T0000008888 | ..\src\udx_uploader.cpp:UdxUploader::on_recv_set_remote_directory_response:00209 | [uploader - 9689504] parse set remote directory response failure, response_code: 2
+2018-06-06 18:52:42.327 GMT+08:00 Wed |    Error | T0000008888 | ..\src\udx_conveyer.cpp:IUdxConveyer::set_message_response_exception_mark:00482 | [uploader - 9689504] transmit file error notify: transmit file name (E:/Workspaces/3dmax/2014/OGLdpf.log)
+2018-06-06 18:52:42.327 GMT+08:00 Wed |    Error | T0000008496 | ..\src\udx_manager.cpp:UdxManager::do_upload:01477 | [upload | thread - 1 | uploader - 9689504] upload been stopped: [task:0, job:1] (E:/Workspaces/3dmax/2014/OGLdpf.log), failure count (1)
+2018-06-06 18:52:42.327 GMT+08:00 Wed |    Debug | T0000008496 | ..\src\udx_manager.cpp:UdxManager::do_upload:01498 | [upload | thread - 1 | uploader - 9689504] upload end: [task:0, job:1] (E:/Workspaces/3dmax/2014/OGLdpf.log)
+2018-06-06 18:52:42.961 GMT+08:00 Wed |    Debug | T0000012880 | ..\src\udx_manager.cpp:UdxManager::exit:00485 | [manager] exit begin
+2018-06-06 18:52:42.961 GMT+08:00 Wed |    Debug | T0000012880 | ..\src\udx_manager.cpp:UdxManager::clear:00493 | [manager] clear begin
+2018-06-06 18:52:42.961 GMT+08:00 Wed |    Debug | T0000007560 | ..\src\udx_manager.cpp:UdxManager::do_download:01861 | [manager] do download thread - 1 end
+2018-06-06 18:52:42.961 GMT+08:00 Wed |    Debug | T0000002284 | ..\src\udx_manager.cpp:UdxManager::do_download:01861 | [manager] do download thread - 0 end
+2018-06-06 18:52:42.961 GMT+08:00 Wed |    Debug | T0000008496 | ..\src\udx_manager.cpp:UdxManager::do_upload:01506 | [manager] do upload thread - 1 end
+2018-06-06 18:52:42.961 GMT+08:00 Wed |    Debug | T0000012932 | ..\src\udx_manager.cpp:UdxManager::do_upload:01506 | [manager] do upload thread - 0 end
+2018-06-06 18:52:42.961 GMT+08:00 Wed |    Debug | T0000007560 | ..\src\udx_manager.cpp:download_thread_run:00215 | download thread - 1 run end
+2018-06-06 18:52:42.961 GMT+08:00 Wed |    Debug | T0000002284 | ..\src\udx_manager.cpp:download_thread_run:00215 | download thread - 0 run end
+2018-06-06 18:52:42.961 GMT+08:00 Wed |    Debug | T0000008496 | ..\src\udx_manager.cpp:upload_thread_run:00201 | upload thread - 1 run end
+2018-06-06 18:52:42.961 GMT+08:00 Wed |    Debug | T0000012880 | ..\src\udx_session.cpp:IUdxSession::send_disconnect_request:00293 | [uploader - 9689504] send disconnect request
+2018-06-06 18:52:42.961 GMT+08:00 Wed |    Debug | T0000012932 | ..\src\udx_manager.cpp:upload_thread_run:00201 | upload thread - 0 run end
+2018-06-06 18:52:42.984 GMT+08:00 Wed |    Debug | T0000012928 | ..\src\udx_manager.cpp:UdxManager::do_check:01165 | [manager] do check thread - 0 end
+2018-06-06 18:52:42.984 GMT+08:00 Wed |    Debug | T0000012928 | ..\src\udx_manager.cpp:check_thread_run:00187 | check thread - 0 run end
+2018-06-06 18:52:42.984 GMT+08:00 Wed |    Debug | T0000010124 | ..\src\udx_manager.cpp:UdxManager::do_resolve:01115 | [manager] do resolve thread - 0 end
+2018-06-06 18:52:42.984 GMT+08:00 Wed |    Debug | T0000010124 | ..\src\udx_manager.cpp:resolve_thread_run:00173 | resolve thread - 0 run end
+2018-06-06 18:52:43.034 GMT+08:00 Wed |    Debug | T0000012880 | ..\src\udx_manager.cpp:UdxManager::clear:00518 | [manager] wait fast udx destroy begin
+2018-06-06 18:52:43.066 GMT+08:00 Wed |    Debug | T0000012880 | ..\src\udx_manager.cpp:UdxManager::clear:00520 | [manager] wait fast udx destroy end
+2018-06-06 18:52:43.066 GMT+08:00 Wed |    Debug | T0000012880 | ..\src\udx_manager.cpp:UdxManager::clear:00551 | [manager] wait threads exit begin
+2018-06-06 18:52:43.066 GMT+08:00 Wed |    Debug | T0000012880 | ..\src\udx_manager.cpp:UdxManager::clear:00553 | [manager] wait threads exit end
+2018-06-06 18:52:43.066 GMT+08:00 Wed |    Debug | T0000012880 | ..\src\udx_manager.cpp:UdxManager::clear:00555 | [manager] clear end
+2018-06-06 18:52:43.066 GMT+08:00 Wed |    Debug | T0000012880 | ..\src\udx_manager.cpp:UdxManager::exit:00487 | [manager] exit end
+2018-06-07 10:09:26.227 GMT+08:00 Thu |    Debug | T0000013600 | ..\src\udx_manager.cpp:UdxManager::init:00278 | [manager] init begin
+2018-06-07 10:09:26.227 GMT+08:00 Thu |    Debug | T0000013600 | ..\src\udx_manager.cpp:UdxManager::init:00339 | [manager] remote is transmit server, set transmit server: [42.123.110.47:8885]
+2018-06-07 10:09:26.251 GMT+08:00 Thu |    Debug | T0000013600 | ..\src\udx_manager.cpp:UdxManager::init:00375 | [manager] max uploader count: 2, max downloader count: 2
+2018-06-07 10:09:26.251 GMT+08:00 Thu |    Debug | T0000012932 | ..\src\udx_manager.cpp:download_thread_run:00212 | download thread - 0 run begin
+2018-06-07 10:09:26.251 GMT+08:00 Thu |    Debug | T0000012932 | ..\src\udx_manager.cpp:UdxManager::do_download:01660 | [manager] do download thread - 0 begin
+2018-06-07 10:09:26.251 GMT+08:00 Thu |    Debug | T0000003876 | ..\src\udx_manager.cpp:download_thread_run:00212 | download thread - 1 run begin
+2018-06-07 10:09:26.251 GMT+08:00 Thu |    Debug | T0000011076 | ..\src\udx_manager.cpp:upload_thread_run:00198 | upload thread - 0 run begin
+2018-06-07 10:09:26.251 GMT+08:00 Thu |    Debug | T0000003876 | ..\src\udx_manager.cpp:UdxManager::do_download:01660 | [manager] do download thread - 1 begin
+2018-06-07 10:09:26.251 GMT+08:00 Thu |    Debug | T0000011076 | ..\src\udx_manager.cpp:UdxManager::do_upload:01280 | [manager] do upload thread - 0 begin
+2018-06-07 10:09:26.251 GMT+08:00 Thu |    Debug | T0000008480 | ..\src\udx_manager.cpp:upload_thread_run:00198 | upload thread - 1 run begin
+2018-06-07 10:09:26.251 GMT+08:00 Thu |    Debug | T0000008480 | ..\src\udx_manager.cpp:UdxManager::do_upload:01280 | [manager] do upload thread - 1 begin
+2018-06-07 10:09:26.251 GMT+08:00 Thu |    Debug | T0000014264 | ..\src\udx_manager.cpp:check_thread_run:00184 | check thread - 0 run begin
+2018-06-07 10:09:26.251 GMT+08:00 Thu |    Debug | T0000013600 | ..\src\udx_manager.cpp:UdxManager::init:00471 | [manager] init success
+2018-06-07 10:09:26.251 GMT+08:00 Thu |    Debug | T0000013852 | ..\src\udx_manager.cpp:resolve_thread_run:00170 | resolve thread - 0 run begin
+2018-06-07 10:09:26.251 GMT+08:00 Thu |    Debug | T0000014264 | ..\src\udx_manager.cpp:UdxManager::do_check:01126 | [manager] do check thread - 0 begin
+2018-06-07 10:09:26.251 GMT+08:00 Thu |    Debug | T0000013852 | ..\src\udx_manager.cpp:UdxManager::do_resolve:01067 | [manager] do resolve thread - 0 begin
+2018-06-07 10:09:26.251 GMT+08:00 Thu |    Debug | T0000013600 | ..\src\udx_manager.cpp:UdxManager::push_upload_task:00791 | push upload [task:0, job:1] success
+2018-06-07 10:09:26.251 GMT+08:00 Thu |    Debug | T0000008480 | ..\src\udx_manager.cpp:UdxManager::do_upload:01306 | [upload | thread - 1 | uploader - 6412704] task info: [project:3441, user:1852991] (E:/Workspaces/3dmax/2014/test.txt) -> (/1852500/1852991//E/Workspaces/3dmax/2014/test.txt/E/Workspaces/3dmax/2014/test.txt)
+2018-06-07 10:09:26.251 GMT+08:00 Thu |    Debug | T0000008480 | ..\src\udx_manager.cpp:UdxManager::do_upload:01322 | [upload | thread - 1 | uploader - 6412704] upload begin: [task:0, job:1] (E:/Workspaces/3dmax/2014/test.txt)
+2018-06-07 10:09:26.252 GMT+08:00 Thu |    Debug | T0000008480 | ..\src\udx_session.cpp:IUdxSession::send_connect_request:00248 | [uploader - 6412704] acquire udx tcp success
+2018-06-07 10:09:26.252 GMT+08:00 Thu |    Debug | T0000008480 | ..\src\udx_session.cpp:IUdxSession::send_connect_request:00265 | [uploader - 6412704] send connect request, with server: [42.123.110.47:8885]
+2018-06-07 10:09:26.404 GMT+08:00 Thu |    Debug | T0000008444 | ..\src\udx_session.cpp:IUdxSession::recv_connect_response:00336 | [uploader - 6412704] recv connect response
+2018-06-07 10:09:26.474 GMT+08:00 Thu |    Debug | T0000008444 | ..\src\udx_conveyer.cpp:IUdxConveyer::on_recv_set_user_information_response:01006 | [uploader - 6412704] parse set user information response success
+2018-06-07 10:09:26.474 GMT+08:00 Thu |    Debug | T0000008480 | ..\src\udx_session.cpp:IUdxSession::set_max_send_speed:00153 | [uploader - 6412704] set max upload speed: 1048576KB/S
+2018-06-07 10:09:26.789 GMT+08:00 Thu |    Error | T0000008444 | ..\src\udx_uploader.cpp:UdxUploader::on_recv_set_remote_directory_response:00209 | [uploader - 6412704] parse set remote directory response failure, response_code: 2
+2018-06-07 10:09:26.789 GMT+08:00 Thu |    Error | T0000008444 | ..\src\udx_conveyer.cpp:IUdxConveyer::set_message_response_exception_mark:00482 | [uploader - 6412704] transmit file error notify: transmit file name (E:/Workspaces/3dmax/2014/test.txt)
+2018-06-07 10:09:26.789 GMT+08:00 Thu |    Error | T0000008480 | ..\src\udx_manager.cpp:UdxManager::do_upload:01477 | [upload | thread - 1 | uploader - 6412704] upload been stopped: [task:0, job:1] (E:/Workspaces/3dmax/2014/test.txt), failure count (1)
+2018-06-07 10:09:26.789 GMT+08:00 Thu |    Debug | T0000008480 | ..\src\udx_manager.cpp:UdxManager::do_upload:01498 | [upload | thread - 1 | uploader - 6412704] upload end: [task:0, job:1] (E:/Workspaces/3dmax/2014/test.txt)
+2018-06-07 10:09:27.251 GMT+08:00 Thu |    Debug | T0000013600 | ..\src\udx_manager.cpp:UdxManager::exit:00485 | [manager] exit begin
+2018-06-07 10:09:27.251 GMT+08:00 Thu |    Debug | T0000013600 | ..\src\udx_manager.cpp:UdxManager::clear:00493 | [manager] clear begin
+2018-06-07 10:09:27.251 GMT+08:00 Thu |    Debug | T0000012932 | ..\src\udx_manager.cpp:UdxManager::do_download:01861 | [manager] do download thread - 0 end
+2018-06-07 10:09:27.251 GMT+08:00 Thu |    Debug | T0000012932 | ..\src\udx_manager.cpp:download_thread_run:00215 | download thread - 0 run end
+2018-06-07 10:09:27.251 GMT+08:00 Thu |    Debug | T0000011076 | ..\src\udx_manager.cpp:UdxManager::do_upload:01506 | [manager] do upload thread - 0 end
+2018-06-07 10:09:27.251 GMT+08:00 Thu |    Debug | T0000008480 | ..\src\udx_manager.cpp:UdxManager::do_upload:01506 | [manager] do upload thread - 1 end
+2018-06-07 10:09:27.251 GMT+08:00 Thu |    Debug | T0000011076 | ..\src\udx_manager.cpp:upload_thread_run:00201 | upload thread - 0 run end
+2018-06-07 10:09:27.251 GMT+08:00 Thu |    Debug | T0000008480 | ..\src\udx_manager.cpp:upload_thread_run:00201 | upload thread - 1 run end
+2018-06-07 10:09:27.251 GMT+08:00 Thu |    Debug | T0000013600 | ..\src\udx_session.cpp:IUdxSession::send_disconnect_request:00293 | [uploader - 6412704] send disconnect request
+2018-06-07 10:09:27.251 GMT+08:00 Thu |    Debug | T0000003876 | ..\src\udx_manager.cpp:UdxManager::do_download:01861 | [manager] do download thread - 1 end
+2018-06-07 10:09:27.251 GMT+08:00 Thu |    Debug | T0000003876 | ..\src\udx_manager.cpp:download_thread_run:00215 | download thread - 1 run end
+2018-06-07 10:09:27.284 GMT+08:00 Thu |    Debug | T0000013852 | ..\src\udx_manager.cpp:UdxManager::do_resolve:01115 | [manager] do resolve thread - 0 end
+2018-06-07 10:09:27.284 GMT+08:00 Thu |    Debug | T0000013852 | ..\src\udx_manager.cpp:resolve_thread_run:00173 | resolve thread - 0 run end
+2018-06-07 10:09:27.284 GMT+08:00 Thu |    Debug | T0000014264 | ..\src\udx_manager.cpp:UdxManager::do_check:01165 | [manager] do check thread - 0 end
+2018-06-07 10:09:27.284 GMT+08:00 Thu |    Debug | T0000014264 | ..\src\udx_manager.cpp:check_thread_run:00187 | check thread - 0 run end
+2018-06-07 10:09:27.301 GMT+08:00 Thu |    Debug | T0000013600 | ..\src\udx_manager.cpp:UdxManager::clear:00518 | [manager] wait fast udx destroy begin
+2018-06-07 10:09:27.366 GMT+08:00 Thu |    Debug | T0000013600 | ..\src\udx_manager.cpp:UdxManager::clear:00520 | [manager] wait fast udx destroy end
+2018-06-07 10:09:27.366 GMT+08:00 Thu |    Debug | T0000013600 | ..\src\udx_manager.cpp:UdxManager::clear:00551 | [manager] wait threads exit begin
+2018-06-07 10:09:27.366 GMT+08:00 Thu |    Debug | T0000013600 | ..\src\udx_manager.cpp:UdxManager::clear:00553 | [manager] wait threads exit end
+2018-06-07 10:09:27.366 GMT+08:00 Thu |    Debug | T0000013600 | ..\src\udx_manager.cpp:UdxManager::clear:00555 | [manager] clear end
+2018-06-07 10:09:27.366 GMT+08:00 Thu |    Debug | T0000013600 | ..\src\udx_manager.cpp:UdxManager::exit:00487 | [manager] exit end
+2018-06-07 10:09:28.589 GMT+08:00 Thu |    Debug | T0000012816 | ..\src\udx_manager.cpp:UdxManager::init:00278 | [manager] init begin
+2018-06-07 10:09:28.589 GMT+08:00 Thu |    Debug | T0000012816 | ..\src\udx_manager.cpp:UdxManager::init:00339 | [manager] remote is transmit server, set transmit server: [42.123.110.47:8885]
+2018-06-07 10:09:28.611 GMT+08:00 Thu |    Debug | T0000012816 | ..\src\udx_manager.cpp:UdxManager::init:00375 | [manager] max uploader count: 2, max downloader count: 2
+2018-06-07 10:09:28.611 GMT+08:00 Thu |    Debug | T0000012944 | ..\src\udx_manager.cpp:download_thread_run:00212 | download thread - 0 run begin
+2018-06-07 10:09:28.611 GMT+08:00 Thu |    Debug | T0000006676 | ..\src\udx_manager.cpp:download_thread_run:00212 | download thread - 1 run begin
+2018-06-07 10:09:28.611 GMT+08:00 Thu |    Debug | T0000012944 | ..\src\udx_manager.cpp:UdxManager::do_download:01660 | [manager] do download thread - 0 begin
+2018-06-07 10:09:28.611 GMT+08:00 Thu |    Debug | T0000013684 | ..\src\udx_manager.cpp:upload_thread_run:00198 | upload thread - 0 run begin
+2018-06-07 10:09:28.611 GMT+08:00 Thu |    Debug | T0000006676 | ..\src\udx_manager.cpp:UdxManager::do_download:01660 | [manager] do download thread - 1 begin
+2018-06-07 10:09:28.611 GMT+08:00 Thu |    Debug | T0000013684 | ..\src\udx_manager.cpp:UdxManager::do_upload:01280 | [manager] do upload thread - 0 begin
+2018-06-07 10:09:28.611 GMT+08:00 Thu |    Debug | T0000014016 | ..\src\udx_manager.cpp:upload_thread_run:00198 | upload thread - 1 run begin
+2018-06-07 10:09:28.611 GMT+08:00 Thu |    Debug | T0000014016 | ..\src\udx_manager.cpp:UdxManager::do_upload:01280 | [manager] do upload thread - 1 begin
+2018-06-07 10:09:28.611 GMT+08:00 Thu |    Debug | T0000012816 | ..\src\udx_manager.cpp:UdxManager::init:00471 | [manager] init success
+2018-06-07 10:09:28.611 GMT+08:00 Thu |    Debug | T0000003096 | ..\src\udx_manager.cpp:check_thread_run:00184 | check thread - 0 run begin
+2018-06-07 10:09:28.611 GMT+08:00 Thu |    Debug | T0000003096 | ..\src\udx_manager.cpp:UdxManager::do_check:01126 | [manager] do check thread - 0 begin
+2018-06-07 10:09:28.611 GMT+08:00 Thu |    Debug | T0000012088 | ..\src\udx_manager.cpp:resolve_thread_run:00170 | resolve thread - 0 run begin
+2018-06-07 10:09:28.612 GMT+08:00 Thu |    Debug | T0000012088 | ..\src\udx_manager.cpp:UdxManager::do_resolve:01067 | [manager] do resolve thread - 0 begin
+2018-06-07 10:09:28.612 GMT+08:00 Thu |    Debug | T0000012816 | ..\src\udx_manager.cpp:UdxManager::push_upload_task:00791 | push upload [task:0, job:1] success
+2018-06-07 10:09:28.612 GMT+08:00 Thu |    Debug | T0000014016 | ..\src\udx_manager.cpp:UdxManager::do_upload:01306 | [upload | thread - 1 | uploader - 31381920] task info: [project:3441, user:1852991] (E:/Workspaces/3dmax/2014/OGLdpf.log) -> (/1852500/1852991//E/Workspaces/3dmax/2014/OGLdpf.log/E/Workspaces/3dmax/2014/OGLdpf.log)
+2018-06-07 10:09:28.612 GMT+08:00 Thu |    Debug | T0000014016 | ..\src\udx_manager.cpp:UdxManager::do_upload:01322 | [upload | thread - 1 | uploader - 31381920] upload begin: [task:0, job:1] (E:/Workspaces/3dmax/2014/OGLdpf.log)
+2018-06-07 10:09:28.612 GMT+08:00 Thu |    Debug | T0000014016 | ..\src\udx_session.cpp:IUdxSession::send_connect_request:00248 | [uploader - 31381920] acquire udx tcp success
+2018-06-07 10:09:28.612 GMT+08:00 Thu |    Debug | T0000014016 | ..\src\udx_session.cpp:IUdxSession::send_connect_request:00265 | [uploader - 31381920] send connect request, with server: [42.123.110.47:8885]
+2018-06-07 10:09:28.669 GMT+08:00 Thu |    Debug | T0000013744 | ..\src\udx_session.cpp:IUdxSession::recv_connect_response:00336 | [uploader - 31381920] recv connect response
+2018-06-07 10:09:28.739 GMT+08:00 Thu |    Debug | T0000013744 | ..\src\udx_conveyer.cpp:IUdxConveyer::on_recv_set_user_information_response:01006 | [uploader - 31381920] parse set user information response success
+2018-06-07 10:09:28.739 GMT+08:00 Thu |    Debug | T0000014016 | ..\src\udx_session.cpp:IUdxSession::set_max_send_speed:00153 | [uploader - 31381920] set max upload speed: 1048576KB/S
+2018-06-07 10:09:28.974 GMT+08:00 Thu |    Error | T0000013744 | ..\src\udx_uploader.cpp:UdxUploader::on_recv_set_remote_directory_response:00209 | [uploader - 31381920] parse set remote directory response failure, response_code: 2
+2018-06-07 10:09:28.974 GMT+08:00 Thu |    Error | T0000013744 | ..\src\udx_conveyer.cpp:IUdxConveyer::set_message_response_exception_mark:00482 | [uploader - 31381920] transmit file error notify: transmit file name (E:/Workspaces/3dmax/2014/OGLdpf.log)
+2018-06-07 10:09:28.974 GMT+08:00 Thu |    Error | T0000014016 | ..\src\udx_manager.cpp:UdxManager::do_upload:01477 | [upload | thread - 1 | uploader - 31381920] upload been stopped: [task:0, job:1] (E:/Workspaces/3dmax/2014/OGLdpf.log), failure count (1)
+2018-06-07 10:09:28.974 GMT+08:00 Thu |    Debug | T0000014016 | ..\src\udx_manager.cpp:UdxManager::do_upload:01498 | [upload | thread - 1 | uploader - 31381920] upload end: [task:0, job:1] (E:/Workspaces/3dmax/2014/OGLdpf.log)
+2018-06-07 10:09:29.612 GMT+08:00 Thu |    Debug | T0000012816 | ..\src\udx_manager.cpp:UdxManager::exit:00485 | [manager] exit begin
+2018-06-07 10:09:29.612 GMT+08:00 Thu |    Debug | T0000012816 | ..\src\udx_manager.cpp:UdxManager::clear:00493 | [manager] clear begin
+2018-06-07 10:09:29.612 GMT+08:00 Thu |    Debug | T0000006676 | ..\src\udx_manager.cpp:UdxManager::do_download:01861 | [manager] do download thread - 1 end
+2018-06-07 10:09:29.612 GMT+08:00 Thu |    Debug | T0000006676 | ..\src\udx_manager.cpp:download_thread_run:00215 | download thread - 1 run end
+2018-06-07 10:09:29.612 GMT+08:00 Thu |    Debug | T0000013684 | ..\src\udx_manager.cpp:UdxManager::do_upload:01506 | [manager] do upload thread - 0 end
+2018-06-07 10:09:29.612 GMT+08:00 Thu |    Debug | T0000013684 | ..\src\udx_manager.cpp:upload_thread_run:00201 | upload thread - 0 run end
+2018-06-07 10:09:29.612 GMT+08:00 Thu |    Debug | T0000014016 | ..\src\udx_manager.cpp:UdxManager::do_upload:01506 | [manager] do upload thread - 1 end
+2018-06-07 10:09:29.612 GMT+08:00 Thu |    Debug | T0000014016 | ..\src\udx_manager.cpp:upload_thread_run:00201 | upload thread - 1 run end
+2018-06-07 10:09:29.612 GMT+08:00 Thu |    Debug | T0000012816 | ..\src\udx_session.cpp:IUdxSession::send_disconnect_request:00293 | [uploader - 31381920] send disconnect request
+2018-06-07 10:09:29.613 GMT+08:00 Thu |    Debug | T0000012944 | ..\src\udx_manager.cpp:UdxManager::do_download:01861 | [manager] do download thread - 0 end
+2018-06-07 10:09:29.613 GMT+08:00 Thu |    Debug | T0000012944 | ..\src\udx_manager.cpp:download_thread_run:00215 | download thread - 0 run end
+2018-06-07 10:09:29.634 GMT+08:00 Thu |    Debug | T0000012088 | ..\src\udx_manager.cpp:UdxManager::do_resolve:01115 | [manager] do resolve thread - 0 end
+2018-06-07 10:09:29.634 GMT+08:00 Thu |    Debug | T0000012088 | ..\src\udx_manager.cpp:resolve_thread_run:00173 | resolve thread - 0 run end
+2018-06-07 10:09:29.634 GMT+08:00 Thu |    Debug | T0000003096 | ..\src\udx_manager.cpp:UdxManager::do_check:01165 | [manager] do check thread - 0 end
+2018-06-07 10:09:29.634 GMT+08:00 Thu |    Debug | T0000003096 | ..\src\udx_manager.cpp:check_thread_run:00187 | check thread - 0 run end
+2018-06-07 10:09:29.684 GMT+08:00 Thu |    Debug | T0000012816 | ..\src\udx_manager.cpp:UdxManager::clear:00518 | [manager] wait fast udx destroy begin
+2018-06-07 10:09:29.714 GMT+08:00 Thu |    Debug | T0000012816 | ..\src\udx_manager.cpp:UdxManager::clear:00520 | [manager] wait fast udx destroy end
+2018-06-07 10:09:29.714 GMT+08:00 Thu |    Debug | T0000012816 | ..\src\udx_manager.cpp:UdxManager::clear:00551 | [manager] wait threads exit begin
+2018-06-07 10:09:29.714 GMT+08:00 Thu |    Debug | T0000012816 | ..\src\udx_manager.cpp:UdxManager::clear:00553 | [manager] wait threads exit end
+2018-06-07 10:09:29.714 GMT+08:00 Thu |    Debug | T0000012816 | ..\src\udx_manager.cpp:UdxManager::clear:00555 | [manager] clear end
+2018-06-07 10:09:29.714 GMT+08:00 Thu |    Debug | T0000012816 | ..\src\udx_manager.cpp:UdxManager::exit:00487 | [manager] exit end
+2018-06-07 10:10:49.019 GMT+08:00 Thu |    Debug | T0000009600 | ..\src\udx_manager.cpp:UdxManager::init:00278 | [manager] init begin
+2018-06-07 10:10:49.019 GMT+08:00 Thu |    Debug | T0000009600 | ..\src\udx_manager.cpp:UdxManager::init:00339 | [manager] remote is transmit server, set transmit server: [42.123.110.47:8885]
+2018-06-07 10:10:49.045 GMT+08:00 Thu |    Debug | T0000009600 | ..\src\udx_manager.cpp:UdxManager::init:00375 | [manager] max uploader count: 2, max downloader count: 2
+2018-06-07 10:10:49.045 GMT+08:00 Thu |    Debug | T0000014192 | ..\src\udx_manager.cpp:download_thread_run:00212 | download thread - 0 run begin
+2018-06-07 10:10:49.045 GMT+08:00 Thu |    Debug | T0000014192 | ..\src\udx_manager.cpp:UdxManager::do_download:01660 | [manager] do download thread - 0 begin
+2018-06-07 10:10:49.045 GMT+08:00 Thu |    Debug | T0000005240 | ..\src\udx_manager.cpp:download_thread_run:00212 | download thread - 1 run begin
+2018-06-07 10:10:49.045 GMT+08:00 Thu |    Debug | T0000013948 | ..\src\udx_manager.cpp:upload_thread_run:00198 | upload thread - 0 run begin
+2018-06-07 10:10:49.045 GMT+08:00 Thu |    Debug | T0000005240 | ..\src\udx_manager.cpp:UdxManager::do_download:01660 | [manager] do download thread - 1 begin
+2018-06-07 10:10:49.045 GMT+08:00 Thu |    Debug | T0000013948 | ..\src\udx_manager.cpp:UdxManager::do_upload:01280 | [manager] do upload thread - 0 begin
+2018-06-07 10:10:49.045 GMT+08:00 Thu |    Debug | T0000009876 | ..\src\udx_manager.cpp:upload_thread_run:00198 | upload thread - 1 run begin
+2018-06-07 10:10:49.045 GMT+08:00 Thu |    Debug | T0000009600 | ..\src\udx_manager.cpp:UdxManager::init:00471 | [manager] init success
+2018-06-07 10:10:49.045 GMT+08:00 Thu |    Debug | T0000003092 | ..\src\udx_manager.cpp:check_thread_run:00184 | check thread - 0 run begin
+2018-06-07 10:10:49.045 GMT+08:00 Thu |    Debug | T0000009876 | ..\src\udx_manager.cpp:UdxManager::do_upload:01280 | [manager] do upload thread - 1 begin
+2018-06-07 10:10:49.045 GMT+08:00 Thu |    Debug | T0000010548 | ..\src\udx_manager.cpp:resolve_thread_run:00170 | resolve thread - 0 run begin
+2018-06-07 10:10:49.045 GMT+08:00 Thu |    Debug | T0000003092 | ..\src\udx_manager.cpp:UdxManager::do_check:01126 | [manager] do check thread - 0 begin
+2018-06-07 10:10:49.046 GMT+08:00 Thu |    Debug | T0000010548 | ..\src\udx_manager.cpp:UdxManager::do_resolve:01067 | [manager] do resolve thread - 0 begin
+2018-06-07 10:10:49.046 GMT+08:00 Thu |    Debug | T0000009876 | ..\src\udx_manager.cpp:UdxManager::do_upload:01306 | [upload | thread - 1 | uploader - 10738080] task info: [project:3441, user:1852991] (E:/Workspaces/3dmax/2014/test.txt) -> (/1852500/1852991//E/Workspaces/3dmax/2014/test.txt/E/Workspaces/3dmax/2014/test.txt)
+2018-06-07 10:10:49.046 GMT+08:00 Thu |    Debug | T0000009600 | ..\src\udx_manager.cpp:UdxManager::push_upload_task:00791 | push upload [task:0, job:1] success
+2018-06-07 10:10:49.046 GMT+08:00 Thu |    Debug | T0000009876 | ..\src\udx_manager.cpp:UdxManager::do_upload:01322 | [upload | thread - 1 | uploader - 10738080] upload begin: [task:0, job:1] (E:/Workspaces/3dmax/2014/test.txt)
+2018-06-07 10:10:49.046 GMT+08:00 Thu |    Debug | T0000009876 | ..\src\udx_session.cpp:IUdxSession::send_connect_request:00248 | [uploader - 10738080] acquire udx tcp success
+2018-06-07 10:10:49.046 GMT+08:00 Thu |    Debug | T0000009876 | ..\src\udx_session.cpp:IUdxSession::send_connect_request:00265 | [uploader - 10738080] send connect request, with server: [42.123.110.47:8885]
+2018-06-07 10:10:49.104 GMT+08:00 Thu |    Debug | T0000000548 | ..\src\udx_session.cpp:IUdxSession::recv_connect_response:00336 | [uploader - 10738080] recv connect response
+2018-06-07 10:10:49.175 GMT+08:00 Thu |    Debug | T0000000548 | ..\src\udx_conveyer.cpp:IUdxConveyer::on_recv_set_user_information_response:01006 | [uploader - 10738080] parse set user information response success
+2018-06-07 10:10:49.176 GMT+08:00 Thu |    Debug | T0000009876 | ..\src\udx_session.cpp:IUdxSession::set_max_send_speed:00153 | [uploader - 10738080] set max upload speed: 1048576KB/S
+2018-06-07 10:10:49.415 GMT+08:00 Thu |    Debug | T0000000548 | ..\src\udx_uploader.cpp:UdxUploader::on_recv_set_remote_directory_response:00215 | [uploader - 10738080] parse set remote directory response success
+2018-06-07 10:10:49.536 GMT+08:00 Thu |    Debug | T0000000548 | ..\src\udx_conveyer.cpp:IUdxConveyer::on_transmit_begin:00694 | [uploader - 10738080] file transmit begin notify: notify file name (E:/Workspaces/3dmax/2014/test.txt)
+2018-06-07 10:10:49.636 GMT+08:00 Thu |    Debug | T0000000548 | ..\src\udx_conveyer.cpp:IUdxConveyer::on_transmit_done:00719 | [uploader - 10738080] file transmit done notify: notify file name (E:/Workspaces/3dmax/2014/test.txt)
+2018-06-07 10:10:49.636 GMT+08:00 Thu |    Debug | T0000009876 | ..\src\udx_manager.cpp:UdxManager::do_upload:01488 | [upload | thread - 1 | uploader - 10738080] upload success: [task:0, job:1] (E:/Workspaces/3dmax/2014/test.txt), directory count (0), file count (1)
+2018-06-07 10:10:49.636 GMT+08:00 Thu |    Debug | T0000009876 | ..\src\udx_manager.cpp:UdxManager::do_upload:01498 | [upload | thread - 1 | uploader - 10738080] upload end: [task:0, job:1] (E:/Workspaces/3dmax/2014/test.txt)
+2018-06-07 10:10:50.046 GMT+08:00 Thu |    Debug | T0000009600 | ..\src\udx_manager.cpp:UdxManager::exit:00485 | [manager] exit begin
+2018-06-07 10:10:50.046 GMT+08:00 Thu |    Debug | T0000009600 | ..\src\udx_manager.cpp:UdxManager::clear:00493 | [manager] clear begin
+2018-06-07 10:10:50.046 GMT+08:00 Thu |    Debug | T0000005240 | ..\src\udx_manager.cpp:UdxManager::do_download:01861 | [manager] do download thread - 1 end
+2018-06-07 10:10:50.046 GMT+08:00 Thu |    Debug | T0000013948 | ..\src\udx_manager.cpp:UdxManager::do_upload:01506 | [manager] do upload thread - 0 end
+2018-06-07 10:10:50.046 GMT+08:00 Thu |    Debug | T0000013948 | ..\src\udx_manager.cpp:upload_thread_run:00201 | upload thread - 0 run end
+2018-06-07 10:10:50.046 GMT+08:00 Thu |    Debug | T0000014192 | ..\src\udx_manager.cpp:UdxManager::do_download:01861 | [manager] do download thread - 0 end
+2018-06-07 10:10:50.046 GMT+08:00 Thu |    Debug | T0000014192 | ..\src\udx_manager.cpp:download_thread_run:00215 | download thread - 0 run end
+2018-06-07 10:10:50.046 GMT+08:00 Thu |    Debug | T0000005240 | ..\src\udx_manager.cpp:download_thread_run:00215 | download thread - 1 run end
+2018-06-07 10:10:50.046 GMT+08:00 Thu |    Debug | T0000009876 | ..\src\udx_manager.cpp:UdxManager::do_upload:01506 | [manager] do upload thread - 1 end
+2018-06-07 10:10:50.046 GMT+08:00 Thu |    Debug | T0000009876 | ..\src\udx_manager.cpp:upload_thread_run:00201 | upload thread - 1 run end
+2018-06-07 10:10:50.046 GMT+08:00 Thu |    Debug | T0000009600 | ..\src\udx_session.cpp:IUdxSession::send_disconnect_request:00293 | [uploader - 10738080] send disconnect request
+2018-06-07 10:10:50.084 GMT+08:00 Thu |    Debug | T0000010548 | ..\src\udx_manager.cpp:UdxManager::do_resolve:01115 | [manager] do resolve thread - 0 end
+2018-06-07 10:10:50.084 GMT+08:00 Thu |    Debug | T0000003092 | ..\src\udx_manager.cpp:UdxManager::do_check:01165 | [manager] do check thread - 0 end
+2018-06-07 10:10:50.085 GMT+08:00 Thu |    Debug | T0000003092 | ..\src\udx_manager.cpp:check_thread_run:00187 | check thread - 0 run end
+2018-06-07 10:10:50.084 GMT+08:00 Thu |    Debug | T0000010548 | ..\src\udx_manager.cpp:resolve_thread_run:00173 | resolve thread - 0 run end
+2018-06-07 10:10:50.096 GMT+08:00 Thu |    Debug | T0000009600 | ..\src\udx_manager.cpp:UdxManager::clear:00518 | [manager] wait fast udx destroy begin
+2018-06-07 10:10:50.150 GMT+08:00 Thu |    Debug | T0000009600 | ..\src\udx_manager.cpp:UdxManager::clear:00520 | [manager] wait fast udx destroy end
+2018-06-07 10:10:50.150 GMT+08:00 Thu |    Debug | T0000009600 | ..\src\udx_manager.cpp:UdxManager::clear:00551 | [manager] wait threads exit begin
+2018-06-07 10:10:50.150 GMT+08:00 Thu |    Debug | T0000009600 | ..\src\udx_manager.cpp:UdxManager::clear:00553 | [manager] wait threads exit end
+2018-06-07 10:10:50.150 GMT+08:00 Thu |    Debug | T0000009600 | ..\src\udx_manager.cpp:UdxManager::clear:00555 | [manager] clear end
+2018-06-07 10:10:50.150 GMT+08:00 Thu |    Debug | T0000009600 | ..\src\udx_manager.cpp:UdxManager::exit:00487 | [manager] exit end
+2018-06-07 10:10:51.374 GMT+08:00 Thu |    Debug | T0000010552 | ..\src\udx_manager.cpp:UdxManager::init:00278 | [manager] init begin
+2018-06-07 10:10:51.374 GMT+08:00 Thu |    Debug | T0000010552 | ..\src\udx_manager.cpp:UdxManager::init:00339 | [manager] remote is transmit server, set transmit server: [42.123.110.47:8885]
+2018-06-07 10:10:51.398 GMT+08:00 Thu |    Debug | T0000010552 | ..\src\udx_manager.cpp:UdxManager::init:00375 | [manager] max uploader count: 2, max downloader count: 2
+2018-06-07 10:10:51.398 GMT+08:00 Thu |    Debug | T0000012760 | ..\src\udx_manager.cpp:download_thread_run:00212 | download thread - 0 run begin
+2018-06-07 10:10:51.398 GMT+08:00 Thu |    Debug | T0000012760 | ..\src\udx_manager.cpp:UdxManager::do_download:01660 | [manager] do download thread - 0 begin
+2018-06-07 10:10:51.398 GMT+08:00 Thu |    Debug | T0000005968 | ..\src\udx_manager.cpp:download_thread_run:00212 | download thread - 1 run begin
+2018-06-07 10:10:51.398 GMT+08:00 Thu |    Debug | T0000005968 | ..\src\udx_manager.cpp:UdxManager::do_download:01660 | [manager] do download thread - 1 begin
+2018-06-07 10:10:51.398 GMT+08:00 Thu |    Debug | T0000013604 | ..\src\udx_manager.cpp:upload_thread_run:00198 | upload thread - 0 run begin
+2018-06-07 10:10:51.398 GMT+08:00 Thu |    Debug | T0000006780 | ..\src\udx_manager.cpp:upload_thread_run:00198 | upload thread - 1 run begin
+2018-06-07 10:10:51.398 GMT+08:00 Thu |    Debug | T0000013604 | ..\src\udx_manager.cpp:UdxManager::do_upload:01280 | [manager] do upload thread - 0 begin
+2018-06-07 10:10:51.398 GMT+08:00 Thu |    Debug | T0000006780 | ..\src\udx_manager.cpp:UdxManager::do_upload:01280 | [manager] do upload thread - 1 begin
+2018-06-07 10:10:51.398 GMT+08:00 Thu |    Debug | T0000007384 | ..\src\udx_manager.cpp:check_thread_run:00184 | check thread - 0 run begin
+2018-06-07 10:10:51.398 GMT+08:00 Thu |    Debug | T0000010552 | ..\src\udx_manager.cpp:UdxManager::init:00471 | [manager] init success
+2018-06-07 10:10:51.398 GMT+08:00 Thu |    Debug | T0000007384 | ..\src\udx_manager.cpp:UdxManager::do_check:01126 | [manager] do check thread - 0 begin
+2018-06-07 10:10:51.398 GMT+08:00 Thu |    Debug | T0000013768 | ..\src\udx_manager.cpp:resolve_thread_run:00170 | resolve thread - 0 run begin
+2018-06-07 10:10:51.398 GMT+08:00 Thu |    Debug | T0000013768 | ..\src\udx_manager.cpp:UdxManager::do_resolve:01067 | [manager] do resolve thread - 0 begin
+2018-06-07 10:10:51.399 GMT+08:00 Thu |    Debug | T0000006780 | ..\src\udx_manager.cpp:UdxManager::do_upload:01306 | [upload | thread - 1 | uploader - 31187488] task info: [project:3441, user:1852991] (E:/Workspaces/3dmax/2014/OGLdpf.log) -> (/1852500/1852991//E/Workspaces/3dmax/2014/OGLdpf.log/E/Workspaces/3dmax/2014/OGLdpf.log)
+2018-06-07 10:10:51.399 GMT+08:00 Thu |    Debug | T0000010552 | ..\src\udx_manager.cpp:UdxManager::push_upload_task:00791 | push upload [task:0, job:1] success
+2018-06-07 10:10:51.399 GMT+08:00 Thu |    Debug | T0000006780 | ..\src\udx_manager.cpp:UdxManager::do_upload:01322 | [upload | thread - 1 | uploader - 31187488] upload begin: [task:0, job:1] (E:/Workspaces/3dmax/2014/OGLdpf.log)
+2018-06-07 10:10:51.399 GMT+08:00 Thu |    Debug | T0000006780 | ..\src\udx_session.cpp:IUdxSession::send_connect_request:00248 | [uploader - 31187488] acquire udx tcp success
+2018-06-07 10:10:51.399 GMT+08:00 Thu |    Debug | T0000006780 | ..\src\udx_session.cpp:IUdxSession::send_connect_request:00265 | [uploader - 31187488] send connect request, with server: [42.123.110.47:8885]
+2018-06-07 10:10:51.455 GMT+08:00 Thu |    Debug | T0000004188 | ..\src\udx_session.cpp:IUdxSession::recv_connect_response:00336 | [uploader - 31187488] recv connect response
+2018-06-07 10:10:51.524 GMT+08:00 Thu |    Debug | T0000004188 | ..\src\udx_conveyer.cpp:IUdxConveyer::on_recv_set_user_information_response:01006 | [uploader - 31187488] parse set user information response success
+2018-06-07 10:10:51.524 GMT+08:00 Thu |    Debug | T0000006780 | ..\src\udx_session.cpp:IUdxSession::set_max_send_speed:00153 | [uploader - 31187488] set max upload speed: 1048576KB/S
+2018-06-07 10:10:51.759 GMT+08:00 Thu |    Debug | T0000004188 | ..\src\udx_uploader.cpp:UdxUploader::on_recv_set_remote_directory_response:00215 | [uploader - 31187488] parse set remote directory response success
+2018-06-07 10:10:51.889 GMT+08:00 Thu |    Debug | T0000004188 | ..\src\udx_conveyer.cpp:IUdxConveyer::on_transmit_begin:00694 | [uploader - 31187488] file transmit begin notify: notify file name (E:/Workspaces/3dmax/2014/OGLdpf.log)
+2018-06-07 10:10:51.889 GMT+08:00 Thu |    Debug | T0000004188 | ..\src\udx_conveyer.cpp:IUdxConveyer::on_transmit_done:00719 | [uploader - 31187488] file transmit done notify: notify file name (E:/Workspaces/3dmax/2014/OGLdpf.log)
+2018-06-07 10:10:51.889 GMT+08:00 Thu |    Debug | T0000006780 | ..\src\udx_manager.cpp:UdxManager::do_upload:01488 | [upload | thread - 1 | uploader - 31187488] upload success: [task:0, job:1] (E:/Workspaces/3dmax/2014/OGLdpf.log), directory count (0), file count (1)
+2018-06-07 10:10:51.889 GMT+08:00 Thu |    Debug | T0000006780 | ..\src\udx_manager.cpp:UdxManager::do_upload:01498 | [upload | thread - 1 | uploader - 31187488] upload end: [task:0, job:1] (E:/Workspaces/3dmax/2014/OGLdpf.log)
+2018-06-07 10:10:52.399 GMT+08:00 Thu |    Debug | T0000010552 | ..\src\udx_manager.cpp:UdxManager::exit:00485 | [manager] exit begin
+2018-06-07 10:10:52.399 GMT+08:00 Thu |    Debug | T0000010552 | ..\src\udx_manager.cpp:UdxManager::clear:00493 | [manager] clear begin
+2018-06-07 10:10:52.399 GMT+08:00 Thu |    Debug | T0000012760 | ..\src\udx_manager.cpp:UdxManager::do_download:01861 | [manager] do download thread - 0 end
+2018-06-07 10:10:52.399 GMT+08:00 Thu |    Debug | T0000012760 | ..\src\udx_manager.cpp:download_thread_run:00215 | download thread - 0 run end
+2018-06-07 10:10:52.399 GMT+08:00 Thu |    Debug | T0000010552 | ..\src\udx_session.cpp:IUdxSession::send_disconnect_request:00293 | [uploader - 31187488] send disconnect request
+2018-06-07 10:10:52.399 GMT+08:00 Thu |    Debug | T0000005968 | ..\src\udx_manager.cpp:UdxManager::do_download:01861 | [manager] do download thread - 1 end
+2018-06-07 10:10:52.399 GMT+08:00 Thu |    Debug | T0000006780 | ..\src\udx_manager.cpp:UdxManager::do_upload:01506 | [manager] do upload thread - 1 end
+2018-06-07 10:10:52.399 GMT+08:00 Thu |    Debug | T0000005968 | ..\src\udx_manager.cpp:download_thread_run:00215 | download thread - 1 run end
+2018-06-07 10:10:52.399 GMT+08:00 Thu |    Debug | T0000006780 | ..\src\udx_manager.cpp:upload_thread_run:00201 | upload thread - 1 run end
+2018-06-07 10:10:52.399 GMT+08:00 Thu |    Debug | T0000013604 | ..\src\udx_manager.cpp:UdxManager::do_upload:01506 | [manager] do upload thread - 0 end
+2018-06-07 10:10:52.399 GMT+08:00 Thu |    Debug | T0000013604 | ..\src\udx_manager.cpp:upload_thread_run:00201 | upload thread - 0 run end
+2018-06-07 10:10:52.434 GMT+08:00 Thu |    Debug | T0000007384 | ..\src\udx_manager.cpp:UdxManager::do_check:01165 | [manager] do check thread - 0 end
+2018-06-07 10:10:52.434 GMT+08:00 Thu |    Debug | T0000007384 | ..\src\udx_manager.cpp:check_thread_run:00187 | check thread - 0 run end
+2018-06-07 10:10:52.434 GMT+08:00 Thu |    Debug | T0000013768 | ..\src\udx_manager.cpp:UdxManager::do_resolve:01115 | [manager] do resolve thread - 0 end
+2018-06-07 10:10:52.434 GMT+08:00 Thu |    Debug | T0000013768 | ..\src\udx_manager.cpp:resolve_thread_run:00173 | resolve thread - 0 run end
+2018-06-07 10:10:52.449 GMT+08:00 Thu |    Debug | T0000010552 | ..\src\udx_manager.cpp:UdxManager::clear:00518 | [manager] wait fast udx destroy begin
+2018-06-07 10:10:52.504 GMT+08:00 Thu |    Debug | T0000010552 | ..\src\udx_manager.cpp:UdxManager::clear:00520 | [manager] wait fast udx destroy end
+2018-06-07 10:10:52.504 GMT+08:00 Thu |    Debug | T0000010552 | ..\src\udx_manager.cpp:UdxManager::clear:00551 | [manager] wait threads exit begin
+2018-06-07 10:10:52.504 GMT+08:00 Thu |    Debug | T0000010552 | ..\src\udx_manager.cpp:UdxManager::clear:00553 | [manager] wait threads exit end
+2018-06-07 10:10:52.504 GMT+08:00 Thu |    Debug | T0000010552 | ..\src\udx_manager.cpp:UdxManager::clear:00555 | [manager] clear end
+2018-06-07 10:10:52.504 GMT+08:00 Thu |    Debug | T0000010552 | ..\src\udx_manager.cpp:UdxManager::exit:00487 | [manager] exit end
+2018-06-07 10:29:12.120 GMT+08:00 Thu |    Debug | T0000013160 | ..\src\udx_manager.cpp:UdxManager::init:00278 | [manager] init begin
+2018-06-07 10:29:12.120 GMT+08:00 Thu |    Debug | T0000013160 | ..\src\udx_manager.cpp:UdxManager::init:00339 | [manager] remote is transmit server, set transmit server: [42.123.110.47:8885]
+2018-06-07 10:29:12.141 GMT+08:00 Thu |    Debug | T0000013160 | ..\src\udx_manager.cpp:UdxManager::init:00375 | [manager] max uploader count: 2, max downloader count: 2
+2018-06-07 10:29:12.141 GMT+08:00 Thu |    Debug | T0000012268 | ..\src\udx_manager.cpp:download_thread_run:00212 | download thread - 0 run begin
+2018-06-07 10:29:12.141 GMT+08:00 Thu |    Debug | T0000012268 | ..\src\udx_manager.cpp:UdxManager::do_download:01660 | [manager] do download thread - 0 begin
+2018-06-07 10:29:12.141 GMT+08:00 Thu |    Debug | T0000012504 | ..\src\udx_manager.cpp:download_thread_run:00212 | download thread - 1 run begin
+2018-06-07 10:29:12.141 GMT+08:00 Thu |    Debug | T0000005728 | ..\src\udx_manager.cpp:upload_thread_run:00198 | upload thread - 0 run begin
+2018-06-07 10:29:12.141 GMT+08:00 Thu |    Debug | T0000012504 | ..\src\udx_manager.cpp:UdxManager::do_download:01660 | [manager] do download thread - 1 begin
+2018-06-07 10:29:12.141 GMT+08:00 Thu |    Debug | T0000005728 | ..\src\udx_manager.cpp:UdxManager::do_upload:01280 | [manager] do upload thread - 0 begin
+2018-06-07 10:29:12.141 GMT+08:00 Thu |    Debug | T0000013120 | ..\src\udx_manager.cpp:upload_thread_run:00198 | upload thread - 1 run begin
+2018-06-07 10:29:12.141 GMT+08:00 Thu |    Debug | T0000011324 | ..\src\udx_manager.cpp:check_thread_run:00184 | check thread - 0 run begin
+2018-06-07 10:29:12.141 GMT+08:00 Thu |    Debug | T0000013160 | ..\src\udx_manager.cpp:UdxManager::init:00471 | [manager] init success
+2018-06-07 10:29:12.141 GMT+08:00 Thu |    Debug | T0000011324 | ..\src\udx_manager.cpp:UdxManager::do_check:01126 | [manager] do check thread - 0 begin
+2018-06-07 10:29:12.141 GMT+08:00 Thu |    Debug | T0000013120 | ..\src\udx_manager.cpp:UdxManager::do_upload:01280 | [manager] do upload thread - 1 begin
+2018-06-07 10:29:12.141 GMT+08:00 Thu |    Debug | T0000009876 | ..\src\udx_manager.cpp:resolve_thread_run:00170 | resolve thread - 0 run begin
+2018-06-07 10:29:12.141 GMT+08:00 Thu |    Debug | T0000013160 | ..\src\udx_manager.cpp:UdxManager::exit:00485 | [manager] exit begin
+2018-06-07 10:29:12.141 GMT+08:00 Thu |    Debug | T0000009876 | ..\src\udx_manager.cpp:UdxManager::do_resolve:01067 | [manager] do resolve thread - 0 begin
+2018-06-07 10:29:12.141 GMT+08:00 Thu |    Debug | T0000013160 | ..\src\udx_manager.cpp:UdxManager::clear:00493 | [manager] clear begin
+2018-06-07 10:29:12.141 GMT+08:00 Thu |    Debug | T0000012504 | ..\src\udx_manager.cpp:UdxManager::do_download:01861 | [manager] do download thread - 1 end
+2018-06-07 10:29:12.141 GMT+08:00 Thu |    Debug | T0000012504 | ..\src\udx_manager.cpp:download_thread_run:00215 | download thread - 1 run end
+2018-06-07 10:29:12.141 GMT+08:00 Thu |    Debug | T0000012268 | ..\src\udx_manager.cpp:UdxManager::do_download:01861 | [manager] do download thread - 0 end
+2018-06-07 10:29:12.141 GMT+08:00 Thu |    Debug | T0000012268 | ..\src\udx_manager.cpp:download_thread_run:00215 | download thread - 0 run end
+2018-06-07 10:29:12.141 GMT+08:00 Thu |    Debug | T0000013120 | ..\src\udx_manager.cpp:UdxManager::do_upload:01506 | [manager] do upload thread - 1 end
+2018-06-07 10:29:12.141 GMT+08:00 Thu |    Debug | T0000005728 | ..\src\udx_manager.cpp:UdxManager::do_upload:01506 | [manager] do upload thread - 0 end
+2018-06-07 10:29:12.141 GMT+08:00 Thu |    Debug | T0000013120 | ..\src\udx_manager.cpp:upload_thread_run:00201 | upload thread - 1 run end
+2018-06-07 10:29:12.141 GMT+08:00 Thu |    Debug | T0000005728 | ..\src\udx_manager.cpp:upload_thread_run:00201 | upload thread - 0 run end
+2018-06-07 10:29:13.184 GMT+08:00 Thu |    Debug | T0000009876 | ..\src\udx_manager.cpp:UdxManager::do_resolve:01115 | [manager] do resolve thread - 0 end
+2018-06-07 10:29:13.184 GMT+08:00 Thu |    Debug | T0000011324 | ..\src\udx_manager.cpp:UdxManager::do_check:01165 | [manager] do check thread - 0 end
+2018-06-07 10:29:13.184 GMT+08:00 Thu |    Debug | T0000009876 | ..\src\udx_manager.cpp:resolve_thread_run:00173 | resolve thread - 0 run end
+2018-06-07 10:29:13.184 GMT+08:00 Thu |    Debug | T0000011324 | ..\src\udx_manager.cpp:check_thread_run:00187 | check thread - 0 run end
+2018-06-07 10:29:13.191 GMT+08:00 Thu |    Debug | T0000013160 | ..\src\udx_manager.cpp:UdxManager::clear:00518 | [manager] wait fast udx destroy begin
+2018-06-07 10:29:13.245 GMT+08:00 Thu |    Debug | T0000013160 | ..\src\udx_manager.cpp:UdxManager::clear:00520 | [manager] wait fast udx destroy end
+2018-06-07 10:29:13.245 GMT+08:00 Thu |    Debug | T0000013160 | ..\src\udx_manager.cpp:UdxManager::clear:00551 | [manager] wait threads exit begin
+2018-06-07 10:29:13.245 GMT+08:00 Thu |    Debug | T0000013160 | ..\src\udx_manager.cpp:UdxManager::clear:00553 | [manager] wait threads exit end
+2018-06-07 10:29:13.245 GMT+08:00 Thu |    Debug | T0000013160 | ..\src\udx_manager.cpp:UdxManager::clear:00555 | [manager] clear end
+2018-06-07 10:29:13.245 GMT+08:00 Thu |    Debug | T0000013160 | ..\src\udx_manager.cpp:UdxManager::exit:00487 | [manager] exit end
+2018-06-07 10:29:13.605 GMT+08:00 Thu |    Debug | T0000011984 | ..\src\udx_manager.cpp:UdxManager::init:00278 | [manager] init begin
+2018-06-07 10:29:13.605 GMT+08:00 Thu |    Debug | T0000011984 | ..\src\udx_manager.cpp:UdxManager::init:00339 | [manager] remote is transmit server, set transmit server: [42.123.110.47:8885]
+2018-06-07 10:29:13.626 GMT+08:00 Thu |    Debug | T0000011984 | ..\src\udx_manager.cpp:UdxManager::init:00375 | [manager] max uploader count: 2, max downloader count: 2
+2018-06-07 10:29:13.627 GMT+08:00 Thu |    Debug | T0000011244 | ..\src\udx_manager.cpp:download_thread_run:00212 | download thread - 0 run begin
+2018-06-07 10:29:13.627 GMT+08:00 Thu |    Debug | T0000011244 | ..\src\udx_manager.cpp:UdxManager::do_download:01660 | [manager] do download thread - 0 begin
+2018-06-07 10:29:13.627 GMT+08:00 Thu |    Debug | T0000013664 | ..\src\udx_manager.cpp:download_thread_run:00212 | download thread - 1 run begin
+2018-06-07 10:29:13.627 GMT+08:00 Thu |    Debug | T0000012848 | ..\src\udx_manager.cpp:upload_thread_run:00198 | upload thread - 0 run begin
+2018-06-07 10:29:13.627 GMT+08:00 Thu |    Debug | T0000013664 | ..\src\udx_manager.cpp:UdxManager::do_download:01660 | [manager] do download thread - 1 begin
+2018-06-07 10:29:13.627 GMT+08:00 Thu |    Debug | T0000012848 | ..\src\udx_manager.cpp:UdxManager::do_upload:01280 | [manager] do upload thread - 0 begin
+2018-06-07 10:29:13.627 GMT+08:00 Thu |    Debug | T0000004608 | ..\src\udx_manager.cpp:upload_thread_run:00198 | upload thread - 1 run begin
+2018-06-07 10:29:13.627 GMT+08:00 Thu |    Debug | T0000013260 | ..\src\udx_manager.cpp:check_thread_run:00184 | check thread - 0 run begin
+2018-06-07 10:29:13.627 GMT+08:00 Thu |    Debug | T0000004608 | ..\src\udx_manager.cpp:UdxManager::do_upload:01280 | [manager] do upload thread - 1 begin
+2018-06-07 10:29:13.627 GMT+08:00 Thu |    Debug | T0000010844 | ..\src\udx_manager.cpp:resolve_thread_run:00170 | resolve thread - 0 run begin
+2018-06-07 10:29:13.627 GMT+08:00 Thu |    Debug | T0000011984 | ..\src\udx_manager.cpp:UdxManager::init:00471 | [manager] init success
+2018-06-07 10:29:13.627 GMT+08:00 Thu |    Debug | T0000010844 | ..\src\udx_manager.cpp:UdxManager::do_resolve:01067 | [manager] do resolve thread - 0 begin
+2018-06-07 10:29:13.627 GMT+08:00 Thu |    Debug | T0000013260 | ..\src\udx_manager.cpp:UdxManager::do_check:01126 | [manager] do check thread - 0 begin
+2018-06-07 10:29:13.627 GMT+08:00 Thu |    Debug | T0000011984 | ..\src\udx_manager.cpp:UdxManager::exit:00485 | [manager] exit begin
+2018-06-07 10:29:13.627 GMT+08:00 Thu |    Debug | T0000011984 | ..\src\udx_manager.cpp:UdxManager::clear:00493 | [manager] clear begin
+2018-06-07 10:29:13.627 GMT+08:00 Thu |    Debug | T0000012848 | ..\src\udx_manager.cpp:UdxManager::do_upload:01506 | [manager] do upload thread - 0 end
+2018-06-07 10:29:13.627 GMT+08:00 Thu |    Debug | T0000011244 | ..\src\udx_manager.cpp:UdxManager::do_download:01861 | [manager] do download thread - 0 end
+2018-06-07 10:29:13.627 GMT+08:00 Thu |    Debug | T0000013664 | ..\src\udx_manager.cpp:UdxManager::do_download:01861 | [manager] do download thread - 1 end
+2018-06-07 10:29:13.627 GMT+08:00 Thu |    Debug | T0000011244 | ..\src\udx_manager.cpp:download_thread_run:00215 | download thread - 0 run end
+2018-06-07 10:29:13.627 GMT+08:00 Thu |    Debug | T0000012848 | ..\src\udx_manager.cpp:upload_thread_run:00201 | upload thread - 0 run end
+2018-06-07 10:29:13.627 GMT+08:00 Thu |    Debug | T0000004608 | ..\src\udx_manager.cpp:UdxManager::do_upload:01506 | [manager] do upload thread - 1 end
+2018-06-07 10:29:13.627 GMT+08:00 Thu |    Debug | T0000013664 | ..\src\udx_manager.cpp:download_thread_run:00215 | download thread - 1 run end
+2018-06-07 10:29:13.627 GMT+08:00 Thu |    Debug | T0000004608 | ..\src\udx_manager.cpp:upload_thread_run:00201 | upload thread - 1 run end
+2018-06-07 10:29:14.634 GMT+08:00 Thu |    Debug | T0000013260 | ..\src\udx_manager.cpp:UdxManager::do_check:01165 | [manager] do check thread - 0 end
+2018-06-07 10:29:14.634 GMT+08:00 Thu |    Debug | T0000013260 | ..\src\udx_manager.cpp:check_thread_run:00187 | check thread - 0 run end
+2018-06-07 10:29:14.634 GMT+08:00 Thu |    Debug | T0000010844 | ..\src\udx_manager.cpp:UdxManager::do_resolve:01115 | [manager] do resolve thread - 0 end
+2018-06-07 10:29:14.634 GMT+08:00 Thu |    Debug | T0000010844 | ..\src\udx_manager.cpp:resolve_thread_run:00173 | resolve thread - 0 run end
+2018-06-07 10:29:14.684 GMT+08:00 Thu |    Debug | T0000011984 | ..\src\udx_manager.cpp:UdxManager::clear:00518 | [manager] wait fast udx destroy begin
+2018-06-07 10:29:14.730 GMT+08:00 Thu |    Debug | T0000011984 | ..\src\udx_manager.cpp:UdxManager::clear:00520 | [manager] wait fast udx destroy end
+2018-06-07 10:29:14.730 GMT+08:00 Thu |    Debug | T0000011984 | ..\src\udx_manager.cpp:UdxManager::clear:00551 | [manager] wait threads exit begin
+2018-06-07 10:29:14.730 GMT+08:00 Thu |    Debug | T0000011984 | ..\src\udx_manager.cpp:UdxManager::clear:00553 | [manager] wait threads exit end
+2018-06-07 10:29:14.730 GMT+08:00 Thu |    Debug | T0000011984 | ..\src\udx_manager.cpp:UdxManager::clear:00555 | [manager] clear end
+2018-06-07 10:29:14.730 GMT+08:00 Thu |    Debug | T0000011984 | ..\src\udx_manager.cpp:UdxManager::exit:00487 | [manager] exit end
+2018-06-07 10:29:25.982 GMT+08:00 Thu |    Debug | T0000013364 | ..\src\udx_manager.cpp:UdxManager::init:00278 | [manager] init begin
+2018-06-07 10:29:25.982 GMT+08:00 Thu |    Debug | T0000013364 | ..\src\udx_manager.cpp:UdxManager::init:00339 | [manager] remote is transmit server, set transmit server: [42.123.110.47:8885]
+2018-06-07 10:29:26.008 GMT+08:00 Thu |    Debug | T0000013364 | ..\src\udx_manager.cpp:UdxManager::init:00375 | [manager] max uploader count: 2, max downloader count: 2
+2018-06-07 10:29:26.008 GMT+08:00 Thu |    Debug | T0000008848 | ..\src\udx_manager.cpp:download_thread_run:00212 | download thread - 0 run begin
+2018-06-07 10:29:26.008 GMT+08:00 Thu |    Debug | T0000008848 | ..\src\udx_manager.cpp:UdxManager::do_download:01660 | [manager] do download thread - 0 begin
+2018-06-07 10:29:26.008 GMT+08:00 Thu |    Debug | T0000013884 | ..\src\udx_manager.cpp:download_thread_run:00212 | download thread - 1 run begin
+2018-06-07 10:29:26.008 GMT+08:00 Thu |    Debug | T0000013884 | ..\src\udx_manager.cpp:UdxManager::do_download:01660 | [manager] do download thread - 1 begin
+2018-06-07 10:29:26.009 GMT+08:00 Thu |    Debug | T0000012496 | ..\src\udx_manager.cpp:upload_thread_run:00198 | upload thread - 0 run begin
+2018-06-07 10:29:26.009 GMT+08:00 Thu |    Debug | T0000012496 | ..\src\udx_manager.cpp:UdxManager::do_upload:01280 | [manager] do upload thread - 0 begin
+2018-06-07 10:29:26.009 GMT+08:00 Thu |    Debug | T0000003524 | ..\src\udx_manager.cpp:upload_thread_run:00198 | upload thread - 1 run begin
+2018-06-07 10:29:26.009 GMT+08:00 Thu |    Debug | T0000005152 | ..\src\udx_manager.cpp:check_thread_run:00184 | check thread - 0 run begin
+2018-06-07 10:29:26.009 GMT+08:00 Thu |    Debug | T0000003524 | ..\src\udx_manager.cpp:UdxManager::do_upload:01280 | [manager] do upload thread - 1 begin
+2018-06-07 10:29:26.009 GMT+08:00 Thu |    Debug | T0000005152 | ..\src\udx_manager.cpp:UdxManager::do_check:01126 | [manager] do check thread - 0 begin
+2018-06-07 10:29:26.009 GMT+08:00 Thu |    Debug | T0000013364 | ..\src\udx_manager.cpp:UdxManager::init:00471 | [manager] init success
+2018-06-07 10:29:26.009 GMT+08:00 Thu |    Debug | T0000013820 | ..\src\udx_manager.cpp:resolve_thread_run:00170 | resolve thread - 0 run begin
+2018-06-07 10:29:26.009 GMT+08:00 Thu |    Debug | T0000013364 | ..\src\udx_manager.cpp:UdxManager::exit:00485 | [manager] exit begin
+2018-06-07 10:29:26.009 GMT+08:00 Thu |    Debug | T0000013820 | ..\src\udx_manager.cpp:UdxManager::do_resolve:01067 | [manager] do resolve thread - 0 begin
+2018-06-07 10:29:26.009 GMT+08:00 Thu |    Debug | T0000013364 | ..\src\udx_manager.cpp:UdxManager::clear:00493 | [manager] clear begin
+2018-06-07 10:29:26.009 GMT+08:00 Thu |    Debug | T0000013884 | ..\src\udx_manager.cpp:UdxManager::do_download:01861 | [manager] do download thread - 1 end
+2018-06-07 10:29:26.009 GMT+08:00 Thu |    Debug | T0000012496 | ..\src\udx_manager.cpp:UdxManager::do_upload:01506 | [manager] do upload thread - 0 end
+2018-06-07 10:29:26.009 GMT+08:00 Thu |    Debug | T0000003524 | ..\src\udx_manager.cpp:UdxManager::do_upload:01506 | [manager] do upload thread - 1 end
+2018-06-07 10:29:26.009 GMT+08:00 Thu |    Debug | T0000012496 | ..\src\udx_manager.cpp:upload_thread_run:00201 | upload thread - 0 run end
+2018-06-07 10:29:26.009 GMT+08:00 Thu |    Debug | T0000013884 | ..\src\udx_manager.cpp:download_thread_run:00215 | download thread - 1 run end
+2018-06-07 10:29:26.009 GMT+08:00 Thu |    Debug | T0000008848 | ..\src\udx_manager.cpp:UdxManager::do_download:01861 | [manager] do download thread - 0 end
+2018-06-07 10:29:26.009 GMT+08:00 Thu |    Debug | T0000008848 | ..\src\udx_manager.cpp:download_thread_run:00215 | download thread - 0 run end
+2018-06-07 10:29:26.009 GMT+08:00 Thu |    Debug | T0000003524 | ..\src\udx_manager.cpp:upload_thread_run:00201 | upload thread - 1 run end
+2018-06-07 10:29:27.034 GMT+08:00 Thu |    Debug | T0000005152 | ..\src\udx_manager.cpp:UdxManager::do_check:01165 | [manager] do check thread - 0 end
+2018-06-07 10:29:27.034 GMT+08:00 Thu |    Debug | T0000005152 | ..\src\udx_manager.cpp:check_thread_run:00187 | check thread - 0 run end
+2018-06-07 10:29:27.034 GMT+08:00 Thu |    Debug | T0000013820 | ..\src\udx_manager.cpp:UdxManager::do_resolve:01115 | [manager] do resolve thread - 0 end
+2018-06-07 10:29:27.034 GMT+08:00 Thu |    Debug | T0000013820 | ..\src\udx_manager.cpp:resolve_thread_run:00173 | resolve thread - 0 run end
+2018-06-07 10:29:27.084 GMT+08:00 Thu |    Debug | T0000013364 | ..\src\udx_manager.cpp:UdxManager::clear:00518 | [manager] wait fast udx destroy begin
+2018-06-07 10:29:27.112 GMT+08:00 Thu |    Debug | T0000013364 | ..\src\udx_manager.cpp:UdxManager::clear:00520 | [manager] wait fast udx destroy end
+2018-06-07 10:29:27.112 GMT+08:00 Thu |    Debug | T0000013364 | ..\src\udx_manager.cpp:UdxManager::clear:00551 | [manager] wait threads exit begin
+2018-06-07 10:29:27.112 GMT+08:00 Thu |    Debug | T0000013364 | ..\src\udx_manager.cpp:UdxManager::clear:00553 | [manager] wait threads exit end
+2018-06-07 10:29:27.112 GMT+08:00 Thu |    Debug | T0000013364 | ..\src\udx_manager.cpp:UdxManager::clear:00555 | [manager] clear end
+2018-06-07 10:29:27.112 GMT+08:00 Thu |    Debug | T0000013364 | ..\src\udx_manager.cpp:UdxManager::exit:00487 | [manager] exit end
+2018-06-07 10:29:27.449 GMT+08:00 Thu |    Debug | T0000014144 | ..\src\udx_manager.cpp:UdxManager::init:00278 | [manager] init begin
+2018-06-07 10:29:27.449 GMT+08:00 Thu |    Debug | T0000014144 | ..\src\udx_manager.cpp:UdxManager::init:00339 | [manager] remote is transmit server, set transmit server: [42.123.110.47:8885]
+2018-06-07 10:29:27.471 GMT+08:00 Thu |    Debug | T0000014144 | ..\src\udx_manager.cpp:UdxManager::init:00375 | [manager] max uploader count: 2, max downloader count: 2
+2018-06-07 10:29:27.471 GMT+08:00 Thu |    Debug | T0000014300 | ..\src\udx_manager.cpp:download_thread_run:00212 | download thread - 0 run begin
+2018-06-07 10:29:27.471 GMT+08:00 Thu |    Debug | T0000014300 | ..\src\udx_manager.cpp:UdxManager::do_download:01660 | [manager] do download thread - 0 begin
+2018-06-07 10:29:27.471 GMT+08:00 Thu |    Debug | T0000013996 | ..\src\udx_manager.cpp:download_thread_run:00212 | download thread - 1 run begin
+2018-06-07 10:29:27.471 GMT+08:00 Thu |    Debug | T0000013996 | ..\src\udx_manager.cpp:UdxManager::do_download:01660 | [manager] do download thread - 1 begin
+2018-06-07 10:29:27.471 GMT+08:00 Thu |    Debug | T0000010384 | ..\src\udx_manager.cpp:upload_thread_run:00198 | upload thread - 0 run begin
+2018-06-07 10:29:27.471 GMT+08:00 Thu |    Debug | T0000004244 | ..\src\udx_manager.cpp:upload_thread_run:00198 | upload thread - 1 run begin
+2018-06-07 10:29:27.471 GMT+08:00 Thu |    Debug | T0000010384 | ..\src\udx_manager.cpp:UdxManager::do_upload:01280 | [manager] do upload thread - 0 begin
+2018-06-07 10:29:27.471 GMT+08:00 Thu |    Debug | T0000004244 | ..\src\udx_manager.cpp:UdxManager::do_upload:01280 | [manager] do upload thread - 1 begin
+2018-06-07 10:29:27.471 GMT+08:00 Thu |    Debug | T0000014144 | ..\src\udx_manager.cpp:UdxManager::init:00471 | [manager] init success
+2018-06-07 10:29:27.471 GMT+08:00 Thu |    Debug | T0000013356 | ..\src\udx_manager.cpp:check_thread_run:00184 | check thread - 0 run begin
+2018-06-07 10:29:27.471 GMT+08:00 Thu |    Debug | T0000006512 | ..\src\udx_manager.cpp:resolve_thread_run:00170 | resolve thread - 0 run begin
+2018-06-07 10:29:27.471 GMT+08:00 Thu |    Debug | T0000013356 | ..\src\udx_manager.cpp:UdxManager::do_check:01126 | [manager] do check thread - 0 begin
+2018-06-07 10:29:27.471 GMT+08:00 Thu |    Debug | T0000006512 | ..\src\udx_manager.cpp:UdxManager::do_resolve:01067 | [manager] do resolve thread - 0 begin
+2018-06-07 10:29:27.471 GMT+08:00 Thu |    Debug | T0000014144 | ..\src\udx_manager.cpp:UdxManager::exit:00485 | [manager] exit begin
+2018-06-07 10:29:27.471 GMT+08:00 Thu |    Debug | T0000014144 | ..\src\udx_manager.cpp:UdxManager::clear:00493 | [manager] clear begin
+2018-06-07 10:29:27.471 GMT+08:00 Thu |    Debug | T0000004244 | ..\src\udx_manager.cpp:UdxManager::do_upload:01506 | [manager] do upload thread - 1 end
+2018-06-07 10:29:27.471 GMT+08:00 Thu |    Debug | T0000014300 | ..\src\udx_manager.cpp:UdxManager::do_download:01861 | [manager] do download thread - 0 end
+2018-06-07 10:29:27.471 GMT+08:00 Thu |    Debug | T0000013996 | ..\src\udx_manager.cpp:UdxManager::do_download:01861 | [manager] do download thread - 1 end
+2018-06-07 10:29:27.471 GMT+08:00 Thu |    Debug | T0000010384 | ..\src\udx_manager.cpp:UdxManager::do_upload:01506 | [manager] do upload thread - 0 end
+2018-06-07 10:29:27.471 GMT+08:00 Thu |    Debug | T0000004244 | ..\src\udx_manager.cpp:upload_thread_run:00201 | upload thread - 1 run end
+2018-06-07 10:29:27.471 GMT+08:00 Thu |    Debug | T0000014300 | ..\src\udx_manager.cpp:download_thread_run:00215 | download thread - 0 run end
+2018-06-07 10:29:27.471 GMT+08:00 Thu |    Debug | T0000013996 | ..\src\udx_manager.cpp:download_thread_run:00215 | download thread - 1 run end
+2018-06-07 10:29:27.471 GMT+08:00 Thu |    Debug | T0000010384 | ..\src\udx_manager.cpp:upload_thread_run:00201 | upload thread - 0 run end
+2018-06-07 10:29:28.484 GMT+08:00 Thu |    Debug | T0000006512 | ..\src\udx_manager.cpp:UdxManager::do_resolve:01115 | [manager] do resolve thread - 0 end
+2018-06-07 10:29:28.484 GMT+08:00 Thu |    Debug | T0000013356 | ..\src\udx_manager.cpp:UdxManager::do_check:01165 | [manager] do check thread - 0 end
+2018-06-07 10:29:28.484 GMT+08:00 Thu |    Debug | T0000006512 | ..\src\udx_manager.cpp:resolve_thread_run:00173 | resolve thread - 0 run end
+2018-06-07 10:29:28.484 GMT+08:00 Thu |    Debug | T0000013356 | ..\src\udx_manager.cpp:check_thread_run:00187 | check thread - 0 run end
+2018-06-07 10:29:28.534 GMT+08:00 Thu |    Debug | T0000014144 | ..\src\udx_manager.cpp:UdxManager::clear:00518 | [manager] wait fast udx destroy begin
+2018-06-07 10:29:28.575 GMT+08:00 Thu |    Debug | T0000014144 | ..\src\udx_manager.cpp:UdxManager::clear:00520 | [manager] wait fast udx destroy end
+2018-06-07 10:29:28.575 GMT+08:00 Thu |    Debug | T0000014144 | ..\src\udx_manager.cpp:UdxManager::clear:00551 | [manager] wait threads exit begin
+2018-06-07 10:29:28.575 GMT+08:00 Thu |    Debug | T0000014144 | ..\src\udx_manager.cpp:UdxManager::clear:00553 | [manager] wait threads exit end
+2018-06-07 10:29:28.575 GMT+08:00 Thu |    Debug | T0000014144 | ..\src\udx_manager.cpp:UdxManager::clear:00555 | [manager] clear end
+2018-06-07 10:29:28.575 GMT+08:00 Thu |    Debug | T0000014144 | ..\src\udx_manager.cpp:UdxManager::exit:00487 | [manager] exit end
+2018-06-07 10:29:36.733 GMT+08:00 Thu |    Debug | T0000010516 | ..\src\udx_manager.cpp:UdxManager::init:00278 | [manager] init begin
+2018-06-07 10:29:36.733 GMT+08:00 Thu |    Debug | T0000010516 | ..\src\udx_manager.cpp:UdxManager::init:00339 | [manager] remote is transmit server, set transmit server: [42.123.110.47:8885]
+2018-06-07 10:29:36.755 GMT+08:00 Thu |    Debug | T0000010516 | ..\src\udx_manager.cpp:UdxManager::init:00375 | [manager] max uploader count: 2, max downloader count: 2
+2018-06-07 10:29:36.755 GMT+08:00 Thu |    Debug | T0000007828 | ..\src\udx_manager.cpp:download_thread_run:00212 | download thread - 0 run begin
+2018-06-07 10:29:36.755 GMT+08:00 Thu |    Debug | T0000007828 | ..\src\udx_manager.cpp:UdxManager::do_download:01660 | [manager] do download thread - 0 begin
+2018-06-07 10:29:36.755 GMT+08:00 Thu |    Debug | T0000010516 | ..\src\udx_manager.cpp:UdxManager::init:00471 | [manager] init success
+2018-06-07 10:29:36.755 GMT+08:00 Thu |    Debug | T0000011608 | ..\src\udx_manager.cpp:download_thread_run:00212 | download thread - 1 run begin
+2018-06-07 10:29:36.755 GMT+08:00 Thu |    Debug | T0000010516 | ..\src\udx_manager.cpp:UdxManager::exit:00485 | [manager] exit begin
+2018-06-07 10:29:36.755 GMT+08:00 Thu |    Debug | T0000011608 | ..\src\udx_manager.cpp:UdxManager::do_download:01660 | [manager] do download thread - 1 begin
+2018-06-07 10:29:36.755 GMT+08:00 Thu |    Debug | T0000010516 | ..\src\udx_manager.cpp:UdxManager::clear:00493 | [manager] clear begin
+2018-06-07 10:29:36.755 GMT+08:00 Thu |    Debug | T0000011684 | ..\src\udx_manager.cpp:upload_thread_run:00198 | upload thread - 0 run begin
+2018-06-07 10:29:36.755 GMT+08:00 Thu |    Debug | T0000011608 | ..\src\udx_manager.cpp:UdxManager::do_download:01861 | [manager] do download thread - 1 end
+2018-06-07 10:29:36.755 GMT+08:00 Thu |    Debug | T0000011684 | ..\src\udx_manager.cpp:UdxManager::do_upload:01280 | [manager] do upload thread - 0 begin
+2018-06-07 10:29:36.756 GMT+08:00 Thu |    Debug | T0000011684 | ..\src\udx_manager.cpp:UdxManager::do_upload:01506 | [manager] do upload thread - 0 end
+2018-06-07 10:29:36.755 GMT+08:00 Thu |    Debug | T0000011608 | ..\src\udx_manager.cpp:download_thread_run:00215 | download thread - 1 run end
+2018-06-07 10:29:36.755 GMT+08:00 Thu |    Debug | T0000010372 | ..\src\udx_manager.cpp:resolve_thread_run:00170 | resolve thread - 0 run begin
+2018-06-07 10:29:36.756 GMT+08:00 Thu |    Debug | T0000010372 | ..\src\udx_manager.cpp:UdxManager::do_resolve:01067 | [manager] do resolve thread - 0 begin
+2018-06-07 10:29:36.756 GMT+08:00 Thu |    Debug | T0000010372 | ..\src\udx_manager.cpp:UdxManager::do_resolve:01115 | [manager] do resolve thread - 0 end
+2018-06-07 10:29:36.755 GMT+08:00 Thu |    Debug | T0000005656 | ..\src\udx_manager.cpp:upload_thread_run:00198 | upload thread - 1 run begin
+2018-06-07 10:29:36.756 GMT+08:00 Thu |    Debug | T0000005656 | ..\src\udx_manager.cpp:UdxManager::do_upload:01280 | [manager] do upload thread - 1 begin
+2018-06-07 10:29:36.756 GMT+08:00 Thu |    Debug | T0000005656 | ..\src\udx_manager.cpp:UdxManager::do_upload:01506 | [manager] do upload thread - 1 end
+2018-06-07 10:29:36.756 GMT+08:00 Thu |    Debug | T0000005656 | ..\src\udx_manager.cpp:upload_thread_run:00201 | upload thread - 1 run end
+2018-06-07 10:29:36.756 GMT+08:00 Thu |    Debug | T0000004888 | ..\src\udx_manager.cpp:check_thread_run:00184 | check thread - 0 run begin
+2018-06-07 10:29:36.755 GMT+08:00 Thu |    Debug | T0000007828 | ..\src\udx_manager.cpp:UdxManager::do_download:01861 | [manager] do download thread - 0 end
+2018-06-07 10:29:36.756 GMT+08:00 Thu |    Debug | T0000011684 | ..\src\udx_manager.cpp:upload_thread_run:00201 | upload thread - 0 run end
+2018-06-07 10:29:36.756 GMT+08:00 Thu |    Debug | T0000010372 | ..\src\udx_manager.cpp:resolve_thread_run:00173 | resolve thread - 0 run end
+2018-06-07 10:29:36.756 GMT+08:00 Thu |    Debug | T0000004888 | ..\src\udx_manager.cpp:UdxManager::do_check:01126 | [manager] do check thread - 0 begin
+2018-06-07 10:29:36.756 GMT+08:00 Thu |    Debug | T0000007828 | ..\src\udx_manager.cpp:download_thread_run:00215 | download thread - 0 run end
+2018-06-07 10:29:36.756 GMT+08:00 Thu |    Debug | T0000004888 | ..\src\udx_manager.cpp:UdxManager::do_check:01165 | [manager] do check thread - 0 end
+2018-06-07 10:29:36.756 GMT+08:00 Thu |    Debug | T0000004888 | ..\src\udx_manager.cpp:check_thread_run:00187 | check thread - 0 run end
+2018-06-07 10:29:36.834 GMT+08:00 Thu |    Debug | T0000010516 | ..\src\udx_manager.cpp:UdxManager::clear:00518 | [manager] wait fast udx destroy begin
+2018-06-07 10:29:36.858 GMT+08:00 Thu |    Debug | T0000010516 | ..\src\udx_manager.cpp:UdxManager::clear:00520 | [manager] wait fast udx destroy end
+2018-06-07 10:29:36.858 GMT+08:00 Thu |    Debug | T0000010516 | ..\src\udx_manager.cpp:UdxManager::clear:00551 | [manager] wait threads exit begin
+2018-06-07 10:29:36.858 GMT+08:00 Thu |    Debug | T0000010516 | ..\src\udx_manager.cpp:UdxManager::clear:00553 | [manager] wait threads exit end
+2018-06-07 10:29:36.858 GMT+08:00 Thu |    Debug | T0000010516 | ..\src\udx_manager.cpp:UdxManager::clear:00555 | [manager] clear end
+2018-06-07 10:29:36.858 GMT+08:00 Thu |    Debug | T0000010516 | ..\src\udx_manager.cpp:UdxManager::exit:00487 | [manager] exit end
+2018-06-07 10:29:38.093 GMT+08:00 Thu |    Debug | T0000013608 | ..\src\udx_manager.cpp:UdxManager::init:00278 | [manager] init begin
+2018-06-07 10:29:38.093 GMT+08:00 Thu |    Debug | T0000013608 | ..\src\udx_manager.cpp:UdxManager::init:00339 | [manager] remote is transmit server, set transmit server: [42.123.110.47:8885]
+2018-06-07 10:29:38.115 GMT+08:00 Thu |    Debug | T0000013608 | ..\src\udx_manager.cpp:UdxManager::init:00375 | [manager] max uploader count: 2, max downloader count: 2
+2018-06-07 10:29:38.116 GMT+08:00 Thu |    Debug | T0000013264 | ..\src\udx_manager.cpp:download_thread_run:00212 | download thread - 0 run begin
+2018-06-07 10:29:38.116 GMT+08:00 Thu |    Debug | T0000013264 | ..\src\udx_manager.cpp:UdxManager::do_download:01660 | [manager] do download thread - 0 begin
+2018-06-07 10:29:38.116 GMT+08:00 Thu |    Debug | T0000013340 | ..\src\udx_manager.cpp:download_thread_run:00212 | download thread - 1 run begin
+2018-06-07 10:29:38.116 GMT+08:00 Thu |    Debug | T0000013608 | ..\src\udx_manager.cpp:UdxManager::init:00471 | [manager] init success
+2018-06-07 10:29:38.116 GMT+08:00 Thu |    Debug | T0000013340 | ..\src\udx_manager.cpp:UdxManager::do_download:01660 | [manager] do download thread - 1 begin
+2018-06-07 10:29:38.116 GMT+08:00 Thu |    Debug | T0000013608 | ..\src\udx_manager.cpp:UdxManager::exit:00485 | [manager] exit begin
+2018-06-07 10:29:38.116 GMT+08:00 Thu |    Debug | T0000013608 | ..\src\udx_manager.cpp:UdxManager::clear:00493 | [manager] clear begin
+2018-06-07 10:29:38.116 GMT+08:00 Thu |    Debug | T0000013160 | ..\src\udx_manager.cpp:check_thread_run:00184 | check thread - 0 run begin
+2018-06-07 10:29:38.116 GMT+08:00 Thu |    Debug | T0000013160 | ..\src\udx_manager.cpp:UdxManager::do_check:01126 | [manager] do check thread - 0 begin
+2018-06-07 10:29:38.116 GMT+08:00 Thu |    Debug | T0000013160 | ..\src\udx_manager.cpp:UdxManager::do_check:01165 | [manager] do check thread - 0 end
+2018-06-07 10:29:38.116 GMT+08:00 Thu |    Debug | T0000013264 | ..\src\udx_manager.cpp:UdxManager::do_download:01861 | [manager] do download thread - 0 end
+2018-06-07 10:29:38.116 GMT+08:00 Thu |    Debug | T0000013340 | ..\src\udx_manager.cpp:UdxManager::do_download:01861 | [manager] do download thread - 1 end
+2018-06-07 10:29:38.116 GMT+08:00 Thu |    Debug | T0000013400 | ..\src\udx_manager.cpp:upload_thread_run:00198 | upload thread - 1 run begin
+2018-06-07 10:29:38.116 GMT+08:00 Thu |    Debug | T0000013964 | ..\src\udx_manager.cpp:upload_thread_run:00198 | upload thread - 0 run begin
+2018-06-07 10:29:38.116 GMT+08:00 Thu |    Debug | T0000013340 | ..\src\udx_manager.cpp:download_thread_run:00215 | download thread - 1 run end
+2018-06-07 10:29:38.116 GMT+08:00 Thu |    Debug | T0000013964 | ..\src\udx_manager.cpp:UdxManager::do_upload:01280 | [manager] do upload thread - 0 begin
+2018-06-07 10:29:38.116 GMT+08:00 Thu |    Debug | T0000013964 | ..\src\udx_manager.cpp:UdxManager::do_upload:01506 | [manager] do upload thread - 0 end
+2018-06-07 10:29:38.116 GMT+08:00 Thu |    Debug | T0000013964 | ..\src\udx_manager.cpp:upload_thread_run:00201 | upload thread - 0 run end
+2018-06-07 10:29:38.116 GMT+08:00 Thu |    Debug | T0000013160 | ..\src\udx_manager.cpp:check_thread_run:00187 | check thread - 0 run end
+2018-06-07 10:29:38.116 GMT+08:00 Thu |    Debug | T0000013400 | ..\src\udx_manager.cpp:UdxManager::do_upload:01280 | [manager] do upload thread - 1 begin
+2018-06-07 10:29:38.116 GMT+08:00 Thu |    Debug | T0000013264 | ..\src\udx_manager.cpp:download_thread_run:00215 | download thread - 0 run end
+2018-06-07 10:29:38.116 GMT+08:00 Thu |    Debug | T0000013400 | ..\src\udx_manager.cpp:UdxManager::do_upload:01506 | [manager] do upload thread - 1 end
+2018-06-07 10:29:38.116 GMT+08:00 Thu |    Debug | T0000013400 | ..\src\udx_manager.cpp:upload_thread_run:00201 | upload thread - 1 run end
+2018-06-07 10:29:38.116 GMT+08:00 Thu |    Debug | T0000009480 | ..\src\udx_manager.cpp:resolve_thread_run:00170 | resolve thread - 0 run begin
+2018-06-07 10:29:38.116 GMT+08:00 Thu |    Debug | T0000009480 | ..\src\udx_manager.cpp:UdxManager::do_resolve:01067 | [manager] do resolve thread - 0 begin
+2018-06-07 10:29:38.116 GMT+08:00 Thu |    Debug | T0000009480 | ..\src\udx_manager.cpp:UdxManager::do_resolve:01115 | [manager] do resolve thread - 0 end
+2018-06-07 10:29:38.116 GMT+08:00 Thu |    Debug | T0000009480 | ..\src\udx_manager.cpp:resolve_thread_run:00173 | resolve thread - 0 run end
+2018-06-07 10:29:38.184 GMT+08:00 Thu |    Debug | T0000013608 | ..\src\udx_manager.cpp:UdxManager::clear:00518 | [manager] wait fast udx destroy begin
+2018-06-07 10:29:38.219 GMT+08:00 Thu |    Debug | T0000013608 | ..\src\udx_manager.cpp:UdxManager::clear:00520 | [manager] wait fast udx destroy end
+2018-06-07 10:29:38.219 GMT+08:00 Thu |    Debug | T0000013608 | ..\src\udx_manager.cpp:UdxManager::clear:00551 | [manager] wait threads exit begin
+2018-06-07 10:29:38.219 GMT+08:00 Thu |    Debug | T0000013608 | ..\src\udx_manager.cpp:UdxManager::clear:00553 | [manager] wait threads exit end
+2018-06-07 10:29:38.219 GMT+08:00 Thu |    Debug | T0000013608 | ..\src\udx_manager.cpp:UdxManager::clear:00555 | [manager] clear end
+2018-06-07 10:29:38.219 GMT+08:00 Thu |    Debug | T0000013608 | ..\src\udx_manager.cpp:UdxManager::exit:00487 | [manager] exit end
+2018-06-07 10:29:42.500 GMT+08:00 Thu |    Debug | T0000010008 | ..\src\udx_manager.cpp:UdxManager::init:00278 | [manager] init begin
+2018-06-07 10:29:42.500 GMT+08:00 Thu |    Debug | T0000010008 | ..\src\udx_manager.cpp:UdxManager::init:00339 | [manager] remote is transmit server, set transmit server: [42.123.110.47:8885]
+2018-06-07 10:29:42.524 GMT+08:00 Thu |    Debug | T0000010008 | ..\src\udx_manager.cpp:UdxManager::init:00375 | [manager] max uploader count: 2, max downloader count: 2
+2018-06-07 10:29:42.524 GMT+08:00 Thu |    Debug | T0000004820 | ..\src\udx_manager.cpp:download_thread_run:00212 | download thread - 0 run begin
+2018-06-07 10:29:42.524 GMT+08:00 Thu |    Debug | T0000004820 | ..\src\udx_manager.cpp:UdxManager::do_download:01660 | [manager] do download thread - 0 begin
+2018-06-07 10:29:42.524 GMT+08:00 Thu |    Debug | T0000011052 | ..\src\udx_manager.cpp:download_thread_run:00212 | download thread - 1 run begin
+2018-06-07 10:29:42.524 GMT+08:00 Thu |    Debug | T0000011052 | ..\src\udx_manager.cpp:UdxManager::do_download:01660 | [manager] do download thread - 1 begin
+2018-06-07 10:29:42.524 GMT+08:00 Thu |    Debug | T0000008812 | ..\src\udx_manager.cpp:upload_thread_run:00198 | upload thread - 0 run begin
+2018-06-07 10:29:42.524 GMT+08:00 Thu |    Debug | T0000008812 | ..\src\udx_manager.cpp:UdxManager::do_upload:01280 | [manager] do upload thread - 0 begin
+2018-06-07 10:29:42.524 GMT+08:00 Thu |    Debug | T0000004408 | ..\src\udx_manager.cpp:upload_thread_run:00198 | upload thread - 1 run begin
+2018-06-07 10:29:42.524 GMT+08:00 Thu |    Debug | T0000004408 | ..\src\udx_manager.cpp:UdxManager::do_upload:01280 | [manager] do upload thread - 1 begin
+2018-06-07 10:29:42.524 GMT+08:00 Thu |    Debug | T0000010008 | ..\src\udx_manager.cpp:UdxManager::init:00471 | [manager] init success
+2018-06-07 10:29:42.524 GMT+08:00 Thu |    Debug | T0000010008 | ..\src\udx_manager.cpp:UdxManager::exit:00485 | [manager] exit begin
+2018-06-07 10:29:42.524 GMT+08:00 Thu |    Debug | T0000010008 | ..\src\udx_manager.cpp:UdxManager::clear:00493 | [manager] clear begin
+2018-06-07 10:29:42.524 GMT+08:00 Thu |    Debug | T0000009708 | ..\src\udx_manager.cpp:resolve_thread_run:00170 | resolve thread - 0 run begin
+2018-06-07 10:29:42.524 GMT+08:00 Thu |    Debug | T0000004408 | ..\src\udx_manager.cpp:UdxManager::do_upload:01506 | [manager] do upload thread - 1 end
+2018-06-07 10:29:42.524 GMT+08:00 Thu |    Debug | T0000007412 | ..\src\udx_manager.cpp:check_thread_run:00184 | check thread - 0 run begin
+2018-06-07 10:29:42.524 GMT+08:00 Thu |    Debug | T0000004820 | ..\src\udx_manager.cpp:UdxManager::do_download:01861 | [manager] do download thread - 0 end
+2018-06-07 10:29:42.524 GMT+08:00 Thu |    Debug | T0000011052 | ..\src\udx_manager.cpp:UdxManager::do_download:01861 | [manager] do download thread - 1 end
+2018-06-07 10:29:42.524 GMT+08:00 Thu |    Debug | T0000004820 | ..\src\udx_manager.cpp:download_thread_run:00215 | download thread - 0 run end
+2018-06-07 10:29:42.524 GMT+08:00 Thu |    Debug | T0000009708 | ..\src\udx_manager.cpp:UdxManager::do_resolve:01067 | [manager] do resolve thread - 0 begin
+2018-06-07 10:29:42.524 GMT+08:00 Thu |    Debug | T0000008812 | ..\src\udx_manager.cpp:UdxManager::do_upload:01506 | [manager] do upload thread - 0 end
+2018-06-07 10:29:42.524 GMT+08:00 Thu |    Debug | T0000004408 | ..\src\udx_manager.cpp:upload_thread_run:00201 | upload thread - 1 run end
+2018-06-07 10:29:42.524 GMT+08:00 Thu |    Debug | T0000008812 | ..\src\udx_manager.cpp:upload_thread_run:00201 | upload thread - 0 run end
+2018-06-07 10:29:42.524 GMT+08:00 Thu |    Debug | T0000011052 | ..\src\udx_manager.cpp:download_thread_run:00215 | download thread - 1 run end
+2018-06-07 10:29:42.524 GMT+08:00 Thu |    Debug | T0000009708 | ..\src\udx_manager.cpp:UdxManager::do_resolve:01115 | [manager] do resolve thread - 0 end
+2018-06-07 10:29:42.524 GMT+08:00 Thu |    Debug | T0000007412 | ..\src\udx_manager.cpp:UdxManager::do_check:01126 | [manager] do check thread - 0 begin
+2018-06-07 10:29:42.524 GMT+08:00 Thu |    Debug | T0000009708 | ..\src\udx_manager.cpp:resolve_thread_run:00173 | resolve thread - 0 run end
+2018-06-07 10:29:42.524 GMT+08:00 Thu |    Debug | T0000007412 | ..\src\udx_manager.cpp:UdxManager::do_check:01165 | [manager] do check thread - 0 end
+2018-06-07 10:29:42.524 GMT+08:00 Thu |    Debug | T0000007412 | ..\src\udx_manager.cpp:check_thread_run:00187 | check thread - 0 run end
+2018-06-07 10:29:42.584 GMT+08:00 Thu |    Debug | T0000010008 | ..\src\udx_manager.cpp:UdxManager::clear:00518 | [manager] wait fast udx destroy begin
+2018-06-07 10:29:42.625 GMT+08:00 Thu |    Debug | T0000010008 | ..\src\udx_manager.cpp:UdxManager::clear:00520 | [manager] wait fast udx destroy end
+2018-06-07 10:29:42.625 GMT+08:00 Thu |    Debug | T0000010008 | ..\src\udx_manager.cpp:UdxManager::clear:00551 | [manager] wait threads exit begin
+2018-06-07 10:29:42.625 GMT+08:00 Thu |    Debug | T0000010008 | ..\src\udx_manager.cpp:UdxManager::clear:00553 | [manager] wait threads exit end
+2018-06-07 10:29:42.625 GMT+08:00 Thu |    Debug | T0000010008 | ..\src\udx_manager.cpp:UdxManager::clear:00555 | [manager] clear end
+2018-06-07 10:29:42.625 GMT+08:00 Thu |    Debug | T0000010008 | ..\src\udx_manager.cpp:UdxManager::exit:00487 | [manager] exit end
+2018-06-07 10:29:43.844 GMT+08:00 Thu |    Debug | T0000003504 | ..\src\udx_manager.cpp:UdxManager::init:00278 | [manager] init begin
+2018-06-07 10:29:43.844 GMT+08:00 Thu |    Debug | T0000003504 | ..\src\udx_manager.cpp:UdxManager::init:00339 | [manager] remote is transmit server, set transmit server: [42.123.110.47:8885]
+2018-06-07 10:29:43.867 GMT+08:00 Thu |    Debug | T0000003504 | ..\src\udx_manager.cpp:UdxManager::init:00375 | [manager] max uploader count: 2, max downloader count: 2
+2018-06-07 10:29:43.867 GMT+08:00 Thu |    Debug | T0000004132 | ..\src\udx_manager.cpp:download_thread_run:00212 | download thread - 0 run begin
+2018-06-07 10:29:43.867 GMT+08:00 Thu |    Debug | T0000004132 | ..\src\udx_manager.cpp:UdxManager::do_download:01660 | [manager] do download thread - 0 begin
+2018-06-07 10:29:43.867 GMT+08:00 Thu |    Debug | T0000010744 | ..\src\udx_manager.cpp:download_thread_run:00212 | download thread - 1 run begin
+2018-06-07 10:29:43.867 GMT+08:00 Thu |    Debug | T0000003300 | ..\src\udx_manager.cpp:upload_thread_run:00198 | upload thread - 0 run begin
+2018-06-07 10:29:43.867 GMT+08:00 Thu |    Debug | T0000010744 | ..\src\udx_manager.cpp:UdxManager::do_download:01660 | [manager] do download thread - 1 begin
+2018-06-07 10:29:43.867 GMT+08:00 Thu |    Debug | T0000003300 | ..\src\udx_manager.cpp:UdxManager::do_upload:01280 | [manager] do upload thread - 0 begin
+2018-06-07 10:29:43.867 GMT+08:00 Thu |    Debug | T0000008960 | ..\src\udx_manager.cpp:upload_thread_run:00198 | upload thread - 1 run begin
+2018-06-07 10:29:43.867 GMT+08:00 Thu |    Debug | T0000003504 | ..\src\udx_manager.cpp:UdxManager::init:00471 | [manager] init success
+2018-06-07 10:29:43.867 GMT+08:00 Thu |    Debug | T0000008960 | ..\src\udx_manager.cpp:UdxManager::do_upload:01280 | [manager] do upload thread - 1 begin
+2018-06-07 10:29:43.867 GMT+08:00 Thu |    Debug | T0000011952 | ..\src\udx_manager.cpp:check_thread_run:00184 | check thread - 0 run begin
+2018-06-07 10:29:43.867 GMT+08:00 Thu |    Debug | T0000013532 | ..\src\udx_manager.cpp:resolve_thread_run:00170 | resolve thread - 0 run begin
+2018-06-07 10:29:43.867 GMT+08:00 Thu |    Debug | T0000003504 | ..\src\udx_manager.cpp:UdxManager::exit:00485 | [manager] exit begin
+2018-06-07 10:29:43.867 GMT+08:00 Thu |    Debug | T0000011952 | ..\src\udx_manager.cpp:UdxManager::do_check:01126 | [manager] do check thread - 0 begin
+2018-06-07 10:29:43.867 GMT+08:00 Thu |    Debug | T0000013532 | ..\src\udx_manager.cpp:UdxManager::do_resolve:01067 | [manager] do resolve thread - 0 begin
+2018-06-07 10:29:43.867 GMT+08:00 Thu |    Debug | T0000003504 | ..\src\udx_manager.cpp:UdxManager::clear:00493 | [manager] clear begin
+2018-06-07 10:29:43.867 GMT+08:00 Thu |    Debug | T0000004132 | ..\src\udx_manager.cpp:UdxManager::do_download:01861 | [manager] do download thread - 0 end
+2018-06-07 10:29:43.867 GMT+08:00 Thu |    Debug | T0000008960 | ..\src\udx_manager.cpp:UdxManager::do_upload:01506 | [manager] do upload thread - 1 end
+2018-06-07 10:29:43.867 GMT+08:00 Thu |    Debug | T0000004132 | ..\src\udx_manager.cpp:download_thread_run:00215 | download thread - 0 run end
+2018-06-07 10:29:43.867 GMT+08:00 Thu |    Debug | T0000003300 | ..\src\udx_manager.cpp:UdxManager::do_upload:01506 | [manager] do upload thread - 0 end
+2018-06-07 10:29:43.867 GMT+08:00 Thu |    Debug | T0000010744 | ..\src\udx_manager.cpp:UdxManager::do_download:01861 | [manager] do download thread - 1 end
+2018-06-07 10:29:43.867 GMT+08:00 Thu |    Debug | T0000003300 | ..\src\udx_manager.cpp:upload_thread_run:00201 | upload thread - 0 run end
+2018-06-07 10:29:43.867 GMT+08:00 Thu |    Debug | T0000008960 | ..\src\udx_manager.cpp:upload_thread_run:00201 | upload thread - 1 run end
+2018-06-07 10:29:43.867 GMT+08:00 Thu |    Debug | T0000010744 | ..\src\udx_manager.cpp:download_thread_run:00215 | download thread - 1 run end
+2018-06-07 10:29:44.884 GMT+08:00 Thu |    Debug | T0000013532 | ..\src\udx_manager.cpp:UdxManager::do_resolve:01115 | [manager] do resolve thread - 0 end
+2018-06-07 10:29:44.884 GMT+08:00 Thu |    Debug | T0000011952 | ..\src\udx_manager.cpp:UdxManager::do_check:01165 | [manager] do check thread - 0 end
+2018-06-07 10:29:44.884 GMT+08:00 Thu |    Debug | T0000013532 | ..\src\udx_manager.cpp:resolve_thread_run:00173 | resolve thread - 0 run end
+2018-06-07 10:29:44.884 GMT+08:00 Thu |    Debug | T0000011952 | ..\src\udx_manager.cpp:check_thread_run:00187 | check thread - 0 run end
+2018-06-07 10:29:44.934 GMT+08:00 Thu |    Debug | T0000003504 | ..\src\udx_manager.cpp:UdxManager::clear:00518 | [manager] wait fast udx destroy begin
+2018-06-07 10:29:44.969 GMT+08:00 Thu |    Debug | T0000003504 | ..\src\udx_manager.cpp:UdxManager::clear:00520 | [manager] wait fast udx destroy end
+2018-06-07 10:29:44.969 GMT+08:00 Thu |    Debug | T0000003504 | ..\src\udx_manager.cpp:UdxManager::clear:00551 | [manager] wait threads exit begin
+2018-06-07 10:29:44.969 GMT+08:00 Thu |    Debug | T0000003504 | ..\src\udx_manager.cpp:UdxManager::clear:00553 | [manager] wait threads exit end
+2018-06-07 10:29:44.969 GMT+08:00 Thu |    Debug | T0000003504 | ..\src\udx_manager.cpp:UdxManager::clear:00555 | [manager] clear end
+2018-06-07 10:29:44.969 GMT+08:00 Thu |    Debug | T0000003504 | ..\src\udx_manager.cpp:UdxManager::exit:00487 | [manager] exit end

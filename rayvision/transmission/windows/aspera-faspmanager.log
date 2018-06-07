@@ -1,0 +1,36 @@
+2018-06-06 17:48:24 [950-00001200] LOG FASP Manager: Starting C++ Fasp Manager Version = 3.2.70439-x
+2018-06-06 17:48:24 [950-00001200] LOG FASP Manager: FASP Manager started on port 54004
+2018-06-06 17:48:24 [950-00002130] LOG FASP Manager: Warning... no source file specified, assuming persistent transfer.
+2018-06-06 17:48:24 [950-00002130] LOG FASP Manager: executing: "D:\Python27\workspaces\RenderSDK\free\free_style4\rayvision\transmission\windows\aspera\ascp.exe" -M54004 -q -m1 -l8388608 -P33001 -O33001 -uc560efe6-0788-42c1-97d0-01e1153648d1 -p --keepalive --precalculate-job-size --policy=fair -d -k1 --mode=send --host=45.251.92.2 "--user=3441" --overwrite=older --file-manifest=none   ""
+2018-06-06 17:48:24 [950-00002130] ERR FASP Manager: as_process_spawn: can't create ascp process, rc =2 errno=2
+2018-06-06 17:48:46 [950-000010d8] ERR FASP Manager: error - INIT not received after 20 seconds. Closing mgmt socket.
+2018-06-06 17:48:46 [950-000010d8] ERR FASP Manager: Failed to close socket
+2018-06-06 17:48:51 [950-00002130] LOG FASP Manager: Warning... no source file specified, assuming persistent transfer.
+2018-06-06 17:48:51 [950-00002130] LOG FASP Manager: executing: "D:\Python27\workspaces\RenderSDK\free\free_style4\rayvision\transmission\windows\aspera\ascp.exe" -M54004 -q -m1 -l8388608 -P33001 -O33001 -u3fc6d9ca-8670-430d-a368-b2c075050bf4 -p --keepalive --precalculate-job-size --policy=fair -d -k1 --mode=send --host=45.251.92.2 "--user=3441" --overwrite=older --file-manifest=none   ""
+2018-06-06 17:48:51 [950-00002130] ERR FASP Manager: as_process_spawn: can't create ascp process, rc =2 errno=2
+2018-06-06 17:49:13 [950-000010d8] ERR FASP Manager: error - INIT not received after 20 seconds. Closing mgmt socket.
+2018-06-06 17:49:13 [950-000010d8] ERR FASP Manager: Failed to close socket
+2018-06-06 17:49:23 [950-00002130] LOG FASP Manager: Warning... no source file specified, assuming persistent transfer.
+2018-06-06 17:49:23 [950-00002130] LOG FASP Manager: executing: "D:\Python27\workspaces\RenderSDK\free\free_style4\rayvision\transmission\windows\aspera\ascp.exe" -M54004 -q -m1 -l8388608 -P33001 -O33001 -u808e7fe7-1f78-4b45-a68e-2fa0f549c53f -p --keepalive --precalculate-job-size --policy=fair -d -k1 --mode=send --host=45.251.92.2 "--user=3441" --overwrite=older --file-manifest=none   ""
+2018-06-06 17:49:23 [950-00002130] ERR FASP Manager: as_process_spawn: can't create ascp process, rc =2 errno=2
+2018-06-06 17:49:45 [950-000010d8] ERR FASP Manager: error - INIT not received after 20 seconds. Closing mgmt socket.
+2018-06-06 17:49:45 [950-000010d8] ERR FASP Manager: Failed to close socket
+2018-06-06 17:49:50 [950-00001200] LOG FASP Manager: deleting FASP Manager
+2018-06-06 17:49:51 [b64-00002914] LOG FASP Manager: Starting C++ Fasp Manager Version = 3.2.70439-x
+2018-06-06 17:49:51 [b64-00002914] LOG FASP Manager: FASP Manager started on port 54040
+2018-06-06 17:49:51 [b64-00001514] LOG FASP Manager: Warning... no source file specified, assuming persistent transfer.
+2018-06-06 17:49:51 [b64-00001514] LOG FASP Manager: executing: "D:\Python27\workspaces\RenderSDK\free\free_style4\rayvision\transmission\windows\aspera\ascp.exe" -M54040 -q -m1 -l8388608 -P33001 -O33001 -u297369fb-8590-46e4-8f9b-bd98f6c2e602 -p --keepalive --precalculate-job-size --policy=fair -d -k1 --mode=send --host=45.251.92.2 "--user=3441" --overwrite=older --file-manifest=none   ""
+2018-06-06 17:49:51 [b64-00001514] ERR FASP Manager: as_process_spawn: can't create ascp process, rc =2 errno=2
+2018-06-06 17:50:13 [b64-00002098] ERR FASP Manager: error - INIT not received after 20 seconds. Closing mgmt socket.
+2018-06-06 17:50:13 [b64-00002098] ERR FASP Manager: Failed to close socket
+2018-06-06 17:50:18 [b64-00001514] LOG FASP Manager: Warning... no source file specified, assuming persistent transfer.
+2018-06-06 17:50:18 [b64-00001514] LOG FASP Manager: executing: "D:\Python27\workspaces\RenderSDK\free\free_style4\rayvision\transmission\windows\aspera\ascp.exe" -M54040 -q -m1 -l8388608 -P33001 -O33001 -u10e120e3-2a2f-4049-a1cd-08f9b281516d -p --keepalive --precalculate-job-size --policy=fair -d -k1 --mode=send --host=45.251.92.2 "--user=3441" --overwrite=older --file-manifest=none   ""
+2018-06-06 17:50:18 [b64-00001514] ERR FASP Manager: as_process_spawn: can't create ascp process, rc =2 errno=2
+2018-06-06 17:50:40 [b64-00002098] ERR FASP Manager: error - INIT not received after 20 seconds. Closing mgmt socket.
+2018-06-06 17:50:40 [b64-00002098] ERR FASP Manager: Failed to close socket
+2018-06-06 17:50:50 [b64-00001514] LOG FASP Manager: Warning... no source file specified, assuming persistent transfer.
+2018-06-06 17:50:50 [b64-00001514] LOG FASP Manager: executing: "D:\Python27\workspaces\RenderSDK\free\free_style4\rayvision\transmission\windows\aspera\ascp.exe" -M54040 -q -m1 -l8388608 -P33001 -O33001 -u619cc90e-1b0c-4809-9300-b7ce9ba5c9fa -p --keepalive --precalculate-job-size --policy=fair -d -k1 --mode=send --host=45.251.92.2 "--user=3441" --overwrite=older --file-manifest=none   ""
+2018-06-06 17:50:50 [b64-00001514] ERR FASP Manager: as_process_spawn: can't create ascp process, rc =2 errno=2
+2018-06-06 17:51:12 [b64-00002098] ERR FASP Manager: error - INIT not received after 20 seconds. Closing mgmt socket.
+2018-06-06 17:51:12 [b64-00002098] ERR FASP Manager: Failed to close socket
+2018-06-06 17:51:17 [b64-00002914] LOG FASP Manager: deleting FASP Manager
