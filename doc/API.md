@@ -5,6 +5,7 @@
 #### 1.登录
 - [ ] 获取平台
 - [x] 获取用户信息
+- /api/rendering/user/sdk/login
 - request:
 ```
 {
@@ -42,6 +43,7 @@
 }
 ```
 - [x] 获取存储id
+- /api/rendering/task/sdk/getTaskPathInfo
 - request:
 ```
 {
@@ -64,6 +66,7 @@
 }
 ```
 - [x] 获取用户自定义设置
+- /api/rendering/user/sdk/getRenderingSetting
 - request:
 ```
 ```
@@ -88,6 +91,7 @@
 }
 ```
 - [x] 获取用户余额
+- /api/rendering/user/sdk/getUserBalance
 - request:
 ```
 ```
