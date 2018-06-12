@@ -16,8 +16,8 @@
 - [x] 新增插件配置
 - [x] 编辑插件配置
 - [x] 删除插件配置
-- [ ] 获取作业id
-- [ ] 获取项目列表
+- [x] 获取作业id
+- [x] 获取项目列表
 
 #### 3.检查错误信息
 - [x] 根据cgName和errorCode获取错误信息
@@ -546,8 +546,56 @@ languageFlag | 0 |
     "serverTime": 1528631463377
 }
 ```
-- [ ] 获取作业id
-- [ ] 获取项目列表
+- [x] 获取作业id
+- /api/rendering/task/sdk/createSdkJobId
+- request:
+```
+{
+	"count":"1"
+}
+```
+- response:
+```
+{
+    "version": "1.0.0",
+    "result": true,
+    "message": "success",
+    "code": 200,
+    "data": [
+        5082,
+        5083
+    ],
+    "serverTime": 1528798167848
+}
+```
+- [x] 获取项目列表
+- /api/rendering/task/sdk/getProject
+- request:
+```
+{
+	"parentUserId":"0"
+}
+```
+- response:
+```
+{
+    "version":"1.0.0",
+    "result":true,
+    "message":"success",
+    "code":200,
+    "data":[
+        {
+            "projectId":417,
+            "projectName":"dasdd"
+        },
+        {
+            "projectId":418,
+            "projectName":"dasdf"
+        }
+    ],
+    "serverTime":1528798079314
+}
+```
 
 #### 3.检查错误信息
 - [x] 根据cgName和errorCode获取错误信息
