@@ -50,7 +50,6 @@ graph TD
 
 
 ### 三、API详情
-
 #### 0.请求头
 所有接口如无说明都必须携带请求头参数
 
@@ -64,6 +63,7 @@ version | 1.0.0 |
 userKey | 771b98aed097aba9aa16ec9171750b3e | xiexianguo
 languageFlag | 0 | 
 
+
 #### 1.登录
 - [ ] 获取平台
 - [ ] 获取用户信息
@@ -73,6 +73,7 @@ languageFlag | 0 |
 
 #### 2.设置作业配置
 - [x] 根据cgName获取用户已有的插件配置
+- /api/rendering/task/sdk/getPluginUserList
 - request:
 ```
 {
@@ -121,6 +122,7 @@ languageFlag | 0 |
 ```
 - [ ] 根据cgName及editName获取用户的插件配置
 - [x] 根据cgName获取平台支持的插件配置
+- /api/rendering/task/sdk/getPluginList
 - request:
 ```
 {
@@ -359,6 +361,7 @@ languageFlag | 0 |
 }
 ```
 - [x] 新增插件配置
+- /api/rendering/task/sdk/addUserPluginConfig
 - request:
 ```
 {
@@ -390,6 +393,7 @@ languageFlag | 0 |
 }
 ```
 - [x] 编辑插件配置
+- /api/rendering/task/sdk/editUserPluginConfig
 - request:
 ```
 {
@@ -421,6 +425,7 @@ languageFlag | 0 |
 }
 ```
 - [x] 删除插件配置
+- /api/rendering/task/sdk/delUserPluginConfigOrSetDefault
 - request:
 ```
 {
@@ -444,6 +449,7 @@ languageFlag | 0 |
 
 #### 3.检查错误信息
 - [x] 根据cgName和errorCode获取错误信息
+- /api/rendering/task/sdk/getErrorCodeByCode
 - request:
 ```
 {
@@ -480,6 +486,7 @@ languageFlag | 0 |
 
 #### 5.获取作业信息
 - [x] 获取作业列表
+- /api/rendering/task/sdk/getRenderTaskList
 - request:
 ```
 {
