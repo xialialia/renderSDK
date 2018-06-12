@@ -4,10 +4,108 @@
 
 #### 1.登录
 - [ ] 获取平台
-- [ ] 获取用户信息
-- [ ] 获取存储id
-- [ ] 获取用户自定义设置
-- [ ] 获取用户余额
+- [x] 获取用户信息
+- request:
+```
+{
+    "account":"xiexianguo",
+    "accessKey":"$apr1$X5Q4lau1$tkyi4wvBXoQhKOP0G87e51"
+}
+```
+- response:
+```
+{
+    "version": "1.0.0",
+    "result": true,
+    "message": "success",
+    "code": 200,
+    "data": {
+        "channel": 4,
+        "platform": 1,
+        "signature": "Rayvision2017",
+        "version": "1.0.0",
+        "userKey": "3bae41910a7cc1cb0b5fefce5533675a",
+        "id": 100001,
+        "userName": "xiexianguo",
+        "zone": 0,
+        "phone": "18654169229",
+        "email": "100001@139.com",
+        "loginTime": 1528789044096,
+        "infoStatus": 2,
+        "accountType": 1,
+        "shareMainCapital": 0,
+        "subDeleteTask": 0,
+        "useMainBalance": 0,
+        "raySyncUserKey": "730cd932f8b9ee43b862ef54c1d966ba6b8f6afa"
+    },
+    "serverTime": 1528789044225
+}
+```
+- [x] 获取存储id
+- request:
+```
+{
+	"userId":"100001"
+}
+```
+- response:
+```
+{
+    "version": "1.0.0",
+    "result": true,
+    "message": "success",
+    "code": 200,
+    "data": {
+        "downloadId": "3441",
+        "cfgId": "3441",
+        "storageId": "3441"
+    },
+    "serverTime": 1528789383176
+}
+```
+- [x] 获取用户自定义设置
+- request:
+```
+```
+- response:
+```
+{
+    "version": "1.0.0",
+    "result": true,
+    "message": "success",
+    "code": 200,
+    "data": {
+        "singleNodeRenderFrames": "1",
+        "maxIgnoreMapFlag": "1",
+        "autoCommit": "2",
+        "separateAccountFlag": 0,
+        "mifileSwitchFlag": 0,
+        "assfileSwitchFlag": 0,
+        "manuallyStartAnalysisFlag": 0,
+        "downloadDisable": 0
+    },
+    "serverTime": 1528787207173
+}
+```
+- [x] 获取用户余额
+- request:
+```
+```
+- response:
+```
+{
+    "version": "1.0.0",
+    "result": true,
+    "message": "success",
+    "code": 200,
+    "data": {
+        "usdBalance": "233.7100",
+        "coupon": "0.0000",
+        "rmbBalance": "94.0000"
+    },
+    "serverTime": 1528787252263
+}
+```
 
 #### 2.设置作业配置
 - [x] 根据cgName获取用户已有的插件配置
