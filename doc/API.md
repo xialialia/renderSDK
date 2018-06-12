@@ -51,6 +51,19 @@ graph TD
 
 ### 三、API详情
 
+#### 0.请求头
+所有接口如无说明都必须携带请求头参数
+
+key | value | Description
+---|---|---
+Content-Type | application/json | 
+channel | 4 | 
+platform | 1 | 
+signature | Rayvision2017 | 
+version | 1.0.0 | 
+userKey | 771b98aed097aba9aa16ec9171750b3e | xiexianguo
+languageFlag | 0 | 
+
 #### 1.登录
 - [ ] 获取平台
 - [ ] 获取用户信息
