@@ -5,6 +5,68 @@
 #### 1.登录
 - [ ] 获取平台
 - [x] 获取用户信息
+- [x] 获取存储id
+- [x] 获取用户自定义设置
+- [x] 获取用户余额
+
+#### 2.设置作业配置
+- [x] 根据cgName获取用户已有的插件配置
+- [ ] 根据cgName及editName获取用户的插件配置
+- [x] 根据cgName获取平台支持的插件配置
+- [x] 新增插件配置
+- [x] 编辑插件配置
+- [x] 删除插件配置
+- [ ] 获取作业id
+- [ ] 获取项目列表
+
+#### 3.检查错误信息
+- [x] 根据cgName和errorCode获取错误信息
+
+#### 4.提交任务
+- [ ] 提交任务
+
+#### 5.获取作业信息
+- [x] 获取作业列表
+- [ ] 获取作业信息
+- [ ] 搜索作业
+- [ ] 开始作业
+- [ ] 暂停作业
+
+
+### 二、客户操作
+
+```
+graph TD
+    A[申请使用RenderSDK] --> B(获取平台)
+    B --> C(登录)
+    C --> D(设置作业配置)
+    D --> E(分析)
+    E --> F(展示错误信息)
+    F --> G(修改参数设置)
+    G --> H(上传资产)
+    H --> I(提交作业)
+    I --> J(下载)
+```
+
+
+### 三、API详情
+#### 0.请求头
+所有接口如无说明都必须携带请求头参数
+
+key | value | Description
+---|---|---
+Content-Type | application/json | 
+channel | 4 | 
+platform | 1 | 
+signature | Rayvision2017 | 
+version | 1.0.0 | 
+userKey | 771b98aed097aba9aa16ec9171750b3e | xiexianguo
+languageFlag | 0 | 
+
+
+#### 1.登录
+- [ ] 获取平台
+- [x] 获取用户信息
 - /api/rendering/user/sdk/login
 - request:
 ```
@@ -110,68 +172,6 @@
     "serverTime": 1528787252263
 }
 ```
-
-#### 2.设置作业配置
-- [x] 根据cgName获取用户已有的插件配置
-- [ ] 根据cgName及editName获取用户的插件配置
-- [x] 根据cgName获取平台支持的插件配置
-- [x] 新增插件配置
-- [x] 编辑插件配置
-- [x] 删除插件配置
-- [ ] 获取作业id
-- [ ] 获取项目列表
-
-#### 3.检查错误信息
-- [x] 根据cgName和errorCode获取错误信息
-
-#### 4.提交任务
-- [ ] 提交任务
-
-#### 5.获取作业信息
-- [x] 获取作业列表
-- [ ] 获取作业信息
-- [ ] 搜索作业
-- [ ] 开始作业
-- [ ] 暂停作业
-
-
-### 二、客户操作
-
-```
-graph TD
-    A[申请使用RenderSDK] --> B(获取平台)
-    B --> C(登录)
-    C --> D(设置作业配置)
-    D --> E(分析)
-    E --> F(展示错误信息)
-    F --> G(修改参数设置)
-    G --> H(上传资产)
-    H --> I(提交作业)
-    I --> J(下载)
-```
-
-
-### 三、API详情
-#### 0.请求头
-所有接口如无说明都必须携带请求头参数
-
-key | value | Description
----|---|---
-Content-Type | application/json | 
-channel | 4 | 
-platform | 1 | 
-signature | Rayvision2017 | 
-version | 1.0.0 | 
-userKey | 771b98aed097aba9aa16ec9171750b3e | xiexianguo
-languageFlag | 0 | 
-
-
-#### 1.登录
-- [ ] 获取平台
-- [ ] 获取用户信息
-- [ ] 获取存储id
-- [ ] 获取用户自定义设置
-- [ ] 获取用户余额
 
 #### 2.设置作业配置
 - [x] 根据cgName获取用户已有的插件配置
