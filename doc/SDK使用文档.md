@@ -62,6 +62,7 @@ rayvision = Rayvision(domain_name='task.renderbus.com', platform='2', account='t
 ```
 
 **参数：**<br/>
+
 参数 | 类型 | 值 | 说明
 ---|---|---|---
 domain_name | str | task.foxrenderfarm.com, task.renderbus.com | 
@@ -69,6 +70,7 @@ platform | str | 2, 8, 9, 10 | 2: www2平台<br/>8: www8平台<br/>9: www9平台
 account | str | test | 用户名
 access_key | str | xxx | 申请使用RenderSDK，将会获取accessKey
 protocol | str | http, https | 使用哪种HTTP协议调用API，默认为https
+
 
 **返回：**<br/>
 Rayvision的对象，可通过此对象调用其他的方法
@@ -90,6 +92,7 @@ rayvision.set_job_config(cg_name='Maya', cg_version='2016', plugin_config={“me
 rayvision.set_job_config(cg_name='Maya', cg_version='2016', plugin_config={“mentalray”:"3.14", "mtoa":"1.2.2.0"}, edit_name='test')
 ```
 **参数：**<br/>
+
 参数 | 类型 | 值 | 说明
 ---|---|---|---
 cg_name | str | Maya, 3ds Max, Houdini | 大小写最好一致
@@ -111,6 +114,7 @@ rayvision.analyse(cg_file=r'D:\chensr\SDK\test_maya.mb')
 ```
 
 **参数：**<br/>
+
 参数 | 类型 | 值 | 说明
 ---|---|---|---
 cg_file | str |  | 场景路径
@@ -127,6 +131,7 @@ error_info_list = rayvision.check_error_warn_info()  # 用户处理错误、警�
 ```
 
 **参数：**<br/>
+
 参数 | 类型 | 值 | 说明
 ---|---|---|---
 cg_file | str |  | 场景路径
@@ -145,6 +150,7 @@ rayvision.edit_param(param_new, task_info_new)
 ```
 
 **参数：**<br/>
+
 参数 | 类型 | 值 | 说明
 ---|---|---|---
 param_dict | dict |  | task.json中scene_info_render中的内容
@@ -162,6 +168,7 @@ rayvision.upload()
 ```
 
 **参数：**<br/>
+
 参数 | 类型 | 值 | 说明
 ---|---|---|---
  |  |  | 
@@ -179,6 +186,7 @@ rayvision.submit_task()
 ```
 
 **参数：**<br/>
+
 参数 | 类型 | 值 | 说明
 ---|---|---|---
 |  |  | 
@@ -195,6 +203,7 @@ rayvision.download(job_id='5134', local_dir=r"c:\renderfarm\project\5154\output"
 ```
 
 **参数：**<br/>
+
 参数 | 类型 | 值 | 说明
 ---|---|---|---
 job_id | str |  | 任务id
