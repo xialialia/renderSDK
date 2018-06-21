@@ -61,7 +61,7 @@ rayvision.download(job_id='5134', local_dir=r"c:\renderfarm\project\5154\output"
 rayvision = Rayvision(domain_name='task.renderbus.com', platform='2', account='test', access_key='xxx')
 ```
 
-**参数：**
+**参数：**<br/>
 参数 | 类型 | 值 | 说明
 ---|---|---|---
 domain_name | str | task.foxrenderfarm.com, task.renderbus.com | 
@@ -70,7 +70,7 @@ account | str | test | 用户名
 access_key | str | xxx | 申请使用RenderSDK，将会获取accessKey
 protocol | str | http, https | 使用哪种HTTP协议调用API，默认为https
 
-**返回：**
+**返回：**<br/>
 Rayvision的对象，可通过此对象调用其他的方法
 
 
@@ -78,7 +78,7 @@ Rayvision的对象，可通过此对象调用其他的方法
 
 #### 2.设置作业配置（插件配置、所属项目）
 
-**三种不同的使用方法：**
+**三种不同的使用方法：**<br/>
 ```
 # （1）将用户插件列表中edit_name为hello的插件配置组合设置为此作业插件配置（用户必须存在edit_name为hello的插件配置组合）
 rayvision.set_job_config(cg_name='3ds Max', edit_name='hello')
@@ -89,7 +89,7 @@ rayvision.set_job_config(cg_name='Maya', cg_version='2016', plugin_config={“me
 # （3）设置此次作业的插件配置，并保存到用户插件列表中（edit_name为test）
 rayvision.set_job_config(cg_name='Maya', cg_version='2016', plugin_config={“mentalray”:"3.14", "mtoa":"1.2.2.0"}, edit_name='test')
 ```
-**参数：**
+**参数：**<br/>
 参数 | 类型 | 值 | 说明
 ---|---|---|---
 cg_name | str | Maya, 3ds Max, Houdini | 大小写最好一致
@@ -99,7 +99,7 @@ edit_name | str | hello | 插件配置名，唯一标识一个插件配置组合
 project_name | str | defaultProject | 作业所属项目，可不写
 
 
-**返回：**
+**返回：**<br/>
 True
 
 
@@ -110,13 +110,13 @@ True
 rayvision.analyse(cg_file=r'D:\chensr\SDK\test_maya.mb')
 ```
 
-**参数：**
+**参数：**<br/>
 参数 | 类型 | 值 | 说明
 ---|---|---|---
 cg_file | str |  | 场景路径
 
 
-**返回：**
+**返回：**<br/>
 True
 
 ---
@@ -126,13 +126,13 @@ True
 error_info_list = rayvision.check_error_warn_info()  # 用户处理错误、警告信息
 ```
 
-**参数：**
+**参数：**<br/>
 参数 | 类型 | 值 | 说明
 ---|---|---|---
 cg_file | str |  | 场景路径
 
 
-**返回：**
+**返回：**<br/>
 True
 
 ---
@@ -144,14 +144,14 @@ task_info_new = rayvision.job_info.task_info['task_info']
 rayvision.edit_param(param_new, task_info_new)
 ```
 
-**参数：**
+**参数：**<br/>
 参数 | 类型 | 值 | 说明
 ---|---|---|---
 param_dict | dict |  | task.json中scene_info_render中的内容
 task_info | dict |  | task.json中task_info中的内容
 
 
-**返回：**
+**返回：**<br/>
 True
 
 ---
@@ -161,13 +161,13 @@ True
 rayvision.upload()
 ```
 
-**参数：**
+**参数：**<br/>
 参数 | 类型 | 值 | 说明
 ---|---|---|---
  |  |  | 
 
 
-**返回：**
+**返回：**<br/>
 True
 
 
@@ -178,13 +178,13 @@ True
 rayvision.submit_task()
 ```
 
-**参数：**
+**参数：**<br/>
 参数 | 类型 | 值 | 说明
 ---|---|---|---
 |  |  | 
 
 
-**返回：**
+**返回：**<br/>
 True
 
 ---
@@ -194,12 +194,12 @@ True
 rayvision.download(job_id='5134', local_dir=r"c:\renderfarm\project\5154\output")
 ```
 
-**参数：**
+**参数：**<br/>
 参数 | 类型 | 值 | 说明
 ---|---|---|---
 job_id | str |  | 任务id
 local_dir | str |  | 本地下载目录
 
 
-**返回：**
+**返回：**<br/>
 True
