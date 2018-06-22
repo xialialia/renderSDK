@@ -1,0 +1,53 @@
+{
+  "software_config": {
+    "cg_version": "2016", 
+    "cg_name": "maya", 
+    "plugins": {
+      "rayvision": "1.0.0", 
+      "multiscatter": "1.1.1"
+    }
+  }, 
+  "advanced_option": {
+    "project_name": "test"
+  }, 
+  "miscellaneous": {}, 
+  "system_info": {
+    "common": {
+      "platform": "2", 
+      "user_id": "100002", 
+      "task_id": "666666", 
+      "channel": "4"
+    }
+  }, 
+  "scene_info_render": {
+    "common": {}, 
+    "renderer": {}
+  }, 
+  "scene_info": {
+    "defaultRenderLayer": {
+      "renderable": "1", 
+      "is_default_camera": "1", 
+      "common": {
+        "renderer": "mayaSoftware", 
+        "image_file_prefix": "", 
+        "start": "1", 
+        "end": "10", 
+        "by_frame": "1", 
+        "all_camera": [
+          "perspShape"
+        ], 
+        "render_camera": [
+          "perspShape"
+        ], 
+        "renumber_frames": "False", 
+        "width": "960", 
+        "height": "540", 
+        "image_format": "iff", 
+        "animation": "False", 
+        "file_name": "[u'test_maya.iff']"
+      }, 
+      "option": "", 
+      "env": {}
+    }
+  }
+}
