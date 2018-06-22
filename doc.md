@@ -1,0 +1,89 @@
+# 分析模块文档
+
+## 1.调用方式
+- 分析模块支持两种调用方式: 作为 python 模块被 import 和作为单独的脚本独立运行(会编成 exe)
+    -  作为单独的脚本调用时需要参数: 
+    
+        1. 项目路径
+        2. `task.json`, `assert.json`, `tips.json` 的文件路径
+        3. task_id
+        4. cg_file cg场景文件的路径
+        5. ingoreTexture 是否分析贴图
+
+    - 作为模块被引用时:
+    
+        1. `cg_file` 场景文件
+        2. `job_info` 实例, 具体可查看文档
+        3. `exe_path` cg 软件的 exe 路径, 如果传此参数则直接使用, 不传则根据 cg 文件查找路径. 默认为 `None`
+
+
+## 2.使用方法:
+构建一个 `job_info` 实例, 然后初始化分析模块
+```python
+ray = RayvisionAnalyse(job_info=job_info, cg_file=cg_file)
+# 跑分析模块全流程
+ray.run()
+```
+或者单独跑函数:
+```python
+# 获取场景信息, 找 软件的 exe 路径
+ray.analyse_cg_file_info()
+
+# 单独的分析
+ray.analyse()
+```
+
+## 3.错误说明
+```python
+class MaxDamageError(RayvisionError):
+    """Max 文件损坏"""
+
+
+class MaxExeNotExistError(RayvisionError):
+    """Max 的 exe 路径不存在"""
+
+
+class CGExeNotExistError(RayvisionError):
+    """CG 的 exe 路径不存在"""
+
+
+class ProjectMaxVersionError(RayvisionError):
+    """项目的 Max 版本错误"""
+
+
+class GetCGVersionError(RayvisionError):
+    """获取 CG 软件的版本失败"""
+
+
+class GetRendererError(RayvisionError):
+    """获取渲染器失败"""
+
+
+class GetCGLocationError(RayvisionError):
+    """获取 CG 软件的位置失败"""
+
+
+class MultiscatterandvrayConfilictError(RayvisionError):
+    """Multiscatter 和 Vray 版本冲突"""
+
+
+class VersionNotMatchError(RayvisionError):
+    """版本不匹配"""
+
+
+class CGFileNotExistsError(RayvisionError):
+    """CG 文件不存在"""
+
+
+class CGFileZipFailError(RayvisionError):
+    """压缩 CG 文件失败"""
+
+
+class CGFileNameIllegalError(RayvisionError):
+    """CG 文件命名不合法"""
+
+
+class AnalyseFailError(RayvisionError):
+    """分析失败"""
+
+```        
