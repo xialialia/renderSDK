@@ -209,9 +209,9 @@ class Max(CGBase):
         """
         cg_version = None
         file_version = None
-        # 使用 exe 对 max 文件分析, 得出使用的软件的版本.  # TODO 以下路径要改
+        # 使用 exe 对 max 文件分析, 得出使用的软件的版本.
         exe_name = "GetMaxProperty.exe"
-        path = os.getcwd()
+        path = "../../rayvision/max"
         cmd = '{} "{}"'.format(
             os.path.join(path, exe_name),
             cg_file,
