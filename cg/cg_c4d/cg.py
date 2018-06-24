@@ -8,7 +8,7 @@ import glob
 import shutil
 from pprint import pprint
 
-from rayvision_SDK.rayvision_cg.cg_base import CGBase
+from rayvision_SDK.cg.cg_base import CGBase
 from rayvision_SDK import util
 from rayvision_SDK import tips_code
 from rayvision_SDK.exception import *

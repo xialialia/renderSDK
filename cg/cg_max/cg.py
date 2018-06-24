@@ -15,7 +15,7 @@ except ImportError:
     import winreg as _winreg
 from pprint import pprint
 
-from rayvision_SDK.rayvision_cg.cg_base import CGBase
+from rayvision_SDK.cg.cg_base import CGBase
 from rayvision_SDK import util
 from rayvision_SDK import tips_code
 from rayvision_SDK.exception import *
@@ -219,7 +219,7 @@ class Max(CGBase):
         file_version = None
         # 使用 exe 对 max 文件分析, 得出使用的软件的版本.
         exe_name = "GetMaxProperty.exe"
-        path = os.path.abspath(os.path.join(os.path.abspath(__file__), "../../../rayvision/max"))
+        path = os.path.abspath(os.path.join(os.path.abspath(__file__), "../../../tool/max"))
         cmd = '{} "{}"'.format(
             os.path.join(path, exe_name),
             cg_file,

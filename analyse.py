@@ -6,7 +6,7 @@ import sys
 import traceback
 import argparse
 
-from rayvision_SDK.rayvision_cg import *
+from rayvision_SDK.cg import *
 from rayvision_SDK.exception import *
 
 
