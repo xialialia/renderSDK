@@ -6,79 +6,53 @@ import urllib2
 import logging
 import json
 
-
-class APIError(StandardError):
-    """
-    raise APIError if receiving json message indicating failure.
-    """
-
-    def __init__(self, error_code, error, request):
-        self.error_code = error_code
-        self.error = error
-        self.request = request
-        StandardError.__init__(self, error)
-
-    def __str__(self):
-        return 'APIError: %s: %s, request: %s' % (self.error_code, self.error, self.request)
-
-    __repr__ = __str__
+from RayvisionException import APIError
 
 
 class RayvisionAPI(object):
-    def __init__(self, user_info={}):
+    def __init__(self, user_info={}, log_obj=None):
         """
         API initialization.
         :param dict user_info:
         """
-        # necessary
-        domain_name = user_info.get('domain_name', 'task.foxrenderfarm.com')
-        platform = user_info.get('platform', '8')  # 2：www2；5：pic；8：www8；9：www9；10：gpu
+        self.G_SDK_LOG = log_obj
+        domain_name = user_info.get('domain_name', 'task.renderbus.com')
+        platform = user_info.get('platform', '2')  # 2：www2；5：pic；8：www8；9：www9；10：gpu
+        access_key = user_info.get('access_key')
+        protocol = 'http'  # http/https
 
-        # unnecessary, Advanced options
-        signature = user_info.get('signature', 'rayvision2017')
-        version = user_info.get('version', '1.0.0')
-        user_key = user_info.get('user_key', '')
-        channel = user_info.get('channel', '4')  # 1: web local analysis 2: web cloud analysis 3: plugin analysis 4: SDK analysis
-        protocol = user_info.get('protocol', 'https')  # http/https
-
-        self.protocol_domain = r'%s://%s' % (protocol, domain_name)
-        self.uri_dict = {
-            'userLogin': '/api/rendering/sdk/user/userLogin',  # 登录
-            'getStorageId': '',  # 获取存储ID
-            'getUserRenderSetting': '',  # 获取用户自定义设置
-            'getUserBalance': '',  # 获取用户余额
-            'getPluginUserList': '/api/rendering/task/sdk/getPluginUserList',  # 根据软件名称获取用户的插件配置
-            'getUserSinglePluginConfig': '',  # 根据软件名称和插件配置名（editName）获取用户的插件配置
-            'addUserPluginConfig': '',  # 新增用户插件配置
-            'editUserPluginConfig': '',  # 编辑用户插件配置
-            'deleteUserPluginConfig': '',  # 删除用户插件配置
-            'getAllSupportPlugin': '',  # 根据软件名称获取平台支持的所有插件信息
-            'getSupportCgName': '',  # 获取平台支持软件名称列表
-            'getSupportCgVersion': '',  # 根据软件名称获取平台支持的软件版本列表
-            'getSupportPluginName': '',  # 根据软件版本获取平台支持的插件名称
-            'getSupportPluginVersion': '',  # 根据软件版本和插件名称获取平台支持的插件版本列表
-            'getProject': '',  # 获取项目标签列表
-            'getJobId': '',  # 获取作业号
-            'submitJob': '',  # 提交作业
-            'getJobInfo': '',  # 获取作业信息
-            'getJobList': '',  # 获取作业列表
-            'searchJob': '',  # 搜索作业
-            'startJob': '',  # 开始作业
-            'pauseJob': '',  # 暂停作业
-            'getAllErrorCodeInfo': '',  # 根据软件获取所有错误码详细信息
-            'getErrorCodeInfo': ''  # 根据错误码获取该错误码的详细信息
+        self._protocol_domain = r'{}://{}'.format(protocol, domain_name)
+        self._uri_dict = {
+            'login': '/api/rendering/user/sdk/login',  # 登录
+            'get_storage_id': '/api/rendering/task/sdk/getTaskPathInfo',  # 获取用户存储ID
+            'get_user_balance': '/api/rendering/user/sdk/getUserBalance',  # 获取用户余额
+            'get_user_plugin_config': '/api/rendering/task/sdk/getPluginUserList',  # 获取用户插件配置
+            'add_user_plugin_config': '/api/rendering/task/sdk/addUserPluginConfig',  # 新增用户插件配置
+            'edit_user_plugin_config': '/api/rendering/task/sdk/editUserPluginConfig',  # 编辑用户插件配置
+            'del_user_plugin_config': '/api/rendering/task/sdk/delUserPluginConfigOrSetDefault',  # 删除用户插件配置
+            'get_plugins_supported_by_platform': '/api/rendering/task/sdk/getPluginList',  # 获取平台支持的插件
+            'get_project': '/api/rendering/task/sdk/getProject',  # 获取项目标签
+            'get_job_id': '/api/rendering/task/sdk/createSdkJobId',  # 获取作业号
+            'submit_job': '/api/rendering/task/sdk/sdkSubmitJob',  # 提交作业
+            'get_job_info': '',  # 获取作业信息
+            'get_job_list': '/api/rendering/task/sdk/getRenderTaskList',  # 获取作业列表
+            'search_job': '',  # 搜索作业
+            'start_job': '',  # 开始作业
+            'pause_job': '',  # 暂停作业
+            'get_error_code_info': '/api/rendering/task/sdk/getErrorCodeByCode'  # 根据错误码获取该错误码的详细信息
         }
 
-        self.headers = {
+        self._headers = {
             'Content-Type': 'application/json',
-            'channel': channel,
-            'platform': platform,
-            'signature': signature,
-            'version': version,
-            'userKey': user_key
+            'channel': '4',  # 1: web local analysis 2: web cloud analysis 3: plugin analysis 4: SDK analysis
+            'platform': str(platform),
+            'signature': 'Rayvision2017',
+            'version': '1.0.0',
+            'userId': '',
+            'accessKey': str(access_key)
         }
 
-    def post(self, url, data={}):
+    def _post(self, url, data={}):
         """
         Send an post request and return data object if no error occurred.
         :param String url: The api path.
@@ -86,134 +60,114 @@ class RayvisionAPI(object):
         :return:
         :rtype: dict/List/None
         """
-        logging.info('POST %s' % url)
+        self.G_SDK_LOG.info('POST: {}'.format(url))
+        self.G_SDK_LOG.debug('HTTP Headers: {}'.format(self._headers))
+        self.G_SDK_LOG.debug('HTTP Body: {}'.format(data))
+
         # http_body = urllib.urlencode(data)
         http_body = json.dumps(data)
-        request = urllib2.Request(url, data=http_body, headers=self.headers)
+        request = urllib2.Request(url, data=http_body, headers=self._headers)
         try:
             response = urllib2.urlopen(request, timeout=5)
-            content = response.read().decode('utf-8')
-            r = json.loads(content)
+        except Exception as e:
+            return_message = e
+            raise APIError(100001, return_message, url)  # URL ERROR
 
-            return_code = r.get('code', '-1')
-            return_message = r.get('message', 'No message!!!')
-            return_data = r.get('data', None)
+        content = response.read().decode('utf-8')
+        r = json.loads(content)
+        self.G_SDK_LOG.debug('HTTP Response: {}'.format(r))
 
-            if return_code != 200:
-                raise APIError(return_code, return_message, url)
-            return return_data
-        except urllib2.HTTPError as e:
-            raise e
+        return_code = r.get('code', -1)
+        return_message = r.get('message', 'No message!!!')
+        return_data = r.get('data', None)
 
-    # 1.登录 -- userLogin
-    def login(self, account, access_key):
+        if return_code != 200:
+            raise APIError(return_code, return_message, url)
+        return return_data
+
+    # 1.登录
+    def _login(self, account, access_key):
         """
         Login.
         :param str account:
         :param str access_key: Need to apply.
-        :return: userId, loginDate, signature, userKey, userName, platform, mainUserId
+        :return: userId...
         :rtype: dict
         """
-        url = r'%s%s' % (self.protocol_domain, self.uri_dict.get('userLogin'))
+        url = r'{}{}'.format(self._protocol_domain, self._uri_dict.get('login'))
         data = {
             "account": account,
             "accessKey": access_key
         }
-        r_data = self.post(url, data)
-        user_key = r_data.get('userKey')
-        self.headers['userKey'] = user_key
+        r_data = self._post(url, data)
+        user_id = r_data.get('id')
+        self._headers['userId'] = str(user_id)
         return r_data
 
-    # 2.获取用户存储ID -- getStorageId
-    def get_storage_id(self):
+    # 2.获取用户存储ID
+    def _get_storage_id(self):
         """
         Get user storage id, download id, cfg id.
+        :param str user_id:
         :return: storageId, downloadId, cfgId
         :rtype: dict
         """
-        url = r'%s%s' % (self.protocol_domain, self.uri_dict.get('getStorageId'))
+        url = r'{}{}'.format(self._protocol_domain, self._uri_dict.get('get_storage_id'))
         data = {}
-        r_data = self.post(url, data)
+        r_data = self._post(url, data)
         return r_data
 
-    # 3.获取用户自定义设置 -- getUserRenderSetting
-    def get_user_custom_setup(self):
-        """
-        Get user custom setup.
-        :return: singleNodeRenderFrames, mainChildAccountSetup, mayaNotAnalyseMiFile, mayaNotAnalyseAssFile, mayaForceAnalyseAllAgent
-        :rtype: dict
-        """
-        url = r'%s%s' % (self.protocol_domain, self.uri_dict.get('getUserRenderSetting'))
-        data = {}
-        r_data = self.post(url, data)
-        return r_data
-
-    # 4.查询用户余额 -- getUserBalance
-    def get_user_balance(self):
+    # 3.查询用户余额
+    def _get_user_balance(self):
         """
         Get user's balance information.
         :return:  rmbBalance, usdBalance, coupon
         :rtype: dict
         """
-        url = r'%s%s' % (self.protocol_domain, self.uri_dict.get('getUserBalance'))
+        url = r'{}{}'.format(self._protocol_domain, self._uri_dict.get('get_user_balance'))
         data = {}
-        r_data = self.post(url, data)
+        r_data = self._post(url, data)
         return r_data
 
-    # 5.根据软件名称获取插件配置 -- getPluginUserList
-    def get_plugin_user_list(self, cg_name):
+    # 4.获取用户插件配置
+    def _get_user_plugin_config(self, cg_name):
         """
         Get user plugin configs according to the cg name.
         :param str cg_name: cg name
-        :return: editName, cgName, cgVersion, pluginsInfo
+        :return: editName, cgName, cgVersion, pluginsInfoSdkVos
         :rtype: list
         """
-        url = r'%s%s' % (self.protocol_domain, self.uri_dict.get('getPluginUserList'))
+        url = r'{}{}'.format(self._protocol_domain, self._uri_dict.get('get_user_plugin_config'))
         data = {
             "cgName": cg_name
         }
-        r_data = self.post(url, data)
+        r_data = self._post(url, data)
         return r_data
 
-    # 6.根据软件名称和插件配置名（editName）获取用户已配置的插件配置 -- getUserSinglePluginConfig
-    def get_user_single_plugin_config(self, cg_name, edit_name):
-        """
-        Get user single plugin configs according to the cg name and edit name.
-        :param str cg_name: cg name
-        :param str edit_name: plugin config group name
-        :return: editName, cgName, cgVersion, pluginsInfo
-        :rtype: dict
-        """
-        url = r'%s%s' % (self.protocol_domain, self.uri_dict.get('getUserSinglePluginConfig'))
-        data = {
-            "cgName": cg_name,
-            "editName": edit_name
-        }
-        r_data = self.post(url, data)
-        return r_data
-
-    # 7.新增插件配置 -- addUserPluginConfig
-    def add_user_plugin_config(self, edit_name, cg_name, cg_version, plugins_info):
+    # 5.新增用户插件配置
+    def _add_user_plugin_config(self, edit_name, cg_id, cg_name, cg_version, plugins_info):
         """
         Add user plugin config.
         :param str edit_name:
+        :param str cg_id:
         :param str cg_name:
         :param str cg_version:
         :param list plugins_info:[{"pluginName":"multiscatter","pluginVersion":"1.3.6.9"}]
         :return: None
         """
-        url = r'%s%s' % (self.protocol_domain, self.uri_dict.get('addUserPluginConfig'))
+        url = r'{}{}'.format(self._protocol_domain, self._uri_dict.get('add_user_plugin_config'))
         data = {
+            "cgId": cg_id,
             "editName": edit_name,
             "cgName": cg_name,
             "cgVersion": cg_version,
             "pluginsInfo": plugins_info
         }
-        r_data = self.post(url, data)
+        r_data = self._post(url, data)
         return r_data
 
-    # 8.编辑插件配置 -- editUserPluginConfig
-    def edit_user_plugin_config(self, edit_name, cg_name, cg_version, plugins_info):
+    # 6.编辑用户插件配置
+    def _edit_user_plugin_config(self, edit_name, cg_id, cg_name, cg_version, plugins_info):
         """
         Edit plugin config.
         :param str edit_name:
@@ -222,149 +176,105 @@ class RayvisionAPI(object):
         :param list plugins_info:
         :return: None
         """
-        url = r'%s%s' % (self.protocol_domain, self.uri_dict.get('editUserPluginConfig'))
+        url = r'{}{}'.format(self._protocol_domain, self._uri_dict.get('edit_user_plugin_config'))
         data = {
+            "cgId": cg_id,
             "editName": edit_name,
             "cgName": cg_name,
             "cgVersion": cg_version,
             "pluginsInfo": plugins_info
         }
-        r_data = self.post(url, data)
+        r_data = self._post(url, data)
         return r_data
 
-    # 9.删除插件配置 -- deleteUserPluginConfig
-    def delete_user_plugin_config(self, edit_name):
+    # 7.删除用户插件配置 -- deleteUserPluginConfig
+    def _del_user_plugin_config(self, edit_name):
         """
         Delete plugin config.
         :param str edit_name:
         :return: None
         """
-        url = r'%s%s' % (self.protocol_domain, self.uri_dict.get('deleteUserPluginConfig'))
+        url = r'{}{}'.format(self._protocol_domain, self._uri_dict.get('del_user_plugin_config'))
         data = {
-            "editName": edit_name
+            "editName": edit_name,
+            "type":"1"  # 1:删除 2:设为默认
         }
-        r_data = self.post(url, data)
+        r_data = self._post(url, data)
         return r_data
 
-    # 10.根据软件名称获取平台支持的所有插件信息 -- getAllPluginsInfo
-    def get_all_plugins_info(self, cg_name):
+    # 8.获取平台支持的插件
+    def _get_plugins_supported_by_platform(self, cg_name):
         """
         Add plugin config.
         :param str cg_name:
         :return:
         :rtype: dict
         """
-        url = r'%s%s' % (self.protocol_domain, self.uri_dict.get('getAllPluginsInfo'))
+        url = r'{}{}'.format(self._protocol_domain, self._uri_dict.get('get_plugins_supported_by_platform'))
         data = {
             "cgName": cg_name
         }
-        r_data = self.post(url, data)
+        r_data = self._post(url, data)
         return r_data
 
-    # 11.获取平台支持软件名称列表 -- getSupportCgName
-    def get_support_cg_name(self):
-        """
-        Add plugin config.
-        :return:
-        :rtype: list
-        """
-        url = r'%s%s' % (self.protocol_domain, self.uri_dict.get('getSupportCgName'))
-        data = {}
-        r_data = self.post(url, data)
-        return r_data['cgNameList']
-
-    # 12.根据软件名称获取平台支持的软件版本列表 -- getSupportCgVersion
-    def get_support_cg_version(self, cg_name):
-        """
-        Add plugin config.
-        :return:
-        :rtype: list
-        """
-        url = r'%s%s' % (self.protocol_domain, self.uri_dict.get('getSupportCgVersion'))
-        data = {}
-        r_data = self.post(url, data)
-        return r_data['cgNameList']
-
-    # 13.根据软件版本获取平台支持的插件名称 -- getSupportPluginName
-    def get_support_plugin_name(self):
-        """
-        Add plugin config.
-        :return:
-        :rtype: list
-        """
-        url = r'%s%s' % (self.protocol_domain, self.uri_dict.get('getSupportPluginName'))
-        data = {}
-        r_data = self.post(url, data)
-        return r_data['cgNameList']
-
-    # 14.根据软件版本和插件名称获取平台支持的插件版本列表 -- getSupportCgName
-    def get_support_cg_name(self):
-        """
-        Add plugin config.
-        :return:
-        :rtype: list
-        """
-        url = r'%s%s' % (self.protocol_domain, self.uri_dict.get('getSupportCgName'))
-        data = {}
-        r_data = self.post(url, data)
-        return r_data['cgNameList']
-
-    # 15.获取项目标签列表 -- getProject
-    def get_project(self):
+    # 9.获取项目标签
+    def _get_project(self):
         """
         Get project list.
         :return: projectName
         :rtype: list
         """
-        url = r'%s%s' % (self.protocol_domain, self.uri_dict.get('getProject'))
+        url = r'%s%s' % (self._protocol_domain, self._uri_dict.get('get_project'))
         data = {}
-        r_data = self.post(url, data)
+        r_data = self._post(url, data)
         return r_data
 
-    # 16.获取作业号 -- getJobId
-    def get_job_id(self):
+    # 10.获取作业号
+    def _get_job_id(self, count=1):
         """
         Get job id.
         :return: jobId
-        :rtype: str
+        :rtype: list
         """
-        url = r'%s%s' % (self.protocol_domain, self.uri_dict.get('getJobId'))
-        data = {}
-        r_data = self.post(url, data)
-        return r_data['jobId']
+        url = r'{}{}'.format(self._protocol_domain, self._uri_dict.get('get_job_id'))
+        data = {
+            'count': count
+        }
+        r_data = self._post(url, data)
+        return r_data
 
-    # 17.提交作业 -- submitJob
-    def submit_job(self, job_id):
+    # 11.提交作业
+    def _submit_job(self, task_id):
         """
         Submit job.
-        :param str job_id:
+        :param int task_id:
         :return: taskId, cameraName, layerName, nodeName, submitResult
         :rtype: dict
         """
-        url = r'%s%s' % (self.protocol_domain, self.uri_dict.get('submitJob'))
+        url = r'{}{}'.format(self._protocol_domain, self._uri_dict.get('submit_job'))
         data = {
-            "jobId": job_id
+            "taskId": int(task_id)
         }
-        r_data = self.post(url, data)
+        r_data = self._post(url, data)
         return r_data
 
-    # 18.获取作业信息 -- getJobInfo
-    def get_job_info(self, job_id):
+    # 12.获取作业信息
+    def _get_job_info(self, job_id):
         """
         Get job information.
         :param str job_id:
         :return:
         :rtype: dict
         """
-        url = r'%s%s' % (self.protocol_domain, self.uri_dict.get('getJobInfo'))
+        url = r'{}{}'.format(self._protocol_domain, self._uri_dict.get('get_job_info'))
         data = {
             "jobId": job_id
         }
-        r_data = self.post(url, data)
+        r_data = self._post(url, data)
         return r_data
 
-    # 19.获取作业列表 -- getJobList
-    def get_job_list(self, page_size, page_num, render_status):
+    # 13.获取作业列表
+    def _get_job_list(self, page_size, page_num, render_status):
         """
         Get job list.
         :param page_size:
@@ -373,42 +283,42 @@ class RayvisionAPI(object):
         :return:
         :rtype: list
         """
-        url = r'%s%s' % (self.protocol_domain, self.uri_dict.get('getJobInfo'))
+        url = r'{}{}'.format(self._protocol_domain, self._uri_dict.get('get_job_list'))
         data = {
             "pageSize": page_size,
             "pageNum": page_num,
             "renderStatus": render_status
         }
-        r_data = self.post(url, data)
+        r_data = self._post(url, data)
         return r_data
 
-    # 20.搜索作业 -- searchJob
-    # 21.开始作业 -- startJob
-    # 22.暂停作业 -- pauseJob
+    # 14.搜索作业 -- searchJob
+    # 15.开始作业 -- startJob
+    # 16.暂停作业 -- pauseJob
 
-    # 23.根据软件获取所有错误码详细信息 -- getAllErrorCodeInfo
-    def get_all_error_code_info(self, cg_name):
+    # 17.根据错误码获取该错误码的详细信息
+    def _get_error_code_by_code(self, code):
         """
-        Get all error code information.
-        :param cg_name: software name
+        Get error code information.
+        :param code: error code
         :return:
-        :rtype: dict
+        :rtype: list
         """
-        url = r'%s%s' % (self.protocol_domain, self.uri_dict.get('getAllErrorCodeInfo'))
+        url = r'{}{}'.format(self._protocol_domain, self._uri_dict.get('get_error_code_info'))
         data = {
-            "cgName": cg_name
+            "code": code
         }
-        r_data = self.post(url, data)
+        r_data = self._post(url, data)
         return r_data
-
-        # 24.根据错误码获取该错误码的详细信息 -- getErrorCodeInfo
 
 
 if __name__ == '__main__':
-    logging.basicConfig(level=logging.DEBUG)
-    api_obj = RayvisionAPI(domain_name='10.60.96.142:8980', platform="1")
-    api_obj.headers['userKey'] = '04b12300cacfd4ab4fd6ed7e176b88ab'
-    print api_obj.headers
-    data = api_obj.get_plugin_user_list('3ds Max')
-    for i in data:
-        print i.get('editName')
+    user_info = {
+        'domain_name': 'dev.renderbus.com',
+        'platform': 1,
+        'accessKey': '$apr1$X5Q4lau1$tkyi4wvBXoQhKOP0G87e51',
+        'protocol': 'http'
+    }
+    api_obj = RayvisionAPI(user_info)
+    data = api_obj._login(account='xiexianguo', access_key=user_info.get('accessKey'))
+    print json.dumps(data)
