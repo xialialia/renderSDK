@@ -12,11 +12,12 @@ try:
 except ImportError:
     import winreg as _winreg
 
-from rayvision_cg.cg_base import CGBase
-import util
-import tips_code
-from exception import *
-from message import *
+from rayvision_SDK.rayvision_cg.cg_base import CGBase
+from rayvision_SDK import util
+from rayvision_SDK import tips_code
+from rayvision_SDK.exception import *
+from rayvision_SDK.message import *
+
 
 """Maya
 analyse_cmd = "\"%s\" -command \"python \\\"options=%s;" \
@@ -214,7 +215,7 @@ class Maya(CGBase):
             version = self.check_version1(self.cg_file)
         version = str(version)
         self.version = str(version)
-        self.version_str = "{} {}".format("Maya", version)
+        self.version_str = "{} {}".format(self.name, version)
         # 用版本找安装路径
         location = self.location_from_reg(version)
         exe_path = self.exe_path_from_location(os.path.join(location, "bin"), self.exe_name)
@@ -274,11 +275,8 @@ class Maya(CGBase):
             self.tips.save()
             raise AnalyseFailError
 
-        for p in [task_path, asset_path, tips_path]:
-            if not os.path.exists(p):
-                self.tips.add(tips_code.unknow_err)
-                self.tips.save()
-                raise AnalyseFailError("json not generated.".format(p))
+        # 通过判断是否生成了json文件判断分析是否成功
+        self.json_exist()
 
     def load_output_json(self):
         # super().load_output_json()
@@ -295,15 +293,15 @@ class Maya(CGBase):
             for path in path_list:
                 d = {}
                 local = path
-                server = util.convert_path(self.user_input, local)
+                server = util.convert_path("", local)
                 d["local"] = local
                 d["server"] = server
                 upload_asset.append(d)
 
         # 把 cg 文件加入 upload.json
         upload_asset.append({
-            "local": self.cg_file,
-            "server": util.convert_path(self.user_input, self.cg_file)
+            "local": self.cg_file.replace("\\", "/"),
+            "server": util.convert_path("", self.cg_file)
         })
 
         upload_json = {}

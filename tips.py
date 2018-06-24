@@ -7,8 +7,8 @@ import json
 import shutil
 from pprint import pprint
 
-import util
-from exception import *
+from rayvision_SDK import util
+from rayvision_SDK.exception import *
 
 
 class Tips(object):

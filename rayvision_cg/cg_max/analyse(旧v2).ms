@@ -327,7 +327,7 @@ struct MsDict(
 		)else(
 			json_file_obj = createFile json_file
 		)
-		format "{\n%}" json_str to:json_file_obj
+		format "{\n%}\n" json_str to:json_file_obj
 		close json_file_obj
 	)
 
@@ -1283,7 +1283,7 @@ struct STAsset(
 		
 )
 
-fn analyse file:cg_file task:task_json asset:asset_json tips:tips_json ignore:#()=(
+fn main file:cg_file task:task_json asset:asset_json tips:tips_json ignore:#()=(
 	g_obj_con.init file task asset tips ignore
 	local loadResult = loadMaxFile g_obj_con.cg_file useFileUnits:true quiet:true 
 	

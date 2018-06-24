@@ -14,11 +14,11 @@ try:
 except ImportError:
     import winreg as _winreg
 
-from rayvision_cg.cg_base import CGBase
-import util
-import tips_code
-from exception import *
-from message import *
+from rayvision_SDK.rayvision_cg.cg_base import CGBase
+from rayvision_SDK import util
+from rayvision_SDK import tips_code
+from rayvision_SDK.exception import *
+from rayvision_SDK.message import *
 
 VERSION = sys.version_info[0]
 

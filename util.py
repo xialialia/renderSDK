@@ -46,15 +46,15 @@ def json_load(json_path, encoding='utf-8'):
     return d
 
 
-def json_save(json_path, obj, encoding='utf-8'):
+def json_save(json_path, obj, encoding='utf-8', ensure_ascii=True):
     p = json_path
     mode = 'w'
     indent = 2
     with io.open(p, mode, encoding=encoding) as fp:
         if VERSION == 3:
-            json.dump(obj, fp, indent=indent)
+            json.dump(obj, fp, ensure_ascii=ensure_ascii, indent=indent)
         else:
-            fp.write(unicode(json.dumps(obj, ensure_ascii=False, indent=indent)))
+            fp.write(unicode(json.dumps(obj, ensure_ascii=ensure_ascii, indent=indent)))
 
 
 def write(path, content, mode="w", encoding="utf-8"):
@@ -120,14 +120,17 @@ def convert_path(user_input, path):
     lower_file = os.path.normpath(path.lower()).replace('\\', '/')
     file_dir = os.path.dirname(lower_file)
     if file_dir is None or file_dir.strip() == '':
-        return os.path.normpath(result_file)
+        pass
     else:
         if _inter_path(lower_file) is True:
             start, rest = _parse_inter_path(lower_file)
             result_file = user_input + '/net/' + start.replace('//', '') + rest.replace('\\', '/')
         else:
             result_file = user_input + '\\' + path.replace('\\', '/').replace(':', '')
-        return os.path.normpath(result_file)
+
+    result = os.path.normpath(result_file)
+    result = result.replace("\\", "/")
+    return result
 
 
 def transcoding(render_task_cfg):

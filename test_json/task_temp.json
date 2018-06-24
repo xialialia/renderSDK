@@ -1,0 +1,36 @@
+{
+    "scene_info":{
+        "common":{
+            "all_camera":
+            [
+                "Camera001中文啊",
+                "Camera002"
+            ],
+            "animation_range":"0-100",
+            "cg_version":"undefined",
+            "element_active":"1",
+            "element_list":
+            [
+
+            ],
+            "frames":"0",
+            "gamma":"1",
+            "gamma_val":"2.2",
+            "height":"480",
+            "in_gamma":"2.2",
+            "out_gamma":"2.2",
+            "output_file":"发送扽撒旦发嗲.jpg",
+            "output_file_basename":"发送扽撒旦发嗲",
+            "output_file_type":".jpg",
+            "rend_save_file":"true",
+            "rend_timeType":"1",
+            "renderable_camera":"",
+            "width":"640"
+        },
+        "renderer":{
+            "renderer":"scanline",
+            "renderer_name":"scanline",
+            "renderer_orign":"Default_Scanline_Renderer"
+        }
+    }
+}

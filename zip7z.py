@@ -1,5 +1,5 @@
 # -*-coding: utf-8 -*-
-from cmd import Cmd
+from rayvision_SDK.cmd import Cmd
 
 
 class CompressionFailedError(Exception):

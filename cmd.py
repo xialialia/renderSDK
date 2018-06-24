@@ -1,8 +1,12 @@
 # -*-coding: utf-8 -*-
 from __future__ import print_function
+from __future__ import unicode_literals
+import sys
 import subprocess
 
-import util
+from rayvision_SDK import util
+
+VERSION = sys.version_info[0]
 
 
 class Cmd(object):
@@ -21,6 +25,7 @@ class Cmd(object):
     def run(self, cmd, shell=False):
         log = print
 
+        cmd = self.compatible(cmd)
         log("run command:\n{}".format(cmd))
         p = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=shell)
         stdout, stderr = p.communicate()
@@ -39,6 +44,14 @@ class Cmd(object):
         si.dwFlags |= subprocess.STARTF_USESHOWWINDOW
         p = subprocess.Popen(cmd, stdin=subprocess.DEVNULL, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, universal_newlines=True, startupinfo=si)
         return p
+
+    def compatible(self, cmd):
+        if VERSION == 3:
+            pass
+        else:
+            cmd = unicode(cmd)
+            cmd = cmd.encode("gbk")
+        return cmd
 
 
 def main():
