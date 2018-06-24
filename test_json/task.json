@@ -1,53 +1,58 @@
 {
+  "scene_info_render": {},
   "software_config": {
-    "cg_version": "2016", 
-    "cg_name": "maya", 
-    "plugins": {
-      "rayvision": "1.0.0", 
-      "multiscatter": "1.1.1"
-    }
-  }, 
-  "advanced_option": {
-    "project_name": "test"
-  }, 
-  "miscellaneous": {}, 
-  "system_info": {
-    "common": {
-      "platform": "2", 
-      "user_id": "100002", 
-      "task_id": "666666", 
-      "channel": "4"
-    }
-  }, 
-  "scene_info_render": {
-    "common": {}, 
-    "renderer": {}
-  }, 
+    "cg_version": "2012",
+    "cg_name": "max",
+    "plugins": {}
+  },
   "scene_info": {
-    "defaultRenderLayer": {
-      "renderable": "1", 
-      "is_default_camera": "1", 
-      "common": {
-        "renderer": "mayaSoftware", 
-        "image_file_prefix": "", 
-        "start": "1", 
-        "end": "10", 
-        "by_frame": "1", 
-        "all_camera": [
-          "perspShape"
-        ], 
-        "render_camera": [
-          "perspShape"
-        ], 
-        "renumber_frames": "False", 
-        "width": "960", 
-        "height": "540", 
-        "image_format": "iff", 
-        "animation": "False", 
-        "file_name": "[u'test_maya.iff']"
-      }, 
-      "option": "", 
-      "env": {}
+    "common": {
+      "animation_range": "0-100",
+      "in_gamma": "2.2",
+      "rend_timeType": "1",
+      "output_file": "发送扽撒旦发嗲.jpg",
+      "gamma": "1",
+      "all_camera": [
+        "Camera001中文啊",
+        "Camera002"
+      ],
+      "element_list": [],
+      "output_file_basename": "发送扽撒旦发嗲",
+      "height": "480",
+      "output_file_type": ".jpg",
+      "rend_save_file": "true",
+      "out_gamma": "2.2",
+      "frames": "0",
+      "element_active": "1",
+      "width": "640",
+      "gamma_val": "2.2",
+      "renderable_camera": "",
+      "cg_version": "undefined"
+    },
+    "renderer": {
+      "renderer_orign": "Default_Scanline_Renderer",
+      "renderer": "scanline",
+      "renderer_name": "scanline"
     }
+  },
+  "task_info": {
+    "is_distribute_render": "",
+    "is_split_render": "",
+    "test_frames": "",
+    "is_picture": "false",
+    "project_id": "",
+    "project_name": "dasdd",
+    "distribute_render_node": "",
+    "time_out": "",
+    "channel": "4",
+    "split_tiles": "",
+    "cg_id": "",
+    "is_layer_rendering": "",
+    "task_id": "5151",
+    "input_cg_file": "",
+    "frames_per_task": "",
+    "stop_after_test": "",
+    "user_id": "10001",
+    "platform": "1"
   }
 }

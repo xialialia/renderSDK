@@ -6,8 +6,8 @@ import sys
 import traceback
 import argparse
 
-from rayvision_cg import *
-from exception import *
+from rayvision_SDK.cg import *
+from rayvision_SDK.exception import *
 
 
 class RayvisionAnalyse(object):

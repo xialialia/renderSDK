@@ -1,5 +1,7 @@
 # -*-coding: utf-8 -*-
-from cmd import Cmd
+import os
+
+from rayvision_SDK.cmd import Cmd
 
 
 class CompressionFailedError(Exception):
@@ -63,7 +65,7 @@ class Zip7z(object):
 
 
 def main():
-    exe_path = r"C:\Users\hekaihao\AppData\Roaming\rayvision\RenderBus4.0\Module\bin\windows-32-msvc2012\7z.exe"
+    exe_path = os.path.abspath(os.path.join("tool/zip", "windows", "7z.exe"))
     zip = Zip7z(exe_path)
     files = [
         r"D:\30089034\_STP00000_大餐厅全景_142344_0000.exr",

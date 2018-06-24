@@ -2,15 +2,16 @@
 from __future__ import print_function
 from __future__ import division
 import os
+import time
 import traceback
 
-import util
-import tips_code
-from tips import Tips
-from cmd import Cmd
-from zip7z import Zip7z
-from exception import *
-from message import *
+from rayvision_SDK import util
+from rayvision_SDK import tips_code
+from rayvision_SDK.tips import Tips
+from rayvision_SDK.cmd import Cmd
+from rayvision_SDK.zip7z import Zip7z
+from rayvision_SDK.exception import *
+from rayvision_SDK.message import *
 
 
 class CGBase(object):
@@ -65,7 +66,7 @@ class CGBase(object):
     def dump_task_json(self):
         print("run CG.dump_task_json")
         task_json = self.job_info.task_info
-        util.json_save(self.job_info.task_json_path, task_json)
+        util.json_save(self.job_info.task_json_path, task_json, ensure_ascii=False)
 
     def run(self):
         raise NotImplementedError("You should override this method")
@@ -101,12 +102,19 @@ class CGBase(object):
         self.job_info.tips_info = tips_json
 
     @staticmethod
-    def json_load(json_path):
-        try:
-            d = util.json_load(json_path)
-        except Exception as e:
-            traceback.print_exc()
-            d = {}
+    def json_load(json_path, encodings=None):
+        if encodings is None:
+            encodings = ["utf-8"]
+        d = {}
+        for encoding in encodings: 
+            try:
+                d = util.json_load(json_path, encoding=encoding)
+                break
+            except Exception as e:
+                print("error load: {}\n{}".format(json_path, traceback.format_exc()))
+                d = {}
+                continue
+                
         return d
 
     def write_cg_path(self):
@@ -117,4 +125,18 @@ class CGBase(object):
         task_info["input_cg_file"] = cg_file.replace("\\", "/")
         task_info["cg_id"] = cg_id
 
-        util.json_save(self.job_info.task_json_path, self.job_info.task_info)
+        util.json_save(self.job_info.task_json_path, self.job_info.task_info, ensure_ascii=False)
+
+    def json_exist(self):
+        """如果没有生成 json 文件, 判断分析失败"""
+        task_path = self.job_info.task_json_path
+        asset_path = self.job_info.asset_json_path
+        tips_path = self.job_info.tips_json_path
+
+        for p in [task_path, asset_path, tips_path]:
+            if not os.path.exists(p):
+                msg = "Json file is not generated: {}".format(p)
+                self.tips.add(tips_code.unknow_err, msg)
+                self.tips.save()
+                raise AnalyseFailError(msg)
+        return True

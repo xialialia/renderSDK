@@ -3,6 +3,8 @@ from __future__ import unicode_literals
 from __future__ import print_function
 import os
 import re
+import sys
+import time
 import datetime
 import traceback
 import subprocess
@@ -13,11 +15,13 @@ except ImportError:
     import winreg as _winreg
 from pprint import pprint
 
-from rayvision_cg.cg_base import CGBase
-import util
-import tips_code
-from exception import *
-from message import *
+from rayvision_SDK.cg.cg_base import CGBase
+from rayvision_SDK import util
+from rayvision_SDK import tips_code
+from rayvision_SDK.exception import *
+from rayvision_SDK.message import *
+
+VERSION = sys.version_info[0]
 
 
 def cmp(a, b):
@@ -43,6 +47,9 @@ class Max(CGBase):
         self.exe_name = "3dsmax.exe"
         self.vray = None
         self.name = "3ds Max"
+        self.ms_name_a = "analysea.mse"
+        self.ms_name_u = "analyseu.mse"
+        self.temp_task_json_name = "task_temp.json"
 
         self.init()
 
@@ -56,9 +63,10 @@ class Max(CGBase):
         pattern = r'^[A-Z][^-]*?\d$'
         m = re.match(pattern, short_name)
         if m is None:
-            self.tips.add(tips_code.max_name_illegal, self.cg_file)
-            self.tips.save()
-            raise CGFileNameIllegalError("")
+            # self.tips.add(tips_code.max_name_illegal, self.cg_file)
+            # self.tips.save()
+            # raise CGFileNameIllegalError("")
+            pass
 
     def location_from_reg(self, bit, file_version):
         """
@@ -187,7 +195,7 @@ class Max(CGBase):
         if location is None:
             raise RayvisionError("Can't find Max location.")
 
-        exe_path = self.exe_path_from_location(location, self.exe_path)
+        exe_path = self.exe_path_from_location(location, self.exe_name)
         if exe_path in (None, ""):
             exe_path = self.exe_path_with_hardcode()
         if exe_path in (None, ""):
@@ -211,7 +219,7 @@ class Max(CGBase):
         file_version = None
         # 使用 exe 对 max 文件分析, 得出使用的软件的版本.
         exe_name = "GetMaxProperty.exe"
-        path = "../../rayvision/max"
+        path = os.path.abspath(os.path.join(os.path.abspath(__file__), "../../../tool/max"))
         cmd = '{} "{}"'.format(
             os.path.join(path, exe_name),
             cg_file,
@@ -241,25 +249,23 @@ class Max(CGBase):
             r"3ds Max Version: (\d+\.\d+)",
             r"3ds Max 版本: (\d+\.\d+)",
         ]
+
+        file_version = None
+        cg_version = None
         for pattern in patterns:
             result = re.search(pattern, stdout)
             if result is not None:
+                file_version = result.groups()[0]
+                file_version = int(float(file_version))
+                #
+                if file_version > 9:
+                    cg_version = str(int(file_version) + 1998)
+                print(file_version, type(file_version))
+                print(cg_version, type(cg_version))
                 break
-        if result is not None:
-            file_version = result.groups()[0]
-            file_version = int(float(file_version))
-            #
-            if file_version > 9:
-                cg_version = str(int(file_version) + 1998)
-            # version = "20" + str(file_version - 2).zfill(2)
-            print(file_version, type(file_version))
-            print(cg_version, type(cg_version))
-        else:
+        if file_version is None or cg_version is None:
             raise MaxDamageError(error9900_max_damage)
 
-        # cg_version_str = "3ds Max " + cg_version
-        # self.version = cg_version
-        # self.version_str = cg_version_str
         print(cg_version, file_version)
         print(self.version, self.version_str)
         return (cg_version, file_version)
@@ -344,22 +350,22 @@ class Max(CGBase):
         # pprint(d)
         return d
 
-    def template_ms(self, sdk_path, cg_file, task_json, asset_json, tips_json, ingore_texture="false"):
-        ms = """
+    def template_ms(self, ms_path, ms_name, cg_file, task_json, asset_json, tips_json, ignore_analyse_array="false"):
+        t = """
 (DotNetClass "System.Windows.Forms.Application").CurrentCulture = dotnetObject "System.Globalization.CultureInfo" "zh-cn"
-filein @"{sdk_path}/analyse.ms"
-fn analyse = (
-rayvision #("{cg_file}", "{task_json}", "{asset_json}", "{tips_json}", "{ingore_texture}")
-)
+filein @"{ms_path}/{ms_name}"
+
+analyse file:"{cg_file}" task:"{task_json}" asset:"{asset_json}" tips:"{tips_json}" ignore:"{ignore_analyse_array}"
         """.format(
-            sdk_path=sdk_path,
+            ms_path=ms_path,
             cg_file=cg_file,
             task_json=task_json,
             asset_json=asset_json,
             tips_json=tips_json,
-            ingore_texture=ingore_texture,
+            ignore_analyse_array=ignore_analyse_array,
+            ms_name=ms_name,
         )
-        return ms
+        return t
 
     def _zip_file(self, zip_exe_path, source_path, dest_path):
         """
@@ -372,13 +378,14 @@ rayvision #("{cg_file}", "{task_json}", "{asset_json}", "{tips_json}", "{ingore_
         f = source_path
         zip_name = dest_path
         # TODO 用 Zip7z && 不同系统
-        cmd = '"{}" a "{}" "{}"  -mx3 -ssw '.format(
-            zip_exe_path,
-            zip_name,
-            f,
-        )
-        returncode, stdout, stderr = self.cmd.run(cmd, shell=True)
-        return returncode
+        # cmd = '"{}" a "{}" "{}"  -mx3 -ssw '.format(
+        #     zip_exe_path,
+        #     zip_name,
+        #     f,
+        # )
+        # returncode, stdout, stderr = self.cmd.run(cmd, shell=True)
+        self.zip7z.pack(files=[f], dest=zip_name)
+        return
 
     def zip_max(self, max_list):
         """
@@ -408,6 +415,7 @@ rayvision #("{cg_file}", "{task_json}", "{asset_json}", "{tips_json}", "{ingore_
         组装 upload.json,
         1. 处理 max 的压缩文件 .7z
         2. 处理 asset.json 的其他资产
+        3. cg 文件
         upload.json format:
         {
             "asset":[
@@ -428,7 +436,7 @@ rayvision #("{cg_file}", "{task_json}", "{asset_json}", "{tips_json}", "{ingore_
         for zip_result in zip_result_list:
             d = {}
             d["local"] = zip_result
-            d["server"] = util.convert_path(self.user_input, zip_result)
+            d["server"] = util.convert_path("", zip_result)
             asset.append(d)
 
         # 处理 asset.json 里面的其他资产
@@ -439,7 +447,7 @@ rayvision #("{cg_file}", "{task_json}", "{asset_json}", "{tips_json}", "{ingore_
             for f in v:
                 d = {}
                 d["local"] = f
-                d["server"] = util.convert_path(self.user_input, f)
+                d["server"] = util.convert_path("", f)
                 asset.append(d)
 
         upload_json["asset"] = asset
@@ -536,56 +544,80 @@ rayvision #("{cg_file}", "{task_json}", "{asset_json}", "{tips_json}", "{ingore_
         super(Max, self).dump_task_json()
 
     def analyse(self):
-        # TODO sdk_path
-        sdk_path = os.getcwd()
+        # TODO sdk_path TODO config? --> ms_path ms_name gen_ms_path
+        ms_path = os.path.dirname(os.path.abspath(__file__))
         cg_file = self.cg_file
-        # 暂时是目录, 以后会改成 json 文件
-        task_json = self.job_info.json_dir
-        asset_json = task_json
-        tips_json = task_json
+        task_json = self.job_info.task_json_path
+        # 临时temp 的task.json
+        temp_task_json = os.path.join(os.path.dirname(task_json), self.temp_task_json_name)
+        asset_json = self.job_info.asset_json_path
+        tips_json = self.job_info.tips_json_path
         # ####
-        ms = self.template_ms(sdk_path, cg_file, task_json, asset_json, tips_json, ingore_texture="false").replace("\\", "/")
+        version = int(self.version)
+        if version < 2013:
+            ms_name = self.ms_name_a
+        else:
+            ms_name = self.ms_name_u
+        ms = self.template_ms(ms_path, ms_name, cg_file, temp_task_json, asset_json, tips_json, ignore_analyse_array="false").replace("\\", "/")
         print(ms)
+
         now = datetime.datetime.now()
         now = now.strftime("%Y%m%d%H%M%S")
-        # 暂时先在当前目录
-        path = os.path.join("Analyse{}.ms".format(now))
-        util.write(path, ms)
+        # 生成的 ms 文件在cg.py同目录
+        ms_full_path = os.path.join(ms_path, "Analyse{}.ms".format(now))
+        util.write(ms_full_path, ms)
         #
-        cmd = "\"{}\" -silent -mip -mxs \"filein \\\"{}/{}\\\";analyse()\"".format(
+        cmd = "\"{}\" -silent -mip -mxs \"filein \\\"{}\\\"\"".format(
             self.exe_path,
-            sdk_path.replace("\\", "/"),
-            path,
+            ms_full_path.replace("\\", "/"),
         )
 
         returncode, stdout, stderr = self.cmd.run(cmd, shell=True)
-        print("returncode", returncode)
-        # 如果returncode 不是0, 写入 tips
-        if returncode != 0:
-            # TODO 如果软件返回码不为0, 生成的json是空字典
-            self.tips.add(tips_code.unknow_err, stdout, stderr)
-            self.tips.save()
-            raise AnalyseFailError
+        print("returncode:", returncode)
+        # 运行成功 返回码不一定为0
+        # 通过判断是否生成了json文件判断分析是否成功
+        self.json_exist()
 
     def load_output_json(self):
-        super(Max, self).load_output_json()
+        task_path = self.job_info.task_json_path
+        temp_task_path = os.path.join(os.path.dirname(task_path), self.temp_task_json_name)
+        asset_path = self.job_info.asset_json_path
+        tips_path = self.job_info.tips_json_path
+
+        encodings = ["utf-8-sig", "gbk", "utf-8"]
+        temp_task_json = self.json_load(temp_task_path, encodings=encodings)
+        asset_json = self.json_load(asset_path, encodings=encodings)
+        tips_json = self.json_load(tips_path, encodings=encodings)
+
+        # 把 temp_task.json 的内容增加到 task.json 并写成文件
+        task_json = self.job_info.task_info
+        # 直接 update 替换
+        task_json.update(temp_task_json)
+        util.json_save(task_path, task_json, ensure_ascii=False)
+
+        self.task_json = task_json
+        self.job_info.task_info = task_json
+
+        self.asset_json = asset_json
+        self.job_info.asset_info = asset_json
+
+        self.tips_json = tips_json
+        self.job_info.tips_info = tips_json
 
     def handle_analyse_result(self):
         asset_json = self.asset_json
-        if "max" in asset_json:
-            maxs = asset_json["max"]
+        if "zip" in asset_json:
+            maxs = asset_json["zip"]
             assert type(maxs) == list
             # 先压缩 .max 文件, 然后把压缩后的文件的路径写进json
             zip_result_list = self.zip_max(maxs)
         else:
             zip_result_list = []
-        # 把 包括 max.zip 的全路径 和 asset.json 里面应该上传的路径 放到 upload.json
+        # 把 包括 max.zip 的全路径 和 asset.json 里面应该上传的路径 组装 upload.json
         upload_json = self.assemble_upload_json(asset_json, zip_result_list)
         self.upload_json = upload_json
         self.job_info.upload_info = upload_json
-
-    def post_analyse_custom(self):
-        pass
+        util.json_save(self.job_info.upload_json_path, upload_json, ensure_ascii=False)
 
     def run(self):
         # run a custom script if exists
@@ -602,5 +634,14 @@ rayvision #("{cg_file}", "{task_json}", "{asset_json}", "{tips_json}", "{ingore_
         self.load_output_json()
         # 写任务配置文件（定制信息，独立的上传清单）, 压缩特定文件（压缩文件，上传路径，删除路径）
         self.handle_analyse_result()
-        # 
-        self.post_analyse_custom()
+
+        if VERSION == 3:
+            print(self)
+        else:
+            print(self.exe_name)
+            print(self.exe_path)
+            print(self.vray)
+            print(self.name)
+            print(self.version)
+            print(self.cg_file)
+            print(self.cg_id)
