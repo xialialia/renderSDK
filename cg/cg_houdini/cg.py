@@ -4,9 +4,7 @@ from __future__ import print_function
 import os
 import time
 import sys
-import glob
-import shutil
-from pprint import pprint
+import logging as log
 import traceback
 
 try:
@@ -47,7 +45,8 @@ class Houdini(CGBase):
             print(location, type)
 
         except FileNotFoundError as e:
-            traceback.print_exc()
+            msg = traceback.format_exc()
+            log.error(msg)
 
         return location
 
@@ -152,6 +151,5 @@ class Houdini(CGBase):
 
     def run(self):
         version = "16.0.504.20"
-        # self.location_from_reg(version)
         self.analyse_cg_file_info()
-        self.analyse()
+        # self.analyse()

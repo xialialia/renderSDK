@@ -5,23 +5,26 @@ import os
 import sys
 import traceback
 import argparse
+import logging
 
 from rayvision_SDK.cg import *
 from rayvision_SDK.exception import *
 
+basedir = os.path.abspath(os.path.dirname(__file__))
+
 
 class RayvisionAnalyse(object):
     def __init__(self, job_info, cg_file, exe_path=None, type=None):
-        print("start analyse")
         self.job_info = job_info
         self.cg_file = cg_file
-        self.g_exe_path = exe_path   # TODO ??? todo
+        self.g_exe_path = exe_path  # TODO ??? todo
         self.type = type
         self.cg_class = None
         self.cg_instance = None
         self.cg_id = None
 
         self.init()
+        self.init_logging()
 
     def init(self):
         cg_file = self.cg_file
@@ -51,6 +54,23 @@ class RayvisionAnalyse(object):
         # init CG software
         self.cg_class, self.cg_id = objs[self.type]
         self.cg_instance = self.cg_class(cg_file, self.job_info, self.cg_id)
+
+    def init_logging(self):
+
+        logging.basicConfig(
+            # filename='app.log',
+            level=logging.DEBUG,
+            format='%(asctime)s %(levelname)s %(filename)s[%(lineno)d] %(message)s',
+            datefmt="%Y-%m-%d %H:%M:%S",
+        )
+        logger_name = "analyse"
+        log = logging.getLogger(logger_name)
+
+        # log.debug('debug message')
+        # log.info('info message')
+        # log.warning('warn message')
+        # log.error('error message')
+        # log.critical('critical message')
 
     @classmethod
     def analyse(cls, cg_file, job_info, exe_path=None):

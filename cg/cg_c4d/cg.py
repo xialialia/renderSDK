@@ -6,6 +6,7 @@ import time
 import sys
 import glob
 import shutil
+import logging
 from pprint import pprint
 
 from rayvision_SDK.cg.cg_base import CGBase

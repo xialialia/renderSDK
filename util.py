@@ -124,7 +124,8 @@ def convert_path(user_input, path):
     else:
         if _inter_path(lower_file) is True:
             start, rest = _parse_inter_path(lower_file)
-            result_file = user_input + '/net/' + start.replace('//', '') + rest.replace('\\', '/')
+            # result_file = user_input + '/net/' + start.replace('//', '') + rest.replace('\\', '/')
+            result_file = user_input + start + rest.replace('\\', '/')
         else:
             result_file = user_input + '\\' + path.replace('\\', '/').replace(':', '')
 
@@ -163,9 +164,16 @@ def check_contain_chinese(string):
         return False
 
 
+def test_convert_path():
+    p1 = r"\\10.60.100.101\s\scene\as\qq.jpg"
+    p2 = r"d:/xx/bbb/xxx.jpg"
+    assert convert_path("", p1) == "//10.60.100.101/s/scene/as/qq.jpg"
+    assert convert_path("", p2) == "/d/xx/bbb/xxx.jpg"
+
+
 def main():
-    # log("start")
     pass
+    test_convert_path()
 
 
 if __name__ == '__main__':

@@ -6,7 +6,7 @@ import re
 import sys
 import math
 import traceback
-
+import logging
 try:
     import _winreg
 except ImportError:

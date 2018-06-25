@@ -5,6 +5,7 @@ import os
 import re
 import sys
 import time
+import logging
 import datetime
 import traceback
 import subprocess
@@ -31,13 +32,10 @@ def cmp(a, b):
 
 # TODO
 """
-Max 软件先跳过, 2018/06/07
 待完善:tips.add() tips.save()
 exception tips_code 还有其他条件
 
 判断路径和文件名是否过长 
-
-
 """
 
 
@@ -231,9 +229,10 @@ class Max(CGBase):
             self.tips.save()
             raise RayvisionError("Load max info fail")
         # pprint(stdout1)
-        lines = stdout.splitlines()
-        lines = [line for line in lines if line]
+
         # TODO 如果有用到其他(除vray外) 下面需要修复
+        # lines = stdout.splitlines()
+        # lines = [line for line in lines if line]
         # info = self.parse_lines(lines)
         # pprint(info)
         # if "Render Data" in info:
@@ -367,55 +366,39 @@ analyse file:"{cg_file}" task:"{task_json}" asset:"{asset_json}" tips:"{tips_jso
         )
         return t
 
-    def _zip_file(self, zip_exe_path, source_path, dest_path):
-        """
-        压缩文件
-        :param zip_exe_path: 7z 路径
-        :param source_path: 要压缩的文件(全路径)
-        :param dest_path: 压缩文件路径
-        :return:
-        """
-        f = source_path
-        zip_name = dest_path
-        # TODO 用 Zip7z && 不同系统
-        # cmd = '"{}" a "{}" "{}"  -mx3 -ssw '.format(
-        #     zip_exe_path,
-        #     zip_name,
-        #     f,
-        # )
-        # returncode, stdout, stderr = self.cmd.run(cmd, shell=True)
-        self.zip7z.pack(files=[f], dest=zip_name)
-        return
-
     def zip_max(self, max_list):
         """
-
+        return format:
+        {
+            "local_max": "zip_path",
+            "d:/test1/test2/test.max": "<project_path>/<task_id>/test.max.7z",
+            "\\10.80.3.44\test1\test2\test.max": "<project_path>/<task_id>/test.max.7z"
+        }
         :param max_list:
         :return:
         """
-        zip_exe = self.job_info.zip_path
+        # zip_exe = self.job_info.zip_path
 
         temp_project_path = self.job_info.json_dir
 
-        zip_list = []
+        zip_dict = {}
         for max_file in max_list:
             basename = os.path.basename(max_file)
             zip_name = os.path.join(temp_project_path, basename + '.7z')
-            returncode = self._zip_file(zip_exe, max_file, zip_name)
+            returncode = self.zip7z.pack([max_file], zip_name)
             if returncode != 0:
                 self.tips.add(tips_code.cg_zip_failed)
                 self.tips.save()
                 raise CGFileZipFailError("zip fail")
-            zip_list.append(zip_name)
+            zip_dict[max_file] = zip_name
 
-        return zip_list
+        return zip_dict
 
-    def assemble_upload_json(self, asset_json, zip_result_list):
+    def assemble_upload_json(self, asset_json, zip_result_dict):
         """
         组装 upload.json,
         1. 处理 max 的压缩文件 .7z
         2. 处理 asset.json 的其他资产
-        3. cg 文件
         upload.json format:
         {
             "asset":[
@@ -433,25 +416,36 @@ analyse file:"{cg_file}" task:"{task_json}" asset:"{asset_json}" tips:"{tips_jso
         upload_json = {}
         asset = []
         # 先处理 .max 的压缩文件, [xxx.7z, xxx.7z]
-        for zip_result in zip_result_list:
+        # TODO  拆分函数
+        for local_path, zip_path in zip_result_dict:
             d = {}
-            d["local"] = zip_result
-            d["server"] = util.convert_path("", zip_result)
+            d["local"] = zip_path
+            d["server"] = util.convert_path("", local_path)
             asset.append(d)
 
         # 处理 asset.json 里面的其他资产
         # 可能的键不止 `texture`
+        # for k, v in asset_json.items():
+        #     if "missing" in k.lower():
+        #         continue
+        #     for f in v:
+        #         d = {}
+        #         d["local"] = f
+        #         d["server"] = util.convert_path("", f)
+        #         asset.append(d)
         for k, v in asset_json.items():
             if "missing" in k.lower():
                 continue
-            for f in v:
-                d = {}
-                d["local"] = f
-                d["server"] = util.convert_path("", f)
-                asset.append(d)
+            
+            k = k.lower()
+            func = funcs.get(k, None)
+            if func is not None:
+                func(asset_json[k])
+
 
         upload_json["asset"] = asset
         return upload_json
+
 
     def plugin_conflict(self, max='', plugin1='', plugin2=''):
         vray_multiscatter = ['2010_2.00.01_1.0.18a', '2010_2.00.02_1.0.18a', '2010_2.10.01_1.0.18a', '2010_2.20.02_1.0.18a', '2010_2.40.03_1.0.18a',
@@ -605,16 +599,20 @@ analyse file:"{cg_file}" task:"{task_json}" asset:"{asset_json}" tips:"{tips_jso
         self.job_info.tips_info = tips_json
 
     def handle_analyse_result(self):
+        # 取出 zip 列表压缩
         asset_json = self.asset_json
-        if "zip" in asset_json:
-            maxs = asset_json["zip"]
+        key = "zip"
+        if key in asset_json:
+            maxs = asset_json[key]
             assert type(maxs) == list
-            # 先压缩 .max 文件, 然后把压缩后的文件的路径写进json
-            zip_result_list = self.zip_max(maxs)
+            # 压缩 .max 文件, 得到压缩后的路径列表
+            zip_result_dict = self.zip_max(maxs)
         else:
-            zip_result_list = []
+            zip_result_dict = {}
+        asset_json.pop(key)
+
         # 把 包括 max.zip 的全路径 和 asset.json 里面应该上传的路径 组装 upload.json
-        upload_json = self.assemble_upload_json(asset_json, zip_result_list)
+        upload_json = self.assemble_upload_json(asset_json, zip_result_dict)
         self.upload_json = upload_json
         self.job_info.upload_info = upload_json
         util.json_save(self.job_info.upload_json_path, upload_json, ensure_ascii=False)
