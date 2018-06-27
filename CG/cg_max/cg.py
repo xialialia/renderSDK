@@ -216,7 +216,7 @@ class Max(CGBase):
             os.path.join(path, exe_name),
             cg_file,
         )
-        returncode, stdout, stderr = self.cmd.run(cmd, shell=True)
+        returncode, stdout, stderr = self.cmd.run(cmd, shell=True, log_output=False)
 
         if returncode != 0:
             self.tips.add(tips_code.cginfo_failed)
@@ -408,7 +408,7 @@ analyse file:"{cg_file}" task:"{task_json}" asset:"{asset_json}" tips:"{tips_jso
         for local_path, zip_path in zip_result_dict.items():
             d = {}
             d["local"] = zip_path.replace("\\", "/")
-            d["server"] = util.convert_path("", local_path)
+            d["server"] = util.convert_path("", local_path + ".7z")
             upload_json["asset"].append(d)
 
         # 处理 asset.json 里面的其他资产
@@ -526,7 +526,7 @@ analyse file:"{cg_file}" task:"{task_json}" asset:"{asset_json}" tips:"{tips_jso
 
     def analyse(self):
         # TODO sdk_path TODO config? --> ms_path ms_name gen_ms_path
-        ms_path = os.path.dirname(self.job_info._work_dir)
+        ms_path = os.path.abspath(os.path.dirname(__file__))
         cg_file = self.cg_file
         task_json = self.job_info._task_json_path
         # 临时temp 的task.json
@@ -545,7 +545,7 @@ analyse file:"{cg_file}" task:"{task_json}" asset:"{asset_json}" tips:"{tips_jso
         now = datetime.datetime.now()
         now = now.strftime("%Y%m%d%H%M%S")
 
-        ms_full_path = os.path.join(ms_path, "Analyse{}.ms".format(now))
+        ms_full_path = os.path.join(self.job_info._work_dir, "Analyse{}.ms".format(now))
         util.write(ms_full_path, ms)
         #
         cmd = "\"{}\" -silent -mip -mxs \"filein \\\"{}\\\"\"".format(
