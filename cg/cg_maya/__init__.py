@@ -1,1 +1,0 @@
-from .cg import Maya

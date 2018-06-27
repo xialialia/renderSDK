@@ -5,7 +5,7 @@ import os
 import re
 import sys
 import time
-import logging
+import logging as log
 import datetime
 import traceback
 import subprocess
@@ -16,11 +16,12 @@ except ImportError:
     import winreg as _winreg
 from pprint import pprint
 
-from rayvision_SDK.cg.cg_base import CGBase
-from rayvision_SDK import util
-from rayvision_SDK import tips_code
-from rayvision_SDK.exception import *
-from rayvision_SDK.message import *
+from rayvision_SDK.CG.cg_base import CGBase
+from rayvision_SDK.CG import util
+from rayvision_SDK.CG import tips_code
+from rayvision_SDK.CG.exception import *
+from rayvision_SDK.CG.message import *
+from .assembly_path import handle_funcs
 
 VERSION = sys.version_info[0]
 
@@ -96,7 +97,7 @@ class Max(CGBase):
                         traceback.print_exc()
         else:
             for t in type_list:
-                print(t)
+                log.debug(t)
                 try:
                     version_str = software_str + t + '\\' + str(file_version) + '.0'  # Software\Autodesk\3dsMax\15.0
                     key = _winreg.OpenKey(_winreg.HKEY_LOCAL_MACHINE, version_str)
@@ -114,22 +115,12 @@ class Max(CGBase):
         """
         location = None
         env_key = 'ADSK_3DSMAX_x' + bit + '_' + cg_version_str.replace('3ds Max ', '')
-        print(env_key)
+        log.debug(env_key)
         try:
             location = os.environ[env_key]
         except Exception as e:
             traceback.print_exc()
         return location
-
-    # def exe_path_from_location(self, location):
-    #     exe_path = None
-    #     if location is not None:
-    #         exe_path = os.path.join(location, self.exe_name)
-    #         if not os.path.exists(exe_path):
-    #             return None
-    #         else:
-    #             pass
-    #     return exe_path
 
     def exe_path_with_hardcode(self):
         """
@@ -155,7 +146,7 @@ class Max(CGBase):
 
         returncode, stdout, stderr = self.cmd.run(cmd, shell=True)
         if returncode != 0:
-            self.tips.add(tips_code.unknow_err)
+            self.tips.add(tips_code.unknow_err, stdout, stderr)
 
         if stdout.startswith('3dsmax="') and self.version_str in stdout:
             location = stdout.replace('3dsmax="', '').replace('"%1"', '').replace('"', '').strip()
@@ -212,6 +203,9 @@ class Max(CGBase):
         file_version 是从 GetMaxProperty.exe 解析得到, cg_version 是根据 file_version 计算得到.
         :param cg_file:
         :return: (cg_version :str, file_version :int)
+
+        赋值:
+        self.vray
         """
         cg_version = None
         file_version = None
@@ -230,20 +224,16 @@ class Max(CGBase):
             raise RayvisionError("Load max info fail")
         # pprint(stdout1)
 
-        # TODO 如果有用到其他(除vray外) 下面需要修复
+        # TODO 如果有用到其他(除vray外) parse_lines 需要修复
         # lines = stdout.splitlines()
         # lines = [line for line in lines if line]
         # info = self.parse_lines(lines)
         # pprint(info)
-        # if "Render Data" in info:
-        #     renderer_data = info["Render Data"]
-        #     vray = renderer_data.get("Renderer Name", None)
-        #     self.vray = vray
 
         # Max 的 Vray 版本在这里赋值
         self._find_vray_version(stdout)
-        # 兼容中文或其他...TODO
 
+        # 兼容中文或其他...
         patterns = [
             r"3ds Max Version: (\d+\.\d+)",
             r"3ds Max 版本: (\d+\.\d+)",
@@ -259,14 +249,14 @@ class Max(CGBase):
                 #
                 if file_version > 9:
                     cg_version = str(int(file_version) + 1998)
-                print(file_version, type(file_version))
-                print(cg_version, type(cg_version))
+                log.debug("file_version={}, type={}".format(file_version, type(file_version)))
+                log.debug("cg_version={}, type={}".format(cg_version, type(cg_version)))
                 break
         if file_version is None or cg_version is None:
             raise MaxDamageError(error9900_max_damage)
 
-        print(cg_version, file_version)
-        print(self.version, self.version_str)
+        log.debug("cg_version={}, file_version={}".format(cg_version, file_version))
+        log.debug("version={}, version_str={}".format(self.version, self.version_str))
         return (cg_version, file_version)
 
     def _find_vray_version(self, string):
@@ -276,7 +266,7 @@ class Max(CGBase):
         if result is not None:
             renderer_name = result.groups()[0].lower()
             if "missing" in renderer_name:
-                print("missing renderer")
+                log.info("missing renderer")
                 self.tips.add(tips_code.realflow_missing)
                 raise RayvisionError("missing renderer")
                 pass
@@ -350,12 +340,13 @@ class Max(CGBase):
         return d
 
     def template_ms(self, ms_path, ms_name, cg_file, task_json, asset_json, tips_json, ignore_analyse_array="false"):
-        t = """
+        t = '''
 (DotNetClass "System.Windows.Forms.Application").CurrentCulture = dotnetObject "System.Globalization.CultureInfo" "zh-cn"
 filein @"{ms_path}/{ms_name}"
 
 analyse file:"{cg_file}" task:"{task_json}" asset:"{asset_json}" tips:"{tips_json}" ignore:"{ignore_analyse_array}"
-        """.format(
+'''
+        t = t.format(
             ms_path=ms_path,
             cg_file=cg_file,
             task_json=task_json,
@@ -377,9 +368,7 @@ analyse file:"{cg_file}" task:"{task_json}" asset:"{asset_json}" tips:"{tips_jso
         :param max_list:
         :return:
         """
-        # zip_exe = self.job_info.zip_path
-
-        temp_project_path = self.job_info.json_dir
+        temp_project_path = self.job_info._work_dir
 
         zip_dict = {}
         for max_file in max_list:
@@ -413,39 +402,29 @@ analyse file:"{cg_file}" task:"{task_json}" asset:"{asset_json}" tips:"{tips_jso
             ]
         }
         """
-        upload_json = {}
-        asset = []
+        upload_json = {"asset": []}
+
         # 先处理 .max 的压缩文件, [xxx.7z, xxx.7z]
-        # TODO  拆分函数
-        for local_path, zip_path in zip_result_dict:
+        for local_path, zip_path in zip_result_dict.items():
             d = {}
-            d["local"] = zip_path
+            d["local"] = zip_path.replace("\\", "/")
             d["server"] = util.convert_path("", local_path)
-            asset.append(d)
+            upload_json["asset"].append(d)
 
         # 处理 asset.json 里面的其他资产
-        # 可能的键不止 `texture`
-        # for k, v in asset_json.items():
-        #     if "missing" in k.lower():
-        #         continue
-        #     for f in v:
-        #         d = {}
-        #         d["local"] = f
-        #         d["server"] = util.convert_path("", f)
-        #         asset.append(d)
         for k, v in asset_json.items():
             if "missing" in k.lower():
                 continue
-            
+
             k = k.lower()
-            func = funcs.get(k, None)
+            func = handle_funcs.get(k, None)
+            log.info("handle key: {}".format(k))
             if func is not None:
-                func(asset_json[k])
+                l = func(asset_json[k], self.cg_file, self.task_json)
+                log.info("handle result: {}".format(l))
+                upload_json["asset"].append(l)
 
-
-        upload_json["asset"] = asset
         return upload_json
-
 
     def plugin_conflict(self, max='', plugin1='', plugin2=''):
         vray_multiscatter = ['2010_2.00.01_1.0.18a', '2010_2.00.02_1.0.18a', '2010_2.10.01_1.0.18a', '2010_2.20.02_1.0.18a', '2010_2.40.03_1.0.18a',
@@ -496,7 +475,7 @@ analyse file:"{cg_file}" task:"{task_json}" asset:"{asset_json}" tips:"{tips_jso
 
     # def kill(self, parent_id):
     #     """暂时没用"""
-    #     print("kill max")
+    #     log.debug("kill max")
     #     cmd_str = 'wmic process where name="3dsmax.exe" get Caption,Parent_process_id,Process_id'
     #     p = subprocess.Popen(cmd_str, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
     #     while True:
@@ -506,9 +485,9 @@ analyse file:"{cg_file}" task:"{task_json}" asset:"{asset_json}" tips:"{tips_jso
     #         if buff is not None and buff != '':
     #             try:
     #                 buff_arr = buff.split()
-    #                 # print buff
+    #                 # log.debug(buff)
     #                 if int(buff_arr[1]) == parent_id:
-    #                     # print 'kill...'+buff
+    #                     # log.debug('kill...'+buff)
     #                     os.system("taskkill /f /pid %s" % (buff_arr[2]))
     #             except Exception as e:
     #                 traceback.print_exc()
@@ -516,12 +495,20 @@ analyse file:"{cg_file}" task:"{task_json}" asset:"{asset_json}" tips:"{tips_jso
     def pre_analyse_custom_script(self):
         super(Max, self).pre_analyse_custom_script()
 
-    def analyse_cg_file_info(self):
-        self.find_location()
+    def analyse_cg_file(self):
+        # 如果用户指定了 exe 路径 则只分析 cg 文件
+        if self.custom_exe_path is not None:
+            # 赋值: self.vray
+            cg_version, _ = self.get_cg_file_info(self.cg_file)
+            cg_version_str = "3ds Max " + cg_version
+            self.version = cg_version
+            self.version_str = cg_version_str
+        else:
+            self.find_location()
 
     def valid(self):
         super(Max, self).valid()
-        software_config = self.job_info.task_info["software_config"]
+        software_config = self.job_info._task_info["software_config"]
         cg_version = software_config["cg_version"]
 
         year = cg_version
@@ -539,13 +526,13 @@ analyse file:"{cg_file}" task:"{task_json}" asset:"{asset_json}" tips:"{tips_jso
 
     def analyse(self):
         # TODO sdk_path TODO config? --> ms_path ms_name gen_ms_path
-        ms_path = os.path.dirname(os.path.abspath(__file__))
+        ms_path = os.path.dirname(self.job_info._work_dir)
         cg_file = self.cg_file
-        task_json = self.job_info.task_json_path
+        task_json = self.job_info._task_json_path
         # 临时temp 的task.json
         temp_task_json = os.path.join(os.path.dirname(task_json), self.temp_task_json_name)
-        asset_json = self.job_info.asset_json_path
-        tips_json = self.job_info.tips_json_path
+        asset_json = self.job_info._asset_json_path
+        tips_json = self.job_info._tips_json_path
         # ####
         version = int(self.version)
         if version < 2013:
@@ -553,11 +540,11 @@ analyse file:"{cg_file}" task:"{task_json}" asset:"{asset_json}" tips:"{tips_jso
         else:
             ms_name = self.ms_name_u
         ms = self.template_ms(ms_path, ms_name, cg_file, temp_task_json, asset_json, tips_json, ignore_analyse_array="false").replace("\\", "/")
-        print(ms)
+        log.info(ms)
 
         now = datetime.datetime.now()
         now = now.strftime("%Y%m%d%H%M%S")
-        # 生成的 ms 文件在cg.py同目录
+
         ms_full_path = os.path.join(ms_path, "Analyse{}.ms".format(now))
         util.write(ms_full_path, ms)
         #
@@ -567,16 +554,20 @@ analyse file:"{cg_file}" task:"{task_json}" asset:"{asset_json}" tips:"{tips_jso
         )
 
         returncode, stdout, stderr = self.cmd.run(cmd, shell=True)
-        print("returncode:", returncode)
+        log.info("returncode: {}".format(returncode))
         # 运行成功 返回码不一定为0
         # 通过判断是否生成了json文件判断分析是否成功
-        self.json_exist()
+        status, msg = self.json_exist()
+        if status is False:
+            self.tips.add(tips_code.unknow_err, msg)
+            self.tips.save()
+            raise AnalyseFailError(msg)
 
     def load_output_json(self):
-        task_path = self.job_info.task_json_path
+        task_path = self.job_info._task_json_path
         temp_task_path = os.path.join(os.path.dirname(task_path), self.temp_task_json_name)
-        asset_path = self.job_info.asset_json_path
-        tips_path = self.job_info.tips_json_path
+        asset_path = self.job_info._asset_json_path
+        tips_path = self.job_info._tips_json_path
 
         encodings = ["utf-8-sig", "gbk", "utf-8"]
         temp_task_json = self.json_load(temp_task_path, encodings=encodings)
@@ -584,19 +575,19 @@ analyse file:"{cg_file}" task:"{task_json}" asset:"{asset_json}" tips:"{tips_jso
         tips_json = self.json_load(tips_path, encodings=encodings)
 
         # 把 temp_task.json 的内容增加到 task.json 并写成文件
-        task_json = self.job_info.task_info
+        task_json = self.job_info._task_info
         # 直接 update 替换
         task_json.update(temp_task_json)
         util.json_save(task_path, task_json, ensure_ascii=False)
 
         self.task_json = task_json
-        self.job_info.task_info = task_json
+        self.job_info._task_info = task_json
 
         self.asset_json = asset_json
-        self.job_info.asset_info = asset_json
+        self.job_info._asset_info = asset_json
 
         self.tips_json = tips_json
-        self.job_info.tips_info = tips_json
+        self.job_info._tips_info = tips_json
 
     def handle_analyse_result(self):
         # 取出 zip 列表压缩
@@ -614,14 +605,14 @@ analyse file:"{cg_file}" task:"{task_json}" asset:"{asset_json}" tips:"{tips_jso
         # 把 包括 max.zip 的全路径 和 asset.json 里面应该上传的路径 组装 upload.json
         upload_json = self.assemble_upload_json(asset_json, zip_result_dict)
         self.upload_json = upload_json
-        self.job_info.upload_info = upload_json
-        util.json_save(self.job_info.upload_json_path, upload_json, ensure_ascii=False)
+        self.job_info._upload_info = upload_json
+        util.json_save(self.job_info._upload_json_path, upload_json, ensure_ascii=False)
 
     def run(self):
         # run a custom script if exists
         self.pre_analyse_custom_script()
         # 获取场景信息
-        self.analyse_cg_file_info()
+        self.analyse_cg_file()
         # 基本校验（项目配置的版本和场景版本是否匹配等）
         self.valid()
         # 把 job_info.task_info dump 成文件
@@ -633,6 +624,7 @@ analyse file:"{cg_file}" task:"{task_json}" asset:"{asset_json}" tips:"{tips_jso
         # 写任务配置文件（定制信息，独立的上传清单）, 压缩特定文件（压缩文件，上传路径，删除路径）
         self.handle_analyse_result()
 
+        # 开发时使用
         if VERSION == 3:
             print(self)
         else:

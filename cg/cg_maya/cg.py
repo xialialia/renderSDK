@@ -12,53 +12,13 @@ try:
 except ImportError:
     import winreg as _winreg
 
-from rayvision_SDK.cg.cg_base import CGBase
-from rayvision_SDK import util
-from rayvision_SDK import tips_code
-from rayvision_SDK.exception import *
-from rayvision_SDK.message import *
+from rayvision_SDK.CG.cg_base import CGBase
+from rayvision_SDK.CG import util
+from rayvision_SDK.CG import tips_code
+from rayvision_SDK.CG.exception import *
+from rayvision_SDK.CG.message import *
 
 
-"""Maya
-analyse_cmd = "\"%s\" -command \"python \\\"options=%s;" \
-      "import sys;sys.path.insert(0, '%s');import Analyze;reload(Analyze);" \
-      "Analyze.analyze_maya(options)\\\"" % \
-      (mayabatch, str_options, str_path)
-
-analyse_cmd = "C:/Program Files/Autodesk/Maya2015/bin/mayabatch.exe" -command "python \"options={'cg_file': '//10.70.242.101/d/inputdata5/100000000/100000056/ocean13.mb', 'task_json': 'c:/work/render/2030/cfg/task.json', 'task_id': '2030', 'asset_json': 'c:/work/render/2030/cfg/asset.json', 'cg_project': '//10.70.242.101/d/inputdata5/100000000/100000056', 'user_id': '100000056', 'cg_plugins': {}, 'tips_json': 'c:/work/render/2030/cfg/tips.json', 'cg_version': '2015'};import sys;sys.path.insert(0, 'c:/script/new_py/CG/Maya/script');import Analyze;reload(Analyze);Analyze.analyze_maya(options)\"
-
-"""
-
-"""MAYA
-analyse_cmd = "C:/Program Files/Autodesk/Maya2015/bin/mayabatch.exe" -command "python \"options={'cg_file': '//10.70.242.101/d/inputdata5/100000000/100000056/ocean13.mb', 'task_json': 'c:/work/render/2030/cfg/task.json', 'task_id': '2030', 'asset_json': 'c:/work/render/2030/cfg/asset.json', 'cg_project': '//10.70.242.101/d/inputdata5/100000000/100000056', 'user_id': '100000056', 'cg_plugins': {}, 'tips_json': 'c:/work/render/2030/cfg/tips.json', 'cg_version': '2015'};import sys;sys.path.insert(0, 'c:/script/new_py/CG/Maya/script');import Analyze;reload(Analyze);Analyze.analyze_maya(options)\"
-
-analyse_cmd = "C:/Program Files/Autodesk/Maya2015/bin/mayabatch.exe" -command "python \"options={
-'cg_file': '//10.70.242.101/d/inputdata5/100000000/100000056/ocean13.mb', 
-'task_json': 'c:/work/render/2030/cfg/task.json', 
-'task_id': '2030', 
-'asset_json': 'c:/work/render/2030/cfg/asset.json', 
-'cg_project': '//10.70.242.101/d/inputdata5/100000000/100000056', 
-'user_id': '100000056', 
-'cg_plugins': {}, 
-'tips_json': 'c:/work/render/2030/cfg/tips.json', 
-'cg_version': '2015'
-};
-import sys;sys.path.insert(0, 'c:/script/new_py/CG/Maya/script');
-import Analyze;reload(Analyze);
-Analyze.analyze_maya(options)\"
-
-{
-"cg_file": "d:\\100000056\\ocean13.mb",
-"task_json": "d:\\100000056\\2030\\cfg\\task.json",
-"task_id": "2030",
-"asset_json": "c:/work/render/2030/cfg/asset.json",
-"cg_project": "d:\\100000056\\",
-"user_id": "100000056",
-"cg_plugins": {},
-"tips_json": "d:\\100000056\\2030\\cfg\\tips.json",
-"cg_version": "2015"
-}
-"""
 """
 
 options = {
@@ -207,7 +167,7 @@ class Maya(CGBase):
     def pre_analyse_custom_script(self):
         super(Maya, self).pre_analyse_custom_script()
 
-    def analyse_cg_file_info(self):
+    def analyse_cg_file(self):
         # 从cg文件找版本
         if VERSION == 3:
             version = self.check_version(self.cg_file)
@@ -227,7 +187,7 @@ class Maya(CGBase):
         self.exe_path = exe_path
 
     def valid(self):
-        software_config = self.job_info.task_info["software_config"]
+        software_config = self.job_info._task_info["software_config"]
         cg_version = software_config["cg_version"]
         # 如果遇到.5的版本, 视为整数版本
         # 外层的int为了兼容py2
@@ -245,9 +205,9 @@ class Maya(CGBase):
     def analyse(self):
         analyse_script_name = "Analyze"
 
-        task_path = self.job_info.task_json_path
-        asset_path = self.job_info.asset_json_path
-        tips_path = self.job_info.tips_json_path
+        task_path = self.job_info._task_json_path
+        asset_path = self.job_info._asset_json_path
+        tips_path = self.job_info._tips_json_path
 
         options = {
             "cg_file": self.cg_file.replace("\\", "/"),
@@ -256,7 +216,7 @@ class Maya(CGBase):
             "asset_json": asset_path.replace("\\", "/"),
             "tips_json": tips_path.replace("\\", "/"),
             "cg_project": os.path.dirname(os.path.normpath(__file__)).replace("\\", "/"),
-            "cg_plugins": self.job_info.task_info["software_config"]["plugins"],
+            "cg_plugins": self.job_info._task_info["software_config"]["plugins"],
             "cg_version": self.version,
         }
         exe_path = self.exe_path
@@ -276,7 +236,11 @@ class Maya(CGBase):
             raise AnalyseFailError
 
         # 通过判断是否生成了json文件判断分析是否成功
-        self.json_exist()
+        status, msg = self.json_exist()
+        if status is False:
+            self.tips.add(tips_code.unknow_err, msg)
+            self.tips.save()
+            raise AnalyseFailError(msg)
 
     def load_output_json(self):
         # super().load_output_json()
@@ -294,7 +258,7 @@ class Maya(CGBase):
                 d = {}
                 local = path
                 server = util.convert_path("", local)
-                d["local"] = local
+                d["local"] = local.replace("\\", "/")
                 d["server"] = server
                 upload_asset.append(d)
 
@@ -308,9 +272,9 @@ class Maya(CGBase):
         upload_json["asset"] = upload_asset
 
         self.upload_json = upload_json
-        self.job_info.upload_info = upload_json
+        self.job_info._upload_info = upload_json
 
-        util.json_save(self.job_info.upload_json_path, upload_json)
+        util.json_save(self.job_info._upload_json_path, upload_json)
 
     def write_cg_path(self):
         # super().write_cg_path()
@@ -324,7 +288,7 @@ class Maya(CGBase):
         # 分析前置定制脚本（配置环境，指定对应的BAT/SH）
         self.pre_analyse_custom_script()
         # 获取场景信息
-        self.analyse_cg_file_info()
+        self.analyse_cg_file()
         # 基本校验（项目配置的版本和场景版本是否匹配等）
         self.valid()
         # 把 job_info.task_info dump 成文件
@@ -342,5 +306,5 @@ class Maya(CGBase):
 
     def run1(self):
         """临时测试用"""
-        # self.analyse_cg_file_info()
+        # self.analyse_cg_file()
         self.location_from_reg(version="2016")
