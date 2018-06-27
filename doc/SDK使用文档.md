@@ -29,6 +29,8 @@ B --> E
 E --> F(下载)
 ```
 
+![flow_chart](../image/flow_chart.png)
+
 ### 三、示例代码
 
 ```
