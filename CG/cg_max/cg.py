@@ -404,10 +404,11 @@ analyse file:"{cg_file}" task:"{task_json}" asset:"{asset_json}" tips:"{tips_jso
         """
         upload_json = {"asset": []}
 
-        # 先处理 .max 的压缩文件, [xxx.7z, xxx.7z]
+        # 先处理 .max 的压缩文件, {xxx.max: xxx.max.7z, xxx.max: xxx.max.7z,}
         for local_path, zip_path in zip_result_dict.items():
             d = {}
             d["local"] = zip_path.replace("\\", "/")
+            #
             d["server"] = util.convert_path("", local_path + ".7z")
             upload_json["asset"].append(d)
 
@@ -579,6 +580,10 @@ analyse file:"{cg_file}" task:"{task_json}" asset:"{asset_json}" tips:"{tips_jso
         # 直接 update 替换
         task_json.update(temp_task_json)
         util.json_save(task_path, task_json, ensure_ascii=False)
+
+        # 因软件出的 json 带 BOM, 需要转成不带 BOM
+        util.json_save(asset_path, asset_json, ensure_ascii=False)
+        util.json_save(tips_path, tips_json, ensure_ascii=False)
 
         self.task_json = task_json
         self.job_info._task_info = task_json
