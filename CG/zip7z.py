@@ -1,7 +1,7 @@
 # -*-coding: utf-8 -*-
 import os
 
-from rayvision_SDK.cmd import Cmd
+from rayvision_SDK.CG.cmd import Cmd
 
 
 class CompressionFailedError(Exception):

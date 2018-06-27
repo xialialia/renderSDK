@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 import sys
 import subprocess
 
-from rayvision_SDK import util
+from rayvision_SDK.CG import util
 
 VERSION = sys.version_info[0]
 
@@ -22,7 +22,7 @@ class Cmd(object):
         returncode = self.run(cmd)
         return returncode
 
-    def run(self, cmd, shell=False):
+    def run(self, cmd, shell=False, log_output=True):
         log = print
 
         cmd = self.compatible(cmd)
@@ -31,7 +31,9 @@ class Cmd(object):
         stdout, stderr = p.communicate()
         stdout = util.ensure_str(stdout)
         stderr = util.ensure_str(stderr)
-        log("stdout:\n{}".format(stdout))
+
+        if log_output is True:
+            log("stdout:\n{}".format(stdout))
         if stderr:
             log("stderr:\n{}".format(stderr))
         return p.returncode, stdout, stderr

@@ -7,8 +7,7 @@ import json
 import shutil
 from pprint import pprint
 
-from rayvision_SDK import util
-from rayvision_SDK.exception import *
+from rayvision_SDK.CG import util
 
 
 class Tips(object):
@@ -31,10 +30,10 @@ class Tips(object):
             if self.path is not None:
                 path = self.path
             else:
-                raise RayvisionError("The Tips' path is not defined")
+                raise Exception("The Tips' path is not defined")
 
         filename = os.path.join(path, "tips.json")
-        util.json_save(filename, self._tips_list)
+        util.json_save(filename, self._tips_list, ensure_ascii=False)
 
     def save_and_exit(self, path, exit_code=-1):
         self.save(path)

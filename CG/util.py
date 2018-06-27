@@ -69,7 +69,6 @@ def read(path, encoding="utf-8"):
 
 
 def ensure_str(string):
-    # TODO py2可能有问题, 连同 Cmd
     if type(string) == bytes:
         try:
             string = string.decode("utf-8")
