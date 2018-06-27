@@ -6,13 +6,19 @@ import time
 import sys
 import glob
 import shutil
+import traceback
+import logging as log
 from pprint import pprint
+try:
+    import _winreg
+except ImportError:
+    import winreg as _winreg
 
-from rayvision_SDK.cg.cg_base import CGBase
-from rayvision_SDK import util
-from rayvision_SDK import tips_code
-from rayvision_SDK.exception import *
-from rayvision_SDK.message import *
+from rayvision_SDK.CG.cg_base import CGBase
+from rayvision_SDK.CG import util
+from rayvision_SDK.CG import tips_code
+from rayvision_SDK.CG.exception import *
+from rayvision_SDK.CG.message import *
 
 """C4D
 cmd:
@@ -42,10 +48,28 @@ class C4D(CGBase):
     def init(self):
         pass
 
+    def location_from_reg(self, version):
+        version_str = "{} {}".format(self.name, version)
+
+        location = None
+
+        string = 'SOFTWARE\MC4D'.format(version_str)
+        log.info(string)
+        try:
+            handle = _winreg.OpenKey(_winreg.HKEY_LOCAL_MACHINE, string)
+            location, type = _winreg.QueryValueEx(handle, "InstallPath")
+            log.info("{} {}".format(location, type))
+
+        except FileNotFoundError as e:
+            msg = traceback.format_exc()
+            log.error(msg)
+
+        return location
+
     def pre_analyse_custom_script(self):
         super(C4D, self).pre_analyse_custom_script()
 
-    def analyse_cg_file_info(self):
+    def analyse_cg_file(self):
         if VERSION == 3:
             version = self.check_version(self.cg_file)
         else:
@@ -109,9 +133,9 @@ class C4D(CGBase):
         upload_json["asset"] = upload_asset
 
         self.upload_json = upload_json
-        self.job_info.upload_info = upload_json
+        self.job_info._upload_info = upload_json
 
-        util.json_save(self.job_info.upload_json_path, upload_json)
+        util.json_save(self.job_info._upload_json_path, upload_json)
 
     def write_cg_path(self):
         # super().write_cg_path()
@@ -124,7 +148,7 @@ class C4D(CGBase):
         # run a custom script if exists
         self.pre_analyse_custom_script()
         # 获取场景信息
-        self.analyse_cg_file_info()
+        self.analyse_cg_file()
         # 基本校验（项目配置的版本和场景版本是否匹配等）
         self.valid()
         # 把 job_info.task_info dump 成文件

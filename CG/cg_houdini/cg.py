@@ -2,11 +2,10 @@
 from __future__ import unicode_literals
 from __future__ import print_function
 import os
+import re
 import time
 import sys
-import glob
-import shutil
-from pprint import pprint
+import logging as log
 import traceback
 
 try:
@@ -14,13 +13,17 @@ try:
 except ImportError:
     import winreg as _winreg
 
-from rayvision_SDK.cg.cg_base import CGBase
-from rayvision_SDK import util
-from rayvision_SDK import tips_code
-from rayvision_SDK.exception import *
-from rayvision_SDK.message import *
+from rayvision_SDK.CG.cg_base import CGBase
+from rayvision_SDK.CG import util
+from rayvision_SDK.CG import tips_code
+from rayvision_SDK.CG.exception import *
+from rayvision_SDK.CG.message import *
 
 VERSION = sys.version_info[0]
+basedir = os.path.abspath(os.path.dirname(__file__))
+"""
+D:/Program Files/Side Effects Software/Houdini 16.5.268/bin/hython.exe D:/api/HfsBase.py -project "E:/houdini_test/sphere.hip" -task "D:/api/out/task.json" -asset "D:/api/out/asset.json" -tips "D:/api/out/tips.json"
+"""
 
 
 class Houdini(CGBase):
@@ -40,24 +43,53 @@ class Houdini(CGBase):
         location = None
 
         string = 'SOFTWARE\Side Effects Software\{}'.format(version_str)
-        print(string)
+        log.info(string)
         try:
             handle = _winreg.OpenKey(_winreg.HKEY_LOCAL_MACHINE, string)
             location, type = _winreg.QueryValueEx(handle, "InstallPath")
-            print(location, type)
+            log.info("{} {}".format(location, type))
 
         except FileNotFoundError as e:
-            traceback.print_exc()
+            msg = traceback.format_exc()
+            log.error(msg)
 
         return location
+
+    @staticmethod
+    def get_save_version(hipfile=""):
+        if os.path.exists(hipfile):
+            with open(hipfile, "rb") as hipf:
+                not_find = True
+                search_elm = 2
+                search_elm_cunt = 0
+                while not_find:
+                    line = str(hipf.readline()).encode("utf-8")
+                    if "set -g _HIP_SAVEVERSION = " in str(line):
+                        # print(str(line))
+                        pattern = re.compile("\d+\.\d+\.\d+\.?\d+")
+                        _HV = pattern.findall(str(line))
+                        _hfs_save_version = _HV[0]
+                        search_elm_cunt += 1
+
+                    # The $HIP val with this file saved
+                    if "set -g HIP = " in  str(line):
+                        pattern = re.compile("\\'.*\\'") if sys.version[:1]=="2" else re.compile(r"\\'.*\\'")
+                        _Hip = pattern.search(str(line)).group()
+                        _hip_save_val = _Hip.split("\'")[1].replace("\\","/")
+                        search_elm_cunt += 1
+                    if search_elm_cunt >= search_elm:
+                        Not_find = False
+        else:
+            print("The .hip file is not exist.")
+            _hfs_save_version, _hip_save_val = ("", "")
+        return _hfs_save_version, _hip_save_val
 
     def pre_analyse_custom_script(self):
         super(Houdini, self).pre_analyse_custom_script()
 
-    def analyse_cg_file_info(self):
-        version = "16.0.504.20"
-        version = str(version)
-        self.version = str(version)
+    def analyse_cg_file(self):
+        version = self.get_save_version(self.cg_file)[0]
+        log.info("version: {}".format(version))
         self.version_str = "{} {}".format(self.name, version)
 
         location = self.location_from_reg(version)
@@ -76,18 +108,20 @@ class Houdini(CGBase):
         super(Houdini, self).dump_task_json()
 
     def analyse(self):
-        script_full_path = os.path.join(os.path.dirname(__file__), "analyse.py")
-        output_path = r"D:\scripts\script3\rayvision_SDK\7777"
-        # cmd = '"D:/plugins/houdini/160504/bin/hython.exe c:/script/new_py/CG/Houdini/script/analyse.py -project "E:/houdini_maya/houdini_maya/untitled.hip" -outdir "c:/work/render/4431""'
-        # TODO 接收3个json文件路径
-        cmd = '"{exe_path}" "{script_full_path}" -project "{cg_file}" -outdir "{output_path}"'.format(
+        script_full_path = os.path.join(os.path.dirname(__file__), "HfsBase.py")
+        task_path = self.job_info._task_json_path
+        asset_path = self.job_info._asset_json_path
+        tips_path = self.job_info._tips_json_path
+
+        cmd = '"{exe_path}" "{script_full_path}" -project "{cg_file}" -task "{task_path}" -asset "{asset_path}" -tips "{tips_path}"'.format(
             exe_path=self.exe_path,
             script_full_path=script_full_path,
             cg_file=self.cg_file,
-            output_path=output_path,
+            task_path=task_path,
+            asset_path=asset_path,
+            tips_path=tips_path,
         )
         returncode, stdout, stderr = self.cmd.run(cmd, shell=True)
-
 
     def load_output_json(self):
         # super().load_output_json()
@@ -119,9 +153,9 @@ class Houdini(CGBase):
         upload_json["asset"] = upload_asset
 
         self.upload_json = upload_json
-        self.job_info.upload_info = upload_json
+        self.job_info._upload_info = upload_json
 
-        util.json_save(self.job_info.upload_json_path, upload_json)
+        util.json_save(self.job_info._upload_json_path, upload_json)
 
     def write_cg_path(self):
         # super().write_cg_path()
@@ -134,10 +168,10 @@ class Houdini(CGBase):
         # run a custom script if exists
         self.pre_analyse_custom_script()
         # 获取场景信息
-        self.analyse_cg_file_info()
+        self.analyse_cg_file()
         # 基本校验（项目配置的版本和场景版本是否匹配等）
         self.valid()
-        # 把 job_info.task_info dump 成文件
+        # 把 job_info._task_info dump 成文件
         self.dump_task_json()
         # 运行CMD启动分析（通过配置信息找CG所在路径,CG所在路径可定制）
         self.analyse()
@@ -152,6 +186,5 @@ class Houdini(CGBase):
 
     def run(self):
         version = "16.0.504.20"
-        # self.location_from_reg(version)
-        self.analyse_cg_file_info()
-        self.analyse()
+        self.analyse_cg_file()
+        # self.analyse()
