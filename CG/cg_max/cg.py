@@ -654,4 +654,4 @@ analyse file:"{cg_file}" task:"{task_json}" asset:"{asset_json}" tips:"{tips_jso
             self.log.debug(self.cg_file)
             self.log.debug(self.cg_id)
 
-        self.log.info("run end.")
+        self.log.info("analyse end.")

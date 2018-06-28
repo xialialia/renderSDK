@@ -203,8 +203,6 @@ def print_times(info):
     print("[%s] %s"%(time_point,str(info)))
 
 if __name__ == "__main__":
-    print(sys.argv[0])
-    print("-"*60)
     print("Python version: %s"%sys.version)
     print("\n")
     hfsMain(SetArgs())    

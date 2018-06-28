@@ -37,16 +37,17 @@ class Houdini(CGBase):
         pass
 
     def location_from_reg(self, version):
+        log = self.log
         version_str = "{} {}".format(self.name, version)
 
         location = None
 
         string = 'SOFTWARE\Side Effects Software\{}'.format(version_str)
-        log.info(string)
+        log.debug(string)
         try:
             handle = _winreg.OpenKey(_winreg.HKEY_LOCAL_MACHINE, string)
             location, type = _winreg.QueryValueEx(handle, "InstallPath")
-            log.info("{} {}".format(location, type))
+            log.debug("{} {}".format(location, type))
 
         except FileNotFoundError as e:
             msg = traceback.format_exc()
@@ -77,7 +78,7 @@ class Houdini(CGBase):
                         _hip_save_val = _Hip.split("\'")[1].replace("\\","/")
                         search_elm_cunt += 1
                     if search_elm_cunt >= search_elm:
-                        Not_find = False
+                        not_find = False
         else:
             print("The .hip file is not exist.")
             _hfs_save_version, _hip_save_val = ("", "")
@@ -87,6 +88,7 @@ class Houdini(CGBase):
         super(Houdini, self).pre_analyse_custom_script()
 
     def analyse_cg_file(self):
+        log = self.log
         version = self.get_save_version(self.cg_file)[0]
         log.info("version: {}".format(version))
         self.version_str = "{} {}".format(self.name, version)
@@ -99,6 +101,7 @@ class Houdini(CGBase):
             raise CGExeNotExistError(error9899_cgexe_notexist.format(self.name))
 
         self.exe_path = exe_path
+        log.info("exe_path: {}".format(exe_path))
 
     def valid(self):
         super(Houdini, self).valid()
@@ -121,6 +124,9 @@ class Houdini(CGBase):
             tips_path=tips_path,
         )
         returncode, stdout, stderr = self.cmd.run(cmd, shell=True)
+        self.log.info("returncode: {}".format(returncode))
+        if returncode != 0:
+            raise RayvisionError("analyse fail.")
 
     def load_output_json(self):
         # super().load_output_json()
@@ -182,8 +188,9 @@ class Houdini(CGBase):
         self.write_cg_path()
         #
         self.post_analyse_custom()
+        
+        self.log.info("analyse end.")
 
     def run(self):
-        version = "16.0.504.20"
         self.analyse_cg_file()
-        # self.analyse()
+        self.analyse()
