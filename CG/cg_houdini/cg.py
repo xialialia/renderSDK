@@ -5,7 +5,6 @@ import os
 import re
 import time
 import sys
-import logging as log
 import traceback
 
 try:

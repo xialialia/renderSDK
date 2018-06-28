@@ -2,11 +2,13 @@
 from __future__ import print_function
 from __future__ import unicode_literals
 import sys
+import logging
 import subprocess
 
 from rayvision_SDK.CG import util
 
 VERSION = sys.version_info[0]
+logger = logging.getLogger("analyse")
 
 
 class Cmd(object):
@@ -23,7 +25,8 @@ class Cmd(object):
         return returncode
 
     def run(self, cmd, shell=False, log_output=True):
-        log = print
+        # log = print
+        log = logger.info
 
         cmd = self.compatible(cmd)
         log("run command:\n{}".format(cmd))

@@ -5,7 +5,6 @@ import os
 import re
 import sys
 import time
-import logging as log
 import datetime
 import traceback
 import subprocess
@@ -92,19 +91,20 @@ class Max(CGBase):
                         key = _winreg.OpenKey(_winreg.HKEY_LOCAL_MACHINE, version_str)
                         location, type = _winreg.QueryValueEx(key, "Installdir")
                         language_code = code
+                        break
                     except Exception as e:
+                        self.log.debug(traceback.format_exc())
                         pass
-                        traceback.print_exc()
         else:
             for t in type_list:
-                log.debug(t)
+                self.log.debug(t)
                 try:
                     version_str = software_str + t + '\\' + str(file_version) + '.0'  # Software\Autodesk\3dsMax\15.0
                     key = _winreg.OpenKey(_winreg.HKEY_LOCAL_MACHINE, version_str)
                     location, type = _winreg.QueryValueEx(key, "Installdir")
                 except Exception as e:
+                    self.log.debug(traceback.format_exc())
                     pass
-                    traceback.print_exc()
         return location, language_code
 
     def location_from_env(self, bit, cg_version_str):
@@ -115,11 +115,11 @@ class Max(CGBase):
         """
         location = None
         env_key = 'ADSK_3DSMAX_x' + bit + '_' + cg_version_str.replace('3ds Max ', '')
-        log.debug(env_key)
+        self.log.debug(env_key)
         try:
             location = os.environ[env_key]
         except Exception as e:
-            traceback.print_exc()
+            self.log.debug(traceback.format_exc())
         return location
 
     def exe_path_with_hardcode(self):
@@ -249,14 +249,14 @@ class Max(CGBase):
                 #
                 if file_version > 9:
                     cg_version = str(int(file_version) + 1998)
-                log.debug("file_version={}, type={}".format(file_version, type(file_version)))
-                log.debug("cg_version={}, type={}".format(cg_version, type(cg_version)))
+                self.log.debug("file_version={}, type={}".format(file_version, type(file_version)))
+                self.log.debug("cg_version={}, type={}".format(cg_version, type(cg_version)))
                 break
         if file_version is None or cg_version is None:
             raise MaxDamageError(error9900_max_damage)
 
-        log.debug("cg_version={}, file_version={}".format(cg_version, file_version))
-        log.debug("version={}, version_str={}".format(self.version, self.version_str))
+        self.log.debug("cg_version={}, file_version={}".format(cg_version, file_version))
+        self.log.debug("version={}, version_str={}".format(self.version, self.version_str))
         return (cg_version, file_version)
 
     def _find_vray_version(self, string):
@@ -266,7 +266,7 @@ class Max(CGBase):
         if result is not None:
             renderer_name = result.groups()[0].lower()
             if "missing" in renderer_name:
-                log.info("missing renderer")
+                self.log.info("missing renderer")
                 self.tips.add(tips_code.realflow_missing)
                 raise RayvisionError("missing renderer")
                 pass
@@ -419,10 +419,10 @@ analyse file:"{cg_file}" task:"{task_json}" asset:"{asset_json}" tips:"{tips_jso
 
             k = k.lower()
             func = handle_funcs.get(k, None)
-            log.info("handle key: {}".format(k))
+            self.log.info("handle key: {}".format(k))
             if func is not None:
                 l = func(asset_json[k], self.cg_file, self.task_json)
-                log.info("handle result: {}".format(l))
+                self.log.info("handle result: {}".format(l))
                 upload_json["asset"].append(l)
 
         return upload_json
@@ -541,7 +541,7 @@ analyse file:"{cg_file}" task:"{task_json}" asset:"{asset_json}" tips:"{tips_jso
         else:
             ms_name = self.ms_name_u
         ms = self.template_ms(ms_path, ms_name, cg_file, temp_task_json, asset_json, tips_json, ignore_analyse_array="false").replace("\\", "/")
-        log.info(ms)
+        self.log.info(ms)
 
         now = datetime.datetime.now()
         now = now.strftime("%Y%m%d%H%M%S")
@@ -555,7 +555,7 @@ analyse file:"{cg_file}" task:"{task_json}" asset:"{asset_json}" tips:"{tips_jso
         )
 
         returncode, stdout, stderr = self.cmd.run(cmd, shell=True)
-        log.info("returncode: {}".format(returncode))
+        self.log.info("returncode: {}".format(returncode))
         # 运行成功 返回码不一定为0
         # 通过判断是否生成了json文件判断分析是否成功
         status, msg = self.json_exist()
@@ -563,6 +563,19 @@ analyse file:"{cg_file}" task:"{task_json}" asset:"{asset_json}" tips:"{tips_jso
             self.tips.add(tips_code.unknow_err, msg)
             self.tips.save()
             raise AnalyseFailError(msg)
+
+    def json_exist(self):
+        """如果没有生成 json 文件, 判断分析失败"""
+        task_path = self.job_info._task_json_path
+        temp_task_path = os.path.join(os.path.dirname(task_path), self.temp_task_json_name)
+        asset_path = self.job_info._asset_json_path
+        tips_path = self.job_info._tips_json_path
+
+        for p in [temp_task_path, asset_path, tips_path]:
+            if not os.path.exists(p):
+                msg = "Json file is not generated: {}".format(p)
+                return False, msg
+        return True, None
 
     def load_output_json(self):
         task_path = self.job_info._task_json_path
@@ -631,12 +644,14 @@ analyse file:"{cg_file}" task:"{task_json}" asset:"{asset_json}" tips:"{tips_jso
 
         # 开发时使用
         if VERSION == 3:
-            print(self)
+            self.log.debug(self)
         else:
-            print(self.exe_name)
-            print(self.exe_path)
-            print(self.vray)
-            print(self.name)
-            print(self.version)
-            print(self.cg_file)
-            print(self.cg_id)
+            self.log.debug(self.exe_name)
+            self.log.debug(self.exe_path)
+            self.log.debug(self.vray)
+            self.log.debug(self.name)
+            self.log.debug(self.version)
+            self.log.debug(self.cg_file)
+            self.log.debug(self.cg_id)
+
+        self.log.info("run end.")

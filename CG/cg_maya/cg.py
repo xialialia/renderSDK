@@ -6,7 +6,7 @@ import re
 import sys
 import math
 import traceback
-import logging
+
 try:
     import _winreg
 except ImportError:
@@ -153,14 +153,15 @@ class Maya(CGBase):
         location = None
         for v in versions:
             string = 'SOFTWARE\Autodesk\Maya\{}\Setup\InstallPath'.format(v)
-            print(string)
+            self.log.debug(string)
             try:
                 handle = _winreg.OpenKey(_winreg.HKEY_LOCAL_MACHINE, string)
                 location, type = _winreg.QueryValueEx(handle, "MAYA_INSTALL_LOCATION")
-                print(location, type)
+                self.log.debug(location, type)
                 break
             except FileNotFoundError as e:
-                traceback.print_exc()
+                self.log.debug(traceback.format_exc())
+                pass
 
         return location
 
@@ -193,6 +194,7 @@ class Maya(CGBase):
         # 外层的int为了兼容py2
         cg_version = str(int(math.floor(int(cg_version))))
         cg_name = software_config["cg_name"]
+        self.log.debug("cg_name={}, cg_version={}".format(cg_name, cg_version))
         if cg_name.capitalize() != self.name.capitalize() and cg_version != self.version:
             self.tips.add(tips_code.cg_notmatch, self.version_str)
             self.tips.save()
@@ -229,6 +231,7 @@ class Maya(CGBase):
             script_path=script_path,
             analyse_script_name=analyse_script_name,
         )
+        self.log.debug(cmd)
         returncode, stdout, stderr = self.cmd.run(cmd, shell=True)
         if returncode != 0:
             self.tips.add(tips_code.unknow_err)

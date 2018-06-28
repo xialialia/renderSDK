@@ -7,7 +7,6 @@ import sys
 import glob
 import shutil
 import traceback
-import logging as log
 from pprint import pprint
 try:
     import _winreg

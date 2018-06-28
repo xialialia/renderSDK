@@ -3,7 +3,7 @@ from __future__ import print_function
 from __future__ import division
 import os
 import time
-import logging as log
+import logging
 import traceback
 
 from rayvision_SDK.CG import util
@@ -40,8 +40,38 @@ class CGBase(object):
         user_parent_id = int(user_id) // 500 * 500
         self.user_input = "{}/{}".format(user_parent_id, user_id)
 
+        self.log = None
+        self.init_logging()
+
     def __repr__(self):
         return "\n".join(['{}={}'.format(k, v) for k, v in self.__dict__.items()])
+
+    def init_logging(self):
+        log_path = self.job_info._log_dir
+        f = '%(asctime)s %(levelname)s [%(name)s] %(filename)s +%(lineno)d: \n%(message)s'
+        today = time.strftime('%Y-%m-%d', time.localtime())
+        name = "analyse" + today
+
+        if log_path is None:
+            filename = None
+        else:
+            if not os.path.exists(log_path):
+                os.makedirs(log_path)
+            filename = os.path.join(log_path, name)
+
+        log = logging.getLogger("analyse")
+        fm = logging.Formatter(f)
+        log.setLevel(logging.DEBUG)
+        if filename:
+            handler = logging.FileHandler(filename, encoding="utf-8")
+            handler.setFormatter(fm)
+            log.addHandler(handler)
+
+        console = logging.StreamHandler()
+        console.setFormatter(fm)
+        console.setLevel(logging.INFO)
+        log.addHandler(console)
+        self.log = log
 
     def pre_analyse_custom_script(self):
         # TODO
@@ -56,7 +86,7 @@ class CGBase(object):
         pass
 
     def valid(self):
-        log.debug("run CG.valid")
+        self.log.debug("run CG.valid")
         software_config = self.job_info._task_info["software_config"]
         cg_version = software_config["cg_version"]
         cg_name = software_config["cg_name"]
@@ -66,20 +96,19 @@ class CGBase(object):
             raise VersionNotMatchError(version_not_match)
 
     def dump_task_json(self):
-        log.debug("run CG.dump_task_json")
+        self.log.debug("run CG.dump_task_json")
         task_json = self.job_info._task_info
         util.json_save(self.job_info._task_json_path, task_json, ensure_ascii=False)
 
     def run(self):
         raise NotImplementedError("You should override this method")
 
-    @staticmethod
-    def exe_path_from_location(location, exe_name):
+    def exe_path_from_location(self, location, exe_name):
         exe_path = None
         if location is not None:
             exe_path = os.path.join(location, exe_name)
             if not os.path.exists(exe_path):
-                log.debug(exe_path)
+                self.log.debug(exe_path)
                 return None
             else:
                 pass
@@ -103,8 +132,7 @@ class CGBase(object):
         self.tips_json = tips_json
         self.job_info._tips_info = tips_json
 
-    @staticmethod
-    def json_load(json_path, encodings=None):
+    def json_load(self, json_path, encodings=None):
         if encodings is None:
             encodings = ["utf-8"]
         d = {}
@@ -113,7 +141,7 @@ class CGBase(object):
                 d = util.json_load(json_path, encoding=encoding)
                 break
             except Exception as e:
-                log.error("error load: {}\n{}".format(json_path, traceback.format_exc()))
+                self.log.error("error load: {}\n{}".format(json_path, traceback.format_exc()))
                 d = {}
                 continue
                 
