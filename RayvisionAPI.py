@@ -101,7 +101,7 @@ class RayvisionAPI(object):
         }
         r_data = self._post(url, data)
         user_id = r_data.get('id')
-        self._headers['userId'] = str(user_id)
+        self._headers['userId'] = long(user_id)
         return r_data
 
     # 2.获取用户存储ID
@@ -311,14 +311,3 @@ class RayvisionAPI(object):
         r_data = self._post(url, data)
         return r_data
 
-
-if __name__ == '__main__':
-    user_info = {
-        'domain_name': 'dev.renderbus.com',
-        'platform': 1,
-        'accessKey': '$apr1$X5Q4lau1$tkyi4wvBXoQhKOP0G87e51',
-        'protocol': 'http'
-    }
-    api_obj = RayvisionAPI(user_info)
-    data = api_obj._login(account='xiexianguo', access_key=user_info.get('accessKey'))
-    print json.dumps(data)
