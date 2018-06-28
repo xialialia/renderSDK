@@ -211,7 +211,7 @@ class Maya(CGBase):
 
         options = {
             "cg_file": self.cg_file.replace("\\", "/"),
-            "task_id": self.job_info.job_id,
+            "task_id": self.job_info._job_id,
             "task_json": task_path.replace("\\", "/"),
             "asset_json": asset_path.replace("\\", "/"),
             "tips_json": tips_path.replace("\\", "/"),
