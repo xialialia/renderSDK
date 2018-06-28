@@ -179,11 +179,12 @@ class Rayvision(object):
             self._job_info._task_info['task_info']['project_name'] = project_name
             self._job_info._task_info['task_info']['project_id'] = str(project_dict['projectId'])
             
-        user_plugins_list = self._api_obj._get_user_plugin_config(cg_name)
+        # user_plugins_list = self._api_obj._get_user_plugin_config(cg_name)
         software_config_dict = {}
 
         if edit_name is not None and cg_version is None:
             # (1)set job config by edit_name
+            user_plugins_list = self._api_obj._get_user_plugin_config(cg_name)
             is_edit_name_exist = False
             for plugin_dict in user_plugins_list:
                 if plugin_dict['editName'] == edit_name:
@@ -209,12 +210,13 @@ class Rayvision(object):
             software_config_dict['plugins'] = plugin_config
         elif edit_name is not None and cg_version is not None:
             # (3)set job config by custom plugin config and add/edit to user plugin config group(named by edit_name)
+            user_plugins_list = self._api_obj._get_user_plugin_config(cg_name)
             software_config_dict['cg_name'] = cg_name
             software_config_dict['cg_version'] = cg_version
             software_config_dict['plugins'] = plugin_config
 
             plugins_info = []
-            for plugin_name, plugin_version in plugin_config:
+            for plugin_name, plugin_version in plugin_config.items():
                 single_plugin_dict = {}
                 single_plugin_dict['pluginName'] = plugin_name
                 single_plugin_dict['pluginVersion'] = plugin_version
@@ -266,6 +268,8 @@ class Rayvision(object):
         if project_dir is not None:
             self._job_info._task_info['task_info']['input_project_path'] = project_dir
             
+        # self.G_SDK_LOG.info(json.dumps(self._job_info.__dict__))
+        
         RayvisionAnalyse.analyse(cg_file, self._job_info)
         
         scene_info_data = self._job_info._task_info['scene_info']
@@ -300,15 +304,14 @@ class Rayvision(object):
         self.G_SDK_LOG.info('error_warn_info_list:{}'.format(self.error_warn_info_list))
         return self.error_warn_info_list
 
-    @decorator_use_in_class(SDK_LOG)
-    def edit_param(self, scene_info_render=None, task_info=None):
+
+    def _edit_param(self, scene_info_render=None, task_info=None):
         """
         1.input dict
         2.A set method for each attribute
         :param dict param_dict: scene_info_render
         :return:
         """
-        self._is_scene_have_error()  # check error
 
         self.G_SDK_LOG.info('INPUT:')
         self.G_SDK_LOG.info('='*20)
@@ -331,7 +334,9 @@ class Rayvision(object):
                 'split_tiles',  # 分块数量
                 'is_layer_rendering',  # maya是否开启分层
                 'is_distribute_render',  # 是否开启分布式渲染
-                'distribute_render_node'  # 分布式渲染机器数
+                'distribute_render_node',  # 分布式渲染机器数
+                'input_project_path',  # 工程目录路径
+                'render_layer_type'  # 渲染层类型
             ]  # 可修改的参数列表
             for key, value in task_info.items():
                 if key in modifiable_param:
@@ -344,25 +349,33 @@ class Rayvision(object):
         
         return True
 
-    @decorator_use_in_class(SDK_LOG)
-    def upload(self):
-        self._is_scene_have_error()  # check error
-        
-        cfg_list = [
-            self._job_info._task_json_path,
-            self._job_info._asset_json_path,
-            self._job_info._tips_json_path,
-            self._job_info._upload_json_path
-        ]
+
+    def _upload(self):
+        cfg_list = []
+        root = self._job_info._work_dir
+        for file_name in os.listdir(self._job_info._work_dir):
+            if file_name.endswith('.7z'):
+               continue
+            file_path = os.path.join(root, file_name)
+            cfg_list.append(file_path)
+
         self._transfer_obj._upload(self._job_info._job_id, cfg_list, self._job_info._upload_info)  # 上传配置文件和资产
         return True
 
-    @decorator_use_in_class(SDK_LOG)
-    def submit_job(self):
-        self._is_scene_have_error()  # check error
 
+    def _submit_job(self):
         self._api_obj._submit_job(int(self._job_info._job_id))
         return True
+    
+    
+    @decorator_use_in_class(SDK_LOG)
+    def submit_job(self, scene_info_render=None, task_info=None):
+        self._is_scene_have_error()  # check error
+        
+        self._edit_param(scene_info_render, task_info)
+        self._upload()
+        self._submit_job()
+    
 
     @decorator_use_in_class(SDK_LOG)
     def download(self, job_id, local_dir):

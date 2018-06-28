@@ -164,29 +164,3 @@ class RayvisionTransfer(object):
             sys.stdout.flush()
             # os.system(transmit_cmd.encode(sys.getfilesystemencoding()))
             RayvisionUtil.run_cmd(transmit_cmd.encode(sys.getfilesystemencoding()), log_obj=self.G_SDK_LOG)
-
-
-if __name__ == '__main__':
-    user_info = {
-        'domain_name':'dev.renderbus.com',
-        'platform': 'default',
-        'local_os': 'windows',
-        'user_id': '1852991',
-        'storage_id': '3441',
-        'download_id': '3431'
-    }
-    upload_info = {
-        "asset":[
-            {
-                "local":"E:/Workspaces/3dmax/2014/test.txt",
-                "server":"/E/Workspaces/3dmax/2014/test.txt"
-            },
-            {
-                "local":"E:/Workspaces/3dmax/2014/OGLdpf.log",
-                "server":"/E/Workspaces/3dmax/2014/OGLdpf.log"
-            }
-        ]
-    }
-
-    obj = RayvisionTransfer(user_info, api_obj=None)
-    obj.upload(upload_info)
