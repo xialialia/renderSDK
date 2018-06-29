@@ -6,7 +6,6 @@ import sys
 import time
 import traceback
 import argparse
-import logging
 
 from rayvision_SDK.CG.cg_houdini.cg import Houdini
 from rayvision_SDK.CG.cg_c4d.cg import C4D
@@ -20,20 +19,19 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 class RayvisionAnalyse(object):
     def __init__(self, job_info, cg_file, exe_path=None, type=None):
         self.job_info = job_info
-        self.cg_file = cg_file
         self.custom_exe_path = exe_path
         self.type = type
-        self.cg_class = None
-        self.cg_instance = None
-        self.cg_id = None
+        self._cg_file = cg_file
+        self._cg_class = None
+        self._cg_instance = None
+        self._cg_id = None
 
         self.init()
-        self.init_logging()
 
     def init(self):
-        cg_file = self.cg_file
+        cg_file = self._cg_file
         if not os.path.exists(cg_file):
-            raise RayvisionError(1000000, "Cg file does not exist: {}".format(self.cg_file))
+            raise RayvisionError(1000000, "Cg file does not exist: {}".format(self._cg_file))
 
         types = {
             ".max": "Max",
@@ -63,41 +61,34 @@ class RayvisionAnalyse(object):
             "C4D": (C4D, "2005"),
         }
         # init CG software
-        self.cg_class, self.cg_id = objs[self.type]
-        self.cg_instance = self.cg_class(cg_file=cg_file, 
-                                         job_info=self.job_info,
-                                         cg_id=self.cg_id,
-                                         custom_exe_path=self.custom_exe_path,
-                                         )
-
-    def init_logging(self):
-        format = '%Y-%m-%d'
-        today = time.strftime(format, time.localtime())
-        log_path = self.job_info._log_dir
-        name = "analyse" + today
-        filename = os.path.join(log_path, name)
-
-        logging.basicConfig(
-            level=logging.DEBUG,
-            format='%(asctime)s %(levelname)s [%(name)s] %(filename)s +%(lineno)d: %(message)s',
-            datefmt="%Y-%m-%d %H:%M:%S",
-            # filename=filename,
-        )
+        self._cg_class, self._cg_id = objs[self.type]
+        self._cg_instance = self._cg_class(cg_file=cg_file,
+                                           job_info=self.job_info,
+                                           cg_id=self._cg_id,
+                                           custom_exe_path=self.custom_exe_path,
+                                           )
 
     @classmethod
-    def analyse(cls, cg_file, job_info, exe_path=None):
+    def execute(cls, cg_file, job_info, exe_path=None):
         """
         入口.
         :param cg_file:
         :param job_info:
-        :param exe_path: 用户可手动指定 cg 软件的exe路径.如有则直接用这个路径, 无则自己找. # TODO "直接用这个路径"
+        :param exe_path: 用户可手动指定 cg 软件的exe路径.如有则直接用这个路径, 无则自己找. # TODO "直接用这个路径"(1/4)
         :return:
         """
         self = cls(job_info, cg_file, exe_path)
         self.run()
 
     def run(self):
-        self.cg_instance.run()
+        """全流程"""
+        self._cg_instance.run()
+
+    def analyse_cg_file(self):
+        self._cg_instance.analyse_cg_file()
+
+    def analyse(self):
+        self._cg_instance.analyse()
 
 
 def init_argparse():

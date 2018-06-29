@@ -6,7 +6,7 @@ import re
 import sys
 import math
 import traceback
-import logging
+
 try:
     import _winreg
 except ImportError:
@@ -153,14 +153,15 @@ class Maya(CGBase):
         location = None
         for v in versions:
             string = 'SOFTWARE\Autodesk\Maya\{}\Setup\InstallPath'.format(v)
-            print(string)
+            self.log.debug(string)
             try:
                 handle = _winreg.OpenKey(_winreg.HKEY_LOCAL_MACHINE, string)
                 location, type = _winreg.QueryValueEx(handle, "MAYA_INSTALL_LOCATION")
-                print(location, type)
+                self.log.debug(location, type)
                 break
-            except FileNotFoundError as e:
-                traceback.print_exc()
+            except (WindowsError, FileNotFoundError) as e:
+                self.log.debug(traceback.format_exc())
+                pass
 
         return location
 
@@ -193,6 +194,7 @@ class Maya(CGBase):
         # 外层的int为了兼容py2
         cg_version = str(int(math.floor(int(cg_version))))
         cg_name = software_config["cg_name"]
+        self.log.debug("cg_name={}, cg_version={}".format(cg_name, cg_version))
         if cg_name.capitalize() != self.name.capitalize() and cg_version != self.version:
             self.tips.add(tips_code.cg_notmatch, self.version_str)
             self.tips.save()
@@ -229,6 +231,7 @@ class Maya(CGBase):
             script_path=script_path,
             analyse_script_name=analyse_script_name,
         )
+        self.log.debug(cmd)
         returncode, stdout, stderr = self.cmd.run(cmd, shell=True)
         if returncode != 0:
             self.tips.add(tips_code.unknow_err)
@@ -280,9 +283,6 @@ class Maya(CGBase):
         # super().write_cg_path()
         super(Maya, self).write_cg_path()
 
-    def post_analyse_custom(self):
-        pass
-
     def run(self):
         # run a custom script if exists
         # 分析前置定制脚本（配置环境，指定对应的BAT/SH）
@@ -301,8 +301,8 @@ class Maya(CGBase):
         self.handle_analyse_result()
         # 把 cg_file 和 cg_id 写进 task_info
         self.write_cg_path()
-        #
-        self.post_analyse_custom()
+
+        self.log.info("analyse end.")
 
     def run1(self):
         """临时测试用"""

@@ -5,7 +5,6 @@ import os
 import re
 import time
 import sys
-import logging as log
 import traceback
 
 try:
@@ -38,18 +37,19 @@ class Houdini(CGBase):
         pass
 
     def location_from_reg(self, version):
+        log = self.log
         version_str = "{} {}".format(self.name, version)
 
         location = None
 
         string = 'SOFTWARE\Side Effects Software\{}'.format(version_str)
-        log.info(string)
+        log.debug(string)
         try:
             handle = _winreg.OpenKey(_winreg.HKEY_LOCAL_MACHINE, string)
             location, type = _winreg.QueryValueEx(handle, "InstallPath")
-            log.info("{} {}".format(location, type))
+            log.debug("{} {}".format(location, type))
 
-        except FileNotFoundError as e:
+        except (WindowsError, FileNotFoundError) as e:
             msg = traceback.format_exc()
             log.error(msg)
 
@@ -72,13 +72,13 @@ class Houdini(CGBase):
                         search_elm_cunt += 1
 
                     # The $HIP val with this file saved
-                    if "set -g HIP = " in  str(line):
-                        pattern = re.compile("\\'.*\\'") if sys.version[:1]=="2" else re.compile(r"\\'.*\\'")
+                    if "set -g HIP = " in str(line):
+                        pattern = re.compile("\\'.*\\'") if sys.version[:1] == "2" else re.compile(r"\\'.*\\'")
                         _Hip = pattern.search(str(line)).group()
-                        _hip_save_val = _Hip.split("\'")[1].replace("\\","/")
+                        _hip_save_val = _Hip.split("\'")[1].replace("\\", "/")
                         search_elm_cunt += 1
                     if search_elm_cunt >= search_elm:
-                        Not_find = False
+                        not_find = False
         else:
             print("The .hip file is not exist.")
             _hfs_save_version, _hip_save_val = ("", "")
@@ -87,12 +87,9 @@ class Houdini(CGBase):
     def pre_analyse_custom_script(self):
         super(Houdini, self).pre_analyse_custom_script()
 
-    def analyse_cg_file(self):
-        version = self.get_save_version(self.cg_file)[0]
-        log.info("version: {}".format(version))
-        self.version_str = "{} {}".format(self.name, version)
-
-        location = self.location_from_reg(version)
+    def find_location(self):
+        log = self.log
+        location = self.location_from_reg(self.version)
         exe_path = self.exe_path_from_location(os.path.join(location, "bin"), self.exe_name)
         if exe_path is None:
             self.tips.add(tips_code.cg_notexists, self.version_str)
@@ -100,6 +97,19 @@ class Houdini(CGBase):
             raise CGExeNotExistError(error9899_cgexe_notexist.format(self.name))
 
         self.exe_path = exe_path
+        log.info("exe_path: {}".format(exe_path))
+
+    def analyse_cg_file(self):
+        log = self.log
+        version = self.get_save_version(self.cg_file)[0]
+        log.info("version: {}".format(version))
+        self.version = version
+        self.version_str = "{} {}".format(self.name, version)
+
+        if self.custom_exe_path is not None:
+            self.exe_path = self.custom_exe_path
+        else:
+            self.find_location()
 
     def valid(self):
         super(Houdini, self).valid()
@@ -108,7 +118,8 @@ class Houdini(CGBase):
         super(Houdini, self).dump_task_json()
 
     def analyse(self):
-        script_full_path = os.path.join(os.path.dirname(__file__), "HfsBase.py")
+        script_name = "HfsBase.py"
+        script_full_path = os.path.join(os.path.dirname(__file__), script_name)
         task_path = self.job_info._task_json_path
         asset_path = self.job_info._asset_json_path
         tips_path = self.job_info._tips_json_path
@@ -122,6 +133,11 @@ class Houdini(CGBase):
             tips_path=tips_path,
         )
         returncode, stdout, stderr = self.cmd.run(cmd, shell=True)
+        self.log.info("returncode: {}".format(returncode))
+        if returncode != 0:
+            self.tips.add(tips_code.unknow_err)
+            self.tips.save()
+            raise RayvisionError("analyse fail.")
 
     def load_output_json(self):
         # super().load_output_json()
@@ -131,22 +147,26 @@ class Houdini(CGBase):
         upload_asset = []
 
         asset_json = self.asset_json
-        assets = asset_json["asset"]
-        for asset_dict in assets:
-            path_list = asset_dict["path"]
+        normal = asset_json["Normal"]
+        ## eg. asset = {"Normal":{"node1":["nodename",["files"]],"node2":["nodename",["files"]]},
+        ##                    "Miss":{"node1":["nodename",["files"]],"node2":["nodename",["files"]]}}
 
-            for path in path_list:
-                d = {}
-                local = path
-                server = util.convert_path(self.user_input, local)
-                d["local"] = local
-                d["server"] = server
-                upload_asset.append(d)
+        for _, dit in normal.items():
+            for node, value in dit.items():
+                path_list = value[-1]
+
+                for path in path_list:
+                    d = {}
+                    local = path
+                    server = util.convert_path("", local)
+                    d["local"] = local.replace("\\", "/")
+                    d["server"] = server
+                    upload_asset.append(d)
 
         # 把 cg 文件加入 upload.json
         upload_asset.append({
-            "local": self.cg_file,
-            "server": util.convert_path(self.user_input, self.cg_file)
+            "local": self.cg_file.replace("\\", "/"),
+            "server": util.convert_path("", self.cg_file)
         })
 
         upload_json = {}
@@ -161,10 +181,7 @@ class Houdini(CGBase):
         # super().write_cg_path()
         super(Houdini, self).write_cg_path()
 
-    def post_analyse_custom(self):
-        pass
-
-    def run1(self):
+    def run(self):
         # run a custom script if exists
         self.pre_analyse_custom_script()
         # 获取场景信息
@@ -181,10 +198,5 @@ class Houdini(CGBase):
         self.handle_analyse_result()
         # 把 cg_file 和 cg_id 写进 task_info
         self.write_cg_path()
-        #
-        self.post_analyse_custom()
 
-    def run(self):
-        version = "16.0.504.20"
-        self.analyse_cg_file()
-        # self.analyse()
+        self.log.info("analyse end.")

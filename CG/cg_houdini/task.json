@@ -1,0 +1,134 @@
+{
+  "scene_info": {
+    "rop_node": [
+      {
+        "node": "/out/snow", 
+        "frames": "101-144[1]", 
+        "option": "-1", 
+        "render": "1"
+      }, 
+      {
+        "node": "/out/shadowR", 
+        "frames": "101-144[1]", 
+        "option": "-1", 
+        "render": "1"
+      }, 
+      {
+        "node": "/out/snow_center", 
+        "frames": "101-144[1]", 
+        "option": "-1", 
+        "render": "1"
+      }, 
+      {
+        "node": "/out/snowDeep", 
+        "frames": "101-144[1]", 
+        "option": "-1", 
+        "render": "1"
+      }, 
+      {
+        "node": "/out/snow_centerDeep", 
+        "frames": "101-144[1]", 
+        "option": "-1", 
+        "render": "1"
+      }, 
+      {
+        "node": "/out/shadowG", 
+        "frames": "101-144[1]", 
+        "option": "-1", 
+        "render": "1"
+      }, 
+      {
+        "node": "/out/shadowB", 
+        "frames": "101-144[1]", 
+        "option": "-1", 
+        "render": "1"
+      }, 
+      {
+        "node": "/out/snow_centerPatch", 
+        "frames": "101-144[1]", 
+        "option": "-1", 
+        "render": "1"
+      }, 
+      {
+        "node": "/out/snow_centerPatchDeep", 
+        "frames": "101-144[1]", 
+        "option": "-1", 
+        "render": "1"
+      }, 
+      {
+        "node": "/out/mantra1", 
+        "frames": "101-144[1]", 
+        "option": "-1", 
+        "render": "1"
+      }
+    ], 
+    "geo_node": [
+      {
+        "node": "/obj/setup/source_prt/render", 
+        "frames": "101-144[1]", 
+        "option": "0", 
+        "render": "0"
+      }, 
+      {
+        "node": "/obj/smoke/import_pyrofields/render", 
+        "frames": "101-144[1]", 
+        "option": "0", 
+        "render": "0"
+      }, 
+      {
+        "node": "/obj/smoke/snow/render", 
+        "frames": "101-144[1]", 
+        "option": "0", 
+        "render": "0"
+      }, 
+      {
+        "node": "/obj/smoke/fire/render", 
+        "frames": "101-144[1]", 
+        "option": "0", 
+        "render": "0"
+      }, 
+      {
+        "node": "/obj/smoke/import_pyrofields1/render", 
+        "frames": "101-144[1]", 
+        "option": "0", 
+        "render": "0"
+      }, 
+      {
+        "node": "/obj/smoke_center/import_pyrofields/render", 
+        "frames": "101-144[1]", 
+        "option": "0", 
+        "render": "0"
+      }, 
+      {
+        "node": "/obj/smoke_center/snow_center/render", 
+        "frames": "101-144[1]", 
+        "option": "0", 
+        "render": "0"
+      }, 
+      {
+        "node": "/obj/smokeCenterPatch/import_pyrofields/render", 
+        "frames": "101-144[1]", 
+        "option": "0", 
+        "render": "0"
+      }, 
+      {
+        "node": "/obj/smokeCenterPatch/smokeCenterPatch/render", 
+        "frames": "101-144[1]", 
+        "option": "0", 
+        "render": "0"
+      }, 
+      {
+        "node": "/obj/smokeCenterPatch1/import_pyrofields/render", 
+        "frames": "101-144[1]", 
+        "option": "0", 
+        "render": "0"
+      }, 
+      {
+        "node": "/obj/smokeCenterPatch1/smokeCenterPatch/render", 
+        "frames": "101-144[1]", 
+        "option": "0", 
+        "render": "0"
+      }
+    ]
+  }
+}
