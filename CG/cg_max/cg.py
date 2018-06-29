@@ -48,6 +48,7 @@ class Max(CGBase):
         self.ms_name_a = "analysea.mse"
         self.ms_name_u = "analyseu.mse"
         self.temp_task_json_name = "task_temp.json"
+        self.file_version = None
 
         self.init()
 
@@ -168,12 +169,10 @@ class Max(CGBase):
         self.exe_path
         self.vray
         """
-        cg_version, file_version = self.get_cg_file_info(self.cg_file)
-        # cg_version = file_version
-        cg_version_str = "3ds Max " + cg_version
-        self.version = cg_version
-        self.version_str = cg_version_str
         language_code = ""
+        file_version = self.file_version
+        cg_version_str = self.version_str
+
         location, language_code = self.location_from_reg("64", file_version)
         if location is None:
             location, language_code = self.location_from_reg("32", file_version)
@@ -207,8 +206,6 @@ class Max(CGBase):
         赋值:
         self.vray
         """
-        cg_version = None
-        file_version = None
         # 使用 exe 对 max 文件分析, 得出使用的软件的版本.
         exe_name = "GetMaxProperty.exe"
         path = os.path.abspath(os.path.join(os.path.abspath(__file__), "../../../tool/max"))
@@ -222,16 +219,17 @@ class Max(CGBase):
             self.tips.add(tips_code.cginfo_failed)
             self.tips.save()
             raise RayvisionError("Load max info fail")
-        # pprint(stdout1)
 
         # TODO 如果有用到其他(除vray外) parse_lines 需要修复
-        # lines = stdout.splitlines()
-        # lines = [line for line in lines if line]
+        lines = stdout.splitlines()
+        lines = [line for line in lines if line]
+        stdout1 = "\n".join(lines)
+        # self.log.debug(stdout1)
         # info = self.parse_lines(lines)
         # pprint(info)
 
         # Max 的 Vray 版本在这里赋值
-        self._find_vray_version(stdout)
+        vray_version = self._find_vray_version(stdout)
 
         # 兼容中文或其他...
         patterns = [
@@ -256,8 +254,13 @@ class Max(CGBase):
             raise MaxDamageError(error9900_max_damage)
 
         self.log.debug("cg_version={}, file_version={}".format(cg_version, file_version))
-        self.log.debug("version={}, version_str={}".format(self.version, self.version_str))
-        return (cg_version, file_version)
+
+        d = dict(
+            cg_version=cg_version,
+            file_version=file_version,
+            vray_version=vray_version,
+        )
+        return d
 
     def _find_vray_version(self, string):
         """find vray version by re"""
@@ -268,14 +271,16 @@ class Max(CGBase):
             if "missing" in renderer_name:
                 self.log.info("missing renderer")
                 self.tips.add(tips_code.realflow_missing)
+                self.tips.save()
                 raise RayvisionError("missing renderer")
-                pass
             else:
                 vray = renderer_name.replace('v-ray ', 'vray').replace('v_ray ', 'vray').replace('adv ', '').replace('edu ', '').replace('demo ', '').replace(' ', '')
-                self.vray = vray
         else:
             self.tips.add(tips_code.cginfo_failed)
-            raise RayvisionError("max info failed")
+            self.tips.save()
+            raise RayvisionError("get max info failed")
+        self.log.debug("vray={}".format(vray))
+        return vray
 
     def _find_max_version(self, string):
         pass
@@ -344,7 +349,11 @@ class Max(CGBase):
 (DotNetClass "System.Windows.Forms.Application").CurrentCulture = dotnetObject "System.Globalization.CultureInfo" "zh-cn"
 filein @"{ms_path}/{ms_name}"
 
+fn main=(
 analyse file:"{cg_file}" task:"{task_json}" asset:"{asset_json}" tips:"{tips_json}" ignore:"{ignore_analyse_array}"
+)
+
+main()
 '''
         t = t.format(
             ms_path=ms_path,
@@ -468,7 +477,7 @@ analyse file:"{cg_file}" task:"{task_json}" asset:"{asset_json}" tips:"{tips_jso
                              '2012_3.40.02_1.1.09c', '2012_3.40.02_1.1.09d', '2012_3.40.02_1.2.0.3',
                              '2012_3.50.03_1.1.09c', '2012_3.50.03_1.1.09d', '2012_3.50.03_1.2.0.3',
                              '2012_2.30.01_1.1.09d']
-        str_a = max + "_" + plugin1 + "_" + plugin2
+        str_a = "{}_{}_{}".format(max, plugin1, plugin2)
         if str_a in vray_multiscatter:
             return True
         else:
@@ -492,19 +501,21 @@ analyse file:"{cg_file}" task:"{task_json}" asset:"{asset_json}" tips:"{tips_jso
     #                     os.system("taskkill /f /pid %s" % (buff_arr[2]))
     #             except Exception as e:
     #                 traceback.print_exc()
+    def get_ms(self, version):
+        pass
 
     def pre_analyse_custom_script(self):
         super(Max, self).pre_analyse_custom_script()
 
     def analyse_cg_file(self):
-        # 如果用户指定了 exe 路径 则只分析 cg 文件
+        d = self.get_cg_file_info(self.cg_file)
+        cg_version_str = "{} {}".format(self.name, d["cg_version"])
+        self.version = d["cg_version"]
+        self.version_str = cg_version_str
+        self.file_version = d["file_version"]
+        self.vray = d["vray_version"]
+
         if self.custom_exe_path is not None:
-            # 赋值: self.vray
-            cg_version, _ = self.get_cg_file_info(self.cg_file)
-            cg_version_str = "{} {}".format(self.name, cg_version)
-            self.version = cg_version
-            self.version_str = cg_version_str
-            
             self.exe_path = self.custom_exe_path
         else:
             self.find_location()
@@ -551,7 +562,7 @@ analyse file:"{cg_file}" task:"{task_json}" asset:"{asset_json}" tips:"{tips_jso
         ms_full_path = os.path.join(self.job_info._work_dir, "Analyse{}.ms".format(now))
         util.write(ms_full_path, ms)
         #
-        cmd = "\"{}\" -silent -mip -mxs \"filein \\\"{}\\\"\"".format(
+        cmd = "\"{}\" -silent -mip -mxs \"filein \\\"{}\\\"\";main()".format(
             self.exe_path,
             ms_full_path.replace("\\", "/"),
         )
@@ -594,7 +605,7 @@ analyse file:"{cg_file}" task:"{task_json}" asset:"{asset_json}" tips:"{tips_jso
         task_json = self.job_info._task_info
         # 直接 update 替换
         task_json.update(temp_task_json)
-        util.json_save(task_path, task_json, ensure_ascii=False)
+        # util.json_save(task_path, task_json, ensure_ascii=False)
 
         # 因软件出的 json 带 BOM, 需要转成不带 BOM
         util.json_save(asset_path, asset_json, ensure_ascii=False)
@@ -608,6 +619,15 @@ analyse file:"{cg_file}" task:"{task_json}" asset:"{asset_json}" tips:"{tips_jso
 
         self.tips_json = tips_json
         self.job_info._tips_info = tips_json
+
+    def write_vray(self):
+        if "vray" in self.vray:
+            task_path = self.job_info._task_json_path
+            task_json = self.job_info._task_info
+            task_json["software_config"]["plugins"]["vray"] = self.vray.replace("vray", "")
+            util.json_save(task_path, task_json, ensure_ascii=False)
+            self.task_json = task_json
+            self.job_info._task_info = task_json
 
     def handle_analyse_result(self):
         # 取出 zip 列表压缩
@@ -641,6 +661,8 @@ analyse file:"{cg_file}" task:"{task_json}" asset:"{asset_json}" tips:"{tips_jso
         self.analyse()
         # 把分析结果的三个json读进内存
         self.load_output_json()
+        # 把 vray 版本写入 task.json
+        self.write_vray()
         # 写任务配置文件（定制信息，独立的上传清单）, 压缩特定文件（压缩文件，上传路径，删除路径）
         self.handle_analyse_result()
 
