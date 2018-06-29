@@ -29,6 +29,8 @@ B --> E
 E --> F(下载)
 ```
 
+![flow_chart](../image/flow_chart.png)
+
 ### 三、示例代码
 
 ```
@@ -51,7 +53,7 @@ scene_info_render, task_info = rayvision.analyse(cg_file=r'D:\chensr\SDK\test_ma
 # 4.用户自行处理错误、警告
 error_info_list = rayvision.check_error_warn_info()
 
-# 5.提交任务（可修改作业参数）
+# 5.提交作业（可修改作业参数）
 rayvision.submit_job()
 
 # 6.下载
@@ -73,7 +75,7 @@ rayvision = Rayvision(domain_name='task.renderbus.com', platform='2', account='t
 # 2.设置作业配置（插件配置、所属项目）
 rayvision.set_job_config(cg_name='Maya', cg_version='2016', plugin_config={})
 
-# 3.提交任务（scene_info_render,task_info详细信息见使用文档）
+# 3.提交作业（scene_info_render,task_info详细信息见使用文档）
 rayvision.submit_job(scene_info_render, task_info)
 
 # 4.下载
@@ -179,7 +181,7 @@ error_info_list | list |  | 分析出的错误、警告信息，需要用户自�
 
 ---
 
-#### 5.提交任务（可修改作业参数）
+#### 5.提交作业（可修改作业参数）
 ```
 scene_info_render_new = scene_info_render
 task_info_new = task_info
@@ -208,7 +210,7 @@ rayvision.download(job_id='5134', local_dir=r"c:\renderfarm\project\5154\output"
 
 参数 | 类型 | 值 | 说明
 ---|---|---|---
-job_id | str |  | 任务id
+job_id | str |  | 作业id
 local_dir | str |  | 本地下载目录
 
 
