@@ -141,7 +141,7 @@ True
 
 #### 3.分析
 ```
-scene_info_render, task_info = rayvision.analyse(cg_file=r'D:\chensr\SDK\test_maya.mb', project_dir=r'D:\chensr\SDK')
+scene_info_render, task_info = rayvision.analyse(cg_file=r'D:\chensr\SDK\test_maya.mb', project_dir=r'D:\chensr\SDK', software_path=None)
 ```
 
 **参数：**<br/>
@@ -150,6 +150,7 @@ scene_info_render, task_info = rayvision.analyse(cg_file=r'D:\chensr\SDK\test_ma
 ---|---|---|---
 cg_file | str |  | 场景路径
 project_dir | str |  | 可不设置，项目目录（如设置，则只在您项目目录中查找渲染所需资产文件）
+software_path | str |  | 软件路径（如果不能从注册表获取软件路径，则可以手动输入）
 
 
 **返回：**<br/>

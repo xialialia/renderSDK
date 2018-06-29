@@ -245,7 +245,7 @@ class Rayvision(object):
         return True
 
     @decorator_use_in_class(SDK_LOG)
-    def analyse(self, cg_file, project_dir=None):
+    def analyse(self, cg_file, project_dir=None, software_path=None):
         """
         Analyse cg file.
         :param str job_id:
@@ -270,7 +270,8 @@ class Rayvision(object):
             
         # self.G_SDK_LOG.info(json.dumps(self._job_info.__dict__))
         
-        RayvisionAnalyse.analyse(cg_file, self._job_info)
+        # RayvisionAnalyse.analyse(cg_file, self._job_info)
+        RayvisionAnalyse.execute(cg_file, self._job_info, exe_path=software_path)
         
         scene_info_data = self._job_info._task_info['scene_info']
         
