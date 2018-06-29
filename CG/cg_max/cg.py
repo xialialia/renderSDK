@@ -562,7 +562,7 @@ main()
         ms_full_path = os.path.join(self.job_info._work_dir, "Analyse{}.ms".format(now))
         util.write(ms_full_path, ms)
         #
-        cmd = "\"{}\" -silent -mip -mxs \"filein \\\"{}\\\"\";main()".format(
+        cmd = "\"{}\" -silent -mip -mxs \"filein \\\"{}\\\";main()\"".format(
             self.exe_path,
             ms_full_path.replace("\\", "/"),
         )
