@@ -112,13 +112,13 @@ Rayvision的对象，可通过此对象调用其他的方法
 **三种不同的使用方法：**<br/>
 ```
 # （1）如您账号中存在名为hello的插件配置，则可设置为此次作业插件配置
-rayvision.set_job_config(cg_name='3ds Max', edit_name='hello')
+rayvision.set_job_config(cg_name='3ds Max', config_name='hello')
 
 # （2）设置此次作业的插件配置，不保存该插件配置到您账号中
 rayvision.set_job_config(cg_name='Maya', cg_version='2016', plugin_config={“mentalray”:"3.14", "mtoa":"1.2.2.0"})
 
 # （3）设置此次作业的插件配置，并保存该配置到您账号中（如同名则覆盖）
-rayvision.set_job_config(cg_name='Maya', cg_version='2016', plugin_config={“mentalray”:"3.14", "mtoa":"1.2.2.0"}, edit_name='test')
+rayvision.set_job_config(cg_name='Maya', cg_version='2016', plugin_config={“mentalray”:"3.14", "mtoa":"1.2.2.0"}, config_name='test')
 ```
 **参数：**<br/>
 
@@ -127,7 +127,7 @@ rayvision.set_job_config(cg_name='Maya', cg_version='2016', plugin_config={“me
 cg_name | str | Maya, 3ds Max, Houdini | 大小写最好一致
 cg_version | str | 2014, 2015 ... | 
 plugin_config | dict | {"fumefx":"4.0.5", "redshift":"2.0.76"} | 如果没用插件就不需要填
-edit_name | str | hello | 插件配置名，唯一标识一个插件配置组合
+config_name | str | hello | 插件配置名，唯一标识一个插件配置组合
 project_name | str | defaultProject | 可不设置，标明作业所属项目
 
 
@@ -331,7 +331,7 @@ api错误可以用：api编号+异常码
 100001 | URL_ERROR | 访问API出错
 100002 | TIPS_JSON_EXIST_ERROR | tips.json存在错误
 100003 | SDK_PARAMETER_INVALID | 调用SDK方法参数不合法
-100004 |  | edit_name is not exists
+100004 |  | config_name is not exists
 100005 |  | project_name is not exists
 100006 |  | cg_name is not exists
 
