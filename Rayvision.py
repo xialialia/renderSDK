@@ -116,18 +116,18 @@ class Rayvision(object):
         return True
 
     @decorator_use_in_class(SDK_LOG)
-    def set_job_config(self, cg_name, cg_version=None, plugin_config={}, edit_name=None, project_name=None):
+    def set_job_config(self, cg_name, cg_version=None, plugin_config={}, config_name=None, project_name=None):
         """
         1.set job plugins info
-            (1)set job config by edit_name, input:cg_name, edit_name
+            (1)set job config by config_name, input:cg_name, config_name
             (2)set job config by custom plugin config, input:cg_name, cg_version, plugin_config
-            (3)set job config by custom plugin config and add to user plugin config group(named by edit_name), input:edit_name, cg_name, cg_version, plugin_config
+            (3)set job config by custom plugin config and add to user plugin config group(named by config_name), input:config_name, cg_name, cg_version, plugin_config
         2.Add a project label to the job(Unnecessary).
 
         :param str cg_name:
         :param str cg_version:
         :param dict plugin_config: {"3dhippiesterocam":"2.0.13"}
-        :param str edit_name:
+        :param str config_name:
         :param str project_name:
         :return: job_id
         :rtype: str
@@ -135,8 +135,8 @@ class Rayvision(object):
         cg_name = str(cg_name)
         if cg_version is not None:
             cg_version = str(cg_version)
-        if edit_name is not None:
-            edit_name = str(edit_name)
+        if config_name is not None:
+            config_name = str(config_name)
         if project_name is not None:
             project_name = str(project_name)
         
@@ -145,7 +145,7 @@ class Rayvision(object):
         self.G_SDK_LOG.info('cg_name:{}'.format(cg_name))
         self.G_SDK_LOG.info('cg_version:{}'.format(cg_version))
         self.G_SDK_LOG.info('plugin_config:{}'.format(plugin_config))
-        self.G_SDK_LOG.info('edit_name:{}'.format(edit_name))
+        self.G_SDK_LOG.info('config_name:{}'.format(config_name))
         self.G_SDK_LOG.info('project_name:{}'.format(project_name))
         self.G_SDK_LOG.info('='*20)
         
@@ -182,13 +182,13 @@ class Rayvision(object):
         # user_plugins_list = self._api_obj._get_user_plugin_config(cg_name)
         software_config_dict = {}
 
-        if edit_name is not None and cg_version is None:
-            # (1)set job config by edit_name
+        if config_name is not None and cg_version is None:
+            # (1)set job config by config_name
             user_plugins_list = self._api_obj._get_user_plugin_config(cg_name)
-            is_edit_name_exist = False
+            is_config_name_exist = False
             for plugin_dict in user_plugins_list:
-                if plugin_dict['editName'] == edit_name:
-                    is_edit_name_exist = True
+                if plugin_dict['editName'] == config_name:
+                    is_config_name_exist = True
                     software_config_dict['cg_name'] = plugin_dict['cgName']
                     software_config_dict['cg_version'] = plugin_dict['cgVersion']
                     software_config_dict['plugins'] = {}
@@ -199,17 +199,17 @@ class Rayvision(object):
                         value = plugin_info['pluginVersion']
                         if key is not None and value is not None:
                             software_config_dict['plugins'][key] = value
-            if not is_edit_name_exist:
-                return_message = r'edit_name is not exists:{}'.format(edit_name)
-                raise RayvisionError(100004, return_message) # edit_name is not exists!
+            if not is_config_name_exist:
+                return_message = r'config_name is not exists:{}'.format(config_name)
+                raise RayvisionError(100004, return_message) # config_name is not exists!
 
-        elif edit_name is None and cg_version is not None:
+        elif config_name is None and cg_version is not None:
             # (2)set job config by custom plugin config
             software_config_dict['cg_name'] = cg_name
             software_config_dict['cg_version'] = cg_version
             software_config_dict['plugins'] = plugin_config
-        elif edit_name is not None and cg_version is not None:
-            # (3)set job config by custom plugin config and add/edit to user plugin config group(named by edit_name)
+        elif config_name is not None and cg_version is not None:
+            # (3)set job config by custom plugin config and add/edit to user plugin config group(named by config_name)
             user_plugins_list = self._api_obj._get_user_plugin_config(cg_name)
             software_config_dict['cg_name'] = cg_name
             software_config_dict['cg_version'] = cg_version
@@ -222,21 +222,21 @@ class Rayvision(object):
                 single_plugin_dict['pluginVersion'] = plugin_version
                 plugins_info.append(single_plugin_dict)
 
-            is_edit_name_exist = False
+            is_config_name_exist = False
             for plugin_dict in user_plugins_list:
-                if plugin_dict['editName'] == edit_name:
-                    is_edit_name_exist = True
+                if plugin_dict['editName'] == config_name:
+                    is_config_name_exist = True
 
-            if is_edit_name_exist:
-                self._api_obj._edit_user_plugin_config(edit_name, cg_id, cg_name, cg_version, plugins_info)
+            if is_config_name_exist:
+                self._api_obj._edit_user_plugin_config(config_name, cg_id, cg_name, cg_version, plugins_info)
             else:
-                self._api_obj._add_user_plugin_config(edit_name, cg_id, cg_name, cg_version, plugins_info)
+                self._api_obj._add_user_plugin_config(config_name, cg_id, cg_name, cg_version, plugins_info)
 
         else:
             return_message = r'''PARAMETER_INVALID:
-(1)cg_name + edit_name: set job config by edit_name
+(1)cg_name + config_name: set job config by config_name
 (2)cg_name + cg_version + plugin_config: set job config by custom plugin config
-(3)edit_name + cg_name + cg_version + plugin_config: set job config by custom plugin config and add to user plugin config group(named by edit_name)
+(3)config_name + cg_name + cg_version + plugin_config: set job config by custom plugin config and add to user plugin config group(named by config_name)
                         '''
             raise RayvisionError(100003, return_message)  # PARAMETER_INVALID
 

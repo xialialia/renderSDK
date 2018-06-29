@@ -145,10 +145,10 @@ class RayvisionAPI(object):
         return r_data
 
     # 5.新增用户插件配置
-    def _add_user_plugin_config(self, edit_name, cg_id, cg_name, cg_version, plugins_info):
+    def _add_user_plugin_config(self, config_name, cg_id, cg_name, cg_version, plugins_info):
         """
         Add user plugin config.
-        :param str edit_name:
+        :param str config_name:
         :param str cg_id:
         :param str cg_name:
         :param str cg_version:
@@ -158,7 +158,7 @@ class RayvisionAPI(object):
         url = r'{}{}'.format(self._protocol_domain, self._uri_dict.get('add_user_plugin_config'))
         data = {
             "cgId": cg_id,
-            "editName": edit_name,
+            "editName": config_name,
             "cgName": cg_name,
             "cgVersion": cg_version,
             "pluginsInfo": plugins_info
@@ -167,10 +167,10 @@ class RayvisionAPI(object):
         return r_data
 
     # 6.编辑用户插件配置
-    def _edit_user_plugin_config(self, edit_name, cg_id, cg_name, cg_version, plugins_info):
+    def _edit_user_plugin_config(self, config_name, cg_id, cg_name, cg_version, plugins_info):
         """
         Edit plugin config.
-        :param str edit_name:
+        :param str config_name:
         :param str cg_name:
         :param str cg_version:
         :param list plugins_info:
@@ -179,7 +179,7 @@ class RayvisionAPI(object):
         url = r'{}{}'.format(self._protocol_domain, self._uri_dict.get('edit_user_plugin_config'))
         data = {
             "cgId": cg_id,
-            "editName": edit_name,
+            "editName": config_name,
             "cgName": cg_name,
             "cgVersion": cg_version,
             "pluginsInfo": plugins_info
@@ -188,15 +188,15 @@ class RayvisionAPI(object):
         return r_data
 
     # 7.删除用户插件配置 -- deleteUserPluginConfig
-    def _del_user_plugin_config(self, edit_name):
+    def _del_user_plugin_config(self, config_name):
         """
         Delete plugin config.
-        :param str edit_name:
+        :param str config_name:
         :return: None
         """
         url = r'{}{}'.format(self._protocol_domain, self._uri_dict.get('del_user_plugin_config'))
         data = {
-            "editName": edit_name,
+            "editName": config_name,
             "type":"1"  # 1:删除 2:设为默认
         }
         r_data = self._post(url, data)
