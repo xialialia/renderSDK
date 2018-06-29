@@ -219,11 +219,12 @@ class Max(CGBase):
             self.tips.add(tips_code.cginfo_failed)
             self.tips.save()
             raise RayvisionError("Load max info fail")
-        # pprint(stdout1)
 
         # TODO 如果有用到其他(除vray外) parse_lines 需要修复
-        # lines = stdout.splitlines()
-        # lines = [line for line in lines if line]
+        lines = stdout.splitlines()
+        lines = [line for line in lines if line]
+        stdout1 = "\n".join(lines)
+        # self.log.debug(stdout1)
         # info = self.parse_lines(lines)
         # pprint(info)
 
@@ -253,7 +254,6 @@ class Max(CGBase):
             raise MaxDamageError(error9900_max_damage)
 
         self.log.debug("cg_version={}, file_version={}".format(cg_version, file_version))
-        self.log.debug("version={}, version_str={}".format(self.version, self.version_str))
 
         d = dict(
             cg_version=cg_version,
@@ -279,6 +279,7 @@ class Max(CGBase):
             self.tips.add(tips_code.cginfo_failed)
             self.tips.save()
             raise RayvisionError("get max info failed")
+        self.log.debug("vray={}".format(vray))
         return vray
 
     def _find_max_version(self, string):
@@ -348,7 +349,11 @@ class Max(CGBase):
 (DotNetClass "System.Windows.Forms.Application").CurrentCulture = dotnetObject "System.Globalization.CultureInfo" "zh-cn"
 filein @"{ms_path}/{ms_name}"
 
+fn main=(
 analyse file:"{cg_file}" task:"{task_json}" asset:"{asset_json}" tips:"{tips_json}" ignore:"{ignore_analyse_array}"
+)
+
+main()
 '''
         t = t.format(
             ms_path=ms_path,
@@ -498,6 +503,7 @@ analyse file:"{cg_file}" task:"{task_json}" asset:"{asset_json}" tips:"{tips_jso
     #                 traceback.print_exc()
     def get_ms(self, version):
         pass
+
     def pre_analyse_custom_script(self):
         super(Max, self).pre_analyse_custom_script()
 
@@ -556,7 +562,7 @@ analyse file:"{cg_file}" task:"{task_json}" asset:"{asset_json}" tips:"{tips_jso
         ms_full_path = os.path.join(self.job_info._work_dir, "Analyse{}.ms".format(now))
         util.write(ms_full_path, ms)
         #
-        cmd = "\"{}\" -silent -mip -mxs \"filein \\\"{}\\\"\"".format(
+        cmd = "\"{}\" -silent -mip -mxs \"filein \\\"{}\\\"\";main()".format(
             self.exe_path,
             ms_full_path.replace("\\", "/"),
         )
@@ -599,7 +605,7 @@ analyse file:"{cg_file}" task:"{task_json}" asset:"{asset_json}" tips:"{tips_jso
         task_json = self.job_info._task_info
         # 直接 update 替换
         task_json.update(temp_task_json)
-        util.json_save(task_path, task_json, ensure_ascii=False)
+        # util.json_save(task_path, task_json, ensure_ascii=False)
 
         # 因软件出的 json 带 BOM, 需要转成不带 BOM
         util.json_save(asset_path, asset_json, ensure_ascii=False)
@@ -613,6 +619,15 @@ analyse file:"{cg_file}" task:"{task_json}" asset:"{asset_json}" tips:"{tips_jso
 
         self.tips_json = tips_json
         self.job_info._tips_info = tips_json
+
+    def write_vray(self):
+        if "vray" in self.vray:
+            task_path = self.job_info._task_json_path
+            task_json = self.job_info._task_info
+            task_json["software_config"]["plugins"]["vray"] = self.vray.replace("vray", "")
+            util.json_save(task_path, task_json, ensure_ascii=False)
+            self.task_json = task_json
+            self.job_info._task_info = task_json
 
     def handle_analyse_result(self):
         # 取出 zip 列表压缩
@@ -646,6 +661,8 @@ analyse file:"{cg_file}" task:"{task_json}" asset:"{asset_json}" tips:"{tips_jso
         self.analyse()
         # 把分析结果的三个json读进内存
         self.load_output_json()
+        # 把 vray 版本写入 task.json
+        self.write_vray()
         # 写任务配置文件（定制信息，独立的上传清单）, 压缩特定文件（压缩文件，上传路径，删除路径）
         self.handle_analyse_result()
 
