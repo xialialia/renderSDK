@@ -501,9 +501,11 @@ analyse file:"{cg_file}" task:"{task_json}" asset:"{asset_json}" tips:"{tips_jso
         if self.custom_exe_path is not None:
             # 赋值: self.vray
             cg_version, _ = self.get_cg_file_info(self.cg_file)
-            cg_version_str = "3ds Max " + cg_version
+            cg_version_str = "{} {}".format(self.name, cg_version)
             self.version = cg_version
             self.version_str = cg_version_str
+            
+            self.exe_path = self.custom_exe_path
         else:
             self.find_location()
 

@@ -59,5 +59,5 @@ class FileNameContainsChineseError(RayvisionError):
     pass
 
 
-class FileNotFoundError(RayvisionError):
-    pass
+# class FileNotFoundError(RayvisionError):
+#     pass

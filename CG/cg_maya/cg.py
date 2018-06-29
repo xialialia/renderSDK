@@ -159,7 +159,7 @@ class Maya(CGBase):
                 location, type = _winreg.QueryValueEx(handle, "MAYA_INSTALL_LOCATION")
                 self.log.debug(location, type)
                 break
-            except FileNotFoundError as e:
+            except (WindowsError, FileNotFoundError) as e:
                 self.log.debug(traceback.format_exc())
                 pass
 
@@ -283,9 +283,6 @@ class Maya(CGBase):
         # super().write_cg_path()
         super(Maya, self).write_cg_path()
 
-    def post_analyse_custom(self):
-        pass
-
     def run(self):
         # run a custom script if exists
         # 分析前置定制脚本（配置环境，指定对应的BAT/SH）
@@ -304,8 +301,8 @@ class Maya(CGBase):
         self.handle_analyse_result()
         # 把 cg_file 和 cg_id 写进 task_info
         self.write_cg_path()
-        #
-        self.post_analyse_custom()
+
+        self.log.info("analyse end.")
 
     def run1(self):
         """临时测试用"""
