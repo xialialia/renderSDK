@@ -349,11 +349,7 @@ class Max(CGBase):
 (DotNetClass "System.Windows.Forms.Application").CurrentCulture = dotnetObject "System.Globalization.CultureInfo" "zh-cn"
 filein @"{ms_path}/{ms_name}"
 
-fn main=(
-analyse file:"{cg_file}" task:"{task_json}" asset:"{asset_json}" tips:"{tips_json}" ignore:"{ignore_analyse_array}"
-)
-
-main()
+analyse_main  cg_file:"{cg_file}" task_json:"{task_json}" asset_json:"{asset_json}" tips_json:"{tips_json}" ignore:#("{ignore_analyse_array}")
 '''
         t = t.format(
             ms_path=ms_path,
@@ -562,7 +558,7 @@ main()
         ms_full_path = os.path.join(self.job_info._work_dir, "Analyse{}.ms".format(now))
         util.write(ms_full_path, ms)
         #
-        cmd = "\"{}\" -silent -mip -mxs \"filein \\\"{}\\\";main()\"".format(
+        cmd = "\"{}\" -silent -mip -mxs \"filein \\\"{}\\\"\"".format(
             self.exe_path,
             ms_full_path.replace("\\", "/"),
         )
@@ -605,7 +601,7 @@ main()
         task_json = self.job_info._task_info
         # 直接 update 替换
         task_json.update(temp_task_json)
-        # util.json_save(task_path, task_json, ensure_ascii=False)
+        util.json_save(task_path, task_json, ensure_ascii=False)
 
         # 因软件出的 json 带 BOM, 需要转成不带 BOM
         util.json_save(asset_path, asset_json, ensure_ascii=False)
