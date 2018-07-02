@@ -136,12 +136,13 @@ class CGBase(object):
         if encodings is None:
             encodings = ["utf-8"]
         d = {}
-        for encoding in encodings: 
+        for index, encoding in enumerate(encodings):
             try:
                 d = util.json_load(json_path, encoding=encoding)
                 break
             except Exception as e:
-                self.log.error("error load: {}\n{}".format(json_path, traceback.format_exc()))
+                if index == len(encodings) - 1:
+                    self.log.error("error load: {}\n{}".format(json_path, traceback.format_exc()))
                 d = {}
                 continue
                 
