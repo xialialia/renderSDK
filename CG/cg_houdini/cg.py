@@ -151,17 +151,16 @@ class Houdini(CGBase):
         ## eg. asset = {"Normal":{"node1":["nodename",["files"]],"node2":["nodename",["files"]]},
         ##                    "Miss":{"node1":["nodename",["files"]],"node2":["nodename",["files"]]}}
 
-        for _, dit in normal.items():
-            for node, value in dit.items():
-                path_list = value[-1]
+        for _, value in normal.items():
+            path_list = value[-1]
 
-                for path in path_list:
-                    d = {}
-                    local = path
-                    server = util.convert_path("", local)
-                    d["local"] = local.replace("\\", "/")
-                    d["server"] = server
-                    upload_asset.append(d)
+            for path in path_list:
+                d = {}
+                local = path
+                server = util.convert_path("", local)
+                d["local"] = local.replace("\\", "/")
+                d["server"] = server
+                upload_asset.append(d)
 
         # 把 cg 文件加入 upload.json
         upload_asset.append({
