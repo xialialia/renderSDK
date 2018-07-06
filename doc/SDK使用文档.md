@@ -1,5 +1,5 @@
 ## <center> Python Rener SDK(本地分析版) </center>
-<a href="#login">aa</a>
+
 ### 一、了解RenderSDK
     我们提供了一个简单的基于Python的RenderSDK来使用我们的云渲染服务。
     这是Fox Render Farm / Renderbus RD&TD团队维护的官方RenderSDK。
@@ -16,7 +16,7 @@
     2.您需要申请使用RenderSDK，获取accessKey来进行登录
     3.下载RenderSDK
     4.根据使用流程提交作业
-<a name="login">aa</a>
+
 **使用流程：**
 
 ```
