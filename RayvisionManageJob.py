@@ -21,7 +21,7 @@ class RayvisionManageJob(object):
         """
         return self._api_obj._get_job_list(page_size, page_num, search_word)
         
-    def _get_job_status(self, job_id, page_size=20, page_num=1):
+    def _get_job_info(self, job_id, page_size=20, page_num=1):
         """
         Get single job's rendering status.
         :param str job_id:
@@ -46,12 +46,16 @@ class RayvisionManageJob(object):
                 if 1 <= page_num < page_count:
                     # for page_num_new in range(2, page_count+1):
                     page_num += 1
-                    return self._get_job_status(job_id, page_size, page_num)
+                    return self._get_job_info(job_id, page_size, page_num)
                 else:
                     return_data['items'] = []
             
         return return_data
                 
+                
+    def _get_job_status(self, job_id):
+        pass
+        
         
     def _full_speed_job(self):
         """

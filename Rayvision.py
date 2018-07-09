@@ -407,7 +407,7 @@ class Rayvision(object):
         
     @decorator_use_in_class(SDK_LOG)
     def get_job_status(self, job_id, page_size=20, page_num=1):
-        return self._manage_job_obj._get_job_status(job_id, page_size, page_num)
+        return self._manage_job_obj._get_job_info(job_id, page_size, page_num)
 
 
     
