@@ -17,6 +17,7 @@ from RayvisionAPI import RayvisionAPI
 from RayvisionJob import RayvisionJob
 from RayvisionTransfer import RayvisionTransfer
 from RayvisionException import RayvisionError
+from RayvisionManageJob import RayvisionManageJob
 
 from analyse import RayvisionAnalyse
 
@@ -60,6 +61,7 @@ class Rayvision(object):
         self._api_obj = RayvisionAPI(self._user_info, log_obj=self.G_SDK_LOG)
         self._login()
         self._transfer_obj = RayvisionTransfer(self._user_info, self._api_obj, log_obj=self.G_SDK_LOG)
+        self._manage_job_obj = RayvisionManageJob(self._api_obj)
     
     def _init_log(self, log_obj, log_path, is_print_log=True):
         log_dir = os.path.dirname(log_path)
@@ -395,3 +397,19 @@ class Rayvision(object):
             return_message = r'There are {} errors, Please check self.error_warn_info_list!'.format(self.errors_number)
             raise RayvisionError(100002, return_message)  # errors_number > 0
 
+    @decorator_use_in_class(SDK_LOG)
+    def get_rendering_list(self, page_size=20, page_num=1):
+        return self._manage_job_obj._get_rendering_list(page_size, page_num)
+        
+    @decorator_use_in_class(SDK_LOG)
+    def search_job(self, search_word="", page_size=20, page_num=1):
+        return self._manage_job_obj._search_job(search_word, page_size, page_num)
+        
+    @decorator_use_in_class(SDK_LOG)
+    def get_job_status(self, job_id, page_size=20, page_num=1):
+        return self._manage_job_obj._get_job_info(job_id, page_size, page_num)
+
+
+    
+    
+    
