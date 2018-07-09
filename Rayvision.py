@@ -348,7 +348,7 @@ class Rayvision(object):
                     self._job_info._task_info['task_info'][key] = value
         
         with codecs.open(self._job_info._task_json_path, 'w', 'utf-8') as f:
-            json.dump(self._job_info._task_info, f)
+            json.dump(self._job_info._task_info, f, indent=4, ensure_ascii=False)
         
         return True
 
