@@ -15,7 +15,11 @@ class RayvisionAPI(object):
         API initialization.
         :param dict user_info:
         """
-        self.G_SDK_LOG = log_obj
+        if log_obj is None:
+            self.need_log = False
+        else:
+            self.need_log = True
+            self.G_SDK_LOG = log_obj
         domain_name = user_info.get('domain_name', 'task.renderbus.com')
         platform = user_info.get('platform', '2')  # 2：www2；5：pic；8：www8；9：www9；10：gpu
         access_key = user_info.get('access_key')
@@ -60,9 +64,10 @@ class RayvisionAPI(object):
         :return:
         :rtype: dict/List/None
         """
-        self.G_SDK_LOG.info('POST: {}'.format(url))
-        self.G_SDK_LOG.debug('HTTP Headers: {}'.format(self._headers))
-        self.G_SDK_LOG.debug('HTTP Body: {}'.format(data))
+        if self.need_log:
+            self.G_SDK_LOG.info('POST: {}'.format(url))
+            self.G_SDK_LOG.debug('HTTP Headers: {}'.format(self._headers))
+            self.G_SDK_LOG.debug('HTTP Body: {}'.format(data))
 
         # http_body = urllib.urlencode(data)
         http_body = json.dumps(data)
@@ -75,7 +80,8 @@ class RayvisionAPI(object):
 
         content = response.read().decode('utf-8')
         r = json.loads(content)
-        self.G_SDK_LOG.debug('HTTP Response: {}'.format(r))
+        if self.need_log:
+            self.G_SDK_LOG.debug('HTTP Response: {}'.format(r))
 
         return_code = r.get('code', -1)
         return_message = r.get('message', 'No message!!!')
@@ -274,12 +280,12 @@ class RayvisionAPI(object):
         return r_data
 
     # 13.获取作业列表
-    def _get_job_list(self, page_size, page_num, render_status):
+    def _get_job_list(self, page_size, page_num, search_keyword=""):
         """
         Get job list.
         :param page_size:
         :param page_num:
-        :param render_status:
+        :param search_keyword:
         :return:
         :rtype: list
         """
@@ -287,7 +293,8 @@ class RayvisionAPI(object):
         data = {
             "pageSize": page_size,
             "pageNum": page_num,
-            "renderStatus": render_status
+            "renderStatus": 1,  # default is 10
+            "searchKeyword": str(search_keyword)
         }
         r_data = self._post(url, data)
         return r_data
