@@ -69,38 +69,21 @@ class RayvisionAPI(object):
             'startTask': '/api/render/task/startTask',  # 开始任务
             'abortTask': '/api/render/task/abortTask',  # 放弃任务
             'deleteTask': '/api/render/task/deleteTask',  # 删除任务
-            'queryTaskFrames': '/api/render/task/queryTaskFrames',  # 获取任务总渲染帧概况
-            'queryAllFrameStats': '/api/render/task/queryAllFrameStats',  # 重提失败帧
-            'restartFailedFrames': '/api/render/task/restartFailedFrames',  # 重提任务指定帧
-            'restartFrame': '/api/render/task/restartFrame',  # 获取任务详情
-            'queryTaskInfo': '/api/render/task/queryTaskInfo',  # 添加自定义标签
-            'addLabel': '/api/render/common/addLabel',  # 删除自定义标签
-            'deleteLabel': '/api/render/common/deleteLabel',  # 获取自定义标签
-            'getLabelList': '/api/render/common/getLabelList',  # 获取支持的渲染软件
-            'querySupportedSoftware': '/api/render/common/querySupportedSoftware',  # 获取支持的渲染软件插件
-            'querySupportedPlugin': '/api/render/common/querySupportedPlugin',  # 新增用户渲染环境配置
-            'addRenderEnv': '/api/render/common/addRenderEnv',  # 修改用户渲染环境配置
-            'updateRenderEnv': '/api/render/common/updateRenderEnv',  # 删除用户渲染环境配置
-            'deleteRenderEnv': '/api/render/common/deleteRenderEnv',  # 设置默认渲染环境配置
-            'setDefaultRenderEnv': '/api/render/common/setDefaultRenderEnv'  # 获取用户渲染环境配置
-            
-            # 'login': '/api/rendering/user/sdk/login',  # 登录
-            # 'get_storage_id': '/api/rendering/task/sdk/getTaskPathInfo',  # 获取用户存储ID
-            # 'get_user_balance': '/api/rendering/user/sdk/getUserBalance',  # 获取用户余额
-            # 'get_user_plugin_config': '/api/rendering/task/sdk/getPluginUserList',  # 获取用户插件配置
-            # 'add_user_plugin_config': '/api/rendering/task/sdk/addUserPluginConfig',  # 新增用户插件配置
-            # 'edit_user_plugin_config': '/api/rendering/task/sdk/editUserPluginConfig',  # 编辑用户插件配置
-            # 'del_user_plugin_config': '/api/rendering/task/sdk/delUserPluginConfigOrSetDefault',  # 删除用户插件配置
-            # 'get_plugins_supported_by_platform': '/api/rendering/task/sdk/getPluginList',  # 获取平台支持的插件
-            # 'get_project': '/api/rendering/task/sdk/getProject',  # 获取项目标签
-            # 'get_job_id': '/api/rendering/task/sdk/createSdkJobId',  # 获取作业号
-            # 'submit_job': '/api/rendering/task/sdk/sdkSubmitJob',  # 提交作业
-            # 'get_job_info': '',  # 获取作业信息
-            # 'get_job_list': '/api/rendering/task/sdk/getRenderTaskList',  # 获取作业列表
-            # 'search_job': '',  # 搜索作业
-            # 'start_job': '',  # 开始作业
-            # 'pause_job': '',  # 暂停作业
-            # 'get_error_code_info': '/api/rendering/task/sdk/getErrorCodeByCode'  # 根据错误码获取该错误码的详细信息
+            'queryTaskFrames': '/api/render/task/queryTaskFrames',  # 获取任务渲染帧详情
+            'queryAllFrameStats': '/api/render/task/queryAllFrameStats',  # 获取任务总渲染帧概况
+            'restartFailedFrames': '/api/render/task/restartFailedFrames',  # 重提失败帧
+            'restartFrame': '/api/render/task/restartFrame',  # 重提任务指定帧
+            'queryTaskInfo': '/api/render/task/queryTaskInfo',  # 获取任务详情
+            'addLabel': '/api/render/common/addLabel',  # 添加自定义标签
+            'deleteLabel': '/api/render/common/deleteLabel',  # 删除自定义标签
+            'getLabelList': '/api/render/common/getLabelList',  # 获取自定义标签
+            'querySupportedSoftware': '/api/render/common/querySupportedSoftware',  # 获取支持的渲染软件
+            'querySupportedPlugin': '/api/render/common/querySupportedPlugin',  # 获取支持的渲染软件插件
+            'addRenderEnv': '/api/render/common/addRenderEnv',  # 新增用户渲染环境配置
+            'updateRenderEnv': '/api/render/common/updateRenderEnv',  # 修改用户渲染环境配置
+            'deleteRenderEnv': '/api/render/common/deleteRenderEnv',  # 删除用户渲染环境配置
+            'setDefaultRenderEnv': '/api/render/common/setDefaultRenderEnv',  # 设置默认渲染环境配置
+            'getRenderEnv': '/api/render/common/getRenderEnv'  # 获取用户渲染环境配置
         }
 
     def generate_UTCTimestamp(self):
@@ -193,7 +176,7 @@ class RayvisionAPI(object):
         
         new_dict = collections.OrderedDict()  # 有序字典
         for key in sorted_key_list:
-            new_dict[key] = mix_dict[key]
+            new_dict[key] = mix_dict_new[key]
             
         return new_dict
         
@@ -333,234 +316,354 @@ class RayvisionAPI(object):
         r_data = self._post(api_uri, data)
         return r_data
         
+    def query_user_profile(self):
+        """
+        获取用户详情
+        """
+        api_uri = self._uri_dict.get('queryUserProfile')
+        data = {}
+        r_data = self._post(api_uri, data)
+        return r_data
         
-    # 1.登录
-    def _login(self, account, access_key):
+    def query_user_setting(self):
         """
-        Login.
-        :param str account:
-        :param str access_key: Need to apply.
-        :return: userId...
-        :rtype: dict
+        获取用户设置
         """
-        url = r'{}{}'.format(self._protocol_domain, self._uri_dict.get('login'))
-        data = {
-            "account": account,
-            "accessKey": access_key
-        }
-        r_data = self._post(url, data)
-        user_id = r_data.get('id')
-        self._headers['userId'] = long(user_id)
-        return r_data
-
-    # 2.获取用户存储ID
-    def _get_storage_id(self):
-        """
-        Get user storage id, download id, cfg id.
-        :param str user_id:
-        :return: storageId, downloadId, cfgId
-        :rtype: dict
-        """
-        url = r'{}{}'.format(self._protocol_domain, self._uri_dict.get('get_storage_id'))
+        api_uri = self._uri_dict.get('queryUserSetting')
         data = {}
-        r_data = self._post(url, data)
+        r_data = self._post(api_uri, data)
         return r_data
-
-    # 3.查询用户余额
-    def _get_user_balance(self):
+        
+    def update_user_setting(self, task_over_time):
         """
-        Get user's balance information.
-        :return:  rmbBalance, usdBalance, coupon
-        :rtype: dict
+        更新用户设置
+        :param int task_over_time: 任务超时时间设置
         """
-        url = r'{}{}'.format(self._protocol_domain, self._uri_dict.get('get_user_balance'))
+        api_uri = self._uri_dict.get('updateUserSetting')
+        data = {
+            'taskOverTime': int(task_over_time)
+        }
+        r_data = self._post(api_uri, data)
+        return r_data
+        
+    def get_transfer_bid(self):
+        """
+        获取用户传输BID
+        """
+        api_uri = self._uri_dict.get('getTransferBid')
         data = {}
-        r_data = self._post(url, data)
+        r_data = self._post(api_uri, data)
         return r_data
-
-    # 4.获取用户插件配置
-    def _get_user_plugin_config(self, cg_name):
+        
+    def create_task(self, count, out_user_id=None):
         """
-        Get user plugin configs according to the cg name.
-        :param str cg_name: cg name
-        :return: editName, cgName, cgVersion, pluginsInfoSdkVos
-        :rtype: list
+        创建任务号
+        :param int count: 创建任务号数量
+        :param long out_user_id: 非必须，外部用户ID，用于区分第三方接入的用户
         """
-        url = r'{}{}'.format(self._protocol_domain, self._uri_dict.get('get_user_plugin_config'))
+        api_uri = self._uri_dict.get('createTask')
         data = {
-            "cgName": cg_name
+            'count': int(count)
         }
-        r_data = self._post(url, data)
+        if out_user_id is not None:
+            data['outUserId'] = out_user_id
+        r_data = self._post(api_uri, data)
         return r_data
-
-    # 5.新增用户插件配置
-    def _add_user_plugin_config(self, config_name, cg_id, cg_name, cg_version, plugins_info):
+        
+    def submit_task(self, task_id):
         """
-        Add user plugin config.
-        :param str config_name:
-        :param str cg_id:
-        :param str cg_name:
-        :param str cg_version:
-        :param list plugins_info:[{"pluginName":"multiscatter","pluginVersion":"1.3.6.9"}]
-        :return: None
+        提交任务
+        :param int task_id: 提交任务ID
         """
-        url = r'{}{}'.format(self._protocol_domain, self._uri_dict.get('add_user_plugin_config'))
+        api_uri = self._uri_dict.get('submitTask')
         data = {
-            "cgId": cg_id,
-            "editName": config_name,
-            "cgName": cg_name,
-            "cgVersion": cg_version,
-            "pluginsInfo": plugins_info
+            'taskId': int(task_id)
         }
-        r_data = self._post(url, data)
+        r_data = self._post(api_uri, data)
         return r_data
-
-    # 6.编辑用户插件配置
-    def _edit_user_plugin_config(self, config_name, cg_id, cg_name, cg_version, plugins_info):
+        
+    def query_error_detail(self, code):  # 20180926 问题：平台返回空值
         """
-        Edit plugin config.
-        :param str config_name:
-        :param str cg_name:
-        :param str cg_version:
-        :param list plugins_info:
-        :return: None
+        获取分析错误码
+        :param str code: 必须值，错误码
         """
-        url = r'{}{}'.format(self._protocol_domain, self._uri_dict.get('edit_user_plugin_config'))
+        api_uri = self._uri_dict.get('queryErrorDetail')
         data = {
-            "cgId": cg_id,
-            "editName": config_name,
-            "cgName": cg_name,
-            "cgVersion": cg_version,
-            "pluginsInfo": plugins_info
+            'code': str(code)
         }
-        r_data = self._post(url, data)
+        r_data = self._post(api_uri, data)
         return r_data
-
-    # 7.删除用户插件配置 -- deleteUserPluginConfig
-    def _del_user_plugin_config(self, config_name):
+        
+    def get_task_list(self, page_num, page_size):  # 20180926 问题：接口404
         """
-        Delete plugin config.
-        :param str config_name:
-        :return: None
+        获取任务列表
+        :param int page_num: 必须值，当前页数
+        :param int page_size: 必须值，每页显示数量
         """
-        url = r'{}{}'.format(self._protocol_domain, self._uri_dict.get('del_user_plugin_config'))
+        api_uri = self._uri_dict.get('getTaskList')
         data = {
-            "editName": config_name,
-            "type":"1"  # 1:删除 2:设为默认
+            'pageNum': int(page_num),
+            'pageSize': int(page_size)
         }
-        r_data = self._post(url, data)
+        r_data = self._post(api_uri, data)
         return r_data
-
-    # 8.获取平台支持的插件
-    def _get_plugins_supported_by_platform(self, cg_name):
+        
+    def stop_task(self, task_param_list):  # 20180926 问题：接口403, forbidden
         """
-        Add plugin config.
-        :param str cg_name:
-        :return:
-        :rtype: dict
+        停止任务
+        :param list task_param_list: 任务号列表
         """
-        url = r'{}{}'.format(self._protocol_domain, self._uri_dict.get('get_plugins_supported_by_platform'))
+        api_uri = self._uri_dict.get('stopTask')
         data = {
-            "cgName": cg_name
+            'taskParam': task_param_list
         }
-        r_data = self._post(url, data)
+        r_data = self._post(api_uri, data)
+        return r_data
+        
+    def start_task(self, task_param_list):  # 20180926 问题：接口403, forbidden
+        """
+        开始任务
+        :param list task_param_list: 任务号列表
+        """
+        api_uri = self._uri_dict.get('startTask')
+        data = {
+            'taskParam': task_param_list
+        }
+        r_data = self._post(api_uri, data)
+        return r_data
+        
+    def abort_task(self, task_param_list):  # 20180926 问题：接口403, forbidden
+        """
+        放弃任务
+        :param list task_param_list: 任务号列表
+        """
+        api_uri = self._uri_dict.get('abortTask')
+        data = {
+            'taskParam': task_param_list
+        }
+        r_data = self._post(api_uri, data)
+        return r_data
+        
+    def delete_task(self, task_param_list):  # 20180926 问题：接口403, forbidden
+        """
+        删除任务
+        :param list task_param_list: 任务号列表
+        """
+        api_uri = self._uri_dict.get('deleteTask')
+        data = {
+            'taskParam': task_param_list
+        }
+        r_data = self._post(api_uri, data)
         return r_data
 
-    # 9.获取项目标签
-    def _get_project(self):
+    def query_task_frames(self, task_id, page_num, page_size, search_keyword=None):  # 20180926 问题：接口404
         """
-        Get project list.
-        :return: projectName
-        :rtype: list
+        获取任务渲染帧详情
+        :param int task_id: 任务ID号，是任务的唯一标识，必填字段
+        :param int page_num: 当前页编号
+        :param int page_size: 每页显示数据大小
+        :param str search_keyword: 是一个字符串，根据一机渲多帧名这个字段名进行查询,选填
         """
-        url = r'%s%s' % (self._protocol_domain, self._uri_dict.get('get_project'))
+        api_uri = self._uri_dict.get('queryTaskFrames')
+        data = {
+            'taskId': int(task_id),
+            'pageNum': int(page_num),
+            'pageSize': int(page_size)
+        }
+        if search_keyword is not None:
+            data['searchKeyword'] = search_keyword
+        r_data = self._post(api_uri, data)
+        return r_data
+
+    def query_all_frame_stats(self):  # 20180926 问题：接口404
+        """
+        获取任务总渲染帧概况
+        """
+        api_uri = self._uri_dict.get('queryAllFrameStats')
         data = {}
-        r_data = self._post(url, data)
+        r_data = self._post(api_uri, data)
         return r_data
-
-    # 10.获取作业号
-    def _get_job_id(self, count=1):
+        
+    def restart_failed_frames(self, task_param_list):  # 20180926 问题：接口403, forbidden
         """
-        Get job id.
-        :return: jobId
-        :rtype: list
+        重提失败帧
+        :param list task_param_list: 任务号列表
         """
-        url = r'{}{}'.format(self._protocol_domain, self._uri_dict.get('get_job_id'))
+        api_uri = self._uri_dict.get('restartFailedFrames')
         data = {
-            'count': count
+            'taskParam': task_param_list
         }
-        r_data = self._post(url, data)
+        r_data = self._post(api_uri, data)
         return r_data
-
-    # 11.提交作业
-    def _submit_job(self, task_id):
+        
+    def restart_frame(self, task_id, select_all, ids_list=[]):  # 20180926 问题：接口403, forbidden
         """
-        Submit job.
-        :param int task_id:
-        :return: taskId, cameraName, layerName, nodeName, submitResult
-        :rtype: dict
+        重提任务指定帧
+        :param int task_param_list: 任务ID
+        :param list ids_list: 帧ID集合, selectAll为0时生效
+        :param int select_all: 是否全部重提, 1全部重提，0指定帧重提
         """
-        url = r'{}{}'.format(self._protocol_domain, self._uri_dict.get('submit_job'))
+        api_uri = self._uri_dict.get('restartFrame')
         data = {
-            "taskId": int(task_id)
+            'taskId': int(task_id),
+            'ids': ids_list,
+            'selectAll': int(select_all)
         }
-        r_data = self._post(url, data)
+        r_data = self._post(api_uri, data)
         return r_data
-
-    # 12.获取作业信息
-    def _get_job_info(self, job_id):
+        
+    def query_task_info(self, task_ids_list):  # 20180926 问题：接口404
         """
-        Get job information.
-        :param str job_id:
-        :return:
-        :rtype: dict
+        获取任务详情
+        :param list task_ids_list: 壳任务ID集合
         """
-        url = r'{}{}'.format(self._protocol_domain, self._uri_dict.get('get_job_info'))
+        api_uri = self._uri_dict.get('queryTaskInfo')
         data = {
-            "jobId": job_id
+            'taskIds': task_ids_list
         }
-        r_data = self._post(url, data)
+        r_data = self._post(api_uri, data)
         return r_data
-
-    # 13.获取作业列表
-    def _get_job_list(self, page_size, page_num, search_keyword=""):
+        
+    def add_label(self, new_name, status):
         """
-        Get job list.
-        :param page_size:
-        :param page_num:
-        :param search_keyword:
-        :return:
-        :rtype: list
+        添加自定义标签
+        :param str new_name: 标签名
+        :param str status: 标签状态
         """
-        url = r'{}{}'.format(self._protocol_domain, self._uri_dict.get('get_job_list'))
+        api_uri = self._uri_dict.get('addLabel')
         data = {
-            "pageSize": page_size,
-            "pageNum": page_num,
-            "renderStatus": 1,  # default is 10
-            "searchKeyword": str(search_keyword)
+            'newName': new_name,
+            'status': status
         }
-        r_data = self._post(url, data)
+        r_data = self._post(api_uri, data)
         return r_data
-
-    # 14.搜索作业 -- searchJob
-    # 15.开始作业 -- startJob
-    # 16.暂停作业 -- pauseJob
-
-    # 17.根据错误码获取该错误码的详细信息
-    def _get_error_code_by_code(self, code):
+        
+    def delete_label(self, del_name):
         """
-        Get error code information.
-        :param code: error code
-        :return:
-        :rtype: list
+        删除自定义标签
+        :param str del_name: 待删除的标签名
         """
-        url = r'{}{}'.format(self._protocol_domain, self._uri_dict.get('get_error_code_info'))
+        api_uri = self._uri_dict.get('deleteLabel')
         data = {
-            "code": code
+            'delName': del_name
         }
-        r_data = self._post(url, data)
+        r_data = self._post(api_uri, data)
         return r_data
-
+        
+    def get_label_list(self):
+        """
+        获取自定义标签
+        """
+        api_uri = self._uri_dict.get('getLabelList')
+        data = {}
+        r_data = self._post(api_uri, data)
+        return r_data
+        
+    def query_supported_software(self):
+        """
+        获取支持的渲染软件
+        """
+        api_uri = self._uri_dict.get('querySupportedSoftware')
+        data = {}
+        r_data = self._post(api_uri, data)
+        return r_data
+        
+    def query_supported_plugin(self, cg_id):
+        """
+        获取支持的渲染软件插件
+        :param int cg_id: 渲染软件ID
+        """
+        api_uri = self._uri_dict.get('querySupportedPlugin')
+        data = {
+            'cgId': int(cg_id)
+        }
+        r_data = self._post(api_uri, data)
+        return r_data
+        
+    def add_render_env(self, cg_id, cg_name, cg_version, render_layer_type, edit_name, render_system, plugin_ids_list):
+        """
+        新增用户渲染环境配置
+        :param int cg_id: 渲染软件ID
+        :param str cg_name: 渲染软件名称
+        :param str cg_version: 渲染软件版本
+        :param int render_layer_type: maya渲染类型
+        :param str edit_name: 渲染环境自定义名
+        :param int render_system: 渲染系统, 0 linux, 1 windows
+        :param list plugin_ids_list: 渲染插件集合
+        """
+        api_uri = self._uri_dict.get('addRenderEnv')
+        data = {
+            'cgId': int(cg_id),
+            'cgName': cg_name,
+            'cgVersion': cg_version,
+            'renderLayerType': int(render_layer_type),
+            'editName': edit_name,
+            'renderSystem': int(render_system),
+            'pluginIds': plugin_ids_list
+        }
+        r_data = self._post(api_uri, data)
+        return r_data
+        
+    def update_render_env(self, cg_id, cg_name, cg_version, render_layer_type, edit_name, render_system, plugin_ids_list):
+        """
+        修改用户渲染环境配置
+        :param int cg_id: 渲染软件ID
+        :param str cg_name: 渲染软件名称
+        :param str cg_version: 渲染软件版本
+        :param int render_layer_type: maya渲染类型
+        :param str edit_name: 渲染环境自定义名
+        :param int render_system: 渲染系统, 0 linux, 1 windows
+        :param list plugin_ids_list: 渲染插件集合
+        """
+        api_uri = self._uri_dict.get('updateRenderEnv')
+        data = {
+            'cgId': int(cg_id),
+            'cgName': cg_name,
+            'cgVersion': cg_version,
+            'renderLayerType': int(render_layer_type),
+            'editName': edit_name,
+            'renderSystem': int(render_system),
+            'pluginIds': plugin_ids_list
+        }
+        r_data = self._post(api_uri, data)
+        return r_data
+        
+    def delete_render_env(self, edit_name):
+        """
+        删除用户渲染环境配置
+        :param str edit_name: 渲染环境自定义名
+        """
+        api_uri = self._uri_dict.get('deleteRenderEnv')
+        data = {
+            'editName': edit_name
+        }
+        r_data = self._post(api_uri, data)
+        return r_data
+        
+    def set_default_render_env(self, edit_name):
+        """
+        删除用户渲染环境配置
+        :param str edit_name: 渲染环境自定义名
+        """
+        api_uri = self._uri_dict.get('setDefaultRenderEnv')
+        data = {
+            'editName': edit_name
+        }
+        r_data = self._post(api_uri, data)
+        return r_data
+        
+    def get_render_env(self, cg_id):
+        """
+        获取用户渲染环境配置
+        :param int cg_id: 渲染软件ID
+        """
+        api_uri = self._uri_dict.get('getRenderEnv')
+        data = {
+            'cgId': int(cg_id)
+        }
+        r_data = self._post(api_uri, data)
+        return r_data
+        
 
 if __name__ == '__main__':
     access_id = r'AKIDz8krbsJ5yKBZQpn74WFkmLPx3EXAMPPP'
@@ -569,6 +672,6 @@ if __name__ == '__main__':
     platform = '20'
     
     rayvision = RayvisionAPI(domain_name, platform, access_id, access_key, log_obj=None)
-    r_data = rayvision.query_platforms()
+    r_data = rayvision.get_render_env(2000)
     print(r_data)
         
