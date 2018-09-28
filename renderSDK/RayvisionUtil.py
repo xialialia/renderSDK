@@ -4,7 +4,7 @@
 """
 Util
 """
-
+from .compat import *
 import os
 import sys
 import re
@@ -14,9 +14,45 @@ import hashlib
 import hmac
 import base64
 import random
-from RayvisionException import RayvisionError
+from .RayvisionException import RayvisionError
 
-from .compat import (json, urlquote, urlunquote, urlparse, to_bytes, to_string, to_unicode, stringify)
+cg_id_name_dict = {
+    'Maya': '2000',
+    '3ds Max': '2001',
+    'Lightwave': '2002',
+    'Arnold Standalone': '2003',
+    'Houdini': '2004',
+    'Cinema 4D': '2005',
+    'Softimage': '2006',
+    'Blender': '2007',
+    'VR Standalone': '2008',
+    'MR Standalone': '2009',
+    'SketchUp': '2010',
+    'VUE': '2011',
+    'Keyshot': '2012',
+    'Clarisse': '2013',
+    'Octane Render': '2014',
+    'Nuke': '2015',
+    'Katana': '2016',
+    '2000': 'Maya',
+    '2001': '3ds Max',
+    '2002': 'Lightwave',
+    '2003': 'Arnold Standalone',
+    '2004': 'Houdini',
+    '2005': 'Cinema 4D',
+    '2006': 'Softimage',
+    '2007': 'Blender',
+    '2008': 'VR Standalone',
+    '2009': 'MR Standalone',
+    '2010': 'SketchUp',
+    '2011': 'VUE',
+    '2012': 'Keyshot',
+    '2013': 'Clarisse',
+    '2014': 'Octane Render',
+    '2015': 'Nuke',
+    '2016': 'Katana'
+}
+
 
 def get_os():
     """
@@ -41,57 +77,6 @@ def get_os():
     return local_os
 
 
-def get_cg_id(cg_name):
-    """
-    Get cg_id by cg_name.
-        cg_id   cg_name
-        2000    Maya
-        2001    3ds Max
-        2002    Lightwave
-        2003    Arnold Standalone
-        2004    Houdini
-        2005    Cinema 4D
-        2006    Softimage
-        2007    Blender
-        2008    VR Standalone
-        2009    MR Standalone
-        2010    SketchUp
-        2011    VUE
-        2012    Keyshot
-        2013    Clarisse
-        2014    Octane Render
-        2015    Nuke
-        2016    Katana
-    :param str cg_name:
-    :return: cg_id
-    :rtype: str
-    """
-    cg_name_id_dict = {
-        'Maya': '2000',
-        '3ds Max': '2001',
-        'Lightwave': '2002',
-        'Arnold Standalone': '2003',
-        'Houdini': '2004',
-        'Cinema 4D': '2005',
-        'Softimage': '2006',
-        'Blender': '2007',
-        'VR Standalone': '2008',
-        'MR Standalone': '2009',
-        'SketchUp': '2010',
-        'VUE': '2011',
-        'Keyshot': '2012',
-        'Clarisse': '2013',
-        'Octane Render': '2014',
-        'Nuke': '2015',
-        'Katana': '2016'
-    }
-    cg_id = cg_name_id_dict.get(cg_name.strip(), None)
-    if cg_id is None:
-        return_message = r'cg_name is not exists:{}'.format(cg_name)
-        raise RayvisionError(100006, return_message)  # cg_name is not exists!
-    return cg_id
-
-
 def hump2underline(hump_str):
     """
     将驼峰形式字符串转成下划线形式
@@ -105,7 +90,7 @@ def hump2underline(hump_str):
     
 
 def str2unicode(str1, str_decode='default'):
-    if not isinstance(str1, unicode):
+    if not isinstance(str1, str):
         try:
             if str_decode != 'default':
                 str1 = str1.decode(str_decode.lower())
@@ -124,7 +109,7 @@ def str2unicode(str1, str_decode='default'):
 
     
 def unicode2str(str1, str_encode='system'):
-    if isinstance(str1, unicode):
+    if isinstance(str1, str):
         try:
             if str_encode.lower() == 'system':
                 str1 = str1.encode(sys.getfilesystemencoding())

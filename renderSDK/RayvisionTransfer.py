@@ -3,12 +3,14 @@
 """
 Transfer Module.
 """
+
+from .compat import *
+
 import os
 import sys
-import json
 import codecs
 import subprocess
-import RayvisionUtil
+from . import RayvisionUtil
 
 CURRENT_DIR = os.path.dirname(os.path.realpath(__file__))
 
@@ -23,9 +25,9 @@ class RayvisionTransfer(object):
         self._platform = user_info.get('platform')
         self._local_os = user_info.get('local_os')
         self._user_id = user_info.get('user_id')
-        # self._storage_id = user_info.get('storage_id')
-        # self._download_id = user_info.get('download_id')
-        # self._cfg_id = user_info.get('cfg_id')
+        # self._input_bid = user_info.get('input_bid')
+        # self._output_bid = user_info.get('output_bid')
+        # self._config_bid = user_info.get('config_bid')
 
         if self._local_os == 'windows':
             self._rayvision_exe = os.path.join(CURRENT_DIR, 'tool', 'transmission', self._local_os, 'rayvision_transmitter.exe')
@@ -40,6 +42,9 @@ class RayvisionTransfer(object):
         self._server_port = transport_info['server_port']
 
     def _parse_transports_json(self):
+        """
+        解析transports.json，获取传输服务器信息
+        """
         if 'foxrenderfarm' in self._domain_name:
             key_first_half = 'foxrenderfarm'
         else:
@@ -47,13 +52,13 @@ class RayvisionTransfer(object):
 
         if self._platform == '2':
             key_second_half = 'www2'
-        elif self._platform == '5':  # pic
-            key_second_half = 'pic'
         elif self._platform == '8':
             key_second_half = 'www8'
         elif self._platform == '9':
             key_second_half = 'www9'
-        elif self._platform == '10':  # gpu
+        elif self._platform == '20':  # pic
+            key_second_half = 'pic'
+        elif self._platform == '21':  # gpu
             key_second_half = 'gpu'
         else:
             key_second_half = 'default'
@@ -68,10 +73,16 @@ class RayvisionTransfer(object):
         return transports_info[key]
     
     def _upload(self, job_id, cfg_list, upload_info):
+        """
+        上传配置文件和资产
+        """
         self._upload_cfg(job_id, cfg_list)
         self._upload_asset(upload_info)
     
     def _upload_cfg(self, job_id, cfg_path_list, **kwargs):
+        """
+        上传任务配置文件
+        """
         transmit_type = "upload_files"  # upload_files/upload_file_pairs/download_files
 
         for cfg_path in cfg_path_list:
@@ -82,7 +93,7 @@ class RayvisionTransfer(object):
             server_path = RayvisionUtil.str2unicode(server_path)
             
             if not os.path.exists(local_path):
-                print '{} is not exists.'.format(local_path)
+                print('{} is not exists.'.format(local_path))
                 continue
 
             transmit_cmd = u'echo y|"{exe_path}" "{engine_type}" "{server_name}" "{server_ip}" "{server_port}" \
@@ -93,7 +104,7 @@ class RayvisionTransfer(object):
                 server_name=self._server_name,
                 server_ip=self._server_ip,
                 server_port=self._server_port,
-                storage_id=self._user_info['cfg_id'],
+                storage_id=self._user_info['config_bid'],
                 user_id=self._user_id,
                 transmit_type=transmit_type,
                 local_path=local_path.replace('\\', '/'),
@@ -107,6 +118,9 @@ class RayvisionTransfer(object):
             RayvisionUtil.run_cmd(transmit_cmd.encode(sys.getfilesystemencoding()), log_obj=self.G_SDK_LOG)
     
     def _upload_asset(self, upload_info, **kwargs):
+        """
+        上传资产
+        """
         transmit_type = "upload_files"  # upload_files/upload_file_pairs/download_files
 
         for file_local_server in upload_info['asset']:
@@ -115,7 +129,7 @@ class RayvisionTransfer(object):
             server_path = file_local_server['server']
             server_path = RayvisionUtil.str2unicode(server_path)
             if not os.path.exists(local_path):
-                print '{} is not exists.'.format(local_path)
+                print('{} is not exists.'.format(local_path))
                 continue
 
             transmit_cmd = u'echo y|"{exe_path}" "{engine_type}" "{server_name}" "{server_ip}" "{server_port}" \
@@ -126,7 +140,7 @@ class RayvisionTransfer(object):
                 server_name=self._server_name,
                 server_ip=self._server_ip,
                 server_port=self._server_port,
-                storage_id=self._user_info['storage_id'],
+                storage_id=self._user_info['input_bid'],
                 user_id=self._user_id,
                 transmit_type=transmit_type,
                 local_path=local_path.replace('\\', '/'),
@@ -144,9 +158,9 @@ class RayvisionTransfer(object):
         
         local_dir = RayvisionUtil.str2unicode(local_dir)
         
-        data = self._api_obj._get_job_info(task_id)
+        data = self._api_obj.query_task_info(task_id)
         if data:
-            server_folder = u'/{}_{}'.format(task_id, os.path.splitext(data['sceneName'])[0].strip())
+            server_folder = u'/{}_{}'.format(str(task_id), os.path.splitext(data['sceneName'])[0].strip())
             transmit_cmd = u'echo y|"{exe_path}" "{engine_type}" "{server_name}" "{server_ip}" "{server_port}" \
                            "{download_id}" "{user_id}" "{transmit_type}" "{local_path}" "{server_path}"'.format(
                 exe_path=self._rayvision_exe,
@@ -154,7 +168,7 @@ class RayvisionTransfer(object):
                 server_name=self._server_name,
                 server_ip=self._server_ip,
                 server_port=self._server_port,
-                download_id=self._user_info['download_id'],
+                download_id=self._user_info['output_bid'],
                 user_id=self._user_id,
                 transmit_type=transmit_type,
                 local_path=local_dir,

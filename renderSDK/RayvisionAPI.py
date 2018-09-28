@@ -5,10 +5,10 @@
 API
 """
 
-from compat import *  # 20180925 debug
+from .compat import *
 
 import urllib
-import urllib2
+# import urllib2
 import logging
 import time
 import random
@@ -19,7 +19,8 @@ import copy
 import collections
 from numbers import Number
 
-from RayvisionException import APIError  # 20180925 debug
+from .RayvisionException import APIError
+from .RayvisionUtil import print_sth
 
 class RayvisionAPI(object):
     def __init__(self, domain_name, platform, access_id, access_key, log_obj=None):
@@ -29,17 +30,20 @@ class RayvisionAPI(object):
         :param str platform:  平台号，如：2
         :param str access_id:  授权id，用于标识API调用者身份
         :param str access_key:  授权密钥，用于加密签名字符串和服务器端验证签名字符串
-        :param log_obj: 日志对象，有则会打印API的日志
+        :param log_obj: 日志对象或True或None，如为True，则print
         """
         # 是否需要打印API日志（POST, HTTP Headers, HTTP Body, HTTP Response）
         if log_obj is None:
             self.need_log = False
         else:
             self.need_log = True
-            self.G_SDK_LOG = log_obj
+            if log_obj is True:
+                self.log_obj = print_sth
+            else:
+                self.log_obj = log_obj.debug
 
         api_version = '1.0.0'  # API版本号
-        protocol = 'https'  # 20180925 debug
+        protocol = 'https'
         
         self.domain_name = domain_name
         self.access_key = access_key
@@ -86,7 +90,7 @@ class RayvisionAPI(object):
             'getRenderEnv': '/api/render/common/getRenderEnv'  # 获取用户渲染环境配置
         }
 
-    def generate_UTCTimestamp(self):
+    def _generate_UTCTimestamp(self):
         """
         生成时间戳（秒）
         这里对时间戳的理解：
@@ -98,7 +102,7 @@ class RayvisionAPI(object):
         """
         return str(int(time.time() + time.timezone))
         
-    def generate_nonce(self):
+    def _generate_nonce(self):
         """
         生成6位随机数(100000-999999)，防止重放攻击
         :return: nonce
@@ -106,7 +110,7 @@ class RayvisionAPI(object):
         """
         return str(random.randrange(100000, 999999))
         
-    def generate_signature(self, key, msg):
+    def _generate_signature(self, key, msg):
         """
         生成签名字符串，先用sha256算法将msg加盐key计算出摘要，再将摘要用base64算法得出签名字符串
         :param str key: salt
@@ -123,7 +127,7 @@ class RayvisionAPI(object):
         signature = base64.b64encode(digest)  # 签名
         return to_unicode(signature)
         
-    def generate_header_body_str(self, api_uri, header, body):
+    def _generate_header_body_str(self, api_uri, header, body):
         """
         根据Header和Body生成格式化字符串，用于生成签名（signature和Content-Type不参与签名）
         请求方法 + 域名 + API URI + 请求字符串
@@ -142,7 +146,7 @@ class RayvisionAPI(object):
             header.pop('Content-Type')
         except:
             pass
-        header_body_dict = self.header_body_sort(header, body)
+        header_body_dict = self._header_body_sort(header, body)
         
         header_body_list = []
         for key, value in header_body_dict.items():
@@ -157,7 +161,7 @@ class RayvisionAPI(object):
         
         return result_str
     
-    def header_body_sort(self, header, body):
+    def _header_body_sort(self, header, body):
         """
         对所有 自定义 http请求头 和 请求参数 按参数名的字典序（ASCII 码）升序排序
         :param dict header: 请求头
@@ -170,7 +174,7 @@ class RayvisionAPI(object):
         mix_dict.update(body)
         
         # 处理复杂对象
-        mix_dict_new = self.handle_complex_dict(mix_dict)
+        mix_dict_new = self._handle_complex_dict(mix_dict)
         
         sorted_key_list = sorted(mix_dict_new)  # 排序好的字典
         
@@ -180,7 +184,7 @@ class RayvisionAPI(object):
             
         return new_dict
         
-    def handle_complex_dict(self, mix_dict):
+    def _handle_complex_dict(self, mix_dict):
         """
         "格式化"字典
         该字典中可能的数据类型：numbers.Number, str, bytes, list, dict, None（json的key只能为string，json的value可能为数字、字符串、逻辑值、数组、对象、null）
@@ -221,7 +225,7 @@ class RayvisionAPI(object):
        
         """
         new_dict = {}
-        def format_dict(value, key=None):
+        def _format_dict(value, key=None):
             """
             :param value: 
             :param key: None/str, key若为None，说明value为源字典对象
@@ -232,12 +236,12 @@ class RayvisionAPI(object):
                         new_key = key_new_part
                     else:
                         new_key = '{0}.{1}'.format(key, key_new_part)
-                    format_dict(value, new_key)
+                    _format_dict(value, new_key)
                     
             elif isinstance(value, list):
                 for index, value in enumerate(value):
                     new_key = '{0}{1}'.format(key, index)
-                    format_dict(value, new_key)
+                    _format_dict(value, new_key)
                    
             elif isinstance(value, Number):
                 new_dict[key] = value
@@ -246,7 +250,7 @@ class RayvisionAPI(object):
             elif value is None:
                 new_dict[key] = value
                 
-        format_dict(mix_dict)
+        _format_dict(mix_dict)
         return new_dict
         
     def _post(self, api_uri, data={}):
@@ -260,41 +264,33 @@ class RayvisionAPI(object):
         url = r'{}{}'.format(self._protocol_domain, api_uri)
         
         headers = copy.deepcopy(self._headers)
-        headers['UTCTimestamp'] = self.generate_UTCTimestamp()
-        headers['nonce'] = self.generate_nonce()
+        headers['UTCTimestamp'] = self._generate_UTCTimestamp()
+        headers['nonce'] = self._generate_nonce()
         
-        msg = self.generate_header_body_str(api_uri, headers, data)
-        headers['signature'] = self.generate_signature(self.access_key, msg)
+        msg = self._generate_header_body_str(api_uri, headers, data)
+        headers['signature'] = self._generate_signature(self.access_key, msg)
         
         # http_body = urllib.urlencode(data)
         http_headers = json.dumps(headers)
         http_body = json.dumps(data)
         
-        # 20180925 debug
-        print('POST: {}'.format(url))
-        print('HTTP Headers: {}'.format(http_headers))
-        print('HTTP Body: {}'.format(http_body))
-        
         if self.need_log:
-            self.G_SDK_LOG.info('POST: {}'.format(url))
-            self.G_SDK_LOG.debug('HTTP Headers: {}'.format(http_headers))
-            self.G_SDK_LOG.debug('HTTP Body: {}'.format(http_body))
+            self.log_obj('POST: {}'.format(url))
+            self.log_obj('HTTP Headers: {}'.format(http_headers))
+            self.log_obj('HTTP Body: {}'.format(http_body))
         
-        request = urllib2.Request(url, data=http_body, headers=headers)
+        request = urllib2.Request(url, data=http_body.encode('utf-8'), headers=headers)
         
         try:
             response = urllib2.urlopen(request, timeout=5)
         except Exception as e:
             return_message = e
-            raise APIError(100001, return_message, url)  # URL ERROR
+            raise APIError(400, return_message, url)  # Bad request
 
         content = response.read().decode('utf-8')
         r = json.loads(content)
         if self.need_log:
-            self.G_SDK_LOG.debug('HTTP Response: {}'.format(r))
-            
-        # 20180925 debug
-        print('HTTP Response: {}'.format(r))
+            self.log_obj('HTTP Response: {}'.format(r))
 
         return_code = r.get('code', -1)
         return_message = r.get('message', 'No message!!!')
@@ -355,7 +351,7 @@ class RayvisionAPI(object):
         r_data = self._post(api_uri, data)
         return r_data
         
-    def create_task(self, count, out_user_id=None):
+    def create_task(self, count=1, out_user_id=None):
         """
         创建任务号
         :param int count: 创建任务号数量
@@ -382,19 +378,21 @@ class RayvisionAPI(object):
         r_data = self._post(api_uri, data)
         return r_data
         
-    def query_error_detail(self, code):  # 20180926 问题：平台返回空值
+    def query_error_detail(self, code, language='0'):
         """
         获取分析错误码
         :param str code: 必须值，错误码
+        :param str language: 非必须，语言, 0：中文（默认） 1：英文
         """
         api_uri = self._uri_dict.get('queryErrorDetail')
         data = {
-            'code': str(code)
+            'code': str(code),
+            'language': language
         }
         r_data = self._post(api_uri, data)
         return r_data
         
-    def get_task_list(self, page_num, page_size):  # 20180926 问题：接口404
+    def get_task_list(self, page_num, page_size):
         """
         获取任务列表
         :param int page_num: 必须值，当前页数
@@ -408,7 +406,7 @@ class RayvisionAPI(object):
         r_data = self._post(api_uri, data)
         return r_data
         
-    def stop_task(self, task_param_list):  # 20180926 问题：接口403, forbidden
+    def stop_task(self, task_param_list):
         """
         停止任务
         :param list task_param_list: 任务号列表
@@ -420,7 +418,7 @@ class RayvisionAPI(object):
         r_data = self._post(api_uri, data)
         return r_data
         
-    def start_task(self, task_param_list):  # 20180926 问题：接口403, forbidden
+    def start_task(self, task_param_list):
         """
         开始任务
         :param list task_param_list: 任务号列表
@@ -432,7 +430,7 @@ class RayvisionAPI(object):
         r_data = self._post(api_uri, data)
         return r_data
         
-    def abort_task(self, task_param_list):  # 20180926 问题：接口403, forbidden
+    def abort_task(self, task_param_list):
         """
         放弃任务
         :param list task_param_list: 任务号列表
@@ -444,7 +442,7 @@ class RayvisionAPI(object):
         r_data = self._post(api_uri, data)
         return r_data
         
-    def delete_task(self, task_param_list):  # 20180926 问题：接口403, forbidden
+    def delete_task(self, task_param_list):
         """
         删除任务
         :param list task_param_list: 任务号列表
@@ -456,7 +454,7 @@ class RayvisionAPI(object):
         r_data = self._post(api_uri, data)
         return r_data
 
-    def query_task_frames(self, task_id, page_num, page_size, search_keyword=None):  # 20180926 问题：接口404
+    def query_task_frames(self, task_id, page_num, page_size, search_keyword=None):
         """
         获取任务渲染帧详情
         :param int task_id: 任务ID号，是任务的唯一标识，必填字段
@@ -475,7 +473,7 @@ class RayvisionAPI(object):
         r_data = self._post(api_uri, data)
         return r_data
 
-    def query_all_frame_stats(self):  # 20180926 问题：接口404
+    def query_all_frame_stats(self):
         """
         获取任务总渲染帧概况
         """
@@ -484,7 +482,7 @@ class RayvisionAPI(object):
         r_data = self._post(api_uri, data)
         return r_data
         
-    def restart_failed_frames(self, task_param_list):  # 20180926 问题：接口403, forbidden
+    def restart_failed_frames(self, task_param_list):
         """
         重提失败帧
         :param list task_param_list: 任务号列表
@@ -496,7 +494,7 @@ class RayvisionAPI(object):
         r_data = self._post(api_uri, data)
         return r_data
         
-    def restart_frame(self, task_id, select_all, ids_list=[]):  # 20180926 问题：接口403, forbidden
+    def restart_frame(self, task_id, select_all, ids_list=[]):
         """
         重提任务指定帧
         :param int task_param_list: 任务ID
@@ -512,7 +510,7 @@ class RayvisionAPI(object):
         r_data = self._post(api_uri, data)
         return r_data
         
-    def query_task_info(self, task_ids_list):  # 20180926 问题：接口404
+    def query_task_info(self, task_ids_list):
         """
         获取任务详情
         :param list task_ids_list: 壳任务ID集合
@@ -664,14 +662,4 @@ class RayvisionAPI(object):
         r_data = self._post(api_uri, data)
         return r_data
         
-
-if __name__ == '__main__':
-    access_id = r'AKIDz8krbsJ5yKBZQpn74WFkmLPx3EXAMPPP'
-    access_key = r'Gu5t9xGARNpq86cd98joQYCN3EXAMPLEXX'
-    domain_name = r'test.renderbus.com'
-    platform = '20'
-    
-    rayvision = RayvisionAPI(domain_name, platform, access_id, access_key, log_obj=None)
-    r_data = rayvision.get_render_env(2000)
-    print(r_data)
         

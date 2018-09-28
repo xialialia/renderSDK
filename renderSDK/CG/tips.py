@@ -7,7 +7,7 @@ import json
 import shutil
 from pprint import pprint
 
-from rayvision_SDK.CG import util
+from renderSDK.CG import util
 
 
 class Tips(object):

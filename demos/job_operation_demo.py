@@ -5,11 +5,11 @@ import os
 import codecs
 import json
 
-# 将rayvision_SDK目录加入python的搜索模块的路径集
+# 将renderSDK目录加入python的搜索模块的路径集
 CURRENT_DIR = os.path.dirname(os.path.realpath(__file__))
-rayvision_sdk_path = os.path.join(CURRENT_DIR, 'rayvision_SDK')
+renderSDK_path = os.path.join(CURRENT_DIR, 'renderSDK')
 
-sys.path.append(rayvision_sdk_path)
+sys.path.append(renderSDK_path)
 from Rayvision import Rayvision
 
 # 登录

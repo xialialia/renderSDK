@@ -11,6 +11,30 @@
         "server_ip":"45.251.92.2",
         "server_port":"33001"
     },
+    "foxrenderfarm_www3": {
+        "engine_type":"aspera",
+        "server_name":"CTCC",
+        "server_ip":"36.111.130.6",
+        "server_port":"33001"
+    },
+    "renderbus_www3": {
+        "engine_type":"rayvision",
+        "server_name":"CTCC",
+        "server_ip":"36.111.130.6",
+        "server_port":"8885"
+    },
+    "foxrenderfarm_www4": {
+        "engine_type":"aspera",
+        "server_name":"CTCC",
+        "server_ip":"36.111.130.37",
+        "server_port":"60000"
+    },
+    "renderbus_www4": {
+        "engine_type":"rayvision",
+        "server_name":"CTCC",
+        "server_ip":"36.111.130.39",
+        "server_port":"8885"
+    },
     "foxrenderfarm_www8":{
         "engine_type":"aspera",
         "server_name":"HKCT",
@@ -56,7 +80,7 @@
     "renderbus_pic":{
         "engine_type":"rayvision",
         "server_name":"MAIN",
-        "server_ip":"pic-main.renderbus.com",
+        "server_ip":"42.123.110.47",
         "server_port":"8885"
     },
     "default":{

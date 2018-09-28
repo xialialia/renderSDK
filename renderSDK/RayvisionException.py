@@ -33,5 +33,5 @@ class APIError(RayvisionError):
 
 
 if __name__ == '__main__':
-    raise APIError(1000000, "api error", 'www.renderbus.com')
+    raise APIError(400, "bad request", 'task.renderbus.com')
     

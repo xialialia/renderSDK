@@ -8,7 +8,7 @@ import logging as log
 import glob
 from pprint import pprint
 
-from rayvision_SDK.CG.util import convert_path
+from renderSDK.CG.util import convert_path
 
 """
 收集资产规则

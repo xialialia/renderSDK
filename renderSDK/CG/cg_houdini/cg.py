@@ -12,11 +12,11 @@ try:
 except ImportError:
     import winreg as _winreg
 
-from rayvision_SDK.CG.cg_base import CGBase
-from rayvision_SDK.CG import util
-from rayvision_SDK.CG import tips_code
-from rayvision_SDK.CG.exception import *
-from rayvision_SDK.CG.message import *
+from renderSDK.CG.cg_base import CGBase
+from renderSDK.CG import util
+from renderSDK.CG import tips_code
+from renderSDK.CG.exception import *
+from renderSDK.CG.message import *
 
 VERSION = sys.version_info[0]
 basedir = os.path.abspath(os.path.dirname(__file__))

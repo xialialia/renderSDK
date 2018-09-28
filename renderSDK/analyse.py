@@ -7,10 +7,10 @@ import time
 import traceback
 import argparse
 
-from rayvision_SDK.CG.cg_houdini.cg import Houdini
-from rayvision_SDK.CG.cg_c4d.cg import C4D
-from rayvision_SDK.CG.cg_maya.cg import Maya
-from rayvision_SDK.CG.cg_max.cg import Max
+from .CG.cg_houdini.cg import Houdini
+from .CG.cg_c4d.cg import C4D
+from .CG.cg_maya.cg import Maya
+from .CG.cg_max.cg import Max
 from .RayvisionException import RayvisionError
 
 basedir = os.path.abspath(os.path.dirname(__file__))

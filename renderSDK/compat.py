@@ -4,7 +4,7 @@
 import sys
 
 __all__ = ['json', 'is_py2', 'is_py3', 'urlquote', 'urlunquote', 'urlparse', 'urllib2', 'to_bytes',
-           'to_unicode', 'stringify', 'builtin_str', 'bytes', 'str', 'configparser']
+           'to_unicode', 'stringify', 'builtin_str', 'bytes', 'str', 'configparser', 'long']
 
 try:
     import simplejson as json
@@ -59,6 +59,7 @@ if is_py2:
     bytes = str
     str = unicode
 
+    long = long
 
 elif is_py3:
     from urllib.parse import quote as urlquote, unquote as urlunquote
@@ -94,3 +95,5 @@ elif is_py3:
     builtin_str = str
     bytes = bytes
     str = str
+    
+    long = int

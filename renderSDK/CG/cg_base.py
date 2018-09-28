@@ -6,13 +6,13 @@ import time
 import logging
 import traceback
 
-from rayvision_SDK.CG import util
-from rayvision_SDK.CG import tips_code
-from rayvision_SDK.CG.tips import Tips
-from rayvision_SDK.CG.cmd import Cmd
-from rayvision_SDK.CG.zip7z import Zip7z
-from rayvision_SDK.CG.exception import *
-from rayvision_SDK.CG.message import *
+from renderSDK.CG import util
+from renderSDK.CG import tips_code
+from renderSDK.CG.tips import Tips
+from renderSDK.CG.cmd import Cmd
+from renderSDK.CG.zip7z import Zip7z
+from renderSDK.CG.exception import *
+from renderSDK.CG.message import *
 
 
 class CGBase(object):

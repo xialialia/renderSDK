@@ -3,7 +3,14 @@
 
 """
 Main
+
+Warning:
+    job_id即task_id，莫纠结；
+    label_name即project_name，莫纠结；
+    edit_name即config_name，莫纠结；
 """
+
+from .compat import *
 
 import os
 import sys
@@ -11,32 +18,31 @@ import logging
 import codecs
 import time
 
-from .compat import (json, is_py2, is_py3, urlquote, urlunquote, urlparse, to_bytes, to_string, to_unicode, stringify, builtin_str, bytes, str)
-from RayvisionUtil import get_os, hump2underline, get_cg_id, decorator_use_in_class, format_time
-from RayvisionAPI import RayvisionAPI
-from RayvisionJob import RayvisionJob
-from RayvisionTransfer import RayvisionTransfer
-from RayvisionException import RayvisionError
-from RayvisionManageJob import RayvisionManageJob
+from .RayvisionUtil import get_os, hump2underline, cg_id_name_dict, decorator_use_in_class, format_time
+from .RayvisionAPI import RayvisionAPI
+from .RayvisionJob import RayvisionJob
+from .RayvisionTransfer import RayvisionTransfer
+from .RayvisionException import RayvisionError
+from .RayvisionManageJob import RayvisionManageJob
 
-from analyse import RayvisionAnalyse
+from .analyse import RayvisionAnalyse
 
 CURRENT_DIR = os.path.dirname(os.path.realpath(__file__))
 SDK_LOG = logging.getLogger('sdk_log')
 
 class Rayvision(object):
-    def __init__(self, domain_name, platform, account, access_key, workspace=None, *args, **kwargs):
+    def __init__(self, domain_name, platform, access_id, access_key, workspace=None, *args, **kwargs):
         """
-        :param str domain_name: task.foxrenderfarm.com/task.renderbus.com
-        :param str platform: 2：www2；5：pic；8：www8；9：www9；10：gpu
-        :param str account: userName
-        :param str access_key: needs to be applied for
-        :param str protocol: https/http
+        :param str domain_name:  域名，如：task.renderbus.com
+        :param str platform:  平台号，如：2
+        :param str access_id:  授权id，用于标识API调用者身份
+        :param str access_key:  授权密钥，用于加密签名字符串和服务器端验证签名字符串
+        :param str workspace: 工作目录，用来存放分析中产生的配置文件和日志等
         :param kwargs:
         """
         domain_name = str(domain_name)
         platform = str(platform)
-        account = str(account)
+        access_id = str(access_id)
         access_key = str(access_key)
         if workspace is None:
             workspace = os.path.join(CURRENT_DIR, 'workspace')  # default workspace
@@ -53,13 +59,13 @@ class Rayvision(object):
         self._user_info = {
             'domain_name': domain_name,
             'platform': platform,
-            'account': account,
+            'access_id': access_id,
             'access_key': access_key,
             'local_os': get_os(),
             'workspace': workspace
         }
-        self._api_obj = RayvisionAPI(self._user_info, log_obj=self.G_SDK_LOG)
-        self._login()
+        self._api_obj = RayvisionAPI(domain_name, platform, access_id, access_key, log_obj=self.G_SDK_LOG)
+        self._login()  # update self._user_info
         self._transfer_obj = RayvisionTransfer(self._user_info, self._api_obj, log_obj=self.G_SDK_LOG)
         self._manage_job_obj = RayvisionManageJob(self._api_obj)
     
@@ -93,23 +99,25 @@ class Rayvision(object):
     
     def _login(self):
         """
-        1.login
-        2.get storage id
+        查询用户信息并更新到self._user_info中
+            1.获取用户详情(query_user_profile)
+            2.获取用户设置(query_user_setting)
+            3.获取用户传输BID(get_transfer_bid)
         :return: True
         """
         self.G_SDK_LOG.info('[Rayvision.login.start.....]')
         
-        data1 = self._api_obj._login(self._user_info['account'], self._user_info['access_key'])
-        data2 = self._api_obj._get_storage_id()
+        data1 = self._api_obj.query_user_profile()
+        data2 = self._api_obj.query_user_setting()
+        data3 = self._api_obj.get_transfer_bid()
         data1.update(data2)
+        data1.update(data3)
         
-        # 将login和get_storage_id的response中的data放进user_info中（变量采用下划线命名方式）
+        # 将上述接口结果更新到self._user_info中，并将其中key全转换成下划线命名方式
         for key, value in data1.items():
             if isinstance(value, (int, long, float)):
                 value = str(value)
             key_underline = hump2underline(key)  # 变量名：驼峰转下划线
-            if key_underline == 'id':
-                key_underline = 'user_id'
             self._user_info[key_underline] = value
             
         self.G_SDK_LOG.info('USER INFO:{}'.format(self._user_info))
@@ -118,37 +126,29 @@ class Rayvision(object):
         return True
 
     @decorator_use_in_class(SDK_LOG)
-    def set_job_config(self, cg_name, cg_version=None, plugin_config={}, config_name=None, project_name=None):
+    def set_render_env(self, cg_name, cg_version, plugin_config={}, edit_name=None, label_name=None):
         """
-        1.set job plugins info
-            (1)set job config by config_name, input:cg_name, config_name
-            (2)set job config by custom plugin config, input:cg_name, cg_version, plugin_config
-            (3)set job config by custom plugin config and add to user plugin config group(named by config_name), input:config_name, cg_name, cg_version, plugin_config
-        2.Add a project label to the job(Unnecessary).
-
-        :param str cg_name:
-        :param str cg_version:
+        设置job渲染环境、标签（可选）
+        :param str cg_name: 软件名，如3ds Max、Maya、Houdini
+        :param str cg_version: 软件版本
         :param dict plugin_config: {"3dhippiesterocam":"2.0.13"}
-        :param str config_name:
-        :param str project_name:
-        :return: job_id
-        :rtype: str
+        :param str edit_name: 渲染环境唯一标识名，暂时未用
+        :param str label_name: 标签名，即项目名，可选
         """
         cg_name = str(cg_name)
-        if cg_version is not None:
-            cg_version = str(cg_version)
-        if config_name is not None:
-            config_name = str(config_name)
-        if project_name is not None:
-            project_name = str(project_name)
+        cg_version = str(cg_version)
+        if edit_name is not None:
+            edit_name = str(edit_name)
+        if label_name is not None:
+            label_name = str(label_name)
         
         self.G_SDK_LOG.info('INPUT:')
         self.G_SDK_LOG.info('='*20)
         self.G_SDK_LOG.info('cg_name:{}'.format(cg_name))
         self.G_SDK_LOG.info('cg_version:{}'.format(cg_version))
         self.G_SDK_LOG.info('plugin_config:{}'.format(plugin_config))
-        self.G_SDK_LOG.info('config_name:{}'.format(config_name))
-        self.G_SDK_LOG.info('project_name:{}'.format(project_name))
+        self.G_SDK_LOG.info('edit_name:{}'.format(edit_name))
+        self.G_SDK_LOG.info('label_name:{}'.format(label_name))
         self.G_SDK_LOG.info('='*20)
         
         # 初始化作业所需的变量
@@ -156,102 +156,68 @@ class Rayvision(object):
         self.errors_number = 0  # tips.json中错误数量
         self.error_warn_info_list = []  # 错误、警告信息
         # self.cg_name = str(cg_name)  # 软件名（3ds Max、Maya、Houdini）
-        cg_id = get_cg_id(cg_name)  # 软件id
-        job_id = str(self._api_obj._get_job_id()[0])  # 作业号
         
+        cg_id = cg_id_name_dict.get(cg_name, None)  # 软件id
+        if cg_id is None:
+            raise RayvisionError(1000000, r'Please input correct cg_name!')  # 请输入正确的cg_name
+        
+        # 生成作业号
+        job_id = str(self._api_obj.create_task().get(r'taskIdList', [''])[0])
+        if job_id == '':
+            raise RayvisionError(1000000, r'Failed to create task number!')  # 创建任务号失败
         self.G_SDK_LOG.info('JOB ID:{}'.format(job_id))
         
+        # 实例化RayvisionJob对象
         self._job_info = RayvisionJob(self._user_info, job_id)
-
         self._job_info._task_info['task_info']['cg_id'] = cg_id
-
-        if project_name is not None:
-            project_dict_list = self._api_obj._get_project()
-            is_project_exist = False
-            for project_dict in project_dict_list:
-                if project_dict['projectName'] == project_name:
-                    is_project_exist = True
-                    break
+        
+        # 设置标签
+        self.set_label(label_name)
             
-            if not is_project_exist:
-                # TODO 项目名不存在则创建项目
-                return_message = r'project_name is not exists:{}'.format(project_name)
-                raise RayvisionError(100005, return_message)  # project_name is not exists!
-                
-            self._job_info._task_info['task_info']['project_name'] = project_name
-            self._job_info._task_info['task_info']['project_id'] = str(project_dict['projectId'])
-            
-        # user_plugins_list = self._api_obj._get_user_plugin_config(cg_name)
+        # 设置任务渲染环境（即任务的软件配置）
         software_config_dict = {}
-
-        if config_name is not None and cg_version is None:
-            # (1)set job config by config_name
-            user_plugins_list = self._api_obj._get_user_plugin_config(cg_name)
-            is_config_name_exist = False
-            for plugin_dict in user_plugins_list:
-                if plugin_dict['editName'] == config_name:
-                    is_config_name_exist = True
-                    software_config_dict['cg_name'] = plugin_dict['cgName']
-                    software_config_dict['cg_version'] = plugin_dict['cgVersion']
-                    software_config_dict['plugins'] = {}
-
-                    plugins_info_list = plugin_dict['pluginsInfoSdkVos']
-                    for plugin_info in plugins_info_list:
-                        key = plugin_info['pluginName']
-                        value = plugin_info['pluginVersion']
-                        if key is not None and value is not None:
-                            software_config_dict['plugins'][key] = value
-            if not is_config_name_exist:
-                return_message = r'config_name is not exists:{}'.format(config_name)
-                raise RayvisionError(100004, return_message) # config_name is not exists!
-
-        elif config_name is None and cg_version is not None:
-            # (2)set job config by custom plugin config
-            software_config_dict['cg_name'] = cg_name
-            software_config_dict['cg_version'] = cg_version
-            software_config_dict['plugins'] = plugin_config
-        elif config_name is not None and cg_version is not None:
-            # (3)set job config by custom plugin config and add/edit to user plugin config group(named by config_name)
-            user_plugins_list = self._api_obj._get_user_plugin_config(cg_name)
-            software_config_dict['cg_name'] = cg_name
-            software_config_dict['cg_version'] = cg_version
-            software_config_dict['plugins'] = plugin_config
-
-            plugins_info = []
-            for plugin_name, plugin_version in plugin_config.items():
-                single_plugin_dict = {}
-                single_plugin_dict['pluginName'] = plugin_name
-                single_plugin_dict['pluginVersion'] = plugin_version
-                plugins_info.append(single_plugin_dict)
-
-            is_config_name_exist = False
-            for plugin_dict in user_plugins_list:
-                if plugin_dict['editName'] == config_name:
-                    is_config_name_exist = True
-
-            if is_config_name_exist:
-                self._api_obj._edit_user_plugin_config(config_name, cg_id, cg_name, cg_version, plugins_info)
-            else:
-                self._api_obj._add_user_plugin_config(config_name, cg_id, cg_name, cg_version, plugins_info)
-
-        else:
-            return_message = r'''PARAMETER_INVALID:
-(1)cg_name + config_name: set job config by config_name
-(2)cg_name + cg_version + plugin_config: set job config by custom plugin config
-(3)config_name + cg_name + cg_version + plugin_config: set job config by custom plugin config and add to user plugin config group(named by config_name)
-                        '''
-            raise RayvisionError(100003, return_message)  # PARAMETER_INVALID
+        software_config_dict['cg_name'] = cg_name
+        software_config_dict['cg_version'] = cg_version
+        software_config_dict['plugins'] = plugin_config
 
         self._job_info._task_info['software_config'] = software_config_dict
-
+        
         return True
+
+    def set_label(self, label_name):
+        """
+        给job自定义标签，可通过标签查找所属任务
+        :param str label_name: 标签名
+        """
+        if label_name is not None:
+            is_label_exist = False
+            label_id = ''
+            for _ in range(3):  # 尝试3次
+                label_dict_list = self._api_obj.get_label_list().get('projectNameList', [])  # 获取用户已有标签列表
+                for label_dict in label_dict_list:
+                    if label_dict['projectName'] == label_name:
+                        is_label_exist = True
+                        label_id = str(label_dict['projectId'])
+                        break
+                
+                if is_label_exist:
+                    if label_id == '':
+                        continue
+                    break
+                else:  # 标签不存在则新增标签
+                    self._api_obj.add_label(label_name, '0')
+                    is_label_exist = True
+                
+            self._job_info._task_info['task_info']['project_name'] = label_name
+            self._job_info._task_info['task_info']['project_id'] = str(label_id)
 
     @decorator_use_in_class(SDK_LOG)
     def analyse(self, cg_file, project_dir=None, software_path=None):
         """
         Analyse cg file.
-        :param str job_id:
-        :param str cg_file: cg file path
+        :param str cg_file: 场景文件路径
+        :param str project_dir: 场景的项目路径，如设置则在渲染时所有资产从项目路径中搜索
+        :param str software_path: 本地渲染软件路径，默认从注册表中读取，用户可自定义
         :return:
         """
         cg_file = str(cg_file)
@@ -270,9 +236,6 @@ class Rayvision(object):
         if project_dir is not None:
             self._job_info._task_info['task_info']['input_project_path'] = project_dir
             
-        # self.G_SDK_LOG.info(json.dumps(self._job_info.__dict__))
-        
-        # RayvisionAnalyse.analyse(cg_file, self._job_info)
         RayvisionAnalyse.execute(cg_file, self._job_info, exe_path=software_path)
         
         scene_info_data = self._job_info._task_info['scene_info']
@@ -294,10 +257,14 @@ class Rayvision(object):
         return  return_scene_info_render, return_task_info
 
     @decorator_use_in_class(SDK_LOG)
-    def check_error_warn_info(self):
+    def check_error_warn_info(self, language='0'):
+        """
+        获取分析出的错误、警告信息
+        :param str language: 返回语言  0：中文（默认） 1：英文
+        """
         if len(self._job_info._tips_info) > 0:
             for code, value in self._job_info._tips_info.items():
-                code_info_list = self._api_obj._get_error_code_by_code(code)
+                code_info_list = self._api_obj.query_error_detail(code, language=language)
                 for code_info in code_info_list:
                     code_info['details'] = value
                     if str(code_info['type']) == '1':  # 0:warning  1:error
@@ -310,12 +277,11 @@ class Rayvision(object):
 
     def _edit_param(self, scene_info_render=None, task_info=None):
         """
-        1.input dict
-        2.A set method for each attribute
-        :param dict param_dict: scene_info_render
-        :return:
+        修改渲染参数、任务参数
+        :param dict scene_info_render: 渲染参数
+        :param dict task_info: 任务参数
+        :return: True
         """
-
         self.G_SDK_LOG.info('INPUT:')
         self.G_SDK_LOG.info('='*20)
         self.G_SDK_LOG.info('scene_info_render:{}'.format(scene_info_render))
@@ -367,12 +333,21 @@ class Rayvision(object):
 
 
     def _submit_job(self):
-        self._api_obj._submit_job(int(self._job_info._job_id))
+        self._api_obj.submit_task(int(self._job_info._job_id))
         return True
     
     
     @decorator_use_in_class(SDK_LOG)
     def submit_job(self, scene_info_render=None, task_info=None):
+        """
+        提交作业
+        （1）判断是否有错误、警告
+        （2）编辑渲染参数
+        （3）上传配置文件和资产
+        （4）提交作业号
+        :param dict scene_info_render: 渲染参数
+        :param dict task_info: 任务参数
+        """
         self._is_scene_have_error()  # check error
         
         self._edit_param(scene_info_render, task_info)
@@ -381,21 +356,26 @@ class Rayvision(object):
     
 
     @decorator_use_in_class(SDK_LOG)
-    def download(self, job_id, local_dir):
-    
+    def download(self, job_id_list, local_dir):
+        """
+        下载
+        :param list<int> job_id_list: 作业号列表
+        :param str local_dir: 下载存放目录
+        """
         self.G_SDK_LOG.info('INPUT:')
         self.G_SDK_LOG.info('='*20)
-        self.G_SDK_LOG.info('job_id:{}'.format(job_id))
+        self.G_SDK_LOG.info('job_id_list:{}'.format(job_id_list))
         self.G_SDK_LOG.info('local_dir:{}'.format(local_dir))
         self.G_SDK_LOG.info('='*20)
         
-        self._transfer_obj._download(job_id, local_dir)
+        for job_id in job_id_list:
+            self._transfer_obj._download(job_id, local_dir)
         return True
 
     def _is_scene_have_error(self):
         if self.errors_number > 0:
             return_message = r'There are {} errors, Please check self.error_warn_info_list!'.format(self.errors_number)
-            raise RayvisionError(100002, return_message)  # errors_number > 0
+            raise RayvisionError(1000000, return_message)  # 分析完成有错误
 
     @decorator_use_in_class(SDK_LOG)
     def get_rendering_list(self, page_size=20, page_num=1):

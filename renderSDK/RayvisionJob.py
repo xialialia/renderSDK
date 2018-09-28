@@ -4,12 +4,10 @@
 """
 Store job information module.
 """
-
+from .compat import *
 import os
 # import json
 import codecs
-
-from .compat import (json, is_py2, is_py3, urlquote, urlunquote, urlparse, to_bytes, to_string, to_unicode, stringify, builtin_str, bytes, str)
 
 CURRENT_DIR = os.path.dirname(os.path.realpath(__file__))
 
@@ -49,7 +47,7 @@ class RayvisionJob(object):
                 'stop_after_test': '2',  # 优先渲染完成后是否暂停任务,1:优先渲染完成后暂停任务 2.优先渲染完成后不暂停任务
                 'project_name': '',  # 项目名称
                 'project_id': '',  # 项目id
-                'channel': user_info['channel'],  # 提交方式
+                'channel': '4',  # 提交方式
                 'cg_id': '',  # 渲染软件id
                 'platform': user_info['platform'],  # 提交平台
                 'is_split_render': '0',  # 是否开启分块渲染 1开启

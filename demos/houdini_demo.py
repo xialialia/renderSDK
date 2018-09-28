@@ -3,21 +3,21 @@
 import sys
 import os
 
-# 将rayvision_SDK目录加入python的搜索模块的路径集
+# 将renderSDK目录加入python的搜索模块的路径集
 CURRENT_DIR = os.path.dirname(os.path.realpath(__file__))
-rayvision_sdk_path = os.path.join(CURRENT_DIR, 'rayvision_SDK')
+renderSDK_path = os.path.join(CURRENT_DIR, 'renderSDK')
+sys.path.append(renderSDK_path)
 
-sys.path.append(rayvision_sdk_path)
 from Rayvision import Rayvision
 
 # 1.登录
 rayvision = Rayvision(domain_name='dev.renderbus.com', platform='1', account='xiexianguo', access_key='$apr1$X5Q4lau1$tkyi4wvBXoQhKOP0G87e51', workspace='c:/renderfarm/sdk_test')
 
 # 2.设置作业配置（插件配置、所属项目）
-rayvision.set_job_config(cg_name='3ds Max', cg_version='2014', plugin_config={}, project_name='dasdd')
+rayvision.set_job_config(cg_name='Houdini', cg_version='16.5.405', plugin_config={}, project_name='dasdd')
 
 # 3.分析
-scene_info_render, task_info = rayvision.analyse(cg_file=r'D:\chensr\Scene\max2014.max')
+scene_info_render, task_info = rayvision.analyse(cg_file=r'D:\chensr\SDK\RenderSDK_dev\20180629_v9\shot06_16.5.405.hip', software_path=r'D:\plugins\houdini\165405\bin\hython.exe')
 
 # 4.用户自行处理错误、警告
 error_info_list = rayvision.check_error_warn_info()

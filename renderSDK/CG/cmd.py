@@ -5,7 +5,7 @@ import sys
 import logging
 import subprocess
 
-from rayvision_SDK.CG import util
+from renderSDK.CG import util
 
 VERSION = sys.version_info[0]
 logger = logging.getLogger("analyse")
