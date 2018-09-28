@@ -374,7 +374,7 @@ class Rayvision(object):
 
     def _is_scene_have_error(self):
         if self.errors_number > 0:
-            return_message = r'There are {} errors, Please check self.error_warn_info_list!'.format(self.errors_number)
+            return_message = r'There are {0} errors. error_warn_info_list:{1}'.format(self.errors_number, self.error_warn_info_list)
             raise RayvisionError(1000000, return_message)  # 分析完成有错误
 
     @decorator_use_in_class(SDK_LOG)

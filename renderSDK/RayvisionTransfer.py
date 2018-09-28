@@ -109,13 +109,13 @@ class RayvisionTransfer(object):
                 transmit_type=transmit_type,
                 local_path=local_path.replace('\\', '/'),
                 server_path=server_path.replace('\\', '/'),
-                max_connect_failure_count=1,  # default is 1
+                max_connect_failure_count='1',  # default is 1
                 keep_path='false'
             )
             # print transmit_cmd
             sys.stdout.flush()
             # os.system(transmit_cmd.encode(sys.getfilesystemencoding()))
-            RayvisionUtil.run_cmd(transmit_cmd.encode(sys.getfilesystemencoding()), log_obj=self.G_SDK_LOG)
+            RayvisionUtil.run_cmd(transmit_cmd, log_obj=self.G_SDK_LOG)
     
     def _upload_asset(self, upload_info, **kwargs):
         """
@@ -145,13 +145,13 @@ class RayvisionTransfer(object):
                 transmit_type=transmit_type,
                 local_path=local_path.replace('\\', '/'),
                 server_path=server_path.replace('\\', '/'),
-                max_connect_failure_count=1,  # default is 1
+                max_connect_failure_count='1',  # default is 1
                 keep_path='false'
             )
             # print transmit_cmd
             sys.stdout.flush()
             # os.system(transmit_cmd.encode(sys.getfilesystemencoding()))
-            RayvisionUtil.run_cmd(transmit_cmd.encode(sys.getfilesystemencoding()), log_obj=self.G_SDK_LOG)
+            RayvisionUtil.run_cmd(transmit_cmd, log_obj=self.G_SDK_LOG)
 
     def _download(self, task_id, local_dir, **kwargs):
         transmit_type = 'download_files'
@@ -177,4 +177,4 @@ class RayvisionTransfer(object):
             # print transmit_cmd
             sys.stdout.flush()
             # os.system(transmit_cmd.encode(sys.getfilesystemencoding()))
-            RayvisionUtil.run_cmd(transmit_cmd.encode(sys.getfilesystemencoding()), log_obj=self.G_SDK_LOG)
+            RayvisionUtil.run_cmd(transmit_cmd, log_obj=self.G_SDK_LOG)

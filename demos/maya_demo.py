@@ -3,21 +3,19 @@
 import sys
 import os
 
-# 将renderSDK目录加入python的搜索模块的路径集
-CURRENT_DIR = os.path.dirname(os.path.realpath(__file__))
-renderSDK_path = os.path.join(CURRENT_DIR, 'renderSDK')
+# 将最外层renderSDK目录加入python的搜索模块的路径集
+renderSDK_path = r'D:\gitlab\renderSDK'
 sys.path.append(renderSDK_path)
 
-from Rayvision import Rayvision
+from renderSDK.Rayvision import Rayvision
 
 # 1.登录
-rayvision = Rayvision(domain_name='dev.renderbus.com', platform='1', account='xiexianguo', access_key='$apr1$X5Q4lau1$tkyi4wvBXoQhKOP0G87e51', workspace='c:/renderfarm/sdk_test')
+rayvision = Rayvision(domain_name='test.renderbus.com', platform='20', access_id='AKIDz8krbsJ5yKBZQpn74WFkmLPx3EXAMPPP', access_key='Gu5t9xGARNpq86cd98joQYCN3EXAMPLEXX', workspace='c:/renderfarm/sdk_test')
 
 # 2.设置作业配置（插件配置、所属项目）
-rayvision.set_job_config(cg_name='Maya', cg_version='2016', plugin_config={}, project_name='dasdd')
+rayvision.set_render_env(cg_name='Maya', cg_version='2016', plugin_config={}, label_name='dasdd')
 
 # 3.分析
-# scene_info_render, task_info = rayvision.analyse(cg_file=r'D:\chensr\Scene\SDK_test_project\test_2018_sdk.mb')
 scene_info_render, task_info = rayvision.analyse(cg_file=r'D:\chensr\Scene\maya\TEST_maya2016_ocean.mb')
 
 # 4.用户自行处理错误、警告
@@ -26,8 +24,6 @@ error_info_list = rayvision.check_error_warn_info()
 # 5.用户修改参数列表
 scene_info_render_new = scene_info_render
 task_info_new = task_info
-
-rayvision._user_info['cfg_id'] = '3450'
 
 rayvision.submit_job(scene_info_render_new, task_info_new)
 
