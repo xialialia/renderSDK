@@ -32,14 +32,14 @@ class Zip7z(object):
         :return:
         """
         if not (0 <= level <= 9):
-            raise NotImplementedError("level {} is not allowed".format(level))
+            raise NotImplementedError("level {0} is not allowed".format(level))
         if len(files) < 1:
             print("no file to be compressed")
             return 0
 
         files_str = ""
         for f in files:
-            files_str += '"{}" '.format(f)
+            files_str += '"{0}" '.format(f)
         zip_name = dest
         cmd = '"{exe_path}" a "{target_path}" {files_str} -mx{level} -ssw'.format(
             exe_path=self.exe_path,
@@ -53,7 +53,7 @@ class Zip7z(object):
         return returncode
 
     def unpack(self, zip_file, dest):
-        cmd = '{} x "{}" -y -aos -o"{}"'.format(
+        cmd = '{0} x "{1}" -y -aos -o"{2}"'.format(
             self.exe_path,
             zip_file,
             dest,

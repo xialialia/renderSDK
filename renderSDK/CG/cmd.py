@@ -18,7 +18,7 @@ class Cmd(object):
     def tasklist(self, filter=None):
         exe_name = filter
         if exe_name is not None:
-            cmd = 'tasklist /FI "imagename eq {}"'.format(exe_name)
+            cmd = 'tasklist /FI "imagename eq {0}"'.format(exe_name)
         else:
             cmd = 'tasklist'
         returncode = self.run(cmd)
@@ -29,16 +29,16 @@ class Cmd(object):
         log = logger.info
 
         cmd = self.compatible(cmd)
-        log("run command:\n{}".format(cmd))
+        log("run command:\n{0}".format(cmd))
         p = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=shell)
         stdout, stderr = p.communicate()
         stdout = util.ensure_str(stdout)
         stderr = util.ensure_str(stderr)
 
         if log_output is True:
-            log("stdout:\n{}".format(stdout))
+            log("stdout:\n{0}".format(stdout))
         if stderr:
-            log("stderr:\n{}".format(stderr))
+            log("stderr:\n{0}".format(stderr))
         return p.returncode, stdout, stderr
 
     def power_run(self, cmd):

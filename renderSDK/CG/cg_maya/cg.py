@@ -149,10 +149,10 @@ class Maya(CGBase):
 
     def location_from_reg(self, version):
         # for 2013/2013.5, 2016/2016.5
-        versions = (version, "{}.5".format(version))
+        versions = (version, "{0}.5".format(version))
         location = None
         for v in versions:
-            string = 'SOFTWARE\Autodesk\Maya\{}\Setup\InstallPath'.format(v)
+            string = 'SOFTWARE\Autodesk\Maya\{0}\Setup\InstallPath'.format(v)
             self.log.debug(string)
             try:
                 handle = _winreg.OpenKey(_winreg.HKEY_LOCAL_MACHINE, string)
@@ -176,7 +176,7 @@ class Maya(CGBase):
             version = self.check_version1(self.cg_file)
         version = str(version)
         self.version = str(version)
-        self.version_str = "{} {}".format(self.name, version)
+        self.version_str = "{0} {1}".format(self.name, version)
         # 用版本找安装路径
         location = self.location_from_reg(version)
         exe_path = self.exe_path_from_location(os.path.join(location, "bin"), self.exe_name)
@@ -194,7 +194,7 @@ class Maya(CGBase):
         # 外层的int为了兼容py2
         cg_version = str(int(math.floor(int(cg_version))))
         cg_name = software_config["cg_name"]
-        self.log.debug("cg_name={}, cg_version={}".format(cg_name, cg_version))
+        self.log.debug("cg_name={0}, cg_version={1}".format(cg_name, cg_version))
         if cg_name.capitalize() != self.name.capitalize() and cg_version != self.version:
             self.tips.add(tips_code.cg_notmatch, self.version_str)
             self.tips.save()

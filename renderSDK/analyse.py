@@ -31,7 +31,7 @@ class RayvisionAnalyse(object):
     def init(self):
         cg_file = self._cg_file
         if not os.path.exists(cg_file):
-            raise RayvisionError(1000000, "Cg file does not exist: {}".format(self._cg_file))
+            raise RayvisionError(1000000, "Cg file does not exist: {0}".format(self._cg_file))
 
         types = {
             ".max": "Max",

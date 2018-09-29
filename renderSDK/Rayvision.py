@@ -51,7 +51,7 @@ class Rayvision(object):
         
         # init log
         self.G_SDK_LOG = SDK_LOG
-        sdk_log_filename = 'run_{}.log'.format(format_time('%Y%m%d'))
+        sdk_log_filename = 'run_{0}.log'.format(format_time('%Y%m%d'))
         sdk_log_path = os.path.join(workspace, 'log', 'sdk', sdk_log_filename)
         self._init_log(self.G_SDK_LOG, sdk_log_path)
         self.G_SDK_LOG.info('='*50)
@@ -75,14 +75,14 @@ class Rayvision(object):
         # 如果log_dir路径为文件，则在日志文件夹名后加timestamp
         if os.path.exists(log_dir):
             if not os.path.isdir(log_dir):
-                log_dir = '{}{}'.format(log_dir, format_time())
+                log_dir = '{0}{1}'.format(log_dir, format_time())
 
         if not os.path.exists(log_dir):
             os.makedirs(log_dir)
 
         # 如果log_path路径为文件夹，则在日志文件名后加timestamp
         if os.path.isdir(log_path):
-            log_dir = '{}{}'.format(log_path, format_time())
+            log_dir = '{0}{1}'.format(log_path, format_time())
         
         log_obj.setLevel(logging.DEBUG)
         # FileHandler
@@ -120,7 +120,7 @@ class Rayvision(object):
             key_underline = hump2underline(key)  # 变量名：驼峰转下划线
             self._user_info[key_underline] = value
             
-        self.G_SDK_LOG.info('USER INFO:{}'.format(self._user_info))
+        self.G_SDK_LOG.info('USER INFO:{0}'.format(self._user_info))
         
         self.G_SDK_LOG.info('[Rayvision.login.end.....]')
         return True
@@ -144,11 +144,11 @@ class Rayvision(object):
         
         self.G_SDK_LOG.info('INPUT:')
         self.G_SDK_LOG.info('='*20)
-        self.G_SDK_LOG.info('cg_name:{}'.format(cg_name))
-        self.G_SDK_LOG.info('cg_version:{}'.format(cg_version))
-        self.G_SDK_LOG.info('plugin_config:{}'.format(plugin_config))
-        self.G_SDK_LOG.info('edit_name:{}'.format(edit_name))
-        self.G_SDK_LOG.info('label_name:{}'.format(label_name))
+        self.G_SDK_LOG.info('cg_name:{0}'.format(cg_name))
+        self.G_SDK_LOG.info('cg_version:{0}'.format(cg_version))
+        self.G_SDK_LOG.info('plugin_config:{0}'.format(plugin_config))
+        self.G_SDK_LOG.info('edit_name:{0}'.format(edit_name))
+        self.G_SDK_LOG.info('label_name:{0}'.format(label_name))
         self.G_SDK_LOG.info('='*20)
         
         # 初始化作业所需的变量
@@ -165,7 +165,7 @@ class Rayvision(object):
         job_id = str(self._api_obj.create_task().get(r'taskIdList', [''])[0])
         if job_id == '':
             raise RayvisionError(1000000, r'Failed to create task number!')  # 创建任务号失败
-        self.G_SDK_LOG.info('JOB ID:{}'.format(job_id))
+        self.G_SDK_LOG.info('JOB ID:{0}'.format(job_id))
         
         # 实例化RayvisionJob对象
         self._job_info = RayvisionJob(self._user_info, job_id)
@@ -226,8 +226,8 @@ class Rayvision(object):
         
         self.G_SDK_LOG.info('INPUT:')
         self.G_SDK_LOG.info('='*20)
-        self.G_SDK_LOG.info('cg_file:{}'.format(cg_file))
-        self.G_SDK_LOG.info('project_dir:{}'.format(project_dir))
+        self.G_SDK_LOG.info('cg_file:{0}'.format(cg_file))
+        self.G_SDK_LOG.info('project_dir:{0}'.format(project_dir))
         self.G_SDK_LOG.info('='*20)
         
         self.is_analyse = True
@@ -246,7 +246,7 @@ class Rayvision(object):
                 start_frame = layer_dict['common']['start']
                 end_frame = layer_dict['common']['end']
                 by_frame = layer_dict['common']['by_frame']
-                frames = '{}-{}[{}]'.format(start_frame, end_frame, by_frame)
+                frames = '{0}-{1}[{2}]'.format(start_frame, end_frame, by_frame)
                 scene_info_data[layer_name]['common']['frames'] = frames
         
         self._job_info._task_info['scene_info_render'] = scene_info_data
@@ -271,7 +271,7 @@ class Rayvision(object):
                         self.errors_number += 1
                     self.error_warn_info_list.append(code_info)
 
-        self.G_SDK_LOG.info('error_warn_info_list:{}'.format(self.error_warn_info_list))
+        self.G_SDK_LOG.info('error_warn_info_list:{0}'.format(self.error_warn_info_list))
         return self.error_warn_info_list
 
 
@@ -284,8 +284,8 @@ class Rayvision(object):
         """
         self.G_SDK_LOG.info('INPUT:')
         self.G_SDK_LOG.info('='*20)
-        self.G_SDK_LOG.info('scene_info_render:{}'.format(scene_info_render))
-        self.G_SDK_LOG.info('task_info:{}'.format(task_info))
+        self.G_SDK_LOG.info('scene_info_render:{0}'.format(scene_info_render))
+        self.G_SDK_LOG.info('task_info:{0}'.format(task_info))
         self.G_SDK_LOG.info('='*20)
         
         if scene_info_render is not None:
@@ -364,8 +364,8 @@ class Rayvision(object):
         """
         self.G_SDK_LOG.info('INPUT:')
         self.G_SDK_LOG.info('='*20)
-        self.G_SDK_LOG.info('job_id_list:{}'.format(job_id_list))
-        self.G_SDK_LOG.info('local_dir:{}'.format(local_dir))
+        self.G_SDK_LOG.info('job_id_list:{0}'.format(job_id_list))
+        self.G_SDK_LOG.info('local_dir:{0}'.format(local_dir))
         self.G_SDK_LOG.info('='*20)
         
         for job_id in job_id_list:

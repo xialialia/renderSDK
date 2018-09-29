@@ -209,7 +209,7 @@ class Max(CGBase):
         # 使用 exe 对 max 文件分析, 得出使用的软件的版本.
         exe_name = "GetMaxProperty.exe"
         path = os.path.abspath(os.path.join(os.path.abspath(__file__), "../../../tool/max"))
-        cmd = '{} "{}"'.format(
+        cmd = '{0} "{1}"'.format(
             os.path.join(path, exe_name),
             cg_file,
         )
@@ -247,13 +247,13 @@ class Max(CGBase):
                 #
                 if file_version > 9:
                     cg_version = str(int(file_version) + 1998)
-                self.log.debug("file_version={}, type={}".format(file_version, type(file_version)))
-                self.log.debug("cg_version={}, type={}".format(cg_version, type(cg_version)))
+                self.log.debug("file_version={0}, type={1}".format(file_version, type(file_version)))
+                self.log.debug("cg_version={0}, type={1}".format(cg_version, type(cg_version)))
                 break
         if file_version is None or cg_version is None:
             raise MaxDamageError(error9900_max_damage)
 
-        self.log.debug("cg_version={}, file_version={}".format(cg_version, file_version))
+        self.log.debug("cg_version={0}, file_version={1}".format(cg_version, file_version))
 
         d = dict(
             cg_version=cg_version,
@@ -279,7 +279,7 @@ class Max(CGBase):
             self.tips.add(tips_code.cginfo_failed)
             self.tips.save()
             raise RayvisionError("get max info failed")
-        self.log.debug("vray={}".format(vray))
+        self.log.debug("vray={0}".format(vray))
         return vray
 
     def _find_max_version(self, string):
@@ -424,10 +424,10 @@ analyse_main  cg_file:"{cg_file}" task_json:"{task_json}" asset_json:"{asset_jso
 
             k = k.lower()
             func = handle_funcs.get(k, None)
-            self.log.info("handle key: {}".format(k))
+            self.log.info("handle key: {0}".format(k))
             if func is not None:
                 l = func(asset_json[k], self.cg_file, self.task_json)
-                self.log.info("handle result: {}".format(l))
+                self.log.info("handle result: {0}".format(l))
                 upload_json["asset"].append(l)
 
         return upload_json
@@ -473,7 +473,7 @@ analyse_main  cg_file:"{cg_file}" task_json:"{task_json}" asset_json:"{asset_jso
                              '2012_3.40.02_1.1.09c', '2012_3.40.02_1.1.09d', '2012_3.40.02_1.2.0.3',
                              '2012_3.50.03_1.1.09c', '2012_3.50.03_1.1.09d', '2012_3.50.03_1.2.0.3',
                              '2012_2.30.01_1.1.09d']
-        str_a = "{}_{}_{}".format(max, plugin1, plugin2)
+        str_a = "{0}_{1}_{2}".format(max, plugin1, plugin2)
         if str_a in vray_multiscatter:
             return True
         else:
@@ -505,7 +505,7 @@ analyse_main  cg_file:"{cg_file}" task_json:"{task_json}" asset_json:"{asset_jso
 
     def analyse_cg_file(self):
         d = self.get_cg_file_info(self.cg_file)
-        cg_version_str = "{} {}".format(self.name, d["cg_version"])
+        cg_version_str = "{0} {1}".format(self.name, d["cg_version"])
         self.version = d["cg_version"]
         self.version_str = cg_version_str
         self.file_version = d["file_version"]
@@ -555,16 +555,16 @@ analyse_main  cg_file:"{cg_file}" task_json:"{task_json}" asset_json:"{asset_jso
         now = datetime.datetime.now()
         now = now.strftime("%Y%m%d%H%M%S")
 
-        ms_full_path = os.path.join(self.job_info._work_dir, "Analyse{}.ms".format(now))
+        ms_full_path = os.path.join(self.job_info._work_dir, "Analyse{0}.ms".format(now))
         util.write(ms_full_path, ms)
         #
-        cmd = "\"{}\" -silent -mip -mxs \"filein \\\"{}\\\"\"".format(
+        cmd = "\"{0}\" -silent -mip -mxs \"filein \\\"{1}\\\"\"".format(
             self.exe_path,
             ms_full_path.replace("\\", "/"),
         )
 
         returncode, stdout, stderr = self.cmd.run(cmd, shell=True)
-        self.log.info("returncode: {}".format(returncode))
+        self.log.info("returncode: {0}".format(returncode))
         # 运行成功 返回码不一定为0
         # 通过判断是否生成了json文件判断分析是否成功
         status, msg = self.json_exist()
@@ -582,7 +582,7 @@ analyse_main  cg_file:"{cg_file}" task_json:"{task_json}" asset_json:"{asset_jso
 
         for p in [temp_task_path, asset_path, tips_path]:
             if not os.path.exists(p):
-                msg = "Json file is not generated: {}".format(p)
+                msg = "Json file is not generated: {0}".format(p)
                 return False, msg
         return True, None
 

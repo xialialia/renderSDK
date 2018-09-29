@@ -38,16 +38,16 @@ class Houdini(CGBase):
 
     def location_from_reg(self, version):
         log = self.log
-        version_str = "{} {}".format(self.name, version)
+        version_str = "{0} {1}".format(self.name, version)
 
         location = None
 
-        string = 'SOFTWARE\Side Effects Software\{}'.format(version_str)
+        string = 'SOFTWARE\Side Effects Software\{0}'.format(version_str)
         log.debug(string)
         try:
             handle = _winreg.OpenKey(_winreg.HKEY_LOCAL_MACHINE, string)
             location, type = _winreg.QueryValueEx(handle, "InstallPath")
-            log.debug("{} {}".format(location, type))
+            log.debug("{0} {1}".format(location, type))
 
         except (WindowsError, FileNotFoundError) as e:
             msg = traceback.format_exc()
@@ -97,14 +97,14 @@ class Houdini(CGBase):
             raise CGExeNotExistError(error9899_cgexe_notexist.format(self.name))
 
         self.exe_path = exe_path
-        log.info("exe_path: {}".format(exe_path))
+        log.info("exe_path: {0}".format(exe_path))
 
     def analyse_cg_file(self):
         log = self.log
         version = self.get_save_version(self.cg_file)[0]
-        log.info("version: {}".format(version))
+        log.info("version: {0}".format(version))
         self.version = version
-        self.version_str = "{} {}".format(self.name, version)
+        self.version_str = "{0} {1}".format(self.name, version)
 
         if self.custom_exe_path is not None:
             self.exe_path = self.custom_exe_path
@@ -133,7 +133,7 @@ class Houdini(CGBase):
             tips_path=tips_path,
         )
         returncode, stdout, stderr = self.cmd.run(cmd, shell=True)
-        self.log.info("returncode: {}".format(returncode))
+        self.log.info("returncode: {0}".format(returncode))
         if returncode != 0:
             self.tips.add(tips_code.unknow_err)
             self.tips.save()

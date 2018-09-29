@@ -89,11 +89,11 @@ class RayvisionTransfer(object):
             local_path = RayvisionUtil.str2unicode(cfg_path)
 
             cfg_basename = os.path.basename(cfg_path)
-            server_path = '/{}/cfg/{}'.format(job_id, cfg_basename)
+            server_path = '/{0}/cfg/{1}'.format(job_id, cfg_basename)
             server_path = RayvisionUtil.str2unicode(server_path)
             
             if not os.path.exists(local_path):
-                print('{} is not exists.'.format(local_path))
+                print('{0} is not exists.'.format(local_path))
                 continue
 
             transmit_cmd = u'echo y|"{exe_path}" "{engine_type}" "{server_name}" "{server_ip}" "{server_port}" \
@@ -129,7 +129,7 @@ class RayvisionTransfer(object):
             server_path = file_local_server['server']
             server_path = RayvisionUtil.str2unicode(server_path)
             if not os.path.exists(local_path):
-                print('{} is not exists.'.format(local_path))
+                print('{0} is not exists.'.format(local_path))
                 continue
 
             transmit_cmd = u'echo y|"{exe_path}" "{engine_type}" "{server_name}" "{server_ip}" "{server_port}" \
@@ -160,7 +160,7 @@ class RayvisionTransfer(object):
         
         data = self._api_obj.query_task_info(task_id)
         if data:
-            server_folder = u'/{}_{}'.format(str(task_id), os.path.splitext(data['sceneName'])[0].strip())
+            server_folder = u'/{0}_{1}'.format(str(task_id), os.path.splitext(data['sceneName'])[0].strip())
             transmit_cmd = u'echo y|"{exe_path}" "{engine_type}" "{server_name}" "{server_ip}" "{server_port}" \
                            "{download_id}" "{user_id}" "{transmit_type}" "{local_path}" "{server_path}"'.format(
                 exe_path=self._rayvision_exe,

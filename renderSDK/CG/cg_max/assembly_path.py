@@ -59,14 +59,14 @@ def general_rule_by_re(path, file):
     dirname = os.path.dirname(path)
     basename = os.path.basename(path)
     name, ext = os.path.splitext(basename)
-    pattern = "{}/{}*{}".format(dirname, name, ext)
+    pattern = "{0}/{1}*{2}".format(dirname, name, ext)
     result = glob.glob(pattern)
     if len(result) > 0:
         return result
 
     # 2）如果1）不存在，再判断max文件夹是否存在此文件
     file_path = os.path.dirname(file)
-    pattern = "{}/{}*{}".format(file_path, name, ext)
+    pattern = "{0}/{1}*{2}".format(file_path, name, ext)
     result = glob.glob(pattern)
     if len(result) > 0:
         return result
@@ -77,7 +77,7 @@ def general_rule_by_re(path, file):
     # 贴图的上一级目录的名字
     parent_name = os.path.split(parent_path)[-1]
     new_path = os.path.join(file_path, parent_name)
-    pattern = "{}/{}*{}".format(new_path, name, ext)
+    pattern = "{0}/{1}*{2}".format(new_path, name, ext)
     result = glob.glob(pattern)
     if len(result) > 0:
         return result
@@ -144,9 +144,9 @@ def _point_cache_rule(path, file):
     basename = os.path.basename(path)
     name, ext = os.path.splitext(basename)
     if ext == ".xml":
-        pattern = "{}/{}*{}".format(dirname, name, ".mc")
+        pattern = "{0}/{1}*{2}".format(dirname, name, ".mc")
     elif ext == ".mcx":
-        pattern = "{}/{}*{}".format(dirname, name, ".mcx")
+        pattern = "{0}/{1}*{2}".format(dirname, name, ".mcx")
     else:
         return None
     result = glob.glob(pattern)
@@ -155,7 +155,7 @@ def _point_cache_rule(path, file):
 
     # 2）如果1）不存在，再判断max文件夹是否存在此文件
     file_path = os.path.dirname(file)
-    pattern = "{}/{}*{}".format(file_path, name, ext)
+    pattern = "{0}/{1}*{2}".format(file_path, name, ext)
     result = glob.glob(pattern)
     if len(result) > 0:
         return result
@@ -166,7 +166,7 @@ def _point_cache_rule(path, file):
     # 贴图的上一级目录的名字
     parent_name = os.path.split(parent_path)[-1]
     new_path = os.path.join(file_path, parent_name)
-    pattern = "{}/{}*{}".format(new_path, name, ext)
+    pattern = "{0}/{1}*{2}".format(new_path, name, ext)
     result = glob.glob(pattern)
     if len(result) > 0:
         return result

@@ -11,7 +11,7 @@ class RayvisionError(Exception):
         self.error = error
 
     def __str__(self):
-        return 'RayvisionError: {}: {}'.format(self.error_code, self.error)
+        return 'RayvisionError: {0}: {1}'.format(self.error_code, self.error)
 
     __repr__ = __str__
 
@@ -27,7 +27,7 @@ class APIError(RayvisionError):
         self.request = request
 
     def __str__(self):
-        return 'APIError: {}: {}, request: {}'.format(self.error_code, self.error, self.request)
+        return 'APIError: {0}: {1}, request: {2}'.format(self.error_code, self.error, self.request)
 
     __repr__ = __str__
 

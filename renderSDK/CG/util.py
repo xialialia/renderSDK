@@ -33,7 +33,7 @@ def open_ini(path):
             return parse
         except (UnicodeDecodeError, UnicodeError) as e:
             if i == len(encodings) - 1:
-                raise Exception("can't load {}\n{}".format(path, e))
+                raise Exception("can't load {0}\n{1}".format(path, e))
             continue
 
 

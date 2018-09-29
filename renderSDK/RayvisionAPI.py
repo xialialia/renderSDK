@@ -261,7 +261,7 @@ class RayvisionAPI(object):
         :return:
         :rtype: dict/List/None
         """
-        url = r'{}{}'.format(self._protocol_domain, api_uri)
+        url = r'{0}{1}'.format(self._protocol_domain, api_uri)
         
         headers = copy.deepcopy(self._headers)
         headers['UTCTimestamp'] = self._generate_UTCTimestamp()
@@ -275,9 +275,9 @@ class RayvisionAPI(object):
         http_body = json.dumps(data)
         
         if self.need_log:
-            self.log_obj('POST: {}'.format(url))
-            self.log_obj('HTTP Headers: {}'.format(http_headers))
-            self.log_obj('HTTP Body: {}'.format(http_body))
+            self.log_obj('POST: {0}'.format(url))
+            self.log_obj('HTTP Headers: {0}'.format(http_headers))
+            self.log_obj('HTTP Body: {0}'.format(http_body))
         
         request = urllib2.Request(url, data=http_body.encode('utf-8'), headers=headers)
         
@@ -290,7 +290,7 @@ class RayvisionAPI(object):
         content = response.read().decode('utf-8')
         r = json.loads(content)
         if self.need_log:
-            self.log_obj('HTTP Response: {}'.format(r))
+            self.log_obj('HTTP Response: {0}'.format(r))
 
         return_code = r.get('code', -1)
         return_message = r.get('message', 'No message!!!')

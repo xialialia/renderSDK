@@ -137,8 +137,8 @@ def decorator_use_in_class(log_obj=None):
         
     def wrapper(f):
         def _wrapper(self, *args, **kwargs):
-            log_info_start = r'[{}.{}.start.....]'.format(self.__class__.__name__, f.__name__)
-            log_info_end = r'[{}.{}.end.....]'.format(self.__class__.__name__, f.__name__)
+            log_info_start = r'[{0}.{1}.start.....]'.format(self.__class__.__name__, f.__name__)
+            log_info_end = r'[{0}.{1}.end.....]'.format(self.__class__.__name__, f.__name__)
             log(log_info_start)
             out = f(self,*args, **kwargs)
             log(log_info_end)
@@ -156,7 +156,7 @@ def run_cmd(cmd_str, my_shell=True, log_obj=None):
     Run cmd.
     """
     if log_obj is not None:
-        log_obj.info(u'cmd...{}'.format(str2unicode(cmd_str)))
+        log_obj.info(u'cmd...{0}'.format(str2unicode(cmd_str)))
         
     cmdp = subprocess.Popen(cmd_str, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, shell=my_shell)
 

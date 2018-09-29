@@ -48,7 +48,7 @@ class C4D(CGBase):
         pass
 
     def location_from_reg(self, version):
-        version_str = "{} {}".format(self.name, version)
+        version_str = "{0} {1}".format(self.name, version)
 
         location = None
 
@@ -57,7 +57,7 @@ class C4D(CGBase):
         try:
             handle = _winreg.OpenKey(_winreg.HKEY_LOCAL_MACHINE, string)
             location, type = _winreg.QueryValueEx(handle, "InstallPath")
-            log.info("{} {}".format(location, type))
+            log.info("{0} {1}".format(location, type))
 
         except FileNotFoundError as e:
             msg = traceback.format_exc()
@@ -75,7 +75,7 @@ class C4D(CGBase):
             version = self.check_version1(self.cg_file)
         version = str(version)
         self.version = str(version)
-        self.version_str = "{} {}".format("C4D", version)
+        self.version_str = "{0} {1}".format("C4D", version)
 
         location = self.location_from_reg(version)
         exe_path = self.exe_path_from_location(os.path.join(location, "bin"), self.exe_name)

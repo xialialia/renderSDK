@@ -38,13 +38,13 @@ class CGBase(object):
         # handle `user_input`
         user_id = self.job_info._task_info["task_info"]["user_id"]
         user_parent_id = int(user_id) // 500 * 500
-        self.user_input = "{}/{}".format(user_parent_id, user_id)
+        self.user_input = "{0}/{1}".format(user_parent_id, user_id)
 
         self.log = None
         self.init_logging()
 
     def __repr__(self):
-        return "\n".join(['{}={}'.format(k, v) for k, v in self.__dict__.items()])
+        return "\n".join(['{0}={1}'.format(k, v) for k, v in self.__dict__.items()])
 
     def init_logging(self):
         log_path = self.job_info._log_dir
@@ -142,7 +142,7 @@ class CGBase(object):
                 break
             except Exception as e:
                 if index == len(encodings) - 1:
-                    self.log.error("error load: {}\n{}".format(json_path, traceback.format_exc()))
+                    self.log.error("error load: {0}\n{1}".format(json_path, traceback.format_exc()))
                 d = {}
                 continue
                 
@@ -166,6 +166,6 @@ class CGBase(object):
 
         for p in [task_path, asset_path, tips_path]:
             if not os.path.exists(p):
-                msg = "Json file is not generated: {}".format(p)
+                msg = "Json file is not generated: {0}".format(p)
                 return False, msg
         return True, None
