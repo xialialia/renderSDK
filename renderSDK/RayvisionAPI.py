@@ -282,7 +282,7 @@ class RayvisionAPI(object):
         request = urllib2.Request(url, data=http_body.encode('utf-8'), headers=headers)
         
         try:
-            response = urllib2.urlopen(request, timeout=5)
+            response = urllib2.urlopen(request, timeout=18)
         except Exception as e:
             return_message = e
             raise APIError(400, return_message, url)  # Bad request

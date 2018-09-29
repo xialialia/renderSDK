@@ -157,7 +157,7 @@ class Maya(CGBase):
             try:
                 handle = _winreg.OpenKey(_winreg.HKEY_LOCAL_MACHINE, string)
                 location, type = _winreg.QueryValueEx(handle, "MAYA_INSTALL_LOCATION")
-                self.log.debug(location, type)
+                self.log.debug('localtion:{0}, type:{1}'.format(location, type))
                 break
             except (WindowsError, FileNotFoundError) as e:
                 self.log.debug(traceback.format_exc())

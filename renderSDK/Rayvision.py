@@ -232,7 +232,10 @@ class Rayvision(object):
         
         self.is_analyse = True
         # 传self.job_info过去，直接修改job_info
-        self._job_info._task_info['task_info']['input_cg_file'] = cg_file
+        self._job_info._task_info['task_info']['input_cg_file'] = cg_file.replace('\\', '/')
+        self._job_info._task_info['task_info']['scenefile'] = cg_file.replace('\\', '/')  # debug 20180929
+        self._job_info._task_info['task_info']['cgfile'] = cg_file.replace('\\', '/')  # debug 20180929
+        self._job_info._task_info['task_info']['original_cg_file'] = cg_file.replace('\\', '/')  # debug 20180929
         if project_dir is not None:
             self._job_info._task_info['task_info']['input_project_path'] = project_dir
             
@@ -297,15 +300,17 @@ class Rayvision(object):
             modifiable_param = [
                 'frames_per_task',  # 一机渲多帧的帧数量
                 'test_frames',  # 优先渲染
-                'time_out',  # 超时时间
+                'job_stop_time',  # 小任务超时停止，单位秒。默认8小时
+                'task_stop_time',  # 大任务超时停止，单位秒。默认24小时
+                'time_out',  # 超时时间，变黄。单位秒。默认12小时
                 'stop_after_test',  # 优先渲染完成后是否暂停任务,1:优先渲染完成后暂停任务 2.优先渲染完成后不暂停任务
-                'is_split_render',  # 是否开启分块渲染 1开启
-                'split_tiles',  # 分块数量
-                'is_layer_rendering',  # maya是否开启分层
-                'is_distribute_render',  # 是否开启分布式渲染
+                'tiles_type',  # "block(分块),strip(分条)"
+                'tiles',  # 分块数量 大于1就分块或者分条 等于1 就是单机
+                'is_layer_rendering',  # maya是否开启分层。"0":关闭 "1":开启
+                'is_distribute_render',  # 是否开启分布式渲染。"0":关闭 "1":开启
                 'distribute_render_node',  # 分布式渲染机器数
                 'input_project_path',  # 工程目录路径
-                'render_layer_type'  # 渲染层类型
+                'render_layer_type'  # 渲染层类型。"0"：renderlayer方式；"1"：rendersetup方式
             ]  # 可修改的参数列表
             for key, value in task_info.items():
                 if key in modifiable_param:

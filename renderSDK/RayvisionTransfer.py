@@ -52,8 +52,10 @@ class RayvisionTransfer(object):
 
         if self._platform == '2':
             key_second_half = 'www2'
-        elif self._platform == '8':
-            key_second_half = 'www8'
+        elif self._platform == '3':
+            key_second_half = 'www3'
+        elif self._platform == '4':
+            key_second_half = 'www3'
         elif self._platform == '9':
             key_second_half = 'www9'
         elif self._platform == '20':  # pic
@@ -67,6 +69,9 @@ class RayvisionTransfer(object):
             key = key_second_half
         else:
             key = '%s_%s' % (key_first_half, key_second_half)
+            
+        if 'test' in self._domain_name:
+            key = '%s_%s' % (key, 'test')
 
         with codecs.open(self._transports_json, 'r', 'utf-8') as f:
             transports_info = json.load(f)

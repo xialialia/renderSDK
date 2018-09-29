@@ -11,6 +11,12 @@
         "server_ip":"45.251.92.2",
         "server_port":"33001"
     },
+    "renderbus_www2_test":{
+        "engine_type":"rayvision",
+        "server_name":"MAIN",
+        "server_ip":"42.123.110.47",
+        "server_port":"8885"
+    },
     "foxrenderfarm_www3": {
         "engine_type":"aspera",
         "server_name":"CTCC",
@@ -78,6 +84,12 @@
         "server_port":"33001"
     },
     "renderbus_pic":{
+        "engine_type":"rayvision",
+        "server_name":"MAIN",
+        "server_ip":"pic-main.renderbus.com",
+        "server_port":"8885"
+    },
+    "renderbus_pic_test":{
         "engine_type":"rayvision",
         "server_name":"MAIN",
         "server_ip":"42.123.110.47",
