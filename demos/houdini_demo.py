@@ -28,6 +28,6 @@ task_info_new = task_info
 rayvision.submit_job(scene_info_render_new, task_info_new)
 
 # 8.下载
-# rayvision.download(job_id='5134', local_dir=r"d:\project\output")
+# rayvision.download(job_id_list=[370274], local_dir=r"d:\project\output")
 
 

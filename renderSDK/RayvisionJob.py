@@ -45,7 +45,7 @@ class RayvisionJob(object):
                 'test_frames': '000',  # 优先渲染
                 'job_stop_time': '28800',  # 小任务超时停止，单位秒。默认8小时
                 'task_stop_time': '86400',  # 大任务超时停止，单位秒。默认24小时
-                'time_out': '43200',  # 超时时间，变黄。单位秒。默认12小时
+                'time_out': '12',  # 超时时间，变黄。单位小时。默认12小时
                 'stop_after_test': '2',  # 优先渲染完成后是否暂停任务,1:优先渲染完成后暂停任务 2.优先渲染完成后不暂停任务
                 'project_name': '',  # 项目名称
                 'project_id': '',  # 项目id

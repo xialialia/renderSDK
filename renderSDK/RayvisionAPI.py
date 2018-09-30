@@ -663,3 +663,5 @@ class RayvisionAPI(object):
         return r_data
         
         
+if __name__ == '__main__':
+    pass

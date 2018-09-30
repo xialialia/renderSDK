@@ -233,9 +233,9 @@ class Rayvision(object):
         self.is_analyse = True
         # 传self.job_info过去，直接修改job_info
         self._job_info._task_info['task_info']['input_cg_file'] = cg_file.replace('\\', '/')
-        self._job_info._task_info['task_info']['scenefile'] = cg_file.replace('\\', '/')  # debug 20180929
-        self._job_info._task_info['task_info']['cgfile'] = cg_file.replace('\\', '/')  # debug 20180929
-        self._job_info._task_info['task_info']['original_cg_file'] = cg_file.replace('\\', '/')  # debug 20180929
+        self._job_info._task_info['task_info']['scenefile'] = cg_file.replace('\\', '/')
+        self._job_info._task_info['task_info']['cgfile'] = cg_file.replace('\\', '/')
+        self._job_info._task_info['task_info']['original_cg_file'] = cg_file.replace('\\', '/')
         if project_dir is not None:
             self._job_info._task_info['task_info']['input_project_path'] = project_dir
             

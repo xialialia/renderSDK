@@ -159,27 +159,35 @@ class RayvisionTransfer(object):
             RayvisionUtil.run_cmd(transmit_cmd, log_obj=self.G_SDK_LOG)
 
     def _download(self, task_id, local_dir, **kwargs):
+        """
+        TODO：多个任务的下载
+        """
         transmit_type = 'download_files'
         
         local_dir = RayvisionUtil.str2unicode(local_dir)
         
-        data = self._api_obj.query_task_info(task_id)
+        task_id_list = []
+        task_id_list.append(int(task_id))
+        
+        data = self._api_obj.query_task_info(task_id_list)
         if data:
-            server_folder = u'/{0}_{1}'.format(str(task_id), os.path.splitext(data['sceneName'])[0].strip())
-            transmit_cmd = u'echo y|"{exe_path}" "{engine_type}" "{server_name}" "{server_ip}" "{server_port}" \
-                           "{download_id}" "{user_id}" "{transmit_type}" "{local_path}" "{server_path}"'.format(
-                exe_path=self._rayvision_exe,
-                engine_type=self._engine_type,
-                server_name=self._server_name,
-                server_ip=self._server_ip,
-                server_port=self._server_port,
-                download_id=self._user_info['output_bid'],
-                user_id=self._user_id,
-                transmit_type=transmit_type,
-                local_path=local_dir,
-                server_path=server_folder,
-            )
-            # print transmit_cmd
-            sys.stdout.flush()
-            # os.system(transmit_cmd.encode(sys.getfilesystemencoding()))
-            RayvisionUtil.run_cmd(transmit_cmd, log_obj=self.G_SDK_LOG)
+            items = data.get('items', [])
+            for task_result_dict in items:
+                server_folder = task_result_dict['outputFileName']
+                transmit_cmd = u'echo y|"{exe_path}" "{engine_type}" "{server_name}" "{server_ip}" "{server_port}" \
+                               "{download_id}" "{user_id}" "{transmit_type}" "{local_path}" "{server_path}"'.format(
+                    exe_path=self._rayvision_exe,
+                    engine_type=self._engine_type,
+                    server_name=self._server_name,
+                    server_ip=self._server_ip,
+                    server_port=self._server_port,
+                    download_id=self._user_info['output_bid'],
+                    user_id=self._user_id,
+                    transmit_type=transmit_type,
+                    local_path=local_dir,
+                    server_path=server_folder,
+                )
+                # print transmit_cmd
+                sys.stdout.flush()
+                # os.system(transmit_cmd.encode(sys.getfilesystemencoding()))
+                RayvisionUtil.run_cmd(transmit_cmd, log_obj=self.G_SDK_LOG)
