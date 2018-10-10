@@ -6,6 +6,7 @@ import logging
 import subprocess
 
 from renderSDK.CG import util
+from renderSDK.compat import *
 
 VERSION = sys.version_info[0]
 logger = logging.getLogger("analyse")
@@ -28,8 +29,8 @@ class Cmd(object):
         # log = print
         log = logger.info
 
-        cmd = self.compatible(cmd)
         log("run command:\n{0}".format(cmd))
+        cmd = self.compatible(cmd)
         p = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=shell)
         stdout, stderr = p.communicate()
         stdout = util.ensure_str(stdout)
@@ -55,7 +56,7 @@ class Cmd(object):
             pass
         else:
             cmd = unicode(cmd)
-            cmd = cmd.encode("gbk")
+            cmd = cmd.encode(sys.getfilesystemencoding())
         return cmd
 
 

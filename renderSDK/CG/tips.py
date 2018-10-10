@@ -7,6 +7,7 @@ import json
 import shutil
 from pprint import pprint
 
+from renderSDK.compat import *
 from renderSDK.CG import util
 
 

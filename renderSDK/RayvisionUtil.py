@@ -158,6 +158,10 @@ def run_cmd(cmd_str, my_shell=True, log_obj=None):
     if log_obj is not None:
         log_obj.info(u'cmd...{0}'.format(str2unicode(cmd_str)))
         
+    if is_py2:
+        cmd_str = str2unicode(cmd_str)
+        cmd_str = cmd_str.encode(sys.getfilesystemencoding())
+        
     cmdp = subprocess.Popen(cmd_str, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, shell=my_shell)
 
     while True:

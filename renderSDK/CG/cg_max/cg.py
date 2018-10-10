@@ -15,6 +15,7 @@ except ImportError:
     import winreg as _winreg
 from pprint import pprint
 
+from renderSDK.compat import *
 from renderSDK.CG.cg_base import CGBase
 from renderSDK.CG import util
 from renderSDK.CG import tips_code
@@ -213,7 +214,7 @@ class Max(CGBase):
             os.path.join(path, exe_name),
             cg_file,
         )
-        returncode, stdout, stderr = self.cmd.run(cmd, shell=True, log_output=False)
+        returncode, stdout, stderr = self.cmd.run(cmd, log_output=False)
 
         if returncode != 0:
             self.tips.add(tips_code.cginfo_failed)

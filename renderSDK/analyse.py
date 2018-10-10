@@ -7,6 +7,7 @@ import time
 import traceback
 import argparse
 
+from .compat import *
 from .CG.cg_houdini.cg import Houdini
 from .CG.cg_c4d.cg import C4D
 from .CG.cg_maya.cg import Maya

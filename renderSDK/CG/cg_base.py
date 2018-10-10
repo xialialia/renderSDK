@@ -6,6 +6,7 @@ import time
 import logging
 import traceback
 
+from renderSDK.compat import *
 from renderSDK.CG import util
 from renderSDK.CG import tips_code
 from renderSDK.CG.tips import Tips

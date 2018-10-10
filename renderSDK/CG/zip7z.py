@@ -1,6 +1,7 @@
 # -*-coding: utf-8 -*-
 import os
 
+from renderSDK.compat import *
 from renderSDK.CG.cmd import Cmd
 
 
