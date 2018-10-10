@@ -382,17 +382,6 @@ class Rayvision(object):
             return_message = r'There are {0} errors. error_warn_info_list:{1}'.format(self.errors_number, self.error_warn_info_list)
             raise RayvisionError(1000000, return_message)  # 分析完成有错误
 
-    @decorator_use_in_class(SDK_LOG)
-    def get_rendering_list(self, page_size=20, page_num=1):
-        return self._manage_job_obj._get_rendering_list(page_size, page_num)
-        
-    @decorator_use_in_class(SDK_LOG)
-    def search_job(self, search_word="", page_size=20, page_num=1):
-        return self._manage_job_obj._search_job(search_word, page_size, page_num)
-        
-    @decorator_use_in_class(SDK_LOG)
-    def get_job_status(self, job_id, page_size=20, page_num=1):
-        return self._manage_job_obj._get_job_info(job_id, page_size, page_num)
 
 
     
