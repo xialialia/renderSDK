@@ -32,7 +32,7 @@ B --> E
 E --> F(下载)
 ```
 
-![flow_chart](../image/flow_chart_cn.png)
+![flow_chart](../images/flow_chart_cn.png)
 
 ### 三、示例代码
 

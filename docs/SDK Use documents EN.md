@@ -30,7 +30,7 @@ B --> E
 E --> F(Download)
 ```
 
-![flow_chart](../image/flow_chart_en.png)
+![flow_chart](../images/flow_chart_en.png)
 
 ### 3: Sample code
 
