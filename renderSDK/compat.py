@@ -15,7 +15,10 @@ _py_ver = sys.version_info
 is_py2 = (_py_ver[0] == 2)
 is_py3 = (_py_ver[0] == 3)
 
-if is_py2:
+if is_py2:    
+    reload(sys)
+    sys.setdefaultencoding('utf-8')
+    
     from urllib import quote as urlquote, unquote as urlunquote
     from urlparse import urlparse
     import urllib2

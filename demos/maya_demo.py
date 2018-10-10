@@ -11,7 +11,7 @@ from renderSDK.Rayvision import Rayvision
 
 # 1.登录
 rayvision = Rayvision(domain_name='test.renderbus.com', platform='2', access_id='AKIDz8krbsJ5yKBZQpn74WFkmLPx3EXAMPPP', access_key='Gu5t9xGARNpq86cd98joQYCN3EXAMPLEXX', workspace='c:/renderfarm/sdk_test')
-"""
+
 # 2.设置作业配置（插件配置、所属项目）
 rayvision.set_render_env(cg_name='Maya', cg_version='2016', plugin_config={}, label_name='dasdd')
 
@@ -26,6 +26,6 @@ scene_info_render_new = scene_info_render
 task_info_new = task_info
 
 rayvision.submit_job(scene_info_render_new, task_info_new)
-"""
+
 # 8.下载
-rayvision.download(job_id_list=[370271], local_dir=r"d:\project\output")
+# rayvision.download(job_id_list=[370271], local_dir=r"d:\project\output")

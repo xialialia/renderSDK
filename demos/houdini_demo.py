@@ -13,10 +13,10 @@ from renderSDK.Rayvision import Rayvision
 rayvision = Rayvision(domain_name='test.renderbus.com', platform='2', access_id='AKIDz8krbsJ5yKBZQpn74WFkmLPx3EXAMPPP', access_key='Gu5t9xGARNpq86cd98joQYCN3EXAMPLEXX', workspace='c:/renderfarm/sdk_test')
 
 # 2.设置作业配置（插件配置、所属项目）
-rayvision.set_render_env(cg_name='Houdini', cg_version='15.0.301', plugin_config={}, label_name='dasdd')
+rayvision.set_render_env(cg_name='Houdini', cg_version='16.5.268', plugin_config={}, label_name='dasdd')
 
 # 3.分析
-scene_info_render, task_info = rayvision.analyse(cg_file=r'D:\gitlab\renderSDK\scenes\untitled_15.0.301.hip', software_path=r'D:\plugins\houdini\150301\bin\hython.exe')
+scene_info_render, task_info = rayvision.analyse(cg_file=r'D:\gitlab\renderSDK\scenes\houdini_test\sphere.hip', software_path=r'D:\plugins\houdini\165268\bin\hython.exe')
 
 # 4.用户自行处理错误、警告
 error_info_list = rayvision.check_error_warn_info()
