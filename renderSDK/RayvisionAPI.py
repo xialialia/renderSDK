@@ -351,7 +351,7 @@ class RayvisionAPI(object):
         r_data = self._post(api_uri, data)
         return r_data
         
-    def create_task(self, count=1, out_user_id=None):
+    def create_task(self, count=1, out_user_id=100001):  # TK test
         """
         创建任务号
         :param int count: 创建任务号数量

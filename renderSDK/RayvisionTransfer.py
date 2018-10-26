@@ -101,9 +101,9 @@ class RayvisionTransfer(object):
                 print('{0} is not exists.'.format(local_path))
                 continue
 
-            transmit_cmd = u'echo y|"{exe_path}" "{engine_type}" "{server_name}" "{server_ip}" "{server_port}" \
-            "{storage_id}" "{user_id}" "{transmit_type}" "{local_path}" "{server_path}" "{max_connect_failure_count}" \
-            "{keep_path}"'.format(
+            transmit_cmd = u'echo y|"{exe_path}" "{engine_type}" "{server_name}" "{server_ip}" "{server_port}" ' \
+            '"{storage_id}" "{user_id}" "{transmit_type}" "{local_path}" "{server_path}" "{max_connect_failure_count}" ' \
+            '"{keep_path}"'.format(
                 exe_path=self._rayvision_exe,
                 engine_type=self._engine_type,
                 server_name=self._server_name,
@@ -137,9 +137,9 @@ class RayvisionTransfer(object):
                 print('{0} is not exists.'.format(local_path))
                 continue
 
-            transmit_cmd = u'echo y|"{exe_path}" "{engine_type}" "{server_name}" "{server_ip}" "{server_port}" \
-            "{storage_id}" "{user_id}" "{transmit_type}" "{local_path}" "{server_path}" "{max_connect_failure_count}" \
-            "{keep_path}"'.format(
+            transmit_cmd = u'echo y|"{exe_path}" "{engine_type}" "{server_name}" "{server_ip}" "{server_port}" ' \
+            '"{storage_id}" "{user_id}" "{transmit_type}" "{local_path}" "{server_path}" "{max_connect_failure_count}" ' \
+            '"{keep_path}"'.format(
                 exe_path=self._rayvision_exe,
                 engine_type=self._engine_type,
                 server_name=self._server_name,
@@ -174,8 +174,8 @@ class RayvisionTransfer(object):
             items = data.get('items', [])
             for task_result_dict in items:
                 server_folder = task_result_dict['outputFileName']
-                transmit_cmd = u'echo y|"{exe_path}" "{engine_type}" "{server_name}" "{server_ip}" "{server_port}" \
-                               "{download_id}" "{user_id}" "{transmit_type}" "{local_path}" "{server_path}"'.format(
+                transmit_cmd = u'echo y|"{exe_path}" "{engine_type}" "{server_name}" "{server_ip}" "{server_port}" ' \
+                               '"{download_id}" "{user_id}" "{transmit_type}" "{local_path}" "{server_path}" '.format(
                     exe_path=self._rayvision_exe,
                     engine_type=self._engine_type,
                     server_name=self._server_name,
