@@ -71,13 +71,18 @@
 ```
 
 **task.json参数解析**
+
+
 参数 | 类型 | 说明 | 示例
 ---|---|---|---
 software_config | object | 渲染环境（软件类型、版本和用到的插件等） | [见software_config对象解析](#software_config)
 task_info | object | 渲染设置（优先帧、渲染帧数、超时时间等） | [见task_info对象解析](#task_info)
 scene_info_render | object | 场景的分析结果（场景中的渲染节点、输出路径等） | [见scene_info_render对象解析](#scene_info_render)
 
+
 **<span id="software_config">software_config对象解析</span>**
+
+
 参数 | 类型 | 说明 | 示例
 ---|---|---|---
 cg_name | string | 软件名称 | "Katana"
