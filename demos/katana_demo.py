@@ -47,16 +47,26 @@ if not os.path.exists(tips_json_path):
         json.dump(rayvision._job_info._tips_info, f_tips_json, ensure_ascii=False, indent=4)
         
 scene_info_render_new = {
-    "rendernodes":{
-        "001_005_Render":{
-            "renderable":"1",
-            "denoise":"0",
-            "frames":"1-1[1]",
-            "aov":{
-                "specular":"/w/aovs/specular_1001.exr",
-                "diffuse":"/w/aovs/diffuse_1001.exr",
-                "primary":"/w/aovs/beauty_1001.exr"
-            }
+    "rendernodes": {
+        "001_005_Render": {
+            "frames": "1-1[1]", 
+            "aov": {
+                "specular": "/w/aovs/specular_1001.exr", 
+                "primary": "/w/aovs/beauty_1001.exr", 
+                "diffuse": "/w/aovs/diffuse_1001.exr"
+            }, 
+            "denoise": "0", 
+            "renderable": "1"
+        }, 
+        "001_005_002_Render": {
+            "frames": "10-100[1]", 
+            "aov": {
+                "specular": "/w/aovs/002_specular_1001.exr", 
+                "primary": "/w/aovs/002_beauty_1001.exr", 
+                "diffuse": "/w/aovs/002_diffuse_1001.exr"
+            }, 
+            "denoise": "0", 
+            "renderable": "1"
         }
     }
 }
