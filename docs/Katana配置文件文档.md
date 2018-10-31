@@ -6,9 +6,13 @@
     
 ### 1.task.json解析
 
+
 说明: 存放场景分析结果、渲染设置等信息
 
+
 **task.json示例**
+
+
 ```json
 {
     "scene_info_render":{
@@ -70,14 +74,20 @@
 }
 ```
 
+
 **task.json参数解析**
+
+
 参数 | 类型 | 说明 | 示例
 ---|---|---|---
 software_config | object | 渲染环境（软件类型、版本和用到的插件等） | [见software_config对象解析](#software_config)
 task_info | object | 渲染设置（优先帧、渲染帧数、超时时间等） | [见task_info对象解析](#task_info)
 scene_info_render | object | 场景的分析结果（场景中的渲染节点、输出路径等） | [见scene_info_render对象解析](#scene_info_render)
 
+
 **<span id="software_config">software_config对象解析</span>**
+
+
 参数 | 类型 | 说明 | 示例
 ---|---|---|---
 cg_name | string | 软件名称 | "Katana"
@@ -86,6 +96,8 @@ plugins | object | 插件对象。<br>key为插件名称，value为插件版本 
 
 
 **<span id="task_info">task_info对象解析</span>**
+
+
 参数 | 类型 | 说明 | 示例
 ---|---|---|---
 pre_frames | string | 优先渲染 | "000:1,3-4[1]" 表示：<br>优先渲染首帧：否<br>优先渲染中间帧：否<br>优先渲染末帧：否<br>优先渲染自定义帧：1,3-4[1]
@@ -102,18 +114,26 @@ stop_after_test | string | 优先渲染完成后是否暂停任务<br>"1":优先
 input_cg_file | string | 渲染场景本地路径 | 
 os_name | string | 渲染操作系统, "0":Linux; "1": Windows | "0"
 
+
 **<span id="scene_info_render">scene_info_render对象解析</span>**
+
+
 参数 | 类型 | 说明 | 示例
 ---|---|---|---
 rendernodes | object | 渲染节点信息 | [见scene_info_render.rendernodes对象解析](#scene_info_render.rendernodes)
 
+
 **<span id="scene_info_render.rendernodes">scene_info_render.rendernodes对象解析</span>**
+
+
 参数 | 类型 | 说明 | 示例
 ---|---|---|---
 rendernodes | object | 所有节点信息，key为具体节点名，value为具体节点信息 | [见scene_info_render.rendernodes.rendernode对象解析](#scene_info_render.rendernodes.rendernode)
 
 
 **<span id="scene_info_render.rendernodes.rendernode">scene_info_render.rendernodes.rendernode对象解析</span>**
+
+
 参数 | 类型 | 说明 | 示例
 ---|---|---|---
 frames | string | 节点的渲染帧。<br>"1-200[1]"表示起始帧为1，结束帧为200，帧间隔为1；<br>"1,7,11,100"表示渲染第1、7、11、100帧 | "1-200[1]"
@@ -124,7 +144,9 @@ renderable | string | 是否渲染当前节点，默认值为1 |
 
 ### 2.upload.json解析
 
+
 说明: 存放需要上传的资产路径信息
+
 
 **upload.json示例**
 ```json
@@ -138,12 +160,18 @@ renderable | string | 是否渲染当前节点，默认值为1 |
 }
 ```
 
+
 **upload.json参数解析**
+
+
 参数 | 类型 | 说明 | 示例
 ---|---|---|---
 asset | object | 需要上传的资产路径信息 | [见asset对象解析](#asset)
 
+
 **<span id="asset">asset对象解析</span>**
+
+
 参数 | 类型 | 说明 | 示例
 ---|---|---|---
 server | string | 服务器端相对路径，一般与local保持一致 | "/root/chensr/renderSDK/scenes/001_005_test.katana"
@@ -152,8 +180,11 @@ local | string | 资产本地路径 | "/root/chensr/renderSDK/scenes/001_005_tes
 
 ### 3.tips.json解析
 
+
 说明: 存放分析出的错误、警告信息
+
 
 ```json
 {}
 ```
+
