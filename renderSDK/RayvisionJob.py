@@ -42,7 +42,7 @@ class RayvisionJob(object):
                 'is_picture': '0',  # 是否渲染效果图。0: False, 1: True
                 'task_id': self._job_id,  # 作业id
                 'frames_per_task': '1',  # 一机渲多帧的帧数量
-                'test_frames': '000',  # 优先渲染
+                'pre_frames': '000',  # 优先渲染
                 'job_stop_time': '28800',  # 小任务超时停止，单位秒。默认8小时
                 'task_stop_time': '86400',  # 大任务超时停止，单位秒。默认24小时
                 'time_out': '12',  # 超时时间，变黄。单位小时。默认12小时
@@ -59,7 +59,8 @@ class RayvisionJob(object):
                 'distribute_render_node': '3',  # 分布式渲染机器数
                 'input_project_path':'',  # 项目路径，如未设置传空字符串
                 'render_layer_type':'0',  # 渲染层方式选择。"0"：renderlayer方式；"1"：rendersetup方式
-                'user_id': user_info['user_id']  # 用户ID
+                'user_id': user_info['user_id'],  # 用户ID
+                'os_name': '1'  # 渲染系统类型。"0": Linux;  "1": Windows
             },
             'software_config': {},
             'scene_info': {},

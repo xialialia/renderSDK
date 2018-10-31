@@ -8,10 +8,13 @@ import traceback
 import argparse
 
 from .compat import *
-from .CG.cg_houdini.cg import Houdini
-from .CG.cg_c4d.cg import C4D
-from .CG.cg_maya.cg import Maya
-from .CG.cg_max.cg import Max
+
+if sys.platform.startswith('win'):
+    from .CG.cg_houdini.cg import Houdini
+    from .CG.cg_c4d.cg import C4D
+    from .CG.cg_maya.cg import Maya
+    from .CG.cg_max.cg import Max
+    
 from .RayvisionException import RayvisionError
 
 basedir = os.path.abspath(os.path.dirname(__file__))

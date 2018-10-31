@@ -4,19 +4,19 @@
 import sys
 import os
 
-# ½«×îÍâ²ãrenderSDKÄ¿Â¼¼ÓÈëpythonµÄËÑË÷Ä£¿éµÄÂ·¾¶¼¯
+# å°†æœ€å¤–å±‚renderSDKç›®å½•åŠ å…¥pythonçš„æœç´¢æ¨¡å—çš„è·¯å¾„é›†
 renderSDK_path = r'D:\gitlab\renderSDK'
 sys.path.append(renderSDK_path)
 
 from renderSDK.RayvisionAPI import RayvisionAPI
 
-access_id = r'xxx'
-access_key = r'xxx'
-domain_name = r'task.renderbus.com'
+access_id = r'AKIDz8krbsJ5yKBZQpn74WFkmLPx3EXAMPPP'
+access_key = r'Gu5t9xGARNpq86cd98joQYCN3EXAMPLEXX'
+domain_name = r'test.renderbus.com'
 platform = '2'
 
 rayvision = RayvisionAPI(domain_name, platform, access_id, access_key, log_obj=True)
-r_data = rayvision.query_platforms()
+r_data = rayvision.query_supported_plugin(2016)
 print(r_data)
 
 

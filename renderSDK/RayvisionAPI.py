@@ -17,10 +17,13 @@ import hmac
 import base64
 import copy
 import collections
+import ssl
 from numbers import Number
 
 from .RayvisionException import APIError
 from .RayvisionUtil import print_sth
+
+ssl._create_default_https_context = ssl._create_unverified_context
 
 class RayvisionAPI(object):
     def __init__(self, domain_name, platform, access_id, access_key, log_obj=None):
@@ -351,7 +354,7 @@ class RayvisionAPI(object):
         r_data = self._post(api_uri, data)
         return r_data
         
-    def create_task(self, count=1, out_user_id=100001):  # TK test
+    def create_task(self, count=1, out_user_id=None):
         """
         创建任务号
         :param int count: 创建任务号数量
