@@ -21,4 +21,7 @@
 
 ### 注意事项
 - 支持中文：3ds Max
-- 不支持中文：Maya, Houdini
+- 不支持中文：Maya, Houdini, Katana
+
+- 支持Windows：Maya, Houdini, 3ds Max
+- 支持Linux: Katana
