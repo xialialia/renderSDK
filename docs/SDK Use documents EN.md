@@ -9,6 +9,7 @@
 - [x] Maya
 - [x] 3ds Max
 - [x] Houdini
+- [x] Katana
     
 ### 2: RenderSDK user guide
 **Attention：**

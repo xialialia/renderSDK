@@ -1,26 +1,33 @@
 ## <center> Python Rener SDK(本地分析版) </center>
 
+
 ### 一、了解RenderSDK
-    我们提供了一个简单的基于Python的RenderSDK来使用我们的云渲染服务。
+    我们提供了一个基于Python的RenderSDK来使用我们的云渲染服务。
     这是Fox Render Farm / Renderbus RD&TD团队维护的官方RenderSDK。
     SDK已经通过python2.7.10和python3.4.4测试。
+    
     
 #### 支持的软件
 - [x] Maya
 - [x] 3ds Max
 - [x] Houdini
+- [x] Katana
     
 
 ### 二、使用RenderSDK
 
+
 **注意：**
+
 
     1.您必须有一个瑞云账号
     2.您需要申请使用RenderSDK，获取access_id和access_key用以认证
     3.下载RenderSDK
     4.根据使用流程提交作业（可参考demos）
 
+    
 **使用流程：**
+
 
 ```
 graph TD
@@ -32,9 +39,12 @@ B --> E
 E --> F(下载)
 ```
 
+
 ![flow_chart](../images/flow_chart_cn.png)
 
+
 ### 三、示例代码
+
 
 ```
 #!/usr/bin/env python
@@ -72,6 +82,7 @@ rayvision.submit_job(scene_info_render_new, task_info_new)
 
 ```
 
+
 ```
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
@@ -99,7 +110,9 @@ rayvision.submit_job(scene_info_render_new, task_info_new)
 # rayvision.download(job_id_list=[370271], local_dir=r"d:\project\output")
 ```
 
+
 ### 四、方法解析
+
 
 ---
 
