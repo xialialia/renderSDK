@@ -33,10 +33,10 @@ def cmp(a, b):
 
 # TODO
 """
-待完善:tips.add() tips.save()
-exception tips_code 还有其他条件
+To be improved: tips.add() tips.save()
+Exception tips_code and other conditions
 
-判断路径和文件名是否过长 
+Determine if the path and file name are too long
 """
 
 
@@ -70,9 +70,9 @@ class Max(CGBase):
 
     def location_from_reg(self, bit, file_version):
         """
-        从注册表中读取 3dsmax.exe 所在目录
-        :param bit: 位
-        :param file_version: 从 cg 文件中读取到的版本
+        Read the directory where 3dsmax.exe is located from the registry
+        :param bit: bit
+        :param file_version: the version read from the cg file
         :return:
         """
         location = None
@@ -111,7 +111,7 @@ class Max(CGBase):
 
     def location_from_env(self, bit, cg_version_str):
         """
-        从环境变量中找安装路径
+        Find the installation path from the environment variable
         # ADSK_3DSMAX_x64_2012    C:\Program Files\Autodesk\3ds Max 2012\
         # ADSK_3DSMAX_x64_2014    C:\Program Files\Autodesk\3ds Max 2014\
         """
@@ -126,7 +126,7 @@ class Max(CGBase):
 
     def exe_path_with_hardcode(self):
         """
-        找的默认安装位置
+        Find the default installation location
         :return:
         """
         driver_max_list = ['c:', 'd:', 'e:', 'f:']
@@ -138,7 +138,7 @@ class Max(CGBase):
 
     def exe_path_from_ftype(self):
         """
-        用 windows 命令行 ftype 查找
+        Use the windows command line ftype to find
         :return:
         """
         startupinfo = subprocess.STARTUPINFO()
@@ -160,11 +160,11 @@ class Max(CGBase):
         """
         etc. cg_version = 16
         cg_version_str = 3ds Max 2016
-        软件年份(2016)跟 文件版本 相差 2
-        比如 文件版本 = 13.00
-        max 版本就是 2011
+        Software year (2016) differs from file version 2
+        For example file version = 13.00
+        The max version is 2011
 
-        赋值:
+        Assignment:
         self.version
         self.version_str
         self.exe_path
@@ -200,14 +200,14 @@ class Max(CGBase):
 
     def get_cg_file_info(self, cg_file):
         """
-        file_version 是从 GetMaxProperty.exe 解析得到, cg_version 是根据 file_version 计算得到.
+        File_version is parsed from GetMaxProperty.exe and cg_version is computed from file_version.
         :param cg_file:
         :return: (cg_version :str, file_version :int)
 
-        赋值:
+        Assignment:
         self.vray
         """
-        # 使用 exe 对 max 文件分析, 得出使用的软件的版本.
+        # Use exe to parse the max file and get the version of the software used.
         exe_name = "GetMaxProperty.exe"
         path = os.path.abspath(os.path.join(os.path.abspath(__file__), "../../../tool/max"))
         cmd = '{0} "{1}"'.format(
@@ -221,7 +221,7 @@ class Max(CGBase):
             self.tips.save()
             raise RayvisionError("Load max info fail")
 
-        # TODO 如果有用到其他(除vray外) parse_lines 需要修复
+        # TODO if useful to others (except vray) parse_lines need to be fixed
         lines = stdout.splitlines()
         lines = [line for line in lines if line]
         stdout1 = "\n".join(lines)
@@ -229,10 +229,10 @@ class Max(CGBase):
         # info = self.parse_lines(lines)
         # pprint(info)
 
-        # Max 的 Vray 版本在这里赋值
+        
         vray_version = self._find_vray_version(stdout)
 
-        # 兼容中文或其他...
+        # Compatible Chinese or other...
         patterns = [
             r"3ds Max Version: (\d+\.\d+)",
             r"3ds Max 版本: (\d+\.\d+)",
@@ -321,7 +321,7 @@ class Max(CGBase):
                         d[now].append(line)
                     except AttributeError as e:
                         # traceback.print_exc()
-                        d[now][line] = None  # 预防 "Uncompressed"
+                        d[now][line] = None  # Avoid "Uncompressed"
                     continue
 
                 # if "&" in line:
@@ -334,7 +334,7 @@ class Max(CGBase):
                 #             print(333, d[now])
                 #             print(now, k, v)
                 #             print(type(now), type(k), type(v))
-                #             # d[now] 有时是一个列表
+                #             # d[now] sometimes is a list
                 #             d[now][k] = v.split(",")
                 #         else:
                 #             d[now][k] = v
@@ -391,9 +391,9 @@ analyse_main  cg_file:"{cg_file}" task_json:"{task_json}" asset_json:"{asset_jso
 
     def assemble_upload_json(self, asset_json, zip_result_dict):
         """
-        组装 upload.json,
-        1. 处理 max 的压缩文件 .7z
-        2. 处理 asset.json 的其他资产
+        Assembling upload.json,
+        1. Process max compressed files .7z
+        2. Process other assets of asset.json
         upload.json format:
         {
             "asset":[
@@ -410,7 +410,7 @@ analyse_main  cg_file:"{cg_file}" task_json:"{task_json}" asset_json:"{asset_jso
         """
         upload_json = {"asset": []}
 
-        # 先处理 .max 的压缩文件, {xxx.max: xxx.max.7z, xxx.max: xxx.max.7z,}
+        # Process the compressed file of .max first, {xxx.max: xxx.max.7z, xxx.max: xxx.max.7z,}
         for local_path, zip_path in zip_result_dict.items():
             d = {}
             d["local"] = zip_path.replace("\\", "/")
@@ -418,7 +418,7 @@ analyse_main  cg_file:"{cg_file}" task_json:"{task_json}" asset_json:"{asset_jso
             d["server"] = util.convert_path("", local_path + ".7z")
             upload_json["asset"].append(d)
 
-        # 处理 asset.json 里面的其他资产
+        # Process Other assets in asset.json
         for k, v in asset_json.items():
             if "missing" in k.lower():
                 continue
@@ -481,7 +481,7 @@ analyse_main  cg_file:"{cg_file}" task_json:"{task_json}" asset_json:"{asset_jso
             return False
 
     # def kill(self, parent_id):
-    #     """暂时没用"""
+    #     """Temporarily not used"""
     #     log.debug("kill max")
     #     cmd_str = 'wmic process where name="3dsmax.exe" get Caption,Parent_process_id,Process_id'
     #     p = subprocess.Popen(cmd_str, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
@@ -540,7 +540,7 @@ analyse_main  cg_file:"{cg_file}" task_json:"{task_json}" asset_json:"{asset_jso
         ms_path = os.path.abspath(os.path.dirname(__file__))
         cg_file = self.cg_file
         task_json = self.job_info._task_json_path
-        # 临时temp 的task.json
+        # Temporarily temp task.json
         temp_task_json = os.path.join(os.path.dirname(task_json), self.temp_task_json_name)
         asset_json = self.job_info._asset_json_path
         tips_json = self.job_info._tips_json_path
@@ -566,8 +566,8 @@ analyse_main  cg_file:"{cg_file}" task_json:"{task_json}" asset_json:"{asset_jso
 
         returncode, stdout, stderr = self.cmd.run(cmd, shell=True)
         self.log.info("returncode: {0}".format(returncode))
-        # 运行成功 返回码不一定为0
-        # 通过判断是否生成了json文件判断分析是否成功
+        # Run successfully The return code is not necessarily 0
+        # Determine whether the analysis is successful by judging whether a json file is generated.
         status, msg = self.json_exist()
         if status is False:
             self.tips.add(tips_code.unknow_err, msg)
@@ -575,7 +575,7 @@ analyse_main  cg_file:"{cg_file}" task_json:"{task_json}" asset_json:"{asset_jso
             raise AnalyseFailError(msg)
 
     def json_exist(self):
-        """如果没有生成 json 文件, 判断分析失败"""
+        """If the json file is not generated, the analysis fails."""
         task_path = self.job_info._task_json_path
         temp_task_path = os.path.join(os.path.dirname(task_path), self.temp_task_json_name)
         asset_path = self.job_info._asset_json_path
@@ -598,13 +598,13 @@ analyse_main  cg_file:"{cg_file}" task_json:"{task_json}" asset_json:"{asset_jso
         asset_json = self.json_load(asset_path, encodings=encodings)
         tips_json = self.json_load(tips_path, encodings=encodings)
 
-        # 把 temp_task.json 的内容增加到 task.json 并写成文件
+        # Add the contents of temp_task.json to task.json and write it as a file
         task_json = self.job_info._task_info
-        # 直接 update 替换
+        # Directory update the replacement
         task_json.update(temp_task_json)
         util.json_save(task_path, task_json, ensure_ascii=False)
 
-        # 因软件出的 json 带 BOM, 需要转成不带 BOM
+        # json contains BOM, need to be converted to non-contain BOM
         util.json_save(asset_path, asset_json, ensure_ascii=False)
         util.json_save(tips_path, tips_json, ensure_ascii=False)
 
@@ -627,19 +627,19 @@ analyse_main  cg_file:"{cg_file}" task_json:"{task_json}" asset_json:"{asset_jso
             self.job_info._task_info = task_json
 
     def handle_analyse_result(self):
-        # 取出 zip 列表压缩
+        # Remove zip list compression
         asset_json = self.asset_json
         key = "zip"
         if key in asset_json:
             maxs = asset_json[key]
             assert type(maxs) == list
-            # 压缩 .max 文件, 得到压缩后的路径列表
+            # Compress .max file, get the compressed path list
             zip_result_dict = self.zip_max(maxs)
         else:
             zip_result_dict = {}
         asset_json.pop(key)
 
-        # 把 包括 max.zip 的全路径 和 asset.json 里面应该上传的路径 组装 upload.json
+        # Assemble the full path including max.zip and the path that should be uploaded in asset.json to upload.json
         upload_json = self.assemble_upload_json(asset_json, zip_result_dict)
         self.upload_json = upload_json
         self.job_info._upload_info = upload_json
@@ -648,22 +648,22 @@ analyse_main  cg_file:"{cg_file}" task_json:"{task_json}" asset_json:"{asset_jso
     def run(self):
         # run a custom script if exists
         self.pre_analyse_custom_script()
-        # 获取场景信息
+        # Get scene information
         self.analyse_cg_file()
-        # 基本校验（项目配置的版本和场景版本是否匹配等）
+        # Basic check (whether the version of the project configuration and the version of the scenario match, etc.)
         self.valid()
-        # 把 job_info.task_info dump 成文件
+        # Set job_info.task_info dump into a file
         self.dump_task_json()
-        # 运行CMD启动分析（通过配置信息找CG所在路径,CG所在路径可定制）
+        # Run CMD startup analysis (find the path of CG through configuration information, the path of CG can be customized)
         self.analyse()
-        # 把分析结果的三个json读进内存
+        # Read the three json of the analysis result into memory
         self.load_output_json()
-        # 把 vray 版本写入 task.json
+        # Write the vray version to task.json
         self.write_vray()
-        # 写任务配置文件（定制信息，独立的上传清单）, 压缩特定文件（压缩文件，上传路径，删除路径）
+        # Write task configuration file (custom information, independent upload list), compress specific files (compress files, upload path, delete path)
         self.handle_analyse_result()
 
-        # 开发时使用
+        # Used for developing
         if VERSION == 3:
             self.log.debug(self)
         else:

@@ -162,7 +162,7 @@ class Houdini(CGBase):
                 d["server"] = server
                 upload_asset.append(d)
 
-        # 把 cg 文件加入 upload.json
+        # handle upload.json
         upload_asset.append({
             "local": self.cg_file.replace("\\", "/"),
             "server": util.convert_path("", self.cg_file)
@@ -183,19 +183,19 @@ class Houdini(CGBase):
     def run(self):
         # run a custom script if exists
         self.pre_analyse_custom_script()
-        # 获取场景信息
+        # Get scene information
         self.analyse_cg_file()
-        # 基本校验（项目配置的版本和场景版本是否匹配等）
+        # Basic check (whether the version of the project configuration and the version of the scenario match, etc.)
         self.valid()
-        # 把 job_info._task_info dump 成文件
+        # Set job_info.task_info dump into a file
         self.dump_task_json()
-        # 运行CMD启动分析（通过配置信息找CG所在路径,CG所在路径可定制）
+        # Run CMD startup analysis (find the path of CG through configuration information, the path of CG can be customized)
         self.analyse()
-        # 把分析结果的三个json读进内存
+        # Read the three json of the analysis result into memory
         self.load_output_json()
-        # 写任务配置文件（定制信息，独立的上传清单）, 压缩特定文件（压缩文件，上传路径，删除路径）
+        #Write task configuration file (custom information, independent upload list), compress specific files (compress files, upload path, delete path)
         self.handle_analyse_result()
-        # 把 cg_file 和 cg_id 写进 task_info
+        # Write cg_file and cg_id to task_info
         self.write_cg_path()
 
         self.log.info("analyse end.")

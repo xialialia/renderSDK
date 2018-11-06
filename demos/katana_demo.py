@@ -3,74 +3,53 @@
 
 import os
 import sys
-import json
-import codecs
 
-# 将最外层renderSDK目录加入python的搜索模块的路径集
+# Add renderSDK path to sys.path
 renderSDK_path = r'/root/chensr/renderSDK'
 sys.path.append(renderSDK_path)
 
 from renderSDK.Rayvision import Rayvision
 
-workspace='/root/chensr/renderSDK/sdk_test'
+workspace=r'/root/chensr/renderSDK/sdk_test'
 
-# 1.登录
-rayvision = Rayvision(domain_name='test.renderbus.com', platform='2', access_id='AKIDz8krbsJ5yKBZQpn74WFkmLPx3EXAMPPP', access_key='Gu5t9xGARNpq86cd98joQYCN3EXAMPLEXX', workspace=workspace)
+# 1.Log in
+rayvision = Rayvision(domain_name='task.foxrenderfarm.com', platform='2', access_id='xxx', access_key='xxx', workspace=workspace)
 
-# 2.设置渲染环境（插件配置、所属项目）
-rayvision.set_render_env(cg_name='Katana', cg_version='2.5v3', plugin_config={}, label_name='dasdd')
+# 2.Set up rendering environment(plug-in configuration, project name）
+job_id = rayvision.set_render_env(cg_name='Katana', cg_version='2.6v3', plugin_config={}, label_name='dasdd')
 
-# 3.设置参数，并提交作业
-rayvision._job_info._task_info['task_info']['input_cg_file'] = r'/root/chensr/renderSDK/scenes/001_005_test.katana'
-rayvision._job_info._task_info['task_info']['os_name'] = '0'  # Linux
-# rayvision._job_info._task_info['task_info']['input_project_path'] = r''
-
-# write upload.json
-rayvision._job_info._upload_info = {
-  "asset": [
-    {
-      "server": "/root/chensr/renderSDK/scenes/001_005_test.katana",
-      "local": "/root/chensr/renderSDK/scenes/001_005_test.katana"
-    }
-  ]
-}
-
-upload_json_path = rayvision._job_info._upload_json_path
-if not os.path.exists(upload_json_path):
-    with codecs.open(upload_json_path, 'w', 'utf-8') as f_upload_json:
-        json.dump(rayvision._job_info._upload_info, f_upload_json, ensure_ascii=False, indent=4)
-
-# write tips.json
-tips_json_path = rayvision._job_info._tips_json_path
-if not os.path.exists(tips_json_path):
-    with codecs.open(tips_json_path, 'w', 'utf-8') as f_tips_json:
-        json.dump(rayvision._job_info._tips_info, f_tips_json, ensure_ascii=False, indent=4)
-        
-scene_info_render_new = {
+# 3.Set up render parameter
+scene_info_render = {
     "rendernodes": {
         "001_005_Render": {
             "frames": "1-1[1]", 
             "aov": {
-                "specular": "/w/aovs/specular_1001.exr", 
-                "primary": "/w/aovs/beauty_1001.exr", 
-                "diffuse": "/w/aovs/diffuse_1001.exr"
+                "specular": "/w/aovs/specular_1.exr", 
+                "diffuse": "/w/aovs/diffuse_1.exr", 
+                "primary": "/w/aovs/beauty_1.exr"
             }, 
-            "denoise": "0", 
-            "renderable": "1"
-        }, 
-        "001_005_002_Render": {
-            "frames": "10-100[1]", 
-            "aov": {
-                "specular": "/w/aovs/002_specular_1001.exr", 
-                "primary": "/w/aovs/002_beauty_1001.exr", 
-                "diffuse": "/w/aovs/002_diffuse_1001.exr"
-            }, 
-            "denoise": "0", 
-            "renderable": "1"
+            "renderable": "1", 
+            "denoise": "0"
         }
     }
 }
-rayvision.submit_job(scene_info_render_new)
 
-# 6.下载
+task_info = {
+    'input_cg_file': r'/root/chensr/renderSDK/scenes/001_005_test.katana',
+    'os_name': '0'  # Linux
+}
+
+upload_info = {
+    "asset": [
+        {
+            "local": "/root/chensr/renderSDK/scenes/001_005_test.katana", 
+            "server": "/root/chensr/renderSDK/scenes/001_005_test.katana"
+        }
+    ]
+}
+
+# 4.Submit job
+rayvision.submit_job(scene_info_render, task_info, upload_info)
+
+# 5.Download
 # rayvision.download(job_id_list=[370271], local_dir=r"d:\project\output")

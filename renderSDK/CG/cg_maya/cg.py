@@ -48,7 +48,7 @@ print(analyse_cmd)
 """
 
 """
-界面渲染, 需要封装maya Analyze.py 的函数.
+Interface rendering, you need to seal the maya Analyze.py functions.
 """
 
 VERSION = sys.version_info[0]
@@ -74,7 +74,7 @@ class Maya(CGBase):
             raise FileNameContainsChineseError
 
     def check_version(self, cg_file):
-        """check_version 的 python3 版本"""
+        """Python3 version of check_version"""
         result = None
         if cg_file.endswith(".ma"):
             infos = []
@@ -111,7 +111,7 @@ class Maya(CGBase):
         return result
 
     def check_version1(self, cg_file):
-        """check_version 的 python2 版本"""
+        """Python2 version of check_version"""
         result = None
         if cg_file.endswith(".ma"):
             infos = []
@@ -169,7 +169,7 @@ class Maya(CGBase):
         super(Maya, self).pre_analyse_custom_script()
 
     def analyse_cg_file(self):
-        # 从cg文件找版本
+        #Find the version from the cg file
         if VERSION == 3:
             version = self.check_version(self.cg_file)
         else:
@@ -177,7 +177,7 @@ class Maya(CGBase):
         version = str(version)
         self.version = str(version)
         self.version_str = "{0} {1}".format(self.name, version)
-        # 用版本找安装路径
+        # Find the installation path with the version
         location = self.location_from_reg(version)
         exe_path = self.exe_path_from_location(os.path.join(location, "bin"), self.exe_name)
         if exe_path is None:
@@ -190,8 +190,8 @@ class Maya(CGBase):
     def valid(self):
         software_config = self.job_info._task_info["software_config"]
         cg_version = software_config["cg_version"]
-        # 如果遇到.5的版本, 视为整数版本
-        # 外层的int为了兼容py2
+        # If you find a version of .5, consider it an integer version
+        # outer int for compatibility with py2
         cg_version = str(int(math.floor(int(cg_version))))
         cg_name = software_config["cg_name"]
         self.log.debug("cg_name={0}, cg_version={1}".format(cg_name, cg_version))
@@ -238,7 +238,7 @@ class Maya(CGBase):
             self.tips.save()
             raise AnalyseFailError
 
-        # 通过判断是否生成了json文件判断分析是否成功
+        # Determine whether the analysis is successful by determining whether a json file is generated.
         status, msg = self.json_exist()
         if status is False:
             self.tips.add(tips_code.unknow_err, msg)
@@ -265,7 +265,7 @@ class Maya(CGBase):
                 d["server"] = server
                 upload_asset.append(d)
 
-        # 把 cg 文件加入 upload.json
+        # Add the cg file to upload.json
         upload_asset.append({
             "local": self.cg_file.replace("\\", "/"),
             "server": util.convert_path("", self.cg_file)
@@ -285,26 +285,26 @@ class Maya(CGBase):
 
     def run(self):
         # run a custom script if exists
-        # 分析前置定制脚本（配置环境，指定对应的BAT/SH）
+        # Analyze pre-custom scripts (configuration environment, specify the corresponding BAT/SH)
         self.pre_analyse_custom_script()
-        # 获取场景信息
+        #Get scene information
         self.analyse_cg_file()
-        # 基本校验（项目配置的版本和场景版本是否匹配等）
+        # Basic check (whether the version of the project configuration and the version of the scenario match, etc.)
         self.valid()
-        # 把 job_info.task_info dump 成文件
+        # Set job_info.task_info dump into a file
         self.dump_task_json()
-        # 运行CMD启动分析（通过配置信息找CG所在路径,CG所在路径可定制）
+        # Run CMD startup analysis (find the path of CG through configuration information, the path of CG can be customized)
         self.analyse()
-        # 把分析结果的三个json读进内存
+        # Read the three json of the analysis result into memory
         self.load_output_json()
-        # 写任务配置文件（定制信息，独立的上传清单）, 压缩特定文件（压缩文件，上传路径，删除路径）
+        #Write task configuration file (custom information, independent upload list), compress specific files (compress files, upload path, delete path)
         self.handle_analyse_result()
-        # 把 cg_file 和 cg_id 写进 task_info
+        # Write cg_file and cg_id to task_info
         self.write_cg_path()
 
         self.log.info("analyse end.")
 
     def run1(self):
-        """临时测试用"""
+        """Temporary test"""
         # self.analyse_cg_file()
         self.location_from_reg(version="2016")

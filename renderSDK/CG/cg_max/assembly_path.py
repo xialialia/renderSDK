@@ -11,8 +11,7 @@ from pprint import pprint
 from renderSDK.CG.util import convert_path
 
 """
-收集资产规则
-http://10.60.96.133:8090/pages/viewpage.action?pageId=4490825
+Collecting assets rules
 """
 
 
@@ -28,22 +27,22 @@ def ensure_str(string):
 def general_rule(path, file):
     """通用规则"""
     assert os.path.isabs(path) is True
-    # 1）根据所给的路径，判断是否存在
+    # 1) According to the given path, check the existance
     if os.path.exists(path):
         return path
 
-    # 2）如果1）不存在，再判断max文件夹是否存在此文件
+    # 2) If 1) does not exist, then judge whether the max folder exists in this file.
     file_path = os.path.dirname(file)
-    # 该贴图名字
+    # The map name
     filename = os.path.basename(path)
     new_path = os.path.join(file_path, filename)
     if os.path.exists(new_path):
         return path
 
-    # 3）如果1）2）不存在，则根据所给路径最底层的文件，查找max文件所在的路径此文件夹下，对应的文件是否存在。
-    # 找上一级目录
+    # 3) If 1) 2) do not exist, according to the underlying file of the given path, find whether the corresponding file exists in the path of folder that contains max file 
+    # Find the parent directory
     parent_path = os.path.abspath(os.path.dirname(path))
-    # 上一级目录的名字
+    # Name of the parent directory
     parent_name = os.path.split(parent_path)[-1]
     new_path = os.path.join(file_path, parent_name, filename)
     if os.path.exists(new_path):
@@ -55,7 +54,7 @@ def general_rule(path, file):
 def general_rule_by_re(path, file):
     """"""
     assert os.path.isabs(path) is True
-    # 1）根据所给的路径，判断是否存在
+    # 1) According to the given path, check the existance
     dirname = os.path.dirname(path)
     basename = os.path.basename(path)
     name, ext = os.path.splitext(basename)
@@ -64,17 +63,17 @@ def general_rule_by_re(path, file):
     if len(result) > 0:
         return result
 
-    # 2）如果1）不存在，再判断max文件夹是否存在此文件
+    # 2) If 1) does not exist, then check whether the max folder exists in this file.
     file_path = os.path.dirname(file)
     pattern = "{0}/{1}*{2}".format(file_path, name, ext)
     result = glob.glob(pattern)
     if len(result) > 0:
         return result
 
-    # 3）如果1）2）不存在，则根据所给路径最底层的文件，查找max文件所在的路径此文件夹下，对应的文件是否存在。
-    # 贴图的上一级目录
+    # 3) If 1) 2) do not exist, according to the underlying file of the given path, find whether the corresponding file exists in the path of folder that contains max file 
+    # Find the parent directory of map
     parent_path = os.path.abspath(os.path.dirname(path))
-    # 贴图的上一级目录的名字
+    # The name of the directory of the map
     parent_name = os.path.split(parent_path)[-1]
     new_path = os.path.join(file_path, parent_name)
     pattern = "{0}/{1}*{2}".format(new_path, name, ext)
@@ -86,16 +85,16 @@ def general_rule_by_re(path, file):
 
 
 def _ifl_rule(path, file):
-    # 1）根据所给的路径，判断是否存在
-    # 如果 path 不是绝对路径 视为不存在, 要走下面
+    # 1) According to the given path, check the existance
+    # If path is not an absolute path, it is considered to be non-existent
     if not os.path.isabs(path):
         pass
     elif os.path.exists(path):
         return path
 
-    # 2）如果1）不存在，再判断max文件夹是否存在此文件
+    # 2) If 1) does not exist, then check whether the max folder exists in this file.
     file_path = os.path.dirname(file)
-    # 该贴图名字
+    # The map name
     filename = os.path.basename(path)
     new_path = os.path.join(file_path, filename)
     if os.path.exists(new_path):
@@ -120,10 +119,10 @@ def _handle_ifl(ifl_path, cg_file):
         ext = os.path.splitext(line)[-1]
         l = ext.split(" ")
         if len(l) > 1:
-            # 路径后面带数字 `f:/kk/bb/ag11c_00000.jpg 3` 重新赋值
+            # Attached the numbers to the path `f:/kk/bb/ag11c_00000.jpg 3` Re-assignment
             line = line.replace(l[1], "").strip()
         path = line
-        # 判断路径是带盘符还是不带盘符, 应用不同规则
+        # Determine whether the path is with or without a drive, and apply to according rules
         r = _ifl_rule(line, ifl_path)
         if r is not None:
             result["exist"].append(r)
@@ -139,7 +138,7 @@ def _handle_ifl(ifl_path, cg_file):
 
 def _point_cache_rule(path, file):
     assert os.path.isabs(path) is True
-    # 1）根据所给的路径，判断是否存在
+    # 1) According to the given path, check the existance
     dirname = os.path.dirname(path)
     basename = os.path.basename(path)
     name, ext = os.path.splitext(basename)
@@ -153,17 +152,17 @@ def _point_cache_rule(path, file):
     if len(result) > 0:
         return result
 
-    # 2）如果1）不存在，再判断max文件夹是否存在此文件
+    # 2) If 1) does not exist, then check whether the max folder exists in this file.
     file_path = os.path.dirname(file)
     pattern = "{0}/{1}*{2}".format(file_path, name, ext)
     result = glob.glob(pattern)
     if len(result) > 0:
         return result
 
-    # 3）如果1）2）不存在，则根据所给路径最底层的文件，查找max文件所在的路径此文件夹下，对应的文件是否存在。
-    # 贴图的上一级目录
+    # 3)  # 3) If 1) 2) do not exist, according to the underlying file of the given path, find whether the corresponding file exists in the path of folder that contains max file 
+    # Find the parent directory of map
     parent_path = os.path.abspath(os.path.dirname(path))
-    # 贴图的上一级目录的名字
+    # The name of the directory of the map
     parent_name = os.path.split(parent_path)[-1]
     new_path = os.path.join(file_path, parent_name)
     pattern = "{0}/{1}*{2}".format(new_path, name, ext)
@@ -181,7 +180,7 @@ def assemble_texture(path_list, cg_file, task_json):
         
         ext = os.path.splitext(path)[-1]
         if ext.lower() == ".ifl":
-            # 找 ifl 文件里的内容 得到贴图序列, 需要额外处理.
+            # Find the contents of the ifl file to get the map sequence,  additional processing needed.
             result = _handle_ifl(path, cg_file)
             exist = result["exist"]
             for p in exist:
@@ -196,7 +195,7 @@ def assemble_texture(path_list, cg_file, task_json):
                 d["server"] = server_path
                 l.append(d)
             else:
-                # 不存在的应该加missing, 后续处理
+                # If the result is none, add missing, and handle it later
                 pass
 
     return l
@@ -288,7 +287,7 @@ handle_funcs = {
 
 
 def test__handle_ifl():
-    # 1. ifl 内容不带路径
+    # 1. ifl content without path
     ifl_path = r"d:\no.ifl"
     cg_file = r"E:\test_find_path\find.max"
     result = _handle_ifl(ifl_path, cg_file)
@@ -296,7 +295,7 @@ def test__handle_ifl():
 
     print("-" * 20)
 
-    # 2. ifl 内容带路径
+    # 2.  ifl content with path
     ifl_path = r"d:\no1.ifl"
     cg_file = r"E:\test_find_path\find.max"
     result = _handle_ifl(ifl_path, cg_file)
