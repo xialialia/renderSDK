@@ -14,24 +14,6 @@ from . import RayvisionUtil
 class RayvisionManageJob(object):
     def __init__(self, api_obj):
         self._api_obj = api_obj
-        self.task_number = 0  # 1 job contains multiple tasks
-        self.task_done_number = 0
-        
-        
-    def is_job_done(self, job_id_list):
-        """
-        Check whether the job is done.
-        :param int job_id_list: [111, 222]
-        :return: True/False
-        :rtype: bool
-        """
-        job_status_list = self.get_job_status(job_id_list)
-        if self.task_done_number > 0 and self.task_done_number == self.task_number:
-            result = True
-        else:
-            result = False
-        return result
-        
         
     def get_job_status(self, job_id_list):
         """
@@ -96,10 +78,6 @@ class RayvisionManageJob(object):
             if int(is_opener) == 1:
                 task_info_list_new = task_info.get('respRenderingTaskList', [])
                 sub_job_status = self._task_info_iterater(task_info_list_new)
-            elif int(is_opener) == 0:
-                self.task_number += 1
-                if int(job_status_code) == 25:  # Done
-                    self.task_done_number += 1
             
             job_status_dict['job_id'] = str(job_id)
             job_status_dict['job_status_code'] = str(job_status_code)

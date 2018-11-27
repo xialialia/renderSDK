@@ -1,0 +1,29 @@
+#!/usr/bin/env python
+# -*- coding:utf-8 -*-
+import sys
+
+# Add renderSDK path to sys.path
+renderSDK_path = r'D:\gitlab\renderSDK'
+sys.path.append(renderSDK_path)
+
+from renderSDK.Rayvision import Rayvision
+
+# 1.Log in
+rayvision = Rayvision(domain_name='task.foxrenderfarm.com', platform='2', access_id='YHLMWoZHoMz51vNVoxnxNA8HBURCzP1o', access_key='3500a75ce65fecbb29db003ca780f7db', workspace='c:/renderfarm/sdk_test')
+
+# 2.Set up rendering environment(plug-in configuration, project name）
+rayvision.set_render_env(cg_name='3ds Max', cg_version='2014', plugin_config={}, label_name='dasdd')
+
+# 3.Analysis
+scene_info_render, task_info = rayvision.analyse(cg_file=r'D:\gitlab\renderSDK\scenes\max2014_vray3.00.03.max')
+
+# 4.User can Manage the errors or warnings manually, if applicable
+error_info_list = rayvision.check_error_warn_info()
+
+# 5.User can modify the parameter list(optional), and then proceed to job submitting
+scene_info_render_new = scene_info_render
+task_info_new = task_info
+rayvision.submit_job(scene_info_render_new, task_info_new)
+
+# 6.Download
+# rayvision.download(job_id_list=[370276], local_dir=r"d:\project\output")
