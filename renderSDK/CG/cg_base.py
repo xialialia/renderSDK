@@ -14,6 +14,7 @@ from renderSDK.CG.cmd import Cmd
 from renderSDK.CG.zip7z import Zip7z
 from renderSDK.CG.exception import *
 from renderSDK.CG.message import *
+from renderSDK.RayvisionUtil import get_os
 
 
 class CGBase(object):
@@ -22,6 +23,7 @@ class CGBase(object):
         self.exe_path = None
         self.version = None
         self.version_str = None
+        self.local_os = get_os()  # windows/linux
         self.cg_file = cg_file
         self.job_info = job_info
         self.cg_id = cg_id

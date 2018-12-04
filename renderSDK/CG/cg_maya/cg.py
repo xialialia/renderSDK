@@ -7,11 +7,6 @@ import sys
 import math
 import traceback
 
-try:
-    import _winreg
-except ImportError:
-    import winreg as _winreg
-
 from renderSDK.CG.cg_base import CGBase
 from renderSDK.CG import util
 from renderSDK.CG import tips_code
@@ -149,6 +144,11 @@ class Maya(CGBase):
 
     def location_from_reg(self, version):
         # for 2013/2013.5, 2016/2016.5
+        try:
+            import _winreg
+        except ImportError:
+            import winreg as _winreg
+            
         versions = (version, "{0}.5".format(version))
         location = None
         for v in versions:
@@ -168,6 +168,18 @@ class Maya(CGBase):
     def pre_analyse_custom_script(self):
         super(Maya, self).pre_analyse_custom_script()
 
+    def find_location(self):
+        log = self.log
+        location = self.location_from_reg(self.version)
+        exe_path = self.exe_path_from_location(os.path.join(location, "bin"), self.exe_name)
+        if exe_path is None:
+            self.tips.add(tips_code.cg_notexists, self.version_str)
+            self.tips.save()
+            raise CGExeNotExistError(error9899_cgexe_notexist.format(self.name))
+
+        self.exe_path = exe_path
+        log.info("exe_path: {0}".format(exe_path))
+        
     def analyse_cg_file(self):
         #Find the version from the cg file
         if VERSION == 3:
@@ -178,14 +190,10 @@ class Maya(CGBase):
         self.version = str(version)
         self.version_str = "{0} {1}".format(self.name, version)
         # Find the installation path with the version
-        location = self.location_from_reg(version)
-        exe_path = self.exe_path_from_location(os.path.join(location, "bin"), self.exe_name)
-        if exe_path is None:
-            self.tips.add(tips_code.cg_notexists, self.version_str)
-            self.tips.save()
-            raise CGExeNotExistError(error9899_cgexe_notexist.format(self.name))
-
-        self.exe_path = exe_path
+        if self.custom_exe_path is not None:
+            self.exe_path = self.custom_exe_path
+        else:
+            self.find_location()
 
     def valid(self):
         software_config = self.job_info._task_info["software_config"]
