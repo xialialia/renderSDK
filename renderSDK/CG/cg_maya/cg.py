@@ -170,8 +170,19 @@ class Maya(CGBase):
 
     def find_location(self):
         log = self.log
-        location = self.location_from_reg(self.version)
-        exe_path = self.exe_path_from_location(os.path.join(location, "bin"), self.exe_name)
+        version = self.version
+        if self.local_os == 'windows':
+            location = self.location_from_reg(version)
+            exe_path = self.exe_path_from_location(os.path.join(location, "bin"), self.exe_name)
+        else:
+            versions = (version, "{0}.5".format(version), "{0}-x64".format(version))
+            for v in versions:
+                exe_path = r'/usr/autodesk/maya{0}/bin/maya'.format(v)
+                if os.path.exists(exe_path):
+                    break
+                else:
+                    exe_path = None
+            
         if exe_path is None:
             self.tips.add(tips_code.cg_notexists, self.version_str)
             self.tips.save()
