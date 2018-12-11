@@ -29,3 +29,7 @@
 
 - Windows supported: Maya, Houdini, 3ds Max, Cinema 4d
 - Linux supported: Katana
+
+
+### Change Log
+[CHANGELOG.md](CHANGELOG.md)
