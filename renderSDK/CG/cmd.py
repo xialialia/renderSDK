@@ -5,8 +5,8 @@ import sys
 import logging
 import subprocess
 
-from renderSDK.CG import util
 from renderSDK.compat import *
+from RayvisionUtil import str2unicode
 
 VERSION = sys.version_info[0]
 logger = logging.getLogger("analyse")
@@ -33,8 +33,8 @@ class Cmd(object):
         cmd = self.compatible(cmd)
         p = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=shell)
         stdout, stderr = p.communicate()
-        stdout = util.ensure_str(stdout)
-        stderr = util.ensure_str(stderr)
+        stdout = str2unicode(stdout)
+        stderr = str2unicode(stderr)
 
         if log_output is True:
             log("stdout:\n{0}".format(stdout))
