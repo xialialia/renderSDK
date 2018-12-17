@@ -6,7 +6,7 @@ import logging
 import subprocess
 
 from renderSDK.compat import *
-from RayvisionUtil import str2unicode
+from renderSDK.RayvisionUtil import str2unicode
 
 VERSION = sys.version_info[0]
 logger = logging.getLogger("analyse")
