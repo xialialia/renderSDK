@@ -9,7 +9,7 @@ sys.path.append(renderSDK_path)
 from renderSDK.Rayvision import Rayvision
 
 # 1.Log in
-rayvision = Rayvision(domain_name='task.foxrenderfarm.com', platform='2', access_id='YHLMWoZHoMz51vNVoxnxNA8HBURCzP1o', access_key='3500a75ce65fecbb29db003ca780f7db', workspace='c:/renderfarm/sdk_test')
+rayvision = Rayvision(domain_name='test.renderbus.com', platform='2', access_id='kz5uwhPULZ2SgosYHL1eJIIBaSgWVkZp', access_key='3a3251ac700db507f806874a68f1fd8a', workspace='c:/renderfarm/sdk_test')
 
 # 2.Set up rendering environment(plug-in configuration, project name）
 rayvision.set_render_env(cg_name='3ds Max', cg_version='2014', plugin_config={}, label_name='dasdd')

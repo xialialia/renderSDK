@@ -3,6 +3,7 @@
 
 import sys
 import os
+import json
 
 # Add renderSDK path to sys.path
 renderSDK_path = r'D:\gitlab\renderSDK'
@@ -10,14 +11,15 @@ sys.path.append(renderSDK_path)
 
 from renderSDK.RayvisionAPI import RayvisionAPI
 
-access_id = r'xxx'
-access_key = r'xxx'
-domain_name = r'task.foxrenderfarm.com'
+access_id = r'YHLMWoZHoMz51vNVoxnxNA8HBURCzP1o'
+access_key = r'3500a75ce65fecbb29db003ca780f7db'
+domain_name = r'task.renderbus.com'
 platform = '2'
 
 rayvision = RayvisionAPI(domain_name, platform, access_id, access_key, log_obj=True)
-r_data = rayvision.query_platforms()
-print(r_data)
+r_data = rayvision.query_task_info([1184471])
+result = json.dumps(r_data, ensure_ascii=False, indent=4)
+print(result)
 
 # r_data = rayvision.query_platforms()
 # r_data = rayvision.query_user_profile()

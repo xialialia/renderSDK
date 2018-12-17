@@ -9,13 +9,13 @@ sys.path.append(renderSDK_path)
 from renderSDK.Rayvision import Rayvision
 
 # 1.Log in
-rayvision = Rayvision(domain_name='task.foxrenderfarm.com', platform='2', access_id='YHLMWoZHoMz51vNVoxnxNA8HBURCzP1o', access_key='3500a75ce65fecbb29db003ca780f7db', workspace='c:/renderfarm/sdk_test')
+rayvision = Rayvision(domain_name='test.renderbus.com', platform='2', access_id='kz5uwhPULZ2SgosYHL1eJIIBaSgWVkZp', access_key='3a3251ac700db507f806874a68f1fd8a', workspace='c:/renderfarm/sdk_test')
 
 # 2.Set up rendering environment(plug-in configuration, project name）
-rayvision.set_render_env(cg_name='Maya', cg_version='2016', plugin_config={}, label_name='dasdd')
+job_id = rayvision.set_render_env(cg_name='Maya', cg_version='2016', plugin_config={}, label_name='dasdd')
 
 # 3.Analysis
-scene_info_render, task_info = rayvision.analyse(cg_file=r'D:\gitlab\renderSDK\scenes\TEST_maya2016_ocean.mb')
+scene_info_render, task_info = rayvision.analyse(cg_file=r'D:\chensr\scene\maya2016_multi_layers_cameras.ma')
 
 # 4. User can Manage the errors or warnings manually, if applicable
 error_info_list = rayvision.check_error_warn_info()
@@ -26,4 +26,5 @@ task_info_new = task_info
 rayvision.submit_job(scene_info_render_new, task_info_new)
 
 # 6.Download
-# rayvision.download(job_id_list=[370271], local_dir=r"d:\project\output")
+rayvision.auto_download(job_id_list=[job_id], local_dir=r"c:/renderfarm/sdk_test/output")
+# rayvision.auto_download_after_job_completed(job_id_list=[job_id], local_dir=r"c:/renderfarm/sdk_test/output")
