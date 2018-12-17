@@ -82,9 +82,8 @@ class CGBase(object):
         programdata_path = os.getenv("programdata")
         if local_os == "Windows":
             pre = os.path.join(programdata_path, r"Rayvision\RenderBus SDK", "pre.bat")
-
         else:
-            pre = os.path.join(programdata_path, r"Rayvision\RenderBus SDK", "pre.sh")
+            pre = os.path.join(programdata_path, r"Rayvision/RenderBus SDK", "pre.sh")
         # run pre
         pass
 
