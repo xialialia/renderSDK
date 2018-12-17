@@ -246,12 +246,14 @@ class Maya(CGBase):
         batch = '' if self.local_os == 'windows' else '-batch'
         script_path = os.path.dirname(os.path.normpath(__file__)).replace("\\", "/")
 
-        cmd = '"{exe_path}" {batch} -command "python \\"options=\{options\};import sys;sys.path.insert(0, \'{script_path}\');import {analyse_script_name};reload({analyse_script_name});{analyse_script_name}.analyze_maya(options)\\""'.format(
-            exe_path=exe_path,
-            batch=batch,
-            options=options_str.replace('"', r'\\\"'),
-            script_path=script_path,
-            analyse_script_name=analyse_script_name,
+        cmd = '"%s" %s -command "python \\"options=%s;import sys;sys.path.insert(0, \'%s\');import %s;reload(%s);%s.analyze_maya(options)\\""' % (
+            exe_path,
+            batch,
+            options_str.replace('"', r'\\\"'),
+            script_path,
+            analyse_script_name,
+            analyse_script_name,
+            analyse_script_name,
         )
         self.log.debug(cmd)
         returncode, stdout, stderr = self.cmd.run(cmd, shell=True)
