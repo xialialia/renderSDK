@@ -241,7 +241,7 @@ class Maya(CGBase):
             "cg_plugins": self.job_info._task_info["software_config"]["plugins"],
             "cg_version": self.version,
         }
-        options_str = json.dumps(options, ensure_ascii=False)
+        options_str = json.dumps(options, ensure_ascii=False, separators=(',',':'))
         exe_path = self.exe_path
 
         script_path = os.path.dirname(os.path.normpath(__file__)).replace("\\", "/")
