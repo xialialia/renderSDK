@@ -77,13 +77,14 @@ class CGBase(object):
         self.log = log
 
     def pre_analyse_custom_script(self):
+        pass
         # TODO
-        local_os = self.job_info._local_os
-        programdata_path = os.getenv("programdata")
-        if local_os == "Windows":
-            pre = os.path.join(programdata_path, r"Rayvision\RenderBus SDK", "pre.bat")
-        else:
-            pre = os.path.join(programdata_path, r"Rayvision/RenderBus SDK", "pre.sh")
+        # local_os = self.job_info._local_os
+        # programdata_path = os.getenv("programdata")
+        # if local_os == "Windows":
+            # pre = os.path.join(programdata_path, r"Rayvision\RenderBus SDK", "pre.bat")
+        # else:
+            # pre = os.path.join(programdata_path, r"Rayvision/RenderBus SDK", "pre.sh")
         # run pre
         pass
 
