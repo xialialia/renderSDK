@@ -1,0 +1,55 @@
+{
+    "scene_info_render": {
+        "rop_node": [
+            {
+                "node": "/out/mantra1", 
+                "frames": "1-10[1]", 
+                "option": "-1", 
+                "render": "1"
+            }
+        ], 
+        "geo_node": []
+    }, 
+    "task_info": {
+        "is_layer_rendering": "1", 
+        "cg_id": "2004", 
+        "ram": "64", 
+        "os_name": "1", 
+        "render_layer_type": "0", 
+        "is_distribute_render": "0", 
+        "input_cg_file": "D:/gitlab/renderSDK/scenes/houdini_test/sphere.hip", 
+        "job_stop_time": "28800", 
+        "user_id": "10000031", 
+        "pre_frames": "000", 
+        "platform": "2", 
+        "is_picture": "0", 
+        "project_id": "3316", 
+        "channel": "4", 
+        "tiles_type": "block", 
+        "tiles": "1", 
+        "project_name": "dasdd", 
+        "distribute_render_node": "3", 
+        "frames_per_task": "1", 
+        "stop_after_test": "2", 
+        "input_project_path": "", 
+        "task_id": "396434", 
+        "task_stop_time": "86400", 
+        "time_out": "12"
+    }, 
+    "scene_info": {
+        "rop_node": [
+            {
+                "node": "/out/mantra1", 
+                "frames": "1-10[1]", 
+                "option": "-1", 
+                "render": "1"
+            }
+        ], 
+        "geo_node": []
+    }, 
+    "software_config": {
+        "cg_version": "16.5.268", 
+        "cg_name": "Houdini", 
+        "plugins": {}
+    }
+}

@@ -8,8 +8,10 @@ sys.path.append(renderSDK_path)
 
 from renderSDK.Rayvision import Rayvision
 
+workspace=r'D:\gitlab\renderSDK\sdk_test'
+
 # 1.Log in
-rayvision = Rayvision(domain_name='task.foxrenderfarm.com', platform='2', access_id='YHLMWoZHoMz51vNVoxnxNA8HBURCzP1o', access_key='3500a75ce65fecbb29db003ca780f7db', workspace='c:/renderfarm/sdk_test')
+rayvision = Rayvision(domain_name='test.renderbus.com', platform='2', access_id='kz5uwhPULZ2SgosYHL1eJIIBaSgWVkZp', access_key='3a3251ac700db507f806874a68f1fd8a', workspace=workspace)
 
 # 2.Set up rendering environment(plug-in configuration, project name）
 job_id = rayvision.set_render_env(cg_name='Houdini', cg_version='16.5.268', plugin_config={}, label_name='dasdd')
@@ -26,6 +28,7 @@ task_info_new = task_info
 rayvision.submit_job(scene_info_render_new, task_info_new)
 
 # 6.Download
-# rayvision.download(job_id_list=[370274], local_dir=r"d:\project\output")
+rayvision.auto_download(job_id_list=[job_id], local_dir=r"D:\gitlab\renderSDK\sdk_test\output")
+# rayvision.auto_download_after_job_completed(job_id_list=[job_id], local_dir=r"c:/renderfarm/sdk_test/output")
 
 

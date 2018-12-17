@@ -1,0 +1,8 @@
+{
+  "asset": [
+    {
+      "local": "D:/gitlab/renderSDK/scenes/houdini_test/sphere.hip", 
+      "server": "/D/gitlab/renderSDK/scenes/houdini_test/sphere.hip"
+    }
+  ]
+}

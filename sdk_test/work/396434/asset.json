@@ -1,0 +1,11 @@
+{
+  "camera": {
+    "normal": [
+      {
+        "/obj/cam1": "exist"
+      }
+    ]
+  }, 
+  "Miss": {}, 
+  "Normal": {}
+}

@@ -13,10 +13,10 @@ from renderSDK.Rayvision import Rayvision
 workspace=r'D:\gitlab\renderSDK\sdk_test'
 
 # 1.Log in
-rayvision = Rayvision(domain_name='test.renderbus.com', platform='2', access_id='AKIDz8krbsJ5yKBZQpn74WFkmLPx3EXAMPPP', access_key='Gu5t9xGARNpq86cd98joQYCN3EXAMPLEXX', workspace=workspace)
+rayvision = Rayvision(domain_name='test.renderbus.com', platform='2', access_id='kz5uwhPULZ2SgosYHL1eJIIBaSgWVkZp', access_key='3a3251ac700db507f806874a68f1fd8a', workspace=workspace)
 
 # 2.Set up rendering environment(plug-in configuration, project name）
-job_id = rayvision.set_render_env(cg_name='CINEMA 4D', cg_version='R19', plugin_config={}, label_name='dasdd')
+job_id = rayvision.set_render_env(cg_name='Cinema 4D', cg_version='R19', plugin_config={}, label_name='dasdd')
 
 # 3.Set up render parameter
 scene_info_render = {
@@ -71,13 +71,16 @@ scene_info_render = {
 }
 
 task_info = {
-    'input_cg_file': r'X:/test_c4d/test_c4d.c4d',
+    'input_cg_file': r'X:/Test_c4d/test_c4d.c4d',
     'frames_per_task': '3'
 }
 
 upload_info = {
     "asset": [
-        
+        {
+            "local": "X:/Test_c4d/test_c4d.c4d",
+            "server": "/X/Test_c4d/test_c4d.c4d"
+        }
     ]
 }
 
@@ -85,4 +88,5 @@ upload_info = {
 rayvision.submit_job(scene_info_render, task_info, upload_info, max_speed=100)
 
 # 5.Download
-# rayvision.download(job_id_list=[370271], local_dir=r"/root/chensr/renderSDK/output", max_speed=100)
+rayvision.auto_download(job_id_list=[job_id], local_dir=r"D:\gitlab\renderSDK\sdk_test\output")
+# rayvision.auto_download_after_job_completed(job_id_list=[job_id], local_dir=r"c:/renderfarm/sdk_test/output")
