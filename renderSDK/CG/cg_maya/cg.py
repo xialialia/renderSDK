@@ -243,11 +243,12 @@ class Maya(CGBase):
         }
         options_str = json.dumps(options, ensure_ascii=False, separators=(',',':'))
         exe_path = self.exe_path
-
+        batch = '' if self.local_os == 'windows' else '-batch'
         script_path = os.path.dirname(os.path.normpath(__file__)).replace("\\", "/")
 
-        cmd = '"{exe_path}" -command "python \\"options={options};import sys;sys.path.insert(0, \'{script_path}\');import {analyse_script_name};reload({analyse_script_name});{analyse_script_name}.analyze_maya(options)\\""'.format(
+        cmd = '"{exe_path}" {batch} -command "python \\"options={options};import sys;sys.path.insert(0, \'{script_path}\');import {analyse_script_name};reload({analyse_script_name});{analyse_script_name}.analyze_maya(options)\\""'.format(
             exe_path=exe_path,
+            batch=batch,
             options=options_str,
             script_path=script_path,
             analyse_script_name=analyse_script_name,
