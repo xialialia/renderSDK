@@ -249,7 +249,7 @@ class Maya(CGBase):
         cmd = '"{exe_path}" {batch} -command "python \\"options={options};import sys;sys.path.insert(0, \'{script_path}\');import {analyse_script_name};reload({analyse_script_name});{analyse_script_name}.analyze_maya(options)\\""'.format(
             exe_path=exe_path,
             batch=batch,
-            options=options_str,
+            options=options_str.replace('"', r'\\\"'),
             script_path=script_path,
             analyse_script_name=analyse_script_name,
         )

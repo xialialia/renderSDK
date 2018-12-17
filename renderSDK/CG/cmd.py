@@ -1,11 +1,12 @@
+#!/usr/bin/env python
 # -*-coding: utf-8 -*-
-from __future__ import print_function
-from __future__ import unicode_literals
+
+from renderSDK.compat import *
+
 import sys
 import logging
 import subprocess
 
-from renderSDK.compat import *
 from renderSDK.RayvisionUtil import str2unicode
 
 VERSION = sys.version_info[0]
@@ -37,9 +38,11 @@ class Cmd(object):
         stderr = str2unicode(stderr)
 
         if log_output is True:
-            log("stdout:\n{0}".format(stdout))
+            log("stdout:\n")
+            log(stdout)
         if stderr:
-            log("stderr:\n{0}".format(stderr))
+            log("stderr:\n")
+            log(stderr)
         return p.returncode, stdout, stderr
 
     def power_run(self, cmd):
