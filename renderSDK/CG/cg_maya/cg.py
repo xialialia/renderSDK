@@ -5,6 +5,7 @@ import os
 import re
 import sys
 import math
+import json
 import traceback
 
 from renderSDK.CG.cg_base import CGBase
@@ -240,13 +241,14 @@ class Maya(CGBase):
             "cg_plugins": self.job_info._task_info["software_config"]["plugins"],
             "cg_version": self.version,
         }
+        options_str = json.dumps(options, ensure_ascii=False)
         exe_path = self.exe_path
 
         script_path = os.path.dirname(os.path.normpath(__file__)).replace("\\", "/")
 
         cmd = '"{exe_path}" -command "python \\"options={options};import sys;sys.path.insert(0, \'{script_path}\');import {analyse_script_name};reload({analyse_script_name});{analyse_script_name}.analyze_maya(options)\\""'.format(
             exe_path=exe_path,
-            options=options,
+            options=options_str,
             script_path=script_path,
             analyse_script_name=analyse_script_name,
         )
