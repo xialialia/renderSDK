@@ -262,6 +262,7 @@ class Maya(CGBase):
                 json.dump(options, f_options_json, ensure_ascii=False, indent=4)
             
             cmd = '"{exe_path}" -batch -command "python \"channel,options_json=\\\"{channel}\\\",\\\"{options_json}\\\";execfile(\\\"{analyze_py_path}\\\")\""'.format(
+                exe_path=exe_path,
                 channel=channel,
                 options_json=options_json,
                 analyze_py_path=analyze_py_path,
