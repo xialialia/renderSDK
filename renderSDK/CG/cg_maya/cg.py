@@ -6,6 +6,7 @@ import re
 import sys
 import math
 import json
+import codecs
 import traceback
 
 from renderSDK.CG.cg_base import CGBase
