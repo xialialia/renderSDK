@@ -226,6 +226,7 @@ class Maya(CGBase):
 
     def analyse(self):
         analyse_script_name = "Analyze"
+        channel = 'api'
 
         task_path = self.job_info._task_json_path
         asset_path = self.job_info._asset_json_path
@@ -240,21 +241,31 @@ class Maya(CGBase):
             "cg_project": os.path.dirname(os.path.normpath(__file__)).replace("\\", "/"),
             "cg_plugins": self.job_info._task_info["software_config"]["plugins"],
             "cg_version": self.version,
+            "channel": channel
         }
         options_str = json.dumps(options, ensure_ascii=False, separators=(',',':'))
         exe_path = self.exe_path
-        batch = '' if self.local_os == 'windows' else '-batch'
         script_path = os.path.dirname(os.path.normpath(__file__)).replace("\\", "/")
+        analyze_py_path = os.path.join(script_path, 'Analyze.py')
 
-        cmd = '"%s" %s -command "python \\"options=%s;import sys;sys.path.insert(0, \'%s\');import %s;reload(%s);%s.analyze_maya(options)\\""' % (
-            exe_path,
-            batch,
-            options_str.replace('"', r'\\\\\\\"').replace('{', r'\\\"{').replace('}', r'}\\\"'),
-            script_path,
-            analyse_script_name,
-            analyse_script_name,
-            analyse_script_name,
-        )
+        if self.local_os == 'windows':
+            cmd = '"{exe_path}" -command "python \\"options={options};import sys;sys.path.insert(0, \'{script_path}\');import {analyse_script_name};reload({analyse_script_name});{analyse_script_name}.analyze_maya(options)\\""'.format(
+                exe_path=exe_path,
+                options=options,
+                script_path=script_path,
+                analyse_script_name=analyse_script_name,
+            )
+        else:
+            options_json = os.path.join(os.path.dirname(task_path), 'options.json')
+            with codecs.open(options_json, 'w', 'utf-8') as f_options_json:
+                json.dump(options, f_options_json, ensure_ascii=False, indent=4)
+            
+            cmd = '"{exe_path}" -batch -command "python \"channel,options_json=\\\"{channel}\\\",\\\"{options_json}\\\";execfile(\\\"{analyze_py_path}\\\")\""'.format(
+                channel=channel,
+                options_json=options_json,
+                analyze_py_path=analyze_py_path,
+            )
+
         self.log.debug(cmd)
         returncode, stdout, stderr = self.cmd.run(cmd, shell=True)
         if returncode != 0:
