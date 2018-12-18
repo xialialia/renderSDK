@@ -15,7 +15,7 @@ rayvision = Rayvision(domain_name='test.renderbus.com', platform='2', access_id=
 rayvision.set_render_env(cg_name='Maya', cg_version='2016', plugin_config={}, label_name='dasdd')
 
 # 3.Analysis
-scene_info_render, task_info = rayvision.analyse(cg_file=r'/root/chensr/gitlab/renderSDK/scenes/TEST_maya2016_ocean.mb')
+scene_info_render, task_info = rayvision.analyse(cg_file=r'/root/chensr/gitlab/renderSDK/scenes/maya2016_linux.ma')
 
 # 4. User can Manage the errors or warnings manually, if applicable
 error_info_list = rayvision.check_error_warn_info()
