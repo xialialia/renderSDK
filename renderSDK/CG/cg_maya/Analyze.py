@@ -3189,10 +3189,7 @@ def analyze_maya(options):
         analyze.print_info("analyze maya info ok.")
 
 if __name__ == '__main__':
-    # api + linux
-    # 在命令行中定义的参数：channel, options_json
-    # 在文件中的参数：cg_file, task_id, task_json, asset_json, tips_json, cg_project, cg_plugins, cg_version, channel
-    
+
     # 判断变量channel是否存在
     try:
         channel
@@ -3202,6 +3199,9 @@ if __name__ == '__main__':
         is_channel_exists = True
         
     if is_channel_exists and channel == 'api':
+        # api + linux
+        # 在命令行中定义的参数：channel, options_json
+        # 在文件中的参数：cg_file, task_id, task_json, asset_json, tips_json, cg_project, cg_plugins, cg_version, channel
         with codecs.open(options_json, 'r', 'utf-8') as f_options_json:
             options = json.load(f_options_json)
     else:
