@@ -3192,7 +3192,16 @@ if __name__ == '__main__':
     # api + linux
     # 在命令行中定义的参数：channel, options_json
     # 在文件中的参数：cg_file, task_id, task_json, asset_json, tips_json, cg_project, cg_plugins, cg_version, channel
-    if channel == 'api':
+    
+    # 判断变量channel是否存在
+    try:
+        channel
+    except:
+        is_channel_exists = False
+    else:
+        is_channel_exists = True
+        
+    if is_channel_exists and channel == 'api':
         with codecs.open(options_json, 'r', 'utf-8') as f_options_json:
             options = json.load(f_options_json)
     else:
