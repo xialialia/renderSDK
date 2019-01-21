@@ -265,6 +265,7 @@ class Maya(CGBase):
                 exe_path=exe_path,
                 channel=channel,
                 options_json=options_json,
+                script_path=script_path,
                 analyze_py_path=analyze_py_path,
             )
 
