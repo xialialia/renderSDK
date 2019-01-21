@@ -247,7 +247,7 @@ class Maya(CGBase):
         options_str = json.dumps(options, ensure_ascii=False, separators=(',',':'))
         exe_path = self.exe_path
         script_path = os.path.dirname(os.path.normpath(__file__)).replace("\\", "/")
-        analyze_py_path = os.path.join(script_path, 'Analyze.py')
+        analyze_py_path = os.path.join(script_path, 'temp.py')
 
         if self.local_os == 'windows':
             cmd = '"{exe_path}" -command "python \\"options={options};import sys;sys.path.insert(0, \'{script_path}\');import {analyse_script_name};reload({analyse_script_name});{analyse_script_name}.analyze_maya(options)\\""'.format(
