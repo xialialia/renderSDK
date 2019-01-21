@@ -6,8 +6,6 @@ import sys
 import json
 import codecs
 
-sys.path.insert(0, os.path.dirname(os.path.realpath('__file__')))
-
 from Analyze import analyze_maya
 
 try:
