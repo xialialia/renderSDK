@@ -12,7 +12,7 @@ from renderSDK.Rayvision import Rayvision
 rayvision = Rayvision(domain_name='test.renderbus.com', platform='2', access_id='kz5uwhPULZ2SgosYHL1eJIIBaSgWVkZp', access_key='3a3251ac700db507f806874a68f1fd8a', workspace='c:/renderfarm/sdk_test')
 
 # 2.Set up rendering environment(plug-in configuration, project name）
-rayvision.set_render_env(cg_name='3ds Max', cg_version='2014', plugin_config={}, label_name='dasdd')
+job_id = rayvision.set_render_env(cg_name='3ds Max', cg_version='2014', plugin_config={}, label_name='dasdd')
 
 # 3.Analysis
 scene_info_render, task_info = rayvision.analyse(cg_file=r'D:\gitlab\renderSDK\scenes\max2014_vray3.00.03.max')

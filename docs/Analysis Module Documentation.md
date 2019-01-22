@@ -1,4 +1,4 @@
-# <center> Analyze module document </center>
+# Analyze module document 
 
 ## 1. Call method
 

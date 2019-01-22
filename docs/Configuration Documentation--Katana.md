@@ -1,13 +1,13 @@
-## <center> Katana configuration profile </center>
+Katana configuration profile
+======
 
-
-   Analysis: We analyze the information that needed in the scene and save it to task.json, asset.json, upload.json, tips.json for further analysis and processing.
+> Analysis: We analyze the information that needed in the scene and save it to task.json, asset.json, upload.json, tips.json for further analysis and processing.
     
     
 ### 1.task.json analysis
 
 
-Description: Storeed scene analysis results, rendering settings, etc.
+> Description: Store scene analysis results, rendering settings, etc.
 
 
 **task.json example**
@@ -78,14 +78,11 @@ Description: Storeed scene analysis results, rendering settings, etc.
 **task.json parameter analysis**
 
 
-**task.json parameter analysis**
-
-
 Parameters | Type | Description | Examples
 ---|---|---|---
-Software_config | object | rendering environment (software type, version, and plugins used, etc.) | [see software_config object parsing] (#software_config)
-Task_info | object | Rendering settings (priority frame, number of rendered frames, timeout, etc.) | [see task_info object parsing] (#task_info)
-Scene_info_render | object | Analysis result of the scene (render nodes, output paths, etc. in the scene) | [see scene_info_render object parsing] (#scene_info_render)
+software_config | object | rendering environment (software type, version, and plugins used, etc.) | [see software_config object](#software_config)
+task_info | object | Rendering settings (priority frame, number of rendered frames, timeout, etc.) | [see task_info object](#task_info)
+scene_info_render | object | Analysis result of the scene (render nodes, output paths, etc. in the scene) | [see scene_info_render object](#scene_info_render)
 
 
 **<span id="software_config">software_config object analysis</span>**
@@ -93,9 +90,9 @@ Scene_info_render | object | Analysis result of the scene (render nodes, output 
 
 Parameters | Type | Description | Examples
 ---|---|---|---
-Cg_name | string | Software Name | "Katana"
-Cg_version | string | Software Version | "2.5v3"
-Plugins | object | plugin object. <br>key is the plugin name, value is the plugin version | {"vray":"3.00.03"}
+cg_name | string | Software Name | "Katana"
+cg_version | string | Software Version | "2.5v3"
+plugins | object | plugin object. <br>key is the plugin name, value is the plugin version | {}
 
 
 **<span id="task_info">task_info object analysis</span>**
@@ -103,19 +100,30 @@ Plugins | object | plugin object. <br>key is the plugin name, value is the plugi
 
 Parameters | Type | Description | Examples
 ---|---|---|---
-pre_frames | string | Priority rendering | "000:1,3-4[1]" means: <br>Priority rendering of the first frame: No<br>Priority rendering of the middle frame: No<br>Priority rendering of the last frame: No<br>Priority rendering of the custome frame: 1,3-4[1]
-task_stop_time | string | major task stops due to timeout  unit: second | "86400"
-frames_per_task | string | the quantity of the frames that rendered in one machine| "1"
-input_project_path | string | Project path, such as user does not set a null string passing| 
-project_name | string | project name | "katana_test"
-platform | string | submit platfore | "2"
-time_out | string | Timeout period unit:hour | "12"
-project_id | string | Project id | 
-cg_id | string | render software id."2016": Katana | "2016"
-job_stop_time | string |minor task stops due to timeout, unit: second | "28800"
-stop_after_test | string | Whether to pause the task after the priority rendering is completed <br>"1":Pause the task after the priority rendering is completed<br>"2". Do not pause the task after the priority rendering is completed.
-input_cg_file | string | Render scene local path | 
+is_layer_rendering | string | Whether maya enables layered rendering.<br/>"0":Close<br/>"1":On<br/> | "1"
+cg_id | string | Render software id."2016": Katana | "2016"
+ram | string | Rendering machine memory requirements. 64/128 GB| "64"
 os_name | string | Rendering operating system, "0":Linux; "1": Windows | "0"
+render_layer_type | string | Render layer mode. <br/>"0": renderlayer<br/>"1": rendersetup | "0"
+is_distribute_render | string | Whether to enable distributed rendering. <br/>"0":Close<br/>"1":On | "0"
+input_cg_file | string | Render scene local path | 
+job_stop_time | string | Minor task stops due to timeout, unit: second | "28800"
+user_id | string | User id | 
+pre_frames | string | Priority rendering | "000:1,3-4[1]" means: <br/>Priority rendering of the first frame: No<br/>Priority rendering of the middle frame: No<br/>Priority rendering of the last frame: No<br/>Priority rendering of the custome frame: 1,3-4[1]
+platform | string | Submit platform | "2"
+is_picture | string | Is picture | "0"
+project_id | string | Project id | 
+channel | string | Submission channel. "4":API/SDK | "4"
+tiles_type | string | block/strip | "block"
+tiles | string | The number of blocks, greater than 1 is divided into blocks or strips, equal to 1 is a single machine | "1"
+project_name | string | Project name | "test"
+distribute_render_node | string | Distributed rendering machine number | "3"
+frames_per_task | string | The quantity of the frames that rendered in one machine| "1"
+stop_after_test | string | Whether to pause the task after the priority rendering is completed <br/>"1":Pause the task after the priority rendering is completed<br/>"2". Do not pause the task after the priority rendering is completed.
+input_project_path | string | Project path, such as user does not set a null string passing| 
+task_id | string | Task id | 
+task_stop_time | string | major task stops due to timeout  unit: second | "86400"
+time_out | string | Timeout period unit:hour | "12"
 
 
 **<span id="scene_info_render">scene_info_render object analysis</span>**
@@ -148,7 +156,7 @@ Renderable | string | Whether to render the current node, the default value is 1
 ### 2.upload.json analysis
 
 
-Description: Stores the asset path information that needs to be uploaded.
+> Description: Stores the asset path information that needs to be uploaded.
 
 
 **upload.json example**
@@ -177,14 +185,14 @@ asset | object | The asset path information that needed to be uploaded | [See as
 
 Parameters | Type | Description | Examples
 ---|---|---|---
-Server | string | server-side relative path, generally consistent with local path | "/root/chensr/renderSDK/scenes/001_005_test.katana"
-Local | string | Asset Local Path | "/root/chensr/renderSDK/scenes/001_005_test.katana"
+local | string | Asset Local Path | "/root/chensr/renderSDK/scenes/001_005_test.katana"
+server | string | Server-side relative path, generally consistent with local path | "/root/chensr/renderSDK/scenes/001_005_test.katana"
 
 
 ### 3.tips.json analysis
 
 
-Description: Stores the analyzed errors and warnings
+> Description: Stores the analyzed errors and warnings
 
 
 ```json
