@@ -10,13 +10,13 @@ sys.path.append(renderSDK_path)
 
 from renderSDK.RayvisionAPI import RayvisionAPI
 
-access_id = r'6pWn8DI5QbsP9BriFUE7gPR3ttaICglP'
-access_key = r'fbaeb3cf47f685b529cd326733adc8c5'
+access_id = r'xxx'
+access_key = r'xxx'
 domain_name = r'task.foxrenderfarm.com'
 platform = '2'
 
 rayvision = RayvisionAPI(domain_name, platform, access_id, access_key, log_obj=True)
-r_data = rayvision.query_task_info(['1775525'])
+r_data = rayvision.query_platforms()
 print(r_data)
 
 # r_data = rayvision.query_platforms()
